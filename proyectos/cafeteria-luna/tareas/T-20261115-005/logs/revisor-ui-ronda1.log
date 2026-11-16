@@ -1,0 +1,1298 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones\revisor-ui-ronda1.md -m gpt-6-astra -s workspace-write -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **revisor de UI**. Juzgas lo que se ve.
+
+Si la spec dice `Toca interfaz: no`, responde solo `REVISOR: ui` / `VEREDICTO: NO_APLICA`.
+
+## Mira la interfaz de verdad (si puedes)
+0. Primero abre la evidencia de la fábrica (`tareas/<ID>/evidencia-ronda<N>/resumen.md` y sus PNG).
+   Si te basta, no hace falta Playwright. Cita en "Capturas" las rutas que hayas mirado.
+1. Si necesitas más, comprueba si hay Playwright: `npx --no-install playwright --version`.
+2. Si lo hay: en la carpeta de trabajo ejecuta el build y sirve el resultado (p. ej. `npm run preview`
+   en segundo plano), y toma capturas a 375×812 y 1280×800 con
+   `npx playwright screenshot --viewport-size=375,812 <url> tareas/<ID>/revisiones/ui-movil.png`
+   (y otra de escritorio). Ábrelas con Read para verlas. Detén el servidor al acabar.
+3. Si no hay Playwright, revisa el código de la interfaz y dilo en tu informe.
+
+## Qué miras
+- **Tokens**: colores, tipografías, espaciados y radios salen de `brain/diseno.md`. Nada escrito a mano.
+- **Responsive**: sin scroll horizontal en 375 px, jerarquía clara en escritorio.
+- **Accesibilidad**: contraste AA, `alt` en imágenes, foco visible, HTML semántico, tamaños táctiles ≥ 44 px.
+- **Consistencia**: los componentes se parecen a los ya existentes en `app/`.
+
+## Contexto limpio (obligatorio)
+Juzgas solo con: el brain, `tareas/<ID>/spec.md`, el diff y **tus propias comprobaciones**
+(leer el código, ejecutar pruebas o abrir la página tú mismo).
+**No leas** `tareas/<ID>/build-ronda*.md`, `aprobacion-*.md`, `riesgo-*.json`, las revisiones de
+otros revisores ni las capturas o "comprobaciones manuales" del constructor. No cites lo que el
+constructor dice haber verificado como prueba de nada.
+**Sí puedes usar** `tareas/<ID>/evidencia-ronda<N>/` (`resumen.md`, `evidencia.json` y los PNG). La
+genera la estación de código `scripts/evidencia.mjs`, no el constructor: build, Chrome headless,
+capturas a 375/768/1024 px, desbordamiento, tamaños táctiles, recorrido con Tab, consola, comparación
+con main y Lighthouse si se pidió. La evidencia mide y tú juzgas: abre las capturas y saca tus
+conclusiones.
+Si un criterio no lo puedes comprobar ni con tus medios ni con esa evidencia, **no lo pongas como
+hallazgo**. Anótalo en la línea `No verificado por mí:` del informe, con lo que haría falta. No lo
+des por bueno y no pidas CAMBIOS solo por eso: el aprobador y el humano deciden qué hacer con ello.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ui
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Capturas: rutas | "no disponibles: motivo"
+No verificado por mí: — | lista de criterios y qué haría falta
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea — problema — qué se espera
+```
+Nunca modificas el código de la app.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-005 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-005): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Contexto limpio: NO leas build-ronda*.md, aprobacion-*.md, riesgo-*.json, otras revisiones ni capturas o comprobaciones del constructor. Juzga solo con el brain, la spec, el diff y lo que compruebes tú; si algo no lo puedes verificar, dilo en la línea "No verificado por mí" (no es un hallazgo). SÍ puedes usar tareas/<ID>/evidencia-ronda<N>/: la genera la estación de código scripts/evidencia.mjs, no el constructor.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a1de36-71cb-72a1-98ef-adcc80b2f72d
+--------
+user
+Eres el **revisor de UI**. Juzgas lo que se ve.
+
+Si la spec dice `Toca interfaz: no`, responde solo `REVISOR: ui` / `VEREDICTO: NO_APLICA`.
+
+## Mira la interfaz de verdad (si puedes)
+0. Primero abre la evidencia de la fábrica (`tareas/<ID>/evidencia-ronda<N>/resumen.md` y sus PNG).
+   Si te basta, no hace falta Playwright. Cita en "Capturas" las rutas que hayas mirado.
+1. Si necesitas más, comprueba si hay Playwright: `npx --no-install playwright --version`.
+2. Si lo hay: en la carpeta de trabajo ejecuta el build y sirve el resultado (p. ej. `npm run preview`
+   en segundo plano), y toma capturas a 375×812 y 1280×800 con
+   `npx playwright screenshot --viewport-size=375,812 <url> tareas/<ID>/revisiones/ui-movil.png`
+   (y otra de escritorio). Ábrelas con Read para verlas. Detén el servidor al acabar.
+3. Si no hay Playwright, revisa el código de la interfaz y dilo en tu informe.
+
+## Qué miras
+- **Tokens**: colores, tipografías, espaciados y radios salen de `brain/diseno.md`. Nada escrito a mano.
+- **Responsive**: sin scroll horizontal en 375 px, jerarquía clara en escritorio.
+- **Accesibilidad**: contraste AA, `alt` en imágenes, foco visible, HTML semántico, tamaños táctiles ≥ 44 px.
+- **Consistencia**: los componentes se parecen a los ya existentes en `app/`.
+
+## Contexto limpio (obligatorio)
+Juzgas solo con: el brain, `tareas/<ID>/spec.md`, el diff y **tus propias comprobaciones**
+(leer el código, ejecutar pruebas o abrir la página tú mismo).
+**No leas** `tareas/<ID>/build-ronda*.md`, `aprobacion-*.md`, `riesgo-*.json`, las revisiones de
+otros revisores ni las capturas o "comprobaciones manuales" del constructor. No cites lo que el
+constructor dice haber verificado como prueba de nada.
+**Sí puedes usar** `tareas/<ID>/evidencia-ronda<N>/` (`resumen.md`, `evidencia.json` y los PNG). La
+genera la estación de código `scripts/evidencia.mjs`, no el constructor: build, Chrome headless,
+capturas a 375/768/1024 px, desbordamiento, tamaños táctiles, recorrido con Tab, consola, comparación
+con main y Lighthouse si se pidió. La evidencia mide y tú juzgas: abre las capturas y saca tus
+conclusiones.
+Si un criterio no lo puedes comprobar ni con tus medios ni con esa evidencia, **no lo pongas como
+hallazgo**. Anótalo en la línea `No verificado por mí:` del informe, con lo que haría falta. No lo
+des por bueno y no pidas CAMBIOS solo por eso: el aprobador y el humano deciden qué hacer con ello.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ui
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Capturas: rutas | "no disponibles: motivo"
+No verificado por mí: — | lista de criterios y qué haría falta
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea — problema — qué se espera
+```
+Nunca modificas el código de la app.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-005 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-005): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Contexto limpio: NO leas build-ronda*.md, aprobacion-*.md, riesgo-*.json, otras revisiones ni capturas o comprobaciones del constructor. Juzga solo con el brain, la spec, el diff y lo que compruebes tú; si algo no lo puedes verificar, dilo en la línea "No verificado por mí" (no es un hallazgo). SÍ puedes usar tareas/<ID>/evidencia-ronda<N>/: la genera la estación de código scripts/evidencia.mjs, no el constructor.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Leeré las reglas y la spec, y revisaré la evidencia visual de la fábrica antes de contrastarla con el código y los tokens de diseño.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\CLAUDE.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 279ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+entrada â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content ..\\spec.md; Get-ChildItem ..\\evidencia-ronda1; Get-ChildItem 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\.claude\\agents'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 351ms:
+# T-20261115-005 Â· Anillo de foco de la marca sin recortar
+Tipo: tarea      Toca interfaz: sÃ­      Texto visible para el usuario: no
+
+## Contexto (quÃ© dice el brain que importa aquÃ­)
+- **Origen**: `bandeja/007-anillo-foco-marca.md`. Es un pendiente MEDIO de T-20261115-004 (`log.md`):
+  el anillo de foco de `.brand` sale recortado por arriba. Ya ocurrÃ­a en main antes de esa tarea.
+  Se ve en `tareas/T-20261115-004/evidencia-ronda1/tab-02.png`: el anillo azul se ve a la izquierda,
+  a la derecha y abajo, pero falta el lado de arriba.
+- **Causa** (cÃ³digo actual del worktree):
+  - `main.css` dibuja todo `:focus-visible` con `outline: 3px solid var(--color-focus); outline-offset: 3px`.
+  - El borde exterior del anillo sobresale 6 px (offset + grosor) fuera de la caja del elemento.
+  - `.brand` (`header.css`) es el primer hijo de `.site-header__inner`, que no tiene padding, dentro de
+    la cabecera sticky (`top: 0`). Su caja empieza en y = 0 a 375, 768 y 1024 px, con la pÃ¡gina arriba
+    del todo o con scroll. Por eso el lado de arriba del anillo cae en y = âˆ’6â€¦âˆ’3, fuera de la ventana.
+  - A la izquierda no se recorta porque `.container` deja un gutter de 16 o 24 px.
+- **`diseno.md`**:
+  - El anillo es `3px solid var(--color-focus)` con offset de 3 px para que caiga sobre el fondo y nunca
+    sobre `primary`.
+  - `.brand` no tiene fondo propio: un anillo hacia dentro cae sobre `--color-surface` de la cabecera
+    (fila 22 de contraste, 6.97:1). AsÃ­ se mantiene la intenciÃ³n del token.
+- **D-08**: cabecera de dos filas en mÃ³vil (marca a `--header-height`, navegaciÃ³n a `--tap-min`);
+  `main:focus` sin contorno. **No se toca.**
+- **D-11**:
+  - Los estilos de la cabecera viven en `header.css`; ningÃºn archivo de estilos pasa de ~200 lÃ­neas
+    (hoy tiene 110).
+  - `.brand` conserva `min-height: var(--header-height)`, que vigila el CA-6 de `split.test.ts`.
+- **`split.test.ts` (CA-9)** fija la lista exacta de selectores de `header.css`. Un selector nuevo
+  obliga a actualizar esa lista en la misma tarea.
+- **Zonas sensibles**: este cambio solo necesita `src/styles/header.css` y su prueba. Ninguno de los dos
+  estÃ¡ en `zonas-sensibles.txt`.
+- **Nota de trazabilidad**: la entrada dice `cubre: CA-05.4`, pero en `brain/spec.md` ese CA trata de
+  lectores de pantalla (encabezados, alt y propÃ³sito del botÃ³n de WhatsApp), no del foco visible. NingÃºn
+  CA de producto cubre hoy el foco visible. Lo aÃ±ado como hueco; no bloquea la tarea.
+
+## Objetivo
+Cuando el enlace de la marca ("CafeterÃ­a Luna") recibe el foco por teclado, su anillo de foco debe verse
+completo en los cuatro lados a 375, 768 y 1024 px. La pÃ¡gina en reposo y en hover debe quedar igual, y
+no debe cambiar el anillo de ningÃºn otro elemento.
+
+## Criterios de aceptaciÃ³n
+Todos los CA visuales se comprueban en el build (`npm run build && npm run preview`, o el servidor que
+levanta `scripts/evidencia.mjs`) con Chrome y estas ventanas: 375Ã—812, 768Ã—1024 y 1024Ã—768. Son las
+mismas `VISTAS` de `evidencia.mjs`.
+
+**CÃ³mo enfocar la marca**: cargar la pÃ¡gina y pulsar Tab dos veces (primero "Saltar al contenido",
+despuÃ©s la marca). Antes de medir, comprobar en la consola que
+`document.activeElement === document.querySelector('.brand') && document.activeElement.matches(':focus-visible')`
+devuelve `true`.
+
+**Medida** (pegar en la consola con la marca enfocada):
+```js
+const b = document.querySelector('.brand'), s = getComputedStyle(b), r = b.getBoundingClientRect();
+const off = parseFloat(s.outlineOffset), w = parseFloat(s.outlineWidth);
+const exterior = { top: r.top - off - w, left: r.left - off - w, right: r.right + off + w, bottom: r.bottom + off + w };
+const interior = { top: r.top - off, left: r.left - off, right: r.right + off, bottom: r.bottom + off };
+const rg = document.createRange(); rg.selectNodeContents(b); const t = rg.getBoundingClientRect();
+({ exterior, interior, texto: { top: t.top, left: t.left, right: t.right, bottom: t.bottom },
+   W: document.documentElement.clientWidth, H: innerHeight, anillo: [s.outlineStyle, s.outlineWidth, s.outlineColor] })
+```
+
+- **CA-1 â€” Anillo completo dentro de la ventana.**
+  - Dado: la marca enfocada con teclado en cada una de las tres ventanas, primero con `scrollY = 0` y
+    despuÃ©s tras desplazarse al final de la pÃ¡gina (la cabecera es sticky).
+  - Cuando: se ejecuta la medida.
+  - Entonces se cumplen las cuatro condiciones:
+    - `exterior.top â‰¥ 0`
+    - `exterior.left â‰¥ 0`
+    - `exterior.right â‰¤ W`
+    - `exterior.bottom â‰¤ H`
+  - Y ademÃ¡s `getComputedStyle(...).overflow` es `visible` en `.site-header__inner` y en `.site-header`:
+    ningÃºn ancestro recorta el anillo.
+  - Con el cÃ³digo actual falla: `exterior.top` vale âˆ’6.
+- **CA-2 â€” Mismo anillo, sin tapar el texto.**
+  - Dado: la misma situaciÃ³n del CA-1.
+  - Cuando: se ejecuta la medida.
+  - Entonces:
+    - `anillo` es `["solid", "3px", "rgb(31, 78, 140)"]` (`--color-focus`).
+    - El rectÃ¡ngulo del texto queda dentro del borde interior del anillo: `texto.top â‰¥ interior.top`,
+      `texto.left â‰¥ interior.left`, `texto.right â‰¤ interior.right` y `texto.bottom â‰¤ interior.bottom`.
+      AsÃ­ el anillo no se dibuja encima de ninguna letra de "CafeterÃ­a Luna".
+- **CA-3 â€” Reposo idÃ©ntico a main.**
+  - Dado: la rama terminada.
+  - Cuando: se ejecuta `node scripts/evidencia.mjs cafeteria-luna T-20261115-005 --ronda N --comparar-main`.
+  - Entonces `resumen.md` dice "idÃ©nticas" a 375 px y a 1024 px. Es una comparaciÃ³n byte a byte, sin foco
+    ni hover.
+  - Y a 768 px, que `--comparar-main` no recorre, sin foco y con `scrollY = 0`, estas medidas coinciden
+    con las de main al pÃ­xel:
+    - el rectÃ¡ngulo del texto de la marca: `Range.getBoundingClientRect()` de su contenido, como en la
+      medida de arriba;
+    - el `getBoundingClientRect()` de `.site-header`.
+- **CA-4 â€” Cambio acotado al foco de la marca** (prueba Vitest en `src/styles/split.test.ts`).
+  - Dado: los archivos de `src/styles/`.
+  - Cuando: se ejecuta `npm run test`.
+  - Entonces:
+    - **a)** El primer nivel de `header.css` contiene exactamente los selectores de antes mÃ¡s
+      `.brand:focus-visible`. No hay ningÃºn `:hover` nuevo y las reglas de `@media (min-width: 768px)`
+      no cambian.
+    - **b)** `.brand:focus-visible` declara `outline-offset` con un valor negativo en px cuyo valor
+      absoluto es â‰¥ 3 (el grosor del anillo global).
+    - **c)** `.brand:focus-visible` no declara `outline`, `outline-color`, `outline-style` ni
+      `outline-width`: el grosor, el estilo y el color siguen saliendo de la regla global.
+    - **d)** En todo `src/styles/*.css`, los Ãºnicos selectores con `:focus-visible` son `:focus-visible`
+      (`main.css`, que sigue con `outline: 3px solid var(--color-focus); outline-offset: 3px`),
+      `.site-footer :focus-visible` (`footer.css`) y `.brand:focus-visible` (`header.css`).
+- **CA-5 â€” Puertas y recorrido con Tab.**
+  - Dado: la rama terminada.
+  - Cuando: se ejecutan `node scripts/verificar.mjs` sobre el worktree y `evidencia.mjs` (CA-3).
+  - Entonces:
+    - `lint`, `typecheck`, `test` y `build` pasan.
+    - Los CA-6, CA-7 y CA-8 de `split.test.ts` siguen en verde: `min-height` de `.brand`, ningÃºn
+      `outline: none` nuevo, `header.css` â‰¤ 200 lÃ­neas y sin literales de color.
+    - En el recorrido con Tab, el paso de `a.brand` informa `contorno` = `3px solid rgb(31, 78, 140)`
+      y `visible: true`.
+    - En `tab-02.png` se ve el anillo por los cuatro lados.
+    - No aparece ningÃºn enfocable nuevo de menos de 44Ã—44 px ni ningÃºn error de consola.
+
+## Plan
+1. **Prueba primero.** En `src/styles/split.test.ts`:
+   - aÃ±adir `.brand:focus-visible` a `SPLIT["header.css"][""]`;
+   - aÃ±adir un bloque `describe` para el CA-4 (b, c y d) que reutilice `parseCss` y `declarations`.
+   - Debe fallar en rojo antes del cambio de CSS.
+2. **`src/styles/header.css`**: aÃ±adir `.brand:focus-visible { outline-offset: -3px; }` (o un valor mÃ¡s
+   negativo) justo despuÃ©s de `.brand`, con un comentario breve. El anillo se dibuja hacia dentro de la
+   caja de la marca, que empieza en y = 0, y cae sobre el fondo de la cabecera.
+3. **Separar el anillo de las letras (CA-2).** `.brand` no tiene padding horizontal, asÃ­ que un anillo
+   hacia dentro taparÃ­a la "C" y la "a" final. Propuesta: dar a `.brand` `padding-inline: var(--space-2)`
+   y `margin-inline: calc(-1 * var(--space-2))`.
+   - Es el mismo patrÃ³n que usa ya `.site-nav__list`.
+   - El texto queda en la misma posiciÃ³n y la pÃ¡gina en reposo no cambia (CA-3).
+   - Mantener `min-height: var(--header-height)`.
+   - Otra soluciÃ³n vale si cumple CA-1 a CA-3.
+4. Ejecutar `node scripts/verificar.mjs`, despuÃ©s `evidencia.mjs --comparar-main` (CA-3 y CA-5), y la
+   medida manual del CA-1 y el CA-2 a 768 y 1024 px, mÃ¡s la de 375 px con scroll. Dejar los resultados de
+   la medida en el rastro de la tarea.
+5. **Propuesta para el aprobador** (no la escribe el constructor): registrar en `decisiones.md` la
+   excepciÃ³n de `diseno.md` "en `.brand`, `outline-offset` negativo porque su caja empieza en el borde
+   superior de la ventana".
+
+Archivos previstos: `src/styles/header.css` y `src/styles/split.test.ts`.
+
+## Fuera de alcance
+- Cambiar el anillo global, el del pie o el de cualquier otro enfocable: enlaces de navegaciÃ³n, botones
+  y "Saltar al contenido". Ninguno se ha visto recortado en la evidencia de T-20261115-004.
+- Cambiar la altura o el padding visible de la cabecera, `--header-height`, D-08 o la apariencia en hover.
+- Modificar `scripts/evidencia.mjs`, por ejemplo para detectar contornos recortados o recorrer con Tab a
+  768 y 1024 px. Es una estaciÃ³n de la fÃ¡brica, no del proyecto; ya estÃ¡ pendiente en `log.md`.
+- `index.html`, `src/main.ts` y cualquier otra zona sensible.
+
+## Riesgos / zonas sensibles que toca
+- **Zonas sensibles: ninguna.** `header.css` y `split.test.ts` no estÃ¡n en `zonas-sensibles.txt`.
+- **Riesgo visual en reposo**: si se aÃ±ade padding o margen a `.brand` (paso 3), un redondeo o un cambio
+  de `justify-content` podrÃ­a mover la marca 1 px. Lo detectan la comparaciÃ³n byte a byte del CA-3 a 375
+  y 1024 px y la medida a 768 px.
+- **Riesgo de contraste**: un anillo hacia dentro cae sobre `--color-surface` (6.97:1, fila 22 de
+  `diseno.md`). Solo dejarÃ­a de valer si `.brand` recibiera un fondo `primary`, algo que no estÃ¡ previsto.
+
+
+    Directorio: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchp
+    ad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\evidencia-ronda1
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----     15/11/2026  01:57 a. m.          11195 evidencia.json                                                       
+-a----     15/11/2026  01:57 a. m.         119976 main-1024.png                                                        
+-a----     15/11/2026  01:57 a. m.          93785 main-375.png                                                         
+-a----     15/11/2026  01:57 a. m.         119976 pagina-1024.png                                                      
+-a----     15/11/2026  01:57 a. m.          93785 pagina-375.png                                                       
+-a----     15/11/2026  01:57 a. m.         119559 pagina-768.png                                                       
+-a----     15/11/2026  01:57 a. m.         119976 rama-1024.png                                                        
+-a----     15/11/2026  01:57 a. m.          93785 rama-375.png                                                         
+-a----     15/11/2026  01:57 a. m.           3326 resumen.md                                                           
+-a----     15/11/2026  01:57 a. m.          18701 tab-01.png                                                           
+-a----     15/11/2026  01:57 a. m.          17133 tab-02.png                                                           
+-a----     15/11/2026  01:57 a. m.          17837 tab-03.png                                                           
+-a----     15/11/2026  01:57 a. m.          17847 tab-04.png                                                           
+-a----     15/11/2026  01:57 a. m.          17847 tab-05.png                                                           
+-a----     15/11/2026  01:57 a. m.          18961 tab-06.png                                                           
+-a----     15/11/2026  01:57 a. m.          41395 tab-07.png                                                           
+-a----     15/11/2026  01:57 a. m.         163030 tab-08.png                                                           
+-a----     15/11/2026  01:57 a. m.         163039 tab-09.png                                                           
+-a----     15/11/2026  01:57 a. m.         162067 tab-10.png                                                           
+-a----     15/11/2026  01:57 a. m.         161474 tab-11.png                                                           
+-a----     15/11/2026  01:57 a. m.         162066 tab-12.png                                                           
+-a----     15/11/2026  01:57 a. m.         161736 tab-13.png                                                           
+-a----     15/11/2026  01:57 a. m.         164537 tab-14.png                                                           
+
+
+    Directorio: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchp
+    ad\demo-completa\.claude\agents
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----     14/11/2026  09:40 a. m.           1056 analista.md                                                          
+-a----     14/11/2026  09:41 a. m.           1093 aprobador.md                                                         
+-a----     14/11/2026  10:10 a. m.           1550 arquitecto.md                                                        
+-a----     14/11/2026  09:41 a. m.           1289 clasificador-riesgo.md                                               
+-a----     14/11/2026  09:40 a. m.           1658 constructor.md                                                       
+-a----     14/11/2026  10:10 a. m.           1121 disenador.md                                                         
+-a----     15/11/2026  01:04 a. m.           2529 revisor-codigo.md                                                    
+-a----     15/11/2026  01:04 a. m.           2572 revisor-seguridad.md                                                 
+-a----     15/11/2026  01:03 a. m.           3014 revisor-ui.md                                                        
+-a----     15/11/2026  01:03 a. m.           2705 revisor-ux.md                                                        
+-a----     14/11/2026  10:58 a. m.           1548 spec-writer.md                                                       
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 ..\\evidencia-ronda1\\resumen.md; Get-Content -Encoding UTF8 ..\\..\\..\\brain\\index.md; Get-Content -Encoding UTF8 ..\\..\\..\\..\\..\\.claude\\agents\\revisor-ui.md" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 436ms:
+# Evidencia de la fábrica · T-20261115-005 · ronda 1
+
+Generada por `scripts/evidencia.mjs` (estación de código) el 2026-11-15T07:57:11.155Z. No la escribe el constructor.
+
+## 375 px · `pagina-375.png`
+- Desbordamiento horizontal: no
+- Elementos que se salen del ancho: ninguno
+- Texto cortado: ninguno
+- Enfocables: 9; menores de 44×44: ninguno
+- Ocultos hasta recibir foco (su tamaño con foco está en el recorrido con Tab): a.skip-link
+
+## 768 px · `pagina-768.png`
+- Desbordamiento horizontal: no
+- Elementos que se salen del ancho: ninguno
+- Texto cortado: ninguno
+- Enfocables: 9; menores de 44×44: ninguno
+- Ocultos hasta recibir foco (su tamaño con foco está en el recorrido con Tab): a.skip-link
+
+## 1024 px · `pagina-1024.png`
+- Desbordamiento horizontal: no
+- Elementos que se salen del ancho: ninguno
+- Texto cortado: ninguno
+- Enfocables: 9; menores de 44×44: ninguno
+- Ocultos hasta recibir foco (su tamaño con foco está en el recorrido con Tab): a.skip-link
+
+## Recorrido con Tab (375 px) · `tab-NN.png`
+| # | elemento | nombre | tamaño con foco | contorno de foco | visible |
+|---|---|---|---|---|---|
+| 1 | a.skip-link | Saltar al contenido | 173×44 | 3px solid rgb(31, 78, 140) | true |
+| 2 | a.brand | Cafetería Luna | 153×56 | 3px solid rgb(31, 78, 140) | true |
+| 3 | a.nav-link | Menú | 55×44 | 3px solid rgb(31, 78, 140) | true |
+| 4 | a.nav-link | Horario y ubicación | 149×44 | 3px solid rgb(31, 78, 140) | true |
+| 5 | a.nav-link | Reservar | 74×44 | 3px solid rgb(31, 78, 140) | true |
+| 6 | a.btn.btn--whatsapp | Reservar mesa por WhatsApp (se abre en una pestaña nueva) | 343×48 | 3px solid rgb(31, 78, 140) | true |
+| 7 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 8 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 9 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 10 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 11 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 12 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 13 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 14 | a.btn.btn--secondary | Cómo llegar (se abre en una pestaña nueva) | 343×48 | 3px solid rgb(31, 78, 140) | true |
+| 15 | a.btn.btn--whatsapp | Reservar mesa por WhatsApp (se abre en una pestaña nueva) | 343×48 | 3px solid rgb(31, 78, 140) | true |
+| 16 | body |  |  |  |  |
+
+- Primer enfocable: a.skip-link; tras Enter el foco está en: main#contenido; Mayús+Tab después: a.nav-link
+- Nota: cuando el foco está DENTRO de un iframe de otro origen, aquí se ve como el propio iframe y su contorno no se puede medir desde fuera: mira las capturas `tab-NN.png` de esos pasos.
+
+## Consola
+- log: Failed to load resource: the server responded with a status of 404 (Not Found) http://127.0.0.1:64228/favicon.ico
+- log: Failed to load resource: the server responded with a status of 404 (Not Found) http://127.0.0.1:57783/favicon.ico
+
+## Comparación con main (`main-*.png` / `rama-*.png`)
+- Comparación byte a byte de PNG con terceros bloqueados; "false" no dice cuánto cambia, mira las dos capturas.
+- 375 px: idénticas
+- 1024 px: idénticas
+
+# Brain — índice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | Léelo cuando… |
+|---|---|---|
+| `vision.md` | Problema, público, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar código |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por qué (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavía NO sabe | te falte información |
+| `log.md` | Historial de tareas cerradas | quieras saber qué se hizo |
+
+## Cómo se mantiene
+- Decisión nueva → entrada en `decisiones.md` (con fecha y tarea que la originó).
+- Duda que nadie resolvió → `huecos.md`. No inventes la respuesta.
+- Tarea cerrada → entrada en `log.md`.
+---
+name: revisor-ui
+description: Revisor 3 de 4. Revisa con contexto limpio la interfaz visual (tokens, responsive, accesibilidad), con capturas si es posible. Solo dictamina.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: sonnet
+---
+
+Eres el **revisor de UI**. Juzgas lo que se ve.
+
+Si la spec dice `Toca interfaz: no`, responde solo `REVISOR: ui` / `VEREDICTO: NO_APLICA`.
+
+## Mira la interfaz de verdad (si puedes)
+0. Primero abre la evidencia de la fábrica (`tareas/<ID>/evidencia-ronda<N>/resumen.md` y sus PNG).
+   Si te basta, no hace falta Playwright. Cita en "Capturas" las rutas que hayas mirado.
+1. Si necesitas más, comprueba si hay Playwright: `npx --no-install playwright --version`.
+2. Si lo hay: en la carpeta de trabajo ejecuta el build y sirve el resultado (p. ej. `npm run preview`
+   en segundo plano), y toma capturas a 375×812 y 1280×800 con
+   `npx playwright screenshot --viewport-size=375,812 <url> tareas/<ID>/revisiones/ui-movil.png`
+   (y otra de escritorio). Ábrelas con Read para verlas. Detén el servidor al acabar.
+3. Si no hay Playwright, revisa el código de la interfaz y dilo en tu informe.
+
+## Qué miras
+- **Tokens**: colores, tipografías, espaciados y radios salen de `brain/diseno.md`. Nada escrito a mano.
+- **Responsive**: sin scroll horizontal en 375 px, jerarquía clara en escritorio.
+- **Accesibilidad**: contraste AA, `alt` en imágenes, foco visible, HTML semántico, tamaños táctiles ≥ 44 px.
+- **Consistencia**: los componentes se parecen a los ya existentes en `app/`.
+
+## Contexto limpio (obligatorio)
+Juzgas solo con: el brain, `tareas/<ID>/spec.md`, el diff y **tus propias comprobaciones**
+(leer el código, ejecutar pruebas o abrir la página tú mismo).
+**No leas** `tareas/<ID>/build-ronda*.md`, `aprobacion-*.md`, `riesgo-*.json`, las revisiones de
+otros revisores ni las capturas o "comprobaciones manuales" del constructor. No cites lo que el
+constructor dice haber verificado como prueba de nada.
+**Sí puedes usar** `tareas/<ID>/evidencia-ronda<N>/` (`resumen.md`, `evidencia.json` y los PNG). La
+genera la estación de código `scripts/evidencia.mjs`, no el constructor: build, Chrome headless,
+capturas a 375/768/1024 px, desbordamiento, tamaños táctiles, recorrido con Tab, consola, comparación
+con main y Lighthouse si se pidió. La evidencia mide y tú juzgas: abre las capturas y saca tus
+conclusiones.
+Si un criterio no lo puedes comprobar ni con tus medios ni con esa evidencia, **no lo pongas como
+hallazgo**. Anótalo en la línea `No verificado por mí:` del informe, con lo que haría falta. No lo
+des por bueno y no pidas CAMBIOS solo por eso: el aprobador y el humano deciden qué hacer con ello.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ui
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Capturas: rutas | "no disponibles: motivo"
+No verificado por mí: — | lista de criterios y qué haría falta
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea — problema — qué se espera
+```
+Nunca modificas el código de la app.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 ..\\..\\..\\brain\\diseno.md; Get-Content -Encoding UTF8 ..\\..\\..\\brain\\decisiones.md" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "git -C ..\\..\\..\\.worktrees\\T-20261115-005 diff main -- src; Get-Content -Encoding UTF8 ..\\..\\..\\.worktrees\\T-20261115-005\\src\\styles\\header.css; Get-Content -Encoding UTF8 ..\\..\\..\\.worktrees\\T-20261115-005\\src\\styles\\main.css" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 2253ms:
+# Sistema de diseño
+
+Cafetería Luna: cercana, cálida, de barrio, con cuidado por el producto (`vision.md`). Mobile-first
+desde 375 px. CSS plano con custom properties (D-02): el bloque de la sección "Tokens CSS" va tal
+cual en `src/styles/tokens.css`; el resto del CSS solo usa `var(--…)`.
+
+Notas de alcance:
+- **Modo oscuro: no aplica.** La spec no lo pide; se entrega solo el tema claro. Si se pide después,
+  se registra una decisión nueva y se añade un bloque `@media (prefers-color-scheme: dark)`.
+- La marca no tiene colores/logo/tipografía (`vision.md`: PENDIENTE). Esta paleta es propuesta del
+  diseñador y sustituible cambiando solo los valores de `tokens.css`.
+
+## Tokens
+### Colores (HEX)
+| Token | HEX | Uso |
+|---|---|---|
+| `--color-bg` | `#FBF6EE` | Fondo de página (crema) |
+| `--color-surface` | `#F3EADB` | Secciones alternas, cabecera, tarjetas sobre fondo |
+| `--color-surface-raised` | `#FFFFFF` | Tarjetas elevadas, tabla de horario, input |
+| `--color-text` | `#2B1D14` | Texto principal (espresso) |
+| `--color-text-muted` | `#6B5646` | Texto secundario, precios secundarios, leyendas |
+| `--color-primary` | `#7A3E1D` | Primario (canela/terracota): botón principal, enlaces, acentos |
+| `--color-primary-hover` | `#62301A` | Hover/active del primario |
+| `--color-on-primary` | `#FFFFFF` | Texto sobre primario |
+| `--color-secondary` | `#E9C46A` | Secundario (dorado luna): detalles, insignias, luna decorativa |
+| `--color-on-secondary` | `#2B1D14` | Texto sobre secundario |
+| `--color-whatsapp` | `#1E6B45` | Botón "Reservar mesa por WhatsApp" (verde oscuro, evoca WhatsApp con AA) |
+| `--color-on-whatsapp` | `#FFFFFF` | Texto sobre el botón de WhatsApp |
+| `--color-success` | `#2E6B3A` | Éxito / "abierto" |
+| `--color-error` | `#B3261E` | Error / "cerrado" |
+| `--color-border` | `#D9C9B3` | Separadores y bordes decorativos (no portan información; ver nota) |
+| `--color-focus` | `#1F4E8C` | Anillo de foco |
+| `--color-footer-bg` | `#2B1D14` | Fondo del pie |
+| `--color-footer-text` | `#F3EADB` | Texto del pie |
+
+Notas: el borde de input usa `--color-text-muted` (no `--color-border`) para cumplir 3:1 en
+componentes de interfaz (ver ratios).
+
+### Tipografía (Google Fonts, 2 familias, `font-display: swap`)
+- **Títulos: Fraunces** (serif cálida con carácter), pesos 600 y 700.
+- **Cuerpo/UI: DM Sans**, pesos 400, 500 y 700.
+- Carga: `https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap`
+  (con `preconnect`; recurso de terceros: zona sensible según arquitectura, requiere aprobación).
+- Fallbacks: `Georgia, "Times New Roman", serif` y `system-ui, -apple-system, "Segoe UI", sans-serif`.
+
+| Token | Móvil (375 px) | ≥ 768 px | Uso |
+|---|---|---|---|
+| `--text-xs` | 0.8125rem (13) | igual | Pie, leyendas |
+| `--text-sm` | 0.9375rem (15) | igual | Texto secundario |
+| `--text-base` | 1rem (16) | 1.0625rem | Cuerpo |
+| `--text-lg` | 1.125rem (18) | 1.25rem | Nombre/precio de producto, lead |
+| `--text-xl` | 1.5rem (24) | 1.75rem | Títulos de grupo (h3) |
+| `--text-2xl` | 1.875rem (30) | 2.5rem | Títulos de sección (h2) |
+| `--text-3xl` | 2.5rem (40) | 3.75rem | Nombre en portada (h1) |
+
+Interlineado: 1.6 cuerpo, 1.2 títulos. Ancho de línea de lectura ≤ 65ch.
+
+### Espaciado, radios, sombras
+Escala de 4 px: `--space-1` 4 · `--space-2` 8 · `--space-3` 12 · `--space-4` 16 · `--space-5` 24 ·
+`--space-6` 32 · `--space-7` 48 · `--space-8` 72 (px). Gutter lateral móvil: `--space-4` (16 px).
+
+Radios: `--radius-sm` 6 px · `--radius-md` 12 px · `--radius-lg` 20 px · `--radius-pill` 999 px.
+Sombras (tinte marrón, suaves): `--shadow-sm` y `--shadow-md` (ver bloque).
+
+## Tokens CSS (`:root`, listo para copiar en `src/styles/tokens.css`)
+```css
+:root {
+  /* Color */
+  --color-bg: #FBF6EE;
+  --color-surface: #F3EADB;
+  --color-surface-raised: #FFFFFF;
+  --color-text: #2B1D14;
+  --color-text-muted: #6B5646;
+  --color-primary: #7A3E1D;
+  --color-primary-hover: #62301A;
+  --color-on-primary: #FFFFFF;
+  --color-secondary: #E9C46A;
+  --color-on-secondary: #2B1D14;
+  --color-whatsapp: #1E6B45;
+  --color-on-whatsapp: #FFFFFF;
+  --color-success: #2E6B3A;
+  --color-error: #B3261E;
+  --color-border: #D9C9B3;
+  --color-focus: #1F4E8C;
+  --color-footer-bg: #2B1D14;
+  --color-footer-text: #F3EADB;
+
+  /* Tipografía */
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.5rem;
+  --leading-body: 1.6;
+  --leading-heading: 1.2;
+
+  /* Espaciado (escala de 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgb(43 29 20 / 0.08), 0 1px 3px rgb(43 29 20 / 0.06);
+  --shadow-md: 0 4px 12px rgb(43 29 20 / 0.12), 0 2px 4px rgb(43 29 20 / 0.06);
+
+  /* Layout */
+  --container-max: 64rem;      /* 1024 px */
+  --gutter: var(--space-4);
+  --tap-min: 44px;             /* zona táctil mínima (CA-05.2) */
+  --header-height: 56px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --text-base: 1.0625rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.75rem;
+    --text-2xl: 2.5rem;
+    --text-3xl: 3.75rem;
+    --gutter: var(--space-5);
+    --header-height: 64px;
+  }
+}
+```
+
+## Contraste WCAG AA (calculado numéricamente)
+Fórmula WCAG 2.x: luminancia relativa sRGB y ratio (L1+0.05)/(L2+0.05). Umbrales: texto normal
+≥ 4.5:1, texto grande (≥ 24 px, o ≥ 18.66 px en negrita) y componentes de interfaz ≥ 3:1.
+
+| # | Texto / elemento | Fondo | Ratio | Mínimo | Resultado |
+|---|---|---|---|---|---|
+| 1 | `text` #2B1D14 | `bg` #FBF6EE | **15.15:1** | 4.5 | AA/AAA |
+| 2 | `text` #2B1D14 | `surface` #F3EADB | **13.66:1** | 4.5 | AA/AAA |
+| 3 | `text` #2B1D14 | `surface-raised` #FFFFFF | **16.30:1** | 4.5 | AA/AAA |
+| 4 | `text-muted` #6B5646 | `bg` #FBF6EE | **6.41:1** | 4.5 | AA |
+| 5 | `text-muted` #6B5646 | `surface` #F3EADB | **5.78:1** | 4.5 | AA |
+| 6 | `text-muted` #6B5646 | `surface-raised` #FFFFFF | **6.90:1** | 4.5 | AA |
+| 7 | `on-primary` #FFFFFF | `primary` #7A3E1D | **8.29:1** | 4.5 | AA/AAA |
+| 8 | `on-primary` #FFFFFF | `primary-hover` #62301A | **10.73:1** | 4.5 | AA/AAA |
+| 9 | `primary` #7A3E1D (enlaces/texto) | `bg` #FBF6EE | **7.70:1** | 4.5 | AA/AAA |
+| 10 | `primary` #7A3E1D | `surface` #F3EADB | **6.95:1** | 4.5 | AA |
+| 11 | `primary` #7A3E1D | `surface-raised` #FFFFFF | **8.29:1** | 4.5 | AA/AAA |
+| 12 | `on-secondary` #2B1D14 | `secondary` #E9C46A | **9.75:1** | 4.5 | AA/AAA |
+| 13 | `on-whatsapp` #FFFFFF | `whatsapp` #1E6B45 | **6.47:1** | 4.5 | AA |
+| 14 | `whatsapp` #1E6B45 (texto/icono) | `bg` #FBF6EE | **6.02:1** | 4.5 | AA |
+| 15 | `success` #2E6B3A | `bg` #FBF6EE | **5.95:1** | 4.5 | AA |
+| 16 | `success` #2E6B3A | `surface` #F3EADB | **5.37:1** | 4.5 | AA |
+| 17 | `error` #B3261E | `bg` #FBF6EE | **6.08:1** | 4.5 | AA |
+| 18 | `error` #B3261E | `surface` #F3EADB | **5.48:1** | 4.5 | AA |
+| 19 | `footer-text` #F3EADB | `footer-bg` #2B1D14 | **13.66:1** | 4.5 | AA/AAA |
+| 20 | `secondary` #E9C46A (acentos) | `footer-bg` #2B1D14 | **9.75:1** | 3 | AA |
+| 21 | `focus` #1F4E8C (anillo) | `bg` #FBF6EE | **7.72:1** | 3 | AA |
+| 22 | `focus` #1F4E8C (anillo) | `surface` #F3EADB | **6.97:1** | 3 | AA |
+| 23 | borde de input `text-muted` #6B5646 | `bg` #FBF6EE | **6.41:1** | 3 | AA |
+
+Reglas derivadas:
+- **No usar `secondary` (#E9C46A) como texto ni como borde sobre fondos claros**: su contraste con
+  `bg` es insuficiente. Solo como relleno decorativo con `on-secondary`, o sobre `footer-bg`.
+- **No usar `--color-border` (#D9C9B3) como único indicador** de un control o de información; es solo
+  decorativo (separadores). Los bordes de input usan `text-muted`.
+- **El foco nunca se dibuja sobre `primary`**: el contraste foco/primario es 1.0:1 (ilegible). Por eso
+  el anillo es `outline: 3px solid var(--color-focus); outline-offset: 3px;`, que cae sobre el fondo
+  de página/sección (filas 21 y 22) y no sobre el botón.
+- Si en la implementación se coloca texto sobre una foto, añadir velo oscuro y recalcular.
+
+## Componentes base
+Todos: zona táctil ≥ 44×44 px (`--tap-min`), `:focus-visible` con el anillo descrito, transiciones
+≤ 150 ms y desactivadas con `prefers-reduced-motion: reduce`.
+
+### Botón
+Base: `font-family: var(--font-body); font-weight: 700; font-size: var(--text-base); min-height: 48px;
+padding: 0 var(--space-5); border-radius: var(--radius-pill); border: 2px solid transparent;`.
+
+| Variante | Fondo / texto / borde | Uso |
+|---|---|---|
+| `primary` | `primary` / `on-primary` | Acción general |
+| `whatsapp` | `whatsapp` / `on-whatsapp` | **Reservar mesa por WhatsApp** (portada y sección Reservar); con icono de chat a la izquierda (decorativo, `aria-hidden`) |
+| `secondary` (contorno) | transparente / `primary` / borde `primary` | "Cómo llegar" |
+| `ghost` | transparente / `primary` | Enlaces de navegación |
+
+Estados: **hover** = fondo `primary-hover` (whatsapp: oscurecer ~10 %; contorno: fondo `surface`);
+**active** = `translateY(1px)`; **focus-visible** = anillo `focus`; **disabled** = `opacity: .5`,
+`cursor: not-allowed` (el contraste no se exige en deshabilitado, pero no se usa en esta página).
+En móvil el botón principal de portada y de Reservar ocupa el ancho completo del contenedor.
+
+### Tarjeta
+`background: surface-raised; border: 1px solid var(--color-border); border-radius: var(--radius-md);
+padding: var(--space-5); box-shadow: var(--shadow-sm)`.
+Variantes: `plana` (sin sombra, fondo `surface`), `elevada` (`--shadow-md`).
+Uso: grupo de menú (Bebidas / Postres) y bloque de horario. Fila de producto: nombre a la izquierda
+(`--text-lg`, `text`) y precio a la derecha (`--text-lg`, peso 700, `primary`), alineados a la línea
+base con puntos guía opcionales; si el nombre es largo, el precio baja debajo sin romper (CA-02.3).
+Estados: informativa, sin hover (no es interactiva).
+
+### Input
+No hay formularios en esta página (la reserva ocurre en WhatsApp). Se define por coherencia futura:
+`min-height: 48px; padding: 0 var(--space-4); background: surface-raised; border: 2px solid
+var(--color-text-muted); border-radius: var(--radius-sm); font-size: 1rem` (≥ 16 px evita el zoom en
+iOS). Estados: hover = borde `text`; focus-visible = anillo `focus`; error = borde `error` + mensaje
+en `error` con icono; disabled = fondo `surface`, `opacity: .6`. Etiqueta siempre visible encima.
+
+### Cabecera (sticky)
+`position: sticky; top: 0; z-index: 10; height: var(--header-height); background: var(--color-surface);
+border-bottom: 1px solid var(--color-border)`. Contenido: nombre "Cafetería Luna" (Fraunces 700,
+`text`) a la izquierda y navegación (Menú · Horario y ubicación · Reservar) como enlaces `ghost`.
+Móvil: la navegación es una fila horizontal bajo/junto al nombre con `gap: var(--space-2)`, cada
+enlace con 44 px de alto; sin scroll horizontal en 375 px (si no caben, el nombre se acorta a "Luna"
+o la nav pasa a una segunda fila). Enlace de sección activa: subrayado de 3 px en `primary` (no solo
+color). Añadir `scroll-margin-top: var(--header-height)` a las secciones para que el ancla no quede
+tapada. Enlace "Saltar al contenido" visible al recibir foco.
+
+### Pie
+`background: var(--color-footer-bg); color: var(--color-footer-text); padding: var(--space-7)
+var(--gutter)`. Contenido: nombre, dirección corta y aviso de datos de ejemplo (D-00), texto
+`--text-sm`. Enlaces del pie: `footer-text` con subrayado; foco: anillo en `secondary` (9.75:1 sobre
+`footer-bg`). Un pequeño motivo de luna creciente en `secondary` como decoración (`aria-hidden`).
+
+### Sección (patrón)
+Alternar fondos `bg` y `surface` entre secciones; `padding-block: var(--space-7)` (móvil) y
+`var(--space-8)` (≥ 768 px). `h2` en Fraunces `--text-2xl`, color `text`, con una luna creciente
+decorativa en `secondary`.
+
+## Layout y breakpoints
+- Mobile-first: estilos base para 375 px; sin scroll horizontal (`min-width: 0` en hijos flex/grid,
+  `overflow-wrap: anywhere` en textos largos, iframe del mapa con `width: 100%`).
+- Ancho máximo del contenido: `--container-max` (1024 px), centrado, con `padding-inline:
+  var(--gutter)`. Texto corrido ≤ 65ch.
+- Breakpoints (`min-width`): **sm 480 px** · **md 768 px** · **lg 1024 px**.
+- Rejilla: 1 columna en móvil; desde md, Menú en 2 columnas (Bebidas | Postres) con `gap:
+  var(--space-6)`, y Horario y ubicación en 2 columnas (horario | mapa) con `grid-template-columns:
+  1fr 1fr`. Desde lg solo cambia el aire (más `padding`) y el tamaño de h1.
+- Portada: ocupa el alto visible del móvil menos la cabecera (`min-height: calc(100svh -
+  var(--header-height))`) y muestra nombre, eslogan y el botón de WhatsApp sin hacer scroll
+  (CA-01.1, CA-01.2).
+- Mapa: relación 4:3 en móvil, 16:9 desde md; `loading="lazy"` y `title` accesible.
+# Decisiones
+
+Lo que está aquí ya se decidió. No se rediscute sin una decisión humana nueva.
+
+<!--
+## D-01 · <título> (AAAA-MM-DD · origen: T-xxxx)
+- Contexto:
+- Decisión:
+- Alternativas descartadas:
+- Consecuencias:
+-->
+
+## D-00 · Datos de negocio de ejemplo para la demo (2026-11-14 · origen: humano)
+- Contexto: los datos reales del negocio están en huecos.md y aún no se conocen.
+- Decisión: mientras tanto se usan datos ficticios claramente marcados (precios en MXN, horario y dirección de ejemplo, WhatsApp +52 000 000 0000). Se guardan en un único archivo de datos para sustituirlos fácilmente.
+- Consecuencias: el sitio no se publica hasta resolver los huecos que bloquean la publicación.
+
+## D-01 · Stack: Vite + TypeScript sin framework (2026-11-14 · origen: arquitecto)
+- Contexto: landing de una sola página, sin backend ni estado. `estandares/stack.md` indica para
+  sitios de una página "HTML + CSS + JS sin framework", y a la vez exige las puertas `lint`,
+  `typecheck`, `test` y `build` vía `npm run` en todo proyecto con `package.json`.
+- Decisión: **Vite** como servidor de desarrollo y build estático, con **TypeScript vanilla** (sin
+  framework de UI). Es lo mínimo que mantiene la regla "sin framework" y da las cuatro puertas.
+  TypeScript tipa el archivo de datos (D-00): al sustituir los datos ficticios por los reales, un
+  campo mal escrito falla en `typecheck` en vez de en producción.
+- Alternativas descartadas: HTML/CSS/JS sin `package.json` (`verificar.mjs` no ejecutaría ninguna
+  puerta y no habría TDD); Astro + Tailwind (más configuración y conceptos para una sola página);
+  Vite + React (framework innecesario: no hay interactividad); JS sin TypeScript (se perdería la
+  puerta `typecheck` y la validación del archivo de datos).
+- Consecuencias: el estándar de estilo "un componente por archivo en `PascalCase.tsx`" no aplica;
+  cada sección es un módulo `camelCase.ts` en `src/sections/` que devuelve un `HTMLElement`.
+
+## D-02 · Estilos con CSS plano y custom properties, sin Tailwind (2026-11-14 · origen: arquitecto)
+- Contexto: pocos estilos, una sola página y el objetivo de Lighthouse ≥ 90.
+- Decisión: CSS plano, mobile-first. Los tokens de `diseno.md` se declaran como custom properties en
+  `src/styles/tokens.css` y el resto de CSS solo usa `var(--…)`.
+- Alternativas descartadas: Tailwind CSS (dependencia y configuración extra para muy poco CSS).
+- Consecuencias: el **diseñador** entrega los tokens como bloque `:root { --… }` listo para copiar en
+  lugar del bloque `theme.extend` de Tailwind.
+
+## D-03 · Puertas de calidad (2026-11-14 · origen: arquitecto)
+- Decisión: `lint` = ESLint 9 (flat config) + typescript-eslint; `typecheck` = `tsc --noEmit`;
+  `test` = `vitest run` con entorno **jsdom**; `build` = `vite build`. Pruebas junto al código
+  (`*.test.ts`).
+- Alternativas descartadas: happy-dom (menos fiel para pruebas de accesibilidad); Playwright en las
+  puertas (pesado para esta fase; Lighthouse y el ancho de 375 px se verifican en la tarea 006).
+- Consecuencias: CA-05.3 (Lighthouse) no es automatizable en `npm run` y se verifica manualmente
+  sobre `npm run preview`, dejando el informe en el rastro de la tarea.
+
+## D-04 · Renderizado: esqueleto estático + datos pintados en cliente (2026-11-14 · origen: arquitecto)
+- Contexto: D-00 exige que todos los datos del negocio vivan en un único archivo.
+- Decisión: `index.html` contiene la estructura estática (landmarks, navegación, encabezados de
+  sección, textos fijos). `src/main.ts` lee `src/data/business.ts` y monta el contenido de cada
+  sección con funciones `datos → HTMLElement` que usan `textContent`/`setAttribute` (nunca
+  `innerHTML` con datos).
+- Alternativas descartadas: datos copiados en el HTML (rompe D-00); prerender en build con un plugin
+  de Vite (más complejo; queda como plan B si Lighthouse móvil baja de 90).
+- Consecuencias: sin JavaScript la página muestra la estructura pero no los datos; aceptable para el
+  público objetivo (móvil moderno).
+
+## D-05 · Integraciones sin claves: WhatsApp, OpenStreetMap y Google Maps URLs (2026-11-14 · origen: arquitecto)
+- Decisión: reserva con enlace `https://wa.me/<dígitos>?text=<mensaje codificado>`; mapa con iframe
+  de OpenStreetMap con marcador y `loading="lazy"`; "Cómo llegar" con
+  `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`.
+- Alternativas descartadas: iframe de Google Maps (más pesado y con cookies de terceros); API de
+  WhatsApp Business (innecesaria: no hay reservas propias, ver spec "No entra"); URI `geo:` (no
+  funciona en iOS ni escritorio).
+- Consecuencias: no hay secretos ni `.env`. Las coordenadas también son datos del negocio y van en
+  `business.ts` (hueco añadido en `huecos.md`).
+
+## D-06 · Formato de precio (2026-11-14 · origen: arquitecto, deriva de D-00)
+- Decisión: los precios se guardan como número y se formatean en un único sitio
+  (`src/lib/formatPrice.ts`) con `Intl.NumberFormat(business.locale, { style: "currency",
+  currency: business.currency })`; hoy `es-MX` / `MXN`.
+- Consecuencias: si el hueco de moneda se resuelve con otra moneda, solo cambian `locale` y
+  `currency` en `business.ts`.
+
+## D-07 · Versiones y TypeScript estricto (2026-11-14 · origen: T-20261114-001)
+- Decisión: vite 7 + vitest 3 + typescript 5 + eslint 9 (por compatibilidad con typescript-eslint 8), versiones fijadas en package-lock.json; instalar con `npm ci`. tsconfig añade noUnusedLocals, noUnusedParameters, noFallthroughCasesInSwitch, verbatimModuleSyntax e isolatedModules sobre `strict`.
+- Pendiente de decisión humana: pasar a ESLint 10 (npm avisa que la 9 ya no tiene soporte).
+
+## D-08 · Cabecera, foco y botón de WhatsApp (2026-11-15 · origen: T-20261115-001)
+- Decisión: por debajo de 768 px la cabecera sticky ocupa dos filas (marca a `--header-height`,
+  navegación a `--tap-min`); `scroll-margin-top` y la altura de la portada restan
+  `header-height + tap-min` en móvil y solo `header-height` desde 768 px.
+- El hover del botón de WhatsApp lo oscurece ~10 % con
+  `color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text))`; su altura mínima es `var(--space-7)` (48 px).
+- `main#contenido` lleva `tabindex="-1"` sin contorno de foco, para que "Saltar al contenido" mueva
+  el foco sin dibujar un anillo alrededor de toda la página.
+- Pendiente: `main.css` mide 317 líneas (guía ~200); dividirlo en la tarea 006.
+
+## D-09 · Sección Menú y orden de montaje (2026-11-15 · origen: T-20261115-002)
+- Marcado: cada grupo es un `<div>` con `<h3>` y `<dl>`; cada producto, un `<div>` con `<dt>` (nombre)
+  y `<dd>` (precio). Grupos en `<div>`, no `<section>`, para no añadir landmarks.
+- `formatPrice(price, locale, currency)` es pura (implementa D-06) y lanza Error si el precio no es
+  finito o es negativo, en vez de pintar `$NaN`. `renderMenu` la importa; `main.ts` le pasa
+  `business.menu`, `business.locale` y `business.currency`.
+- Los estilos de cada sección nueva van en su propio archivo (`src/styles/menu.css`), importado en
+  `main.ts` después de `main.css`; rejilla de 2 columnas desde 768 px con
+  `repeat(2, minmax(0, 1fr))` y `align-items: start`.
+- `mount()` construye todo lo que puede fallar (URL de reserva, menú, futuras secciones) antes de
+  pintar nada: o se pinta la página entera o no se pinta nada.
+
+## D-10 · Mapa y "Cómo llegar" (2026-11-15 · origen: T-20261115-003, concreta D-05)
+- Las URLs se construyen solo en `src/lib/maps.ts` con `toFixed(6)`; bbox de OSM oeste,sur,este,norte
+  con d = 0.005°; una coordenada inválida lanza Error. Se comprueba el prefijo antes de usar cada URL.
+- iframe: `loading="lazy"`, `referrerpolicy="strict-origin-when-cross-origin"` (OSM pide Referer),
+  `sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`; sin `allow`,
+  `allowfullscreen` ni navegación del documento superior. El embed de OSM hoy usa MapLibre GL
+  (WebGL + worker `blob:`), que necesita `allow-same-origin` (seguro: el iframe es de otro origen).
+  Ampliar permisos requiere decisión humana.
+- Limitación conocida: `loading="lazy"` no garantiza que no se contacte a OSM sin hacer scroll
+  (Chrome precarga a ~1300 px); las teselas sí esperan al scroll.
+- Horario en `<table>` con `th scope="row"`, horas en 24 h ("08:00 a 20:00"), cerrado = "Cerrado".
+- `.btn--secondary` vive en `location.css` hasta que la tarea 006 divida `main.css`.
+
+## D-11 · Estilos divididos, zonas táctiles y Lighthouse (2026-11-15 · origen: T-20261115-004, cierra pendientes de D-08 y D-10)
+- `main.css` se divide en `main.css` (base), `header.css`, `buttons.css` (incluye `.btn--secondary`),
+  `hero.css`, `reserve.css` y `footer.css`; `main.ts` los importa en ese orden, antes de `menu.css` y
+  `location.css`. Ningún archivo de estilo pasa de ~200 líneas.
+- `.nav-link` y `.btn` llevan `min-width: var(--tap-min)` además de la altura mínima. Todo elemento
+  enfocable nuevo debe usar una de las clases que vigila `src/a11y.test.ts` (CA-5).
+- Lighthouse móvil: 3 ejecuciones sobre el build y se toma la mediana; umbral ≥ 90 en rendimiento y
+  accesibilidad. Línea base: 100/100 (Lighthouse 12.8.2, Chrome 157, fuentes del sistema). Repetir si
+  se cargan fuentes externas y antes de publicar.
+- Excepción pendiente de decisión humana (huecos.md): los controles internos del mapa de OSM
+  (+/− 29×29 px, atribución 14 px de alto) no llegan a 44 px y no se pueden estilar.
+
+ succeeded in 5708ms:
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 1
++ git -C ..\..\..\.worktrees\T-20261115-005 diff main -- src; Get-Conte ...
++ ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+/* Enlace de salto y cabecera sticky con la navegación; solo usan var(--…) de tokens.css
+   (D-02, D-08, brain/diseno.md). */
+
+/* ── Enlace "Saltar al contenido": oculto hasta recibir foco ── */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-primary);
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+}
+
+.skip-link:not(:focus) {
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Cabecera sticky ──────────────────────────────────── */
+/* Móvil: el nombre ocupa una fila de --header-height y la navegación otra de --tap-min
+   (las tres entradas no caben junto al nombre en 375 px). Desde 768 px, una sola fila. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--space-4);
+}
+
+/* padding-inline + margin negativo igual: deja sitio al anillo de foco junto al texto sin mover
+   la marca en reposo (mismo patrón que .site-nav__list). */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--header-height);
+  padding-inline: var(--space-2);
+  margin-inline: calc(-1 * var(--space-2));
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  line-height: var(--leading-heading);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* La caja de la marca empieza en y = 0 (cabecera sticky sin padding): con el offset global de
+   +3 px el lado de arriba del anillo quedaba fuera de la ventana. Hacia dentro cae sobre el
+   fondo surface de la cabecera (6.97:1); grosor, estilo y color siguen siendo los globales. */
+.brand:focus-visible {
+  outline-offset: -3px;
+}
+
+.site-nav {
+  flex-basis: 100%;
+  min-width: 0;
+}
+
+.site-nav__list {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0 calc(-1 * var(--space-2));
+  padding: 0;
+  list-style: none;
+}
+
+/* min-width: los 44 px de ancho no dependen de la longitud del texto (CA-05.2). */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+/* ── Desde 768 px ─────────────────────────────────────── */
+@media (min-width: 768px) {
+  .site-header__inner {
+    flex-wrap: nowrap;
+    min-height: var(--header-height);
+  }
+
+  .site-nav {
+    flex-basis: auto;
+  }
+
+  .site-nav__list {
+    margin: 0;
+  }
+}
+/* Estilos base y layout mobile-first; solo usan var(--…) de tokens.css (D-02, brain/diseno.md).
+   Cabecera, botones, portada, Reservar y pie viven en su propio archivo (header.css, buttons.css,
+   hero.css, reserve.css, footer.css), importado en main.ts después de este. */
+
+/* ── Base ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  line-height: var(--leading-heading);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ── Foco: anillo azul que cae sobre el fondo, nunca sobre el primario ── */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* main recibe el foco del enlace de salto; el anillo alrededor de toda la página no aporta. */
+main:focus {
+  outline: none;
+}
+
+/* ── Secciones ────────────────────────────────────────── */
+/* El ancla deja el título bajo la cabecera de dos filas (nombre + navegación). */
+main > section {
+  padding-block: var(--space-7);
+  scroll-margin-top: calc(var(--header-height) + var(--tap-min));
+}
+
+main > section:nth-of-type(even) {
+  background: var(--color-surface);
+}
+
+main > section h2 {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+/* ── Desde 768 px ─────────────────────────────────────── */
+@media (min-width: 768px) {
+  main > section {
+    padding-block: var(--space-8);
+    scroll-margin-top: var(--header-height);
+  }
+}
+
+/* ── Movimiento reducido ──────────────────────────────── */
+/* La anulación de .btn:active vive junto al botón, en buttons.css (CA-10). */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+codex
+En la captura de foco a 375 px, el anillo se ve completo y separado del texto. La evidencia también registra ausencia de desbordamiento y capturas en reposo idénticas a main a 375 y 1024 px. Estoy contrastando el cambio de CSS; las medidas con scroll y el foco en los otros tamaños no están cubiertos por esas capturas.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$gitPaths = @('"'C:\\Program Files\\Git\\cmd\\git.exe','C:\\Program Files\\Git\\bin\\git.exe'); foreach ("'$p in $gitPaths) { if (Test-Path -LiteralPath $p) { & $p -C ..'"\\..\\..\\.worktrees\\T-20261115-005 diff main --stat; & "'$p -C ..'"\\..\\..\\.worktrees\\T-20261115-005 diff main -- src/styles/header.css src/styles/split.test.ts; break } }; Get-Content -Encoding UTF8 ..\\..\\..\\.worktrees\\T-20261115-005\\index.html" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 264ms:
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cafetería Luna</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="skip-link" href="#contenido">Saltar al contenido</a>
+      <div class="site-header__inner container">
+        <a class="brand" href="#inicio">Cafetería Luna</a>
+        <nav class="site-nav" aria-label="Principal">
+          <ul class="site-nav__list">
+            <li><a class="nav-link" href="#menu">Menú</a></li>
+            <li><a class="nav-link" href="#horario">Horario y ubicación</a></li>
+            <li><a class="nav-link" href="#reservar">Reservar</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="contenido" tabindex="-1">
+      <!-- La portada (h1, eslogan y botón) la monta src/sections/hero.ts con los datos de business.ts (D-04). -->
+      <section id="inicio" class="section hero" aria-labelledby="inicio-titulo"></section>
+      <section id="menu" class="section" aria-labelledby="menu-titulo">
+        <div class="container">
+          <h2 id="menu-titulo">Menú</h2>
+        </div>
+      </section>
+      <section id="horario" class="section" aria-labelledby="horario-titulo">
+        <div class="container">
+          <h2 id="horario-titulo">Horario y ubicación</h2>
+        </div>
+      </section>
+      <section id="reservar" class="section" aria-labelledby="reservar-titulo">
+        <div class="container">
+          <h2 id="reservar-titulo">Reservar</h2>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p class="site-footer__name">Cafetería Luna</p>
+        <p class="site-footer__notice">Página de demostración: el eslogan, el menú, los precios, el horario, la dirección y el número de WhatsApp son datos de ejemplo.</p>
+      </div>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Compare-Object (Get-Content -Encoding UTF8 ..\\..\\..\\app\\src\\styles\\header.css) (Get-Content -Encoding UTF8 ..\\..\\..\\.worktrees\\T-20261115-005\\src\\styles\\header.css); Get-Content -Encoding UTF8 ..\\evidencia-ronda1\\evidencia.json | Select-Object -First 45; Get-Content -Encoding UTF8 ..\\..\\..\\app\\.git\\HEAD; Get-Command npx -ErrorAction SilentlyContinue" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 620ms:
+
+InputObject                                                                                      SideIndicator
+-----------                                                                                      -------------
+/* padding-inline + margin negativo igual: deja sitio al anillo de foco junto al texto sin mover =>           
+   la marca en reposo (mismo patrón que .site-nav__list). */                                     =>           
+  margin-inline: calc(-1 * var(--space-2));                                                      =>           
+/* La caja de la marca empieza en y = 0 (cabecera sticky sin padding): con el offset global de   =>           
+   +3 px el lado de arriba del anillo quedaba fuera de la ventana. Hacia dentro cae sobre el     =>           
+   fondo surface de la cabecera (6.97:1); grosor, estilo y color siguen siendo los globales. */  =>           
+.brand:focus-visible {                                                                           =>           
+  outline-offset: -3px;                                                                          =>           
+  padding-inline: var(--space-2);                                                                =>           
+                                                                                                 =>           
+}                                                                                                =>           
+{
+  "tarea": "T-20261115-005",
+  "ronda": 1,
+  "generada": "2026-11-15T07:57:11.155Z",
+  "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "vistas": {
+    "375": {
+      "anchoVentana": 375,
+      "scrollWidth": 375,
+      "desbordaHorizontal": false,
+      "fuera": [],
+      "cortado": [],
+      "enfocables": [
+        {
+          "el": "a.skip-link",
+          "nombre": "Saltar al contenido",
+          "w": 1,
+          "h": 1,
+          "ocultoHastaFoco": true,
+          "menor44": false
+        },
+        {
+          "el": "a.brand",
+          "nombre": "Cafetería Luna",
+          "w": 153.1,
+          "h": 56,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Menú",
+          "w": 55.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Horario y ubicación",
+          "w": 149,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+ref: refs/heads/main
+                                                                                                              
+
+
+
+codex
+REVISOR: ui
+VEREDICTO: OK
+Capturas: tareas/T-20261115-005/evidencia-ronda1/tab-02.png, tareas/T-20261115-005/evidencia-ronda1/pagina-375.png, tareas/T-20261115-005/evidencia-ronda1/pagina-768.png, tareas/T-20261115-005/evidencia-ronda1/pagina-1024.png
+No verificado por mí: medidas de CA-1/CA-2 con scroll y foco a 768/1024 px; igualdad geométrica con main a 768 px; ejecución de puertas. Harían falta mediciones en Chrome y ejecutar las pruebas. Git no está disponible: contrasté header.css con app/ en main mediante lectura y comparación de archivos.
+Hallazgos:
+Sin hallazgos de UI. El anillo aparece completo y separado del texto a 375 px; los espaciados usan tokens y el foco conserva el color y grosor globales.
+tokens used
+32.874
+REVISOR: ui
+VEREDICTO: OK
+Capturas: tareas/T-20261115-005/evidencia-ronda1/tab-02.png, tareas/T-20261115-005/evidencia-ronda1/pagina-375.png, tareas/T-20261115-005/evidencia-ronda1/pagina-768.png, tareas/T-20261115-005/evidencia-ronda1/pagina-1024.png
+No verificado por mí: medidas de CA-1/CA-2 con scroll y foco a 768/1024 px; igualdad geométrica con main a 768 px; ejecución de puertas. Harían falta mediciones en Chrome y ejecutar las pruebas. Git no está disponible: contrasté header.css con app/ en main mediante lectura y comparación de archivos.
+Hallazgos:
+Sin hallazgos de UI. El anillo aparece completo y separado del texto a 375 px; los espaciados usan tokens y el foco conserva el color y grosor globales.

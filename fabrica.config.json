@@ -1,0 +1,18 @@
+{
+  "_ayuda": "motor: 'claude' (subagente de Claude Code) o 'codex' (OpenAI, vía scripts/agente-codex.mjs). modelo: solo para codex; null = el de tu config de Codex. esfuerzo: low | medium | high (opcional, solo codex).",
+  "codex": {
+    "ejecutable": "auto",
+    "modelo_por_defecto": "gpt-6.1-sol",
+    "timeout_minutos": 25
+  },
+  "estaciones": {
+    "spec-writer":         { "motor": "claude" },
+    "constructor":         { "motor": "claude" },
+    "revisor-seguridad":   { "motor": "codex", "modelo": "gpt-6.1-sol", "esfuerzo": "high" },
+    "revisor-ux":          { "motor": "codex", "modelo": "gpt-6.1-sol" },
+    "revisor-ui":          { "motor": "codex", "modelo": "gpt-6-astra" },
+    "revisor-codigo":      { "motor": "claude" },
+    "aprobador":           { "motor": "claude" },
+    "clasificador-riesgo": { "motor": "codex", "modelo": "gpt-6.1-sol", "esfuerzo": "high" }
+  }
+}

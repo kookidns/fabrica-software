@@ -1,0 +1,9 @@
+{
+  "nivel": "BAJO",
+  "motivos": [],
+  "archivos": [
+    "src/styles/header.css",
+    "src/styles/split.test.ts"
+  ],
+  "lineas": 78
+}

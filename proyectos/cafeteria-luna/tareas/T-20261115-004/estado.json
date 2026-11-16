@@ -1,0 +1,13 @@
+{
+  "id": "T-20261115-004",
+  "proyecto": "cafeteria-luna",
+  "tipo": "tarea",
+  "origen": "bandeja/006-pulido-movil-y-accesibilidad.md",
+  "creada": "2026-11-15T06:16:13.224Z",
+  "rama": "fabrica/T-20261115-004",
+  "base": "main",
+  "trabajo": "proyectos\\cafeteria-luna\\.worktrees\\T-20261115-004",
+  "estacion": "cierre",
+  "resultado": "INTEGRADA",
+  "actualizada": "2026-11-15T07:43:34.744Z"
+}

@@ -1,0 +1,12 @@
+{"ts":"2026-11-14T16:46:27.153Z","estacion":"entrada","resultado":"CREADA","nota":"bandeja/002-datos-negocio-y-enlace-whatsapp.md"}
+{"ts":"2026-11-14T16:48:46.368Z","estacion":"spec-writer","resultado":"ENTREGADO","nota":"claude opus · 14 CA · toca interfaz: no"}
+{"ts":"2026-11-14T16:55:58.083Z","estacion":"constructor","resultado":"ENTREGADO","nota":"claude opus · ronda 1 · 31 tests · puertas ok · commit 87a5a48"}
+{"ts":"2026-11-14T16:56:30.047Z","estacion":"revisor-ui","resultado":"NO_APLICA","nota":"codex gpt-6-astra · 30s"}
+{"ts":"2026-11-14T16:56:31.692Z","estacion":"revisor-ux","resultado":"NO_APLICA","nota":"codex gpt-6.1-sol · 32s"}
+{"ts":"2026-11-14T16:57:01.172Z","estacion":"revisor-codigo","resultado":"OK","nota":"claude sonnet · ronda 1"}
+{"ts":"2026-11-14T16:58:27.438Z","estacion":"revisor-seguridad","resultado":"OK","nota":"codex gpt-6.1-sol · 149s"}
+{"ts":"2026-11-14T16:59:40.507Z","estacion":"aprobador","resultado":"APROBADO","nota":"claude opus · ronda 1 · 1 mejora sugerida"}
+{"ts":"2026-11-14T16:59:41.177Z","estacion":"riesgo-codigo","resultado":"ALTO","nota":"zona sensible del proyecto (src/data/business.ts): src/data/business.ts | zona sensible del proyecto (src/lib/whatsapp.ts): src/lib/whatsapp.ts"}
+{"ts":"2026-11-14T17:00:39.763Z","estacion":"clasificador-riesgo","resultado":"ALTO","nota":"codex gpt-6.1-sol · 58s"}
+{"ts":"2026-11-14T17:00:39.887Z","estacion":"cierre","resultado":"ESPERANDO_HUMANO","nota":"zona sensible del proyecto (src/data/business.ts): src/data/business.ts | zona sensible del proyecto (src/lib/whatsapp.ts): src/lib/whatsapp.ts | riesgo-codigo.json ya indica ALTO y el cambio afecta zonas sensibles: datos del negocio y construcción del enlace de reservas por WhatsApp."}
+{"ts":"2026-11-14T18:10:51.021Z","estacion":"cierre","resultado":"INTEGRADA","nota":"aprobada por humano"}

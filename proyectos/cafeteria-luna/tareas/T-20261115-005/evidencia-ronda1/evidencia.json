@@ -1,0 +1,436 @@
+{
+  "tarea": "T-20261115-005",
+  "ronda": 1,
+  "generada": "2026-11-15T07:57:11.155Z",
+  "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "vistas": {
+    "375": {
+      "anchoVentana": 375,
+      "scrollWidth": 375,
+      "desbordaHorizontal": false,
+      "fuera": [],
+      "cortado": [],
+      "enfocables": [
+        {
+          "el": "a.skip-link",
+          "nombre": "Saltar al contenido",
+          "w": 1,
+          "h": 1,
+          "ocultoHastaFoco": true,
+          "menor44": false
+        },
+        {
+          "el": "a.brand",
+          "nombre": "Cafetería Luna",
+          "w": 153.1,
+          "h": 56,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Menú",
+          "w": 55.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Horario y ubicación",
+          "w": 149,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Reservar",
+          "w": 74.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 343,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "iframe",
+          "nombre": "Mapa con la ubicación de la cafetería",
+          "w": 341,
+          "h": 255.3,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--secondary",
+          "nombre": "Cómo llegar (se abre en una pestaña nueva)",
+          "w": 343,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 343,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        }
+      ]
+    },
+    "768": {
+      "anchoVentana": 768,
+      "scrollWidth": 768,
+      "desbordaHorizontal": false,
+      "fuera": [],
+      "cortado": [],
+      "enfocables": [
+        {
+          "el": "a.skip-link",
+          "nombre": "Saltar al contenido",
+          "w": 1,
+          "h": 1,
+          "ocultoHastaFoco": true,
+          "menor44": false
+        },
+        {
+          "el": "a.brand",
+          "nombre": "Cafetería Luna",
+          "w": 168.3,
+          "h": 64,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Menú",
+          "w": 55.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Horario y ubicación",
+          "w": 149,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Reservar",
+          "w": 74.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 319.6,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "iframe",
+          "nombre": "Mapa con la ubicación de la cafetería",
+          "w": 342,
+          "h": 191.5,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--secondary",
+          "nombre": "Cómo llegar (se abre en una pestaña nueva)",
+          "w": 149,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 319.6,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        }
+      ]
+    },
+    "1024": {
+      "anchoVentana": 1024,
+      "scrollWidth": 1024,
+      "desbordaHorizontal": false,
+      "fuera": [],
+      "cortado": [],
+      "enfocables": [
+        {
+          "el": "a.skip-link",
+          "nombre": "Saltar al contenido",
+          "w": 1,
+          "h": 1,
+          "ocultoHastaFoco": true,
+          "menor44": false
+        },
+        {
+          "el": "a.brand",
+          "nombre": "Cafetería Luna",
+          "w": 168.3,
+          "h": 64,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Menú",
+          "w": 55.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Horario y ubicación",
+          "w": 149,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Reservar",
+          "w": 74.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 319.6,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "iframe",
+          "nombre": "Mapa con la ubicación de la cafetería",
+          "w": 470,
+          "h": 263.5,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--secondary",
+          "nombre": "Cómo llegar (se abre en una pestaña nueva)",
+          "w": 149,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 319.6,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        }
+      ]
+    }
+  },
+  "tab": {
+    "pasos": [
+      {
+        "paso": 1,
+        "el": "a.skip-link",
+        "nombre": "Saltar al contenido",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 8,
+        "tam": "173×44"
+      },
+      {
+        "paso": 2,
+        "el": "a.brand",
+        "nombre": "Cafetería Luna",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 0,
+        "tam": "153×56"
+      },
+      {
+        "paso": 3,
+        "el": "a.nav-link",
+        "nombre": "Menú",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 56,
+        "tam": "55×44"
+      },
+      {
+        "paso": 4,
+        "el": "a.nav-link",
+        "nombre": "Horario y ubicación",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 56,
+        "tam": "149×44"
+      },
+      {
+        "paso": 5,
+        "el": "a.nav-link",
+        "nombre": "Reservar",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 56,
+        "tam": "74×44"
+      },
+      {
+        "paso": 6,
+        "el": "a.btn.btn--whatsapp",
+        "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 493,
+        "tam": "343×48"
+      },
+      {
+        "paso": 7,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 8,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 9,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 10,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 11,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 12,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 13,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 14,
+        "el": "a.btn.btn--secondary",
+        "nombre": "Cómo llegar (se abre en una pestaña nueva)",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 550,
+        "tam": "343×48"
+      },
+      {
+        "paso": 15,
+        "el": "a.btn.btn--whatsapp",
+        "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 511,
+        "tam": "343×48"
+      },
+      {
+        "paso": 16,
+        "el": "body"
+      }
+    ],
+    "primerEnfocable": {
+      "el": "a.skip-link",
+      "nombre": "Saltar al contenido",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true,
+      "top": 8,
+      "tam": "173×44"
+    },
+    "trasEnterEnElPrimero": {
+      "el": "main#contenido",
+      "nombre": "Cafetería LunaTu rincón tranquilo para un buen caféReservar mesa por WhatsApp Me",
+      "contorno": "NINGUNO",
+      "visible": true,
+      "top": 0,
+      "tam": "375×2776"
+    },
+    "mayusTabDespues": {
+      "el": "a.nav-link",
+      "nombre": "Reservar",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true,
+      "top": 56,
+      "tam": "74×44"
+    }
+  },
+  "consola": [
+    "log: Failed to load resource: the server responded with a status of 404 (Not Found) http://127.0.0.1:64228/favicon.ico",
+    "log: Failed to load resource: the server responded with a status of 404 (Not Found) http://127.0.0.1:57783/favicon.ico"
+  ],
+  "comparacion": {
+    "nota": "Comparación byte a byte de PNG con terceros bloqueados; \"false\" no dice cuánto cambia, mira las dos capturas.",
+    "filas": [
+      {
+        "vista": "375",
+        "identicas": true
+      },
+      {
+        "vista": "1024",
+        "identicas": true
+      }
+    ]
+  },
+  "lighthouse": null
+}

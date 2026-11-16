@@ -1,0 +1,559 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001\riesgo-agente.json -m gpt-6.1-sol -c model_reasoning_effort="high" -s read-only -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001 --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **clasificador de riesgo**. Equivocarte hacia abajo puede tumbar el sistema; hacia arriba
+solo cuesta un minuto del humano. Ante la duda: ALTO.
+
+## Entradas
+- `tareas/<ID>/riesgo-codigo.json` (cálculo determinista de `scripts/riesgo.mjs`).
+- `tareas/<ID>/spec.md` y `brain/arquitectura.md` (sección "Zonas sensibles").
+- El cambio: `git -C <carpeta de trabajo> diff main...HEAD`.
+
+## Criterio
+- **BAJO**: cambios cosméticos o de contenido (textos, colores, estilos, una sección estática nueva,
+  documentación) que no tocan datos, auth, backend, dependencias ni configuración.
+- **ALTO**: base de datos o migraciones, autenticación/permisos, pagos, backend o lógica de negocio
+  core, dependencias o build, configuración, borrado de datos, o cualquier cosa que pueda tumbar la app.
+
+Si `riesgo-codigo.json` ya dice ALTO, tu respuesta es ALTO (puedes añadir motivos).
+
+## Formato de respuesta (obligatorio, JSON válido y nada más)
+```json
+{"nivel": "BAJO", "motivo": "una frase"}
+```
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261114-001 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261114-001): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-001
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- No escribas archivos. Tu entrega es tu último mensaje.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: none
+session id: 01a1dae0-0de7-70c1-a843-6981685a059c
+--------
+user
+Eres el **clasificador de riesgo**. Equivocarte hacia abajo puede tumbar el sistema; hacia arriba
+solo cuesta un minuto del humano. Ante la duda: ALTO.
+
+## Entradas
+- `tareas/<ID>/riesgo-codigo.json` (cálculo determinista de `scripts/riesgo.mjs`).
+- `tareas/<ID>/spec.md` y `brain/arquitectura.md` (sección "Zonas sensibles").
+- El cambio: `git -C <carpeta de trabajo> diff main...HEAD`.
+
+## Criterio
+- **BAJO**: cambios cosméticos o de contenido (textos, colores, estilos, una sección estática nueva,
+  documentación) que no tocan datos, auth, backend, dependencias ni configuración.
+- **ALTO**: base de datos o migraciones, autenticación/permisos, pagos, backend o lógica de negocio
+  core, dependencias o build, configuración, borrado de datos, o cualquier cosa que pueda tumbar la app.
+
+Si `riesgo-codigo.json` ya dice ALTO, tu respuesta es ALTO (puedes añadir motivos).
+
+## Formato de respuesta (obligatorio, JSON válido y nada más)
+```json
+{"nivel": "BAJO", "motivo": "una frase"}
+```
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261114-001 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261114-001): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-001
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- No escribas archivos. Tu entrega es tu último mensaje.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Revisaré las reglas de la fábrica, el cálculo de riesgo y el diff para clasificar el cambio.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\CLAUDE.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001
+ succeeded in 2502ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+entrada â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw -Encoding UTF8 '.\\riesgo-codigo.json'; Get-Content -Raw -Encoding UTF8 '.\\spec.md'; Get-Content -Raw -Encoding UTF8 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\arquitectura.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw -Encoding UTF8 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\.claude\\agents\\clasificador-riesgo.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw -Encoding UTF8 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\index.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "git -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-001' diff main...HEAD" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001
+ succeeded in 3606ms:
+{
+  "nivel": "ALTO",
+  "motivos": [
+    "dependencias: package-lock.json, package.json",
+    "configuración de build: eslint.config.js, tsconfig.json, vite.config.ts",
+    "zona sensible del proyecto (index.html): index.html",
+    "zona sensible del proyecto (src/main.ts): src/main.ts",
+    "cambio grande: 3605 líneas (> 300)"
+  ],
+  "archivos": [
+    "README.md",
+    "eslint.config.js",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "src/main.ts",
+    "src/project.test.ts",
+    "src/styles/main.css",
+    "src/styles/tokens.css",
+    "tsconfig.json",
+    "vite.config.ts"
+  ],
+  "lineas": 3605
+}
+
+# T-20261114-001 · Inicializar proyecto con el stack y los scripts lint/typecheck/test/build
+Tipo: tarea      Toca interfaz: no (solo un `index.html` mínimo sin contenido visible; las secciones van en tareas posteriores)
+
+## Contexto (qué dice el brain que importa aquí)
+- **D-01**: Vite + TypeScript vanilla, sin framework de UI. Cada sección será un módulo `camelCase.ts`
+  en `src/sections/` (no se crea ninguna en esta tarea).
+- **D-02**: CSS plano con custom properties; los tokens vivirán en `src/styles/tokens.css` (sin Tailwind).
+  En esta tarea `tokens.css` y `main.css` se crean **vacíos** (lo pide la entrada; el bloque de tokens
+  de `diseno.md` se copia en una tarea posterior).
+- **D-03**: `lint` = ESLint 9 (flat config, `eslint.config.js`) + typescript-eslint; `typecheck` =
+  `tsc --noEmit`; `test` = `vitest run` con entorno **jsdom**; `build` = `vite build`. Pruebas junto
+  al código (`*.test.ts`).
+- **arquitectura.md**: estructura de `app/` (`index.html`, `package.json`, `package-lock.json`,
+  `tsconfig.json`, `vite.config.ts` con el bloque `test` de Vitest, `eslint.config.js`, `src/main.ts`,
+  `src/styles/`). Sin dependencias de producción: todo en `devDependencies`, versiones fijadas en
+  `package-lock.json`. Las pruebas de estructura leen `index.html` y lo cargan en jsdom. Nombres de
+  código en inglés, textos visibles en español.
+- **D-04**: `src/main.ts` es el punto de entrada que importa los estilos (y más adelante monta las
+  secciones). Prohibido `innerHTML` con datos (no aplica aún: no hay datos).
+- **D-05**: sin secretos ni `.env`.
+- Puertas: `node scripts/verificar.mjs <carpeta>` ejecuta `lint`, `typecheck`, `test`, `build` con
+  `CI=true`; una puerta ausente se marca "omitida", así que las cuatro deben existir.
+- Estado actual del código: el worktree solo contiene `README.md` y `.gitignore` (ya ignora
+  `node_modules/`, `dist/`, `.env`, `coverage/`). No hay nada que reutilizar ni duplicar.
+
+## Objetivo
+Dejar en el worktree un proyecto Vite + TypeScript vanilla que arranca, compila y pasa las cuatro
+puertas de calidad, con la estructura base de `brain/arquitectura.md` y una prueba de humo, sin
+ningún código de secciones ni datos de negocio.
+
+## Criterios de aceptación
+- **CA-1** — Dado `package.json`, cuando una prueba lo lee, entonces define los scripts `dev`,
+  `lint`, `typecheck`, `test`, `build` y `preview`, con `typecheck` = `tsc --noEmit`, `test` =
+  `vitest run`, `build` = `vite build`, y `lint` invoca `eslint`.
+- **CA-2** — Dado `package.json`, cuando una prueba lo lee, entonces no tiene `dependencies` (o está
+  vacío) y en `devDependencies` figuran al menos `vite`, `typescript`, `vitest`, `jsdom`, `eslint` y
+  `typescript-eslint`; y existe `package-lock.json` en el worktree.
+- **CA-3** — Dado `index.html`, cuando una prueba lo carga en jsdom, entonces el elemento `<html>`
+  tiene `lang="es"`, `document.title` es exactamente `Cafetería Luna`, tiene `<meta charset="UTF-8">`
+  y `<meta name="viewport" content="width=device-width, initial-scale=1">`, y carga
+  `/src/main.ts` con `<script type="module">`.
+- **CA-4** — Dado `index.html`, cuando una prueba lo carga en jsdom, entonces no contiene secciones
+  de contenido (ningún `<section>` ni `<h2>`): la tarea no incluye código de secciones.
+- **CA-5** — Dado el worktree, cuando una prueba comprueba los archivos, entonces existen
+  `src/main.ts`, `src/styles/tokens.css` y `src/styles/main.css`, y ambos CSS están vacíos (o solo
+  con espacios/comentarios, sin reglas).
+- **CA-6** — Dado `src/main.ts`, cuando una prueba lo lee, entonces importa `./styles/tokens.css` y
+  `./styles/main.css`, en ese orden (tokens antes que el resto de estilos).
+- **CA-7** — Dada la configuración de Vitest, cuando se ejecuta `npm run test`, entonces las pruebas
+  corren en entorno jsdom (la prueba de humo verifica que `window` y `document` existen) y el
+  comando termina sin modo watch.
+- **CA-8** — Dada la carpeta de trabajo, cuando se ejecuta `node scripts/verificar.mjs
+  proyectos/cafeteria-luna/.worktrees/T-20261114-001` desde la raíz de la fábrica, entonces las
+  cuatro puertas (`lint`, `typecheck`, `test`, `build`) salen `ok`, ninguna `omitida`, y el proceso
+  termina con código 0.
+- **CA-9** — Dado `npm run build`, cuando termina, entonces genera `dist/index.html` con
+  `lang="es"` y el título `Cafetería Luna`. (Comprobable en la puerta `build` + inspección; no se
+  versiona `dist/`.)
+
+## Plan
+1. **Prueba primero (TDD)**: crear `src/smoke.test.ts` (o `src/project.test.ts`) con las pruebas de
+   CA-1 a CA-7: leer `package.json`, `index.html` (cargado en jsdom vía `DOMParser`/`document`),
+   `src/main.ts` y los CSS con `node:fs`; comprobar que `window`/`document` existen. Debe fallar
+   antes de crear los archivos.
+2. `package.json` (`"type": "module"`, `"private": true`, sin `dependencies`) con los seis scripts;
+   instalar en `devDependencies`: `vite`, `typescript`, `vitest`, `jsdom`, `eslint`, `@eslint/js`,
+   `typescript-eslint`, `globals` (y `@types/node` si las pruebas usan `node:fs`). Generar
+   `package-lock.json` con `npm install`.
+3. `tsconfig.json`: `strict: true`, `target`/`module` ES2022, `moduleResolution: "bundler"`,
+   `noEmit: true`, `types: ["vite/client", "node"]` (para importar CSS y usar `node:fs` en pruebas),
+   `include: ["src", "vite.config.ts"]`.
+4. `vite.config.ts` con `defineConfig` de `vitest/config` y `test: { environment: "jsdom" }`.
+5. `eslint.config.js` (flat config): `@eslint/js` recomendado + `typescript-eslint` recomendado;
+   ignorar `dist/` y `node_modules/`.
+6. `index.html` mínimo: `<!doctype html>`, `<html lang="es">`, charset, viewport,
+   `<title>Cafetería Luna</title>`, `<body>` vacío salvo `<script type="module" src="/src/main.ts">`.
+   (El esqueleto con landmarks, nav y secciones es de tareas posteriores.)
+7. `src/main.ts`: solo los dos `import` de estilos (tokens y main). `src/styles/tokens.css` y
+   `src/styles/main.css` vacíos.
+8. Ejecutar `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261114-001` hasta
+   que las cuatro puertas pasen. Opcional: añadir a `README.md` del worktree la sección "Cómo
+   ejecutar" copiada de `arquitectura.md`.
+
+Archivos que probablemente cambian (todos nuevos salvo README): `package.json`, `package-lock.json`,
+`tsconfig.json`, `vite.config.ts`, `eslint.config.js`, `index.html`, `src/main.ts`,
+`src/styles/tokens.css`, `src/styles/main.css`, `src/smoke.test.ts`, `README.md` (opcional).
+
+## Fuera de alcance
+- Código de secciones (`src/sections/*`), `src/data/business.ts`, `src/lib/*` y cualquier dato de
+  negocio.
+- Contenido de `tokens.css` (bloque de `diseno.md`) y de `main.css`; fuentes de Google Fonts.
+- Esqueleto semántico completo de `index.html` (header, nav, `<main>`, secciones, footer, enlace
+  "Saltar al contenido").
+- Favicon / `public/`, Lighthouse (CA-05.3), despliegue, Prettier, hooks de git, CI.
+- Dependencias de producción o de UI (React, Tailwind, Astro): contradirían D-01/D-02.
+
+## Riesgos / zonas sensibles que toca
+- **Riesgo ALTO esperado** según `arquitectura.md` → "Zonas sensibles": crea `package.json`,
+  `package-lock.json`, `vite.config.ts`, `tsconfig.json`, `eslint.config.js` (dependencias y build),
+  `index.html` y `src/main.ts` (si fallan, la página queda en blanco). Requerirá aprobación humana
+  en el cierre.
+- Dependencias nuevas de terceros (solo `devDependencies`): fijar versiones con `package-lock.json`;
+  revisar que no se cuele nada en `dependencies` (CA-2).
+- Configuración ESLint/TS: no desactivar reglas ni bajar `strict` para pasar las puertas (regla de
+  la fábrica).
+- `CI=true` en `verificar.mjs`: `test` debe ser `vitest run` (sin watch) para no colgarse.
+- Windows: rutas y fin de línea; las pruebas que lean archivos deben resolver rutas con
+  `node:path`/`import.meta.url`, no rutas absolutas.
+
+# Arquitectura
+
+Landing de una sola página, estática, sin backend. Ver decisiones D-01 a D-06.
+
+## Stack
+- **Vite** (servidor de desarrollo + build estático a `dist/`) con **TypeScript** "vanilla": sin
+  framework de UI (D-01).
+- **CSS plano** con custom properties (tokens de `diseno.md`); sin Tailwind (D-02).
+- **Calidad** (D-03): ESLint 9 (flat config) + typescript-eslint · `tsc --noEmit` · Vitest + jsdom.
+- Sin dependencias de producción: todo lo instalado es `devDependencies`.
+- Node LTS actual; versiones fijadas en `package-lock.json`.
+
+## Estructura de `app/`
+```
+app/
+├── index.html              # Esqueleto semántico estático (lang="es"): header+nav, <main> con las
+│                           # secciones (id + <h2>), contenedores vacíos para los datos, footer.
+├── package.json            # scripts: dev, lint, typecheck, test, build, preview
+├── package-lock.json
+├── tsconfig.json
+├── vite.config.ts          # build + bloque `test` de Vitest (environment: jsdom)
+├── eslint.config.js
+├── public/                 # favicon e imágenes estáticas (si las hay)
+└── src/
+    ├── main.ts             # Punto de entrada: importa estilos y monta cada sección en su contenedor
+    ├── data/
+    │   └── business.ts     # ÚNICO archivo de datos del negocio (D-00), tipado y marcado como ficticio
+    ├── lib/                # Funciones puras, sin DOM
+    │   ├── formatPrice.ts  # número → texto con moneda (Intl.NumberFormat)
+    │   ├── whatsapp.ts     # número + mensaje → URL wa.me
+    │   └── maps.ts         # coordenadas → URL de "Cómo llegar" y URL del mapa embebido
+    ├── sections/           # Una función por sección: datos → HTMLElement (DOM API)
+    │   ├── hero.ts         # Portada: nombre, eslogan, botón WhatsApp
+    │   ├── menu.ts         # Menú: Bebidas y Postres
+    │   ├── location.ts     # Horario y ubicación: tabla de horario, dirección, mapa, "Cómo llegar"
+    │   └── reserve.ts      # Reservar: texto + botón WhatsApp
+    └── styles/
+        ├── tokens.css      # Tokens de diseno.md como custom properties en :root
+        └── main.css        # Estilos base, layout mobile-first, componentes
+```
+- Pruebas **junto al código**: `src/**/<modulo>.test.ts`. Las pruebas de estructura de la página
+  leen `index.html` y lo cargan en jsdom.
+- Nombres de código en inglés; textos visibles en español (estándar de estilo).
+- Archivos de más de ~200 líneas se dividen.
+
+## Rutas / páginas
+Una sola ruta: `/` (`index.html`). Navegación interna por anclas, en este orden:
+
+| Ancla | Sección | Contenido |
+|---|---|---|
+| `#inicio` | Portada | Nombre "Cafetería Luna", eslogan, botón "Reservar mesa por WhatsApp" |
+| `#menu` | Menú | Grupos "Bebidas" y "Postres"; producto = nombre + precio |
+| `#horario` | Horario y ubicación | Horario lunes→domingo (incl. cierres), dirección, mapa, "Cómo llegar" |
+| `#reservar` | Reservar | Texto breve + botón "Reservar mesa por WhatsApp" |
+| — | Pie | Nombre, dirección corta, aviso de datos de ejemplo mientras rija D-00 |
+
+La cabecera con la navegación (Menú · Horario y ubicación · Reservar) es **fija/sticky**, de modo
+que es accesible desde cualquier punto de la página (CA-01.3).
+
+## Datos e integraciones
+### Datos (`src/data/business.ts`)
+Constante tipada `business` con: `name`, `slogan`, `locale` (`es-MX`), `currency` (`MXN`),
+`menu` (`drinks[]`, `desserts[]` de `{ name, price }`), `hours` (7 entradas lunes→domingo,
+`{ day, open, close } | { day, closed: true }`), `address` (texto completo), `coordinates`
+(`{ lat, lng }`), `whatsapp` (`{ number: "520000000000", message }`).
+- Mientras rija D-00 los valores son **ficticios** y el archivo lo dice en un comentario de cabecera.
+- Sustituir los datos reales = editar solo este archivo. Ningún otro módulo contiene datos del negocio.
+
+### Integraciones (todas sin claves ni `.env`)
+| Integración | Cómo | CA |
+|---|---|---|
+| WhatsApp | Enlace `https://wa.me/<número solo dígitos>?text=<mensaje con encodeURIComponent>`. Abre la app en móvil y WhatsApp Web/página de WhatsApp en escritorio. | CA-04.2–04.4 |
+| Mapa | `<iframe>` de OpenStreetMap (`export/embed.html` con `bbox` y `marker`), `loading="lazy"`, con `title` accesible. | CA-03.3 |
+| Cómo llegar | Enlace `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`: abre la app de mapas en móvil o la web en escritorio. | CA-03.4 |
+
+### Reglas de implementación
+- Los datos se insertan en el DOM **solo** con `textContent` / `setAttribute`; prohibido `innerHTML`
+  con datos.
+- Enlaces externos: `target="_blank"` + `rel="noopener noreferrer"` y un nombre accesible que indique
+  el propósito (p. ej., `aria-label` del botón de WhatsApp).
+- No se recogen datos personales; sin formularios, cookies propias ni analítica (hueco abierto).
+- Rendimiento (Lighthouse móvil ≥ 90): sin librerías de UI, mapa diferido (`loading="lazy"`), imágenes
+  con `width`/`height` y formatos modernos, fuentes con `font-display: swap` y como mucho 2 familias.
+
+## Zonas sensibles (riesgo ALTO: requieren aprobación humana)
+Además de lo que ya detecta `scripts/riesgo.mjs` (dependencias, configuración de build):
+- `src/data/business.ts` — un número o un mensaje de WhatsApp erróneo rompe el objetivo principal de
+  negocio (reservas) sin que falle ninguna prueba; un precio, horario o dirección erróneos engañan al
+  cliente. Cualquier cambio exige revisión humana.
+- `src/lib/whatsapp.ts` y los botones de reserva (`src/sections/hero.ts`, `src/sections/reserve.ts`) —
+  es el embudo de conversión: si la URL se construye mal, no entra ninguna reserva.
+- `index.html` y `src/main.ts` — si el esqueleto o el montaje fallan, la página queda en blanco.
+- `package.json`, `package-lock.json`, `vite.config.ts`, `tsconfig.json`, `eslint.config.js` —
+  dependencias y build (ya cubiertos por el script).
+- Cualquier recurso de terceros nuevo (iframes, scripts, fuentes externas) — afecta a privacidad y
+  rendimiento.
+
+## Cómo ejecutar
+- Instalar: `npm install` (dentro de `app/` o del worktree)
+- Desarrollo: `npm run dev`
+- Previsualizar el build: `npm run build && npm run preview`
+- Puertas: `node scripts/verificar.mjs <carpeta>` (desde la raíz de la fábrica) → `lint`, `typecheck`,
+  `test`, `build`
+- Lighthouse (CA-05.3, manual): auditoría móvil sobre `npm run preview`.
+
+## Hosting
+Estático (`dist/`) en Vercel o Netlify, **solo cuando el humano lo pida** y con los huecos de
+contenido resueltos (D-00). Dominio: pendiente (`huecos.md`).
+
+
+ succeeded in 3576ms:
+---
+name: clasificador-riesgo
+description: Decide si una tarea aprobada es lo bastante sensible como para exigir revisión humana antes de integrarse en main. Solo puede subir el riesgo calculado por el script, nunca bajarlo.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: opus
+---
+
+Eres el **clasificador de riesgo**. Equivocarte hacia abajo puede tumbar el sistema; hacia arriba
+solo cuesta un minuto del humano. Ante la duda: ALTO.
+
+## Entradas
+- `tareas/<ID>/riesgo-codigo.json` (cálculo determinista de `scripts/riesgo.mjs`).
+- `tareas/<ID>/spec.md` y `brain/arquitectura.md` (sección "Zonas sensibles").
+- El cambio: `git -C <carpeta de trabajo> diff main...HEAD`.
+
+## Criterio
+- **BAJO**: cambios cosméticos o de contenido (textos, colores, estilos, una sección estática nueva,
+  documentación) que no tocan datos, auth, backend, dependencias ni configuración.
+- **ALTO**: base de datos o migraciones, autenticación/permisos, pagos, backend o lógica de negocio
+  core, dependencias o build, configuración, borrado de datos, o cualquier cosa que pueda tumbar la app.
+
+Si `riesgo-codigo.json` ya dice ALTO, tu respuesta es ALTO (puedes añadir motivos).
+
+## Formato de respuesta (obligatorio, JSON válido y nada más)
+```json
+{"nivel": "BAJO", "motivo": "una frase"}
+```
+
+
+ succeeded in 3573ms:
+# Brain — índice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | Léelo cuando… |
+|---|---|---|
+| `vision.md` | Problema, público, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar código |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por qué (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavía NO sabe | te falte información |
+| `log.md` | Historial de tareas cerradas | quieras saber qué se hizo |
+
+## Cómo se mantiene
+- Decisión nueva → entrada en `decisiones.md` (con fecha y tarea que la originó).
+- Duda que nadie resolvió → `huecos.md`. No inventes la respuesta.
+- Tarea cerrada → entrada en `log.md`.
+
+
+ exited 1 in 6056ms:
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 1
++ git -C 'C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c19 ...
++ ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw -Encoding UTF8 '..\\..\\brain\\decisiones.md'; "'$gitCandidates = @('"'C:\\Program Files\\Git\\cmd\\git.exe', 'C:\\Program Files\\Git\\bin\\git.exe', \""'$env:LOCALAPPDATA'"\\Programs\\Git\\cmd\\git.exe\"); foreach ("'$gitPath in $gitCandidates) { if (Test-Path -LiteralPath $gitPath) { & $gitPath -C '"'..\\..\\.worktrees\\T-20261114-001' diff main...HEAD -- . ':"'!package-lock.json'"'; break } }" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-001
+ succeeded in 2283ms:
+# Decisiones
+
+Lo que está aquí ya se decidió. No se rediscute sin una decisión humana nueva.
+
+<!--
+## D-01 · <título> (AAAA-MM-DD · origen: T-xxxx)
+- Contexto:
+- Decisión:
+- Alternativas descartadas:
+- Consecuencias:
+-->
+
+## D-00 · Datos de negocio de ejemplo para la demo (2026-11-14 · origen: humano)
+- Contexto: los datos reales del negocio están en huecos.md y aún no se conocen.
+- Decisión: mientras tanto se usan datos ficticios claramente marcados (precios en MXN, horario y dirección de ejemplo, WhatsApp +52 000 000 0000). Se guardan en un único archivo de datos para sustituirlos fácilmente.
+- Consecuencias: el sitio no se publica hasta resolver los huecos que bloquean la publicación.
+
+## D-01 · Stack: Vite + TypeScript sin framework (2026-11-14 · origen: arquitecto)
+- Contexto: landing de una sola página, sin backend ni estado. `estandares/stack.md` indica para
+  sitios de una página "HTML + CSS + JS sin framework", y a la vez exige las puertas `lint`,
+  `typecheck`, `test` y `build` vía `npm run` en todo proyecto con `package.json`.
+- Decisión: **Vite** como servidor de desarrollo y build estático, con **TypeScript vanilla** (sin
+  framework de UI). Es lo mínimo que mantiene la regla "sin framework" y da las cuatro puertas.
+  TypeScript tipa el archivo de datos (D-00): al sustituir los datos ficticios por los reales, un
+  campo mal escrito falla en `typecheck` en vez de en producción.
+- Alternativas descartadas: HTML/CSS/JS sin `package.json` (`verificar.mjs` no ejecutaría ninguna
+  puerta y no habría TDD); Astro + Tailwind (más configuración y conceptos para una sola página);
+  Vite + React (framework innecesario: no hay interactividad); JS sin TypeScript (se perdería la
+  puerta `typecheck` y la validación del archivo de datos).
+- Consecuencias: el estándar de estilo "un componente por archivo en `PascalCase.tsx`" no aplica;
+  cada sección es un módulo `camelCase.ts` en `src/sections/` que devuelve un `HTMLElement`.
+
+## D-02 · Estilos con CSS plano y custom properties, sin Tailwind (2026-11-14 · origen: arquitecto)
+- Contexto: pocos estilos, una sola página y el objetivo de Lighthouse ≥ 90.
+- Decisión: CSS plano, mobile-first. Los tokens de `diseno.md` se declaran como custom properties en
+  `src/styles/tokens.css` y el resto de CSS solo usa `var(--…)`.
+- Alternativas descartadas: Tailwind CSS (dependencia y configuración extra para muy poco CSS).
+- Consecuencias: el **diseñador** entrega los tokens como bloque `:root { --… }` listo para copiar en
+  lugar del bloque `theme.extend` de Tailwind.
+
+## D-03 · Puertas de calidad (2026-11-14 · origen: arquitecto)
+- Decisión: `lint` = ESLint 9 (flat config) + typescript-eslint; `typecheck` = `tsc --noEmit`;
+  `test` = `vitest run` con entorno **jsdom**; `build` = `vite build`. Pruebas junto al código
+  (`*.test.ts`).
+- Alternativas descartadas: happy-dom (menos fiel para pruebas de accesibilidad); Playwright en las
+  puertas (pesado para esta fase; Lighthouse y el ancho de 375 px se verifican en la tarea 006).
+- Consecuencias: CA-05.3 (Lighthouse) no es automatizable en `npm run` y se verifica manualmente
+  sobre `npm run preview`, dejando el informe en el rastro de la tarea.
+
+## D-04 · Renderizado: esqueleto estático + datos pintados en cliente (2026-11-14 · origen: arquitecto)
+- Contexto: D-00 exige que todos los datos del negocio vivan en un único archivo.
+- Decisión: `index.html` contiene la estructura estática (landmarks, navegación, encabezados de
+  sección, textos fijos). `src/main.ts` lee `src/data/business.ts` y monta el contenido de cada
+  sección con funciones `datos → HTMLElement` que usan `textContent`/`setAttribute` (nunca
+  `innerHTML` con datos).
+- Alternativas descartadas: datos copiados en el HTML (rompe D-00); prerender en build con un plugin
+  de Vite (más complejo; queda como plan B si Lighthouse móvil baja de 90).
+- Consecuencias: sin JavaScript la página muestra la estructura pero no los datos; aceptable para el
+  público objetivo (móvil moderno).
+
+## D-05 · Integraciones sin claves: WhatsApp, OpenStreetMap y Google Maps URLs (2026-11-14 · origen: arquitecto)
+- Decisión: reserva con enlace `https://wa.me/<dígitos>?text=<mensaje codificado>`; mapa con iframe
+  de OpenStreetMap con marcador y `loading="lazy"`; "Cómo llegar" con
+  `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`.
+- Alternativas descartadas: iframe de Google Maps (más pesado y con cookies de terceros); API de
+  WhatsApp Business (innecesaria: no hay reservas propias, ver spec "No entra"); URI `geo:` (no
+  funciona en iOS ni escritorio).
+- Consecuencias: no hay secretos ni `.env`. Las coordenadas también son datos del negocio y van en
+  `business.ts` (hueco añadido en `huecos.md`).
+
+## D-06 · Formato de precio (2026-11-14 · origen: arquitecto, deriva de D-00)
+- Decisión: los precios se guardan como número y se formatean en un único sitio
+  (`src/lib/formatPrice.ts`) con `Intl.NumberFormat(business.locale, { style: "currency",
+  currency: business.currency })`; hoy `es-MX` / `MXN`.
+- Consecuencias: si el hueco de moneda se resuelve con otra moneda, solo cambian `locale` y
+  `currency` en `business.ts`.
+
+## D-07 · Versiones y TypeScript estricto (2026-11-14 · origen: T-20261114-001)
+- Decisión: vite 7 + vitest 3 + typescript 5 + eslint 9 (por compatibilidad con typescript-eslint 8), versiones fijadas en package-lock.json; instalar con `npm ci`. tsconfig añade noUnusedLocals, noUnusedParameters, noFallthroughCasesInSwitch, verbatimModuleSyntax e isolatedModules sobre `strict`.
+- Pendiente de decisión humana: pasar a ESLint 10 (npm avisa que la 9 ya no tiene soporte).
+
+
+codex
+{"nivel":"ALTO","motivo":"riesgo-codigo.json ya clasifica el cambio como ALTO por dependencias, configuración de build y archivos sensibles de arranque."}
+tokens used
+30.762
+{"nivel":"ALTO","motivo":"riesgo-codigo.json ya clasifica el cambio como ALTO por dependencias, configuración de build y archivos sensibles de arranque."}

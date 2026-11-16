@@ -1,0 +1,347 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones\revisor-ux-ronda1.md -m gpt-6.1-sol -s workspace-write -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **revisor de UX**. Piensas como el usuario descrito en `brain/vision.md`.
+
+Si la spec dice `Toca interfaz: no`, responde solo `REVISOR: ux` / `VEREDICTO: NO_APLICA`.
+
+## Qué miras
+Lee `brain/vision.md`, `brain/spec.md` y `tareas/<ID>/spec.md`. Revisa el cambio
+(`git -C <carpeta de trabajo> diff main...HEAD`):
+- **Flujo**: ¿cuántos pasos necesita el usuario? ¿sobra alguno? ¿el siguiente paso es obvio?
+- **Claridad**: textos, etiquetas y llamadas a la acción entendibles para el avatar, en su idioma y tono.
+- **Estados**: vacío, cargando, error y éxito están cubiertos y dicen qué hacer.
+- **Formularios**: validación con mensajes útiles, no se pierde lo escrito al fallar.
+- **Coherencia con el brain**: ¿cumple lo que el producto promete?
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ux
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea o pantalla — problema para el usuario — propuesta
+```
+Nunca modificas archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261114-002 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261114-002): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a1dafc-bfcf-73e3-bbb8-fda7faf066ac
+--------
+user
+Eres el **revisor de UX**. Piensas como el usuario descrito en `brain/vision.md`.
+
+Si la spec dice `Toca interfaz: no`, responde solo `REVISOR: ux` / `VEREDICTO: NO_APLICA`.
+
+## Qué miras
+Lee `brain/vision.md`, `brain/spec.md` y `tareas/<ID>/spec.md`. Revisa el cambio
+(`git -C <carpeta de trabajo> diff main...HEAD`):
+- **Flujo**: ¿cuántos pasos necesita el usuario? ¿sobra alguno? ¿el siguiente paso es obvio?
+- **Claridad**: textos, etiquetas y llamadas a la acción entendibles para el avatar, en su idioma y tono.
+- **Estados**: vacío, cargando, error y éxito están cubiertos y dicen qué hacer.
+- **Formularios**: validación con mensajes útiles, no se pierde lo escrito al fallar.
+- **Coherencia con el brain**: ¿cumple lo que el producto promete?
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ux
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea o pantalla — problema para el usuario — propuesta
+```
+Nunca modificas archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261114-002 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261114-002): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Leeré las reglas de la fábrica, el contexto del producto y la spec antes de revisar el cambio de interfaz.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/CLAUDE.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 3460ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+entrada â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/.claude/agents/revisor-ux.md'; Get-Content -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/brain/index.md'; Get-Content -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/tareas/T-20261114-002/spec.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 3068ms:
+---
+name: revisor-ux
+description: Revisor 2 de 4. Revisa con contexto limpio la experiencia de usuario (flujo, pasos, claridad para el avatar) del cambio de una tarea. Solo dictamina.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: sonnet
+---
+
+Eres el **revisor de UX**. Piensas como el usuario descrito en `brain/vision.md`.
+
+Si la spec dice `Toca interfaz: no`, responde solo `REVISOR: ux` / `VEREDICTO: NO_APLICA`.
+
+## QuÃ© miras
+Lee `brain/vision.md`, `brain/spec.md` y `tareas/<ID>/spec.md`. Revisa el cambio
+(`git -C <carpeta de trabajo> diff main...HEAD`):
+- **Flujo**: Â¿cuÃ¡ntos pasos necesita el usuario? Â¿sobra alguno? Â¿el siguiente paso es obvio?
+- **Claridad**: textos, etiquetas y llamadas a la acciÃ³n entendibles para el avatar, en su idioma y tono.
+- **Estados**: vacÃ­o, cargando, error y Ã©xito estÃ¡n cubiertos y dicen quÃ© hacer.
+- **Formularios**: validaciÃ³n con mensajes Ãºtiles, no se pierde lo escrito al fallar.
+- **Coherencia con el brain**: Â¿cumple lo que el producto promete?
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ux
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:lÃ­nea o pantalla â€” problema para el usuario â€” propuesta
+```
+Nunca modificas archivos.
+# Brain â€” Ã­ndice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | LÃ©elo cuandoâ€¦ |
+|---|---|---|
+| `vision.md` | Problema, pÃºblico, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar cÃ³digo |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por quÃ© (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavÃ­a NO sabe | te falte informaciÃ³n |
+| `log.md` | Historial de tareas cerradas | quieras saber quÃ© se hizo |
+
+## CÃ³mo se mantiene
+- DecisiÃ³n nueva â†’ entrada en `decisiones.md` (con fecha y tarea que la originÃ³).
+- Duda que nadie resolviÃ³ â†’ `huecos.md`. No inventes la respuesta.
+- Tarea cerrada â†’ entrada en `log.md`.
+# T-20261114-002 Â· Archivo de datos del negocio y enlace de reserva por WhatsApp
+Tipo: tarea      Toca interfaz: no (solo datos y una funciÃ³n pura; ningÃºn botÃ³n ni secciÃ³n se pinta en esta tarea)
+
+Cubre de `brain/spec.md`: CA-04.2, CA-04.3, CA-04.4 (en la parte que depende de la URL; el botÃ³n que la
+usa llega con las secciones portada/reservar).
+
+## Contexto (quÃ© dice el brain que importa aquÃ­)
+- **D-00**: los datos reales no se conocen (todos estÃ¡n en `huecos.md`). Se usan datos **ficticios
+  claramente marcados** en un **Ãºnico archivo de datos**: precios en MXN, horario y direcciÃ³n de
+  ejemplo, WhatsApp `+52 000 000 0000`. El sitio no se publica hasta resolver los huecos.
+- **arquitectura.md â†’ Datos**: `src/data/business.ts` exporta la constante tipada `business` con
+  `name`, `slogan`, `locale` (`es-MX`), `currency` (`MXN`), `menu` (`drinks[]`, `desserts[]` de
+  `{ name, price }`), `hours` (7 entradas lunesâ†’domingo, `{ day, open, close } | { day, closed: true }`),
+  `address` (texto completo), `coordinates` (`{ lat, lng }`), `whatsapp`
+  (`{ number: "520000000000", message }`). Comentario de cabecera que diga que los valores son
+  ficticios. **NingÃºn otro mÃ³dulo contiene datos del negocio.**
+- **D-01**: TypeScript tipa el archivo de datos para que un campo mal escrito falle en `typecheck`.
+- **D-05 / arquitectura â†’ Integraciones**: enlace `https://wa.me/<nÃºmero solo dÃ­gitos>?text=<mensaje
+  con encodeURIComponent>`; sirve para la app mÃ³vil y para WhatsApp Web/pÃ¡gina de WhatsApp en
+  escritorio. Sin claves ni `.env`.
+- **D-06**: los precios se guardan como **nÃºmero** (el formateo con `Intl.NumberFormat` es de
+  `src/lib/formatPrice.ts`, otra tarea).
+- **arquitectura.md â†’ Estructura**: `src/lib/` = funciones puras, sin DOM. Pruebas junto al cÃ³digo
+  (`*.test.ts`). Nombres de cÃ³digo en inglÃ©s; textos visibles (nombres de dÃ­a, productos, mensaje)
+  en espaÃ±ol, con tuteo y tono cercano (`vision.md`).
+- **D-07**: TypeScript estricto (`strict`, `noUnusedLocals`, `noUnusedParameters`,
+  `verbatimModuleSyntax` â†’ los tipos se importan con `import type`).
+- **Estado del cÃ³digo** (worktree con lo integrado de T-20261114-001): solo `src/main.ts` (imports de
+  estilos), `src/styles/*.css` vacÃ­os y `src/project.test.ts`. No existen `src/data/` ni `src/lib/`:
+  nada que reutilizar ni duplicar.
+
+## Objetivo
+Crear `src/data/business.ts` (Ãºnico archivo de datos, tipado, con todos los valores ficticios marcados
+segÃºn D-00) y `src/lib/whatsapp.ts` (funciÃ³n pura que construye la URL `wa.me` de reserva), con
+pruebas que garanticen que el nÃºmero queda limpio, el mensaje se codifica y decodifica sin pÃ©rdida y
+pide fecha, hora y nÂº de personas.
+
+## Criterios de aceptaciÃ³n
+### Datos (`src/data/business.ts`, pruebas en `src/data/business.test.ts`)
+- **CA-1** â€” Dado `src/data/business.ts`, cuando una prueba lee su cÃ³digo fuente, entonces empieza con
+  un comentario de cabecera que contiene la palabra `ficticio`/`ficticios` (sin distinguir mayÃºsculas)
+  y la referencia `D-00`, indicando que todos los valores son de ejemplo y deben sustituirse por los
+  reales.
+- **CA-2** â€” Dado `business`, cuando una prueba lo importa, entonces `name` es `"CafeterÃ­a Luna"`,
+  `slogan` es una cadena no vacÃ­a, `locale` es `"es-MX"` y `currency` es `"MXN"`.
+- **CA-3** â€” Dado `business.menu`, cuando una prueba lo recorre, entonces `drinks` y `desserts` tienen
+  al menos 3 productos cada uno, y cada producto tiene `name` no vacÃ­o y `price` numÃ©rico, finito y
+  mayor que 0.
+- **CA-4** â€” Dado `business.hours`, cuando una prueba lo recorre, entonces tiene exactamente 7
+  entradas cuyos `day` son, en este orden, `Lunes`, `Martes`, `MiÃ©rcoles`, `Jueves`, `Viernes`,
+  `SÃ¡bado`, `Domingo`; al menos una entrada tiene `closed: true` (y no tiene `open`/`close`); y cada
+  dÃ­a abierto tiene `open` y `close` con formato `HH:MM` de 24 h y `open` < `close`.
+- **CA-5** â€” Dado `business`, cuando una prueba lo lee, entonces `address` es una cadena no vacÃ­a y
+  `coordinates.lat` âˆˆ [-90, 90] y `coordinates.lng` âˆˆ [-180, 180] (nÃºmeros finitos).
+- **CA-6** â€” Dado `business.whatsapp`, cuando una prueba lo lee, entonces `number` es exactamente
+  `"520000000000"` (solo dÃ­gitos: el `+52 000 000 0000` de D-00) y `message` es una cadena no vacÃ­a en
+  espaÃ±ol que menciona **fecha**, **hora** y **personas** (comprobaciÃ³n con expresiones regulares sin
+  distinguir mayÃºsculas: `/\bfecha\b/i`, `/\bhora\b/i`, `/\bpersonas\b/i`).
+- **CA-7** â€” Dado el tipo exportado del archivo de datos (p. ej. `Business`), cuando se ejecuta
+  `npm run typecheck`, entonces `business` estÃ¡ anotado con ese tipo (no `any` ni inferido sin tipo) y
+  el horario es una uniÃ³n discriminada: una entrada no puede tener a la vez `closed: true` y
+  `open`/`close`.
+
+### Enlace (`src/lib/whatsapp.ts`, pruebas en `src/lib/whatsapp.test.ts`)
+- **CA-8** â€” Dado `buildWhatsAppUrl(number, message)` (exportada, pura, sin DOM ni efectos), cuando se
+  llama con `"+52 000 000 0000"` (o con `"(52) 000-000-0000"`), entonces la URL empieza por
+  `https://wa.me/520000000000?text=`: el nÃºmero queda **solo con dÃ­gitos** (se eliminan `+`, espacios,
+  guiones y parÃ©ntesis).
+- **CA-9** â€” Dado un mensaje con espacios, tildes, `Ã±`, `Â¿?`, `&`, `#`, `/`, `=` y saltos de lÃ­nea,
+  cuando se construye la URL, entonces el valor tras `?text=` es exactamente
+  `encodeURIComponent(message)` (espacios como `%20`, no `+`), y tanto
+  `decodeURIComponent(<valor>)` como `new URL(url).searchParams.get("text")` devuelven el mensaje
+  original idÃ©ntico (legible, sin pÃ©rdida).
+- **CA-10** â€” Dada la URL construida, cuando se analiza con `new URL(...)`, entonces `protocol` es
+  `https:`, `hostname` es `wa.me`, `pathname` es `/<dÃ­gitos>` y el Ãºnico parÃ¡metro es `text`
+  (formato vÃ¡lido para app mÃ³vil y WhatsApp Web, CA-04.2/CA-04.4).
+- **CA-11** â€” Dado un nÃºmero sin ningÃºn dÃ­gito (p. ej. `""` o `"+ -"`), cuando se llama a
+  `buildWhatsAppUrl`, entonces lanza un `Error` (no devuelve una URL `https://wa.me/?text=â€¦` rota).
+- **CA-12** â€” Dados los datos reales del archivo, cuando se llama a
+  `buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message)`, entonces la URL es
+  `https://wa.me/520000000000?text=â€¦` y el texto decodificado menciona fecha, hora y personas
+  (CA-04.3).
+- **CA-13** â€” Dado el cÃ³digo fuente de `src/lib/whatsapp.ts`, cuando una prueba lo lee, entonces no
+  contiene el nÃºmero (`520000000000`/`000 000 0000`) ni el mensaje: los datos solo viven en
+  `business.ts` (D-00).
+
+### Puertas
+- **CA-14** â€” Dada la carpeta de trabajo, cuando se ejecuta `node scripts/verificar.mjs
+  proyectos/cafeteria-luna/.worktrees/T-20261114-002` desde la raÃ­z de la fÃ¡brica, entonces `lint`,
+  `typecheck`, `test` y `build` salen `ok` (ninguna `omitida`) y las pruebas existentes de
+  `src/project.test.ts` siguen pasando sin modificarse.
+
+## Plan
+1. **TDD â€” enlace**: crear `src/lib/whatsapp.test.ts` con CA-8 a CA-11 y CA-13 (fallan: el mÃ³dulo no
+   existe).
+2. Crear `src/lib/whatsapp.ts`: `export function buildWhatsAppUrl(number: string, message: string):
+   string` â†’ `number.replace(/\D/g, "")`, `Error` si queda vacÃ­o, devuelve
+   `` `https://wa.me/${digits}?text=${encodeURIComponent(message)}` ``. Sin importar `business`.
+3. **TDD â€” datos**: crear `src/data/business.test.ts` con CA-1 a CA-6 (CA-1 lee el fuente con
+   `node:fs` resolviendo la ruta con `import.meta.url`, como `project.test.ts`) y aÃ±adir CA-12 a
+   `whatsapp.test.ts` importando `business`.
+4. Crear `src/data/business.ts`: comentario de cabecera (ficticios, D-00, "sustituir solo este
+   archivo"); tipos exportados `MenuItem`, `DayHours` (uniÃ³n `OpenDay | ClosedDay`, con
+   `closed?: never`/`open?: never` para que sea excluyente), `Business`; constante
+   `export const business: Business = { â€¦ }` con valores de ejemplo: nombre, eslogan, `es-MX`/`MXN`,
+   â‰¥3 bebidas y â‰¥3 postres con precio numÃ©rico en MXN, 7 dÃ­as (al menos uno cerrado, p. ej. lunes),
+   direcciÃ³n y coordenadas de ejemplo, `whatsapp: { number: "520000000000", message }` con un mensaje
+   en tuteo que pide fecha, hora y nÂº de personas.
+5. Ejecutar `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261114-002` hasta que
+   las cuatro puertas pasen (CA-14).
+
+Archivos nuevos: `src/data/business.ts`, `src/data/business.test.ts`, `src/lib/whatsapp.ts`,
+`src/lib/whatsapp.test.ts`. No debe cambiar ningÃºn otro archivo.
+
+## Fuera de alcance
+- Botones "Reservar mesa por WhatsApp", secciones (`src/sections/*`), cambios en `index.html` o
+  `src/main.ts` (CA-04.1, atributos `target`/`rel`/`aria-label`: tareas de portada y reservar).
+- `src/lib/formatPrice.ts` (D-06) y `src/lib/maps.ts` (URLs de mapa y "CÃ³mo llegar").
+- Datos reales del negocio: siguen abiertos en `huecos.md` (eslogan, menÃº, moneda, horario, direcciÃ³n,
+  nÃºmero de WhatsApp, texto exacto del mensaje, coordenadas). No se inventan como si fueran reales.
+- Aviso de "datos de ejemplo" en el pie (lo pinta la tarea del pie a partir de D-00).
+- AlÃ©rgenos/opciones del menÃº, festivos, redes sociales (huecos abiertos).
+- Dependencias nuevas (no hacen falta: `encodeURIComponent` y `URL` son nativos).
+
+## Riesgos / zonas sensibles que toca
+- **Riesgo ALTO** (`zonas-sensibles.txt` y `arquitectura.md`): crea `src/data/business.ts` y
+  `src/lib/whatsapp.ts`. Un nÃºmero o mensaje errÃ³neo rompe el objetivo principal (reservas) y un
+  precio/horario/direcciÃ³n errÃ³neos engaÃ±an al cliente â†’ requiere **aprobaciÃ³n humana** en el cierre.
+- CodificaciÃ³n: usar `encodeURIComponent` sobre el mensaje completo (no `encodeURI`, no
+  `URLSearchParams`, que codifica espacios como `+`); no codificar dos veces.
+- Limpieza del nÃºmero: quitar el `+` y todo lo que no sea dÃ­gito; `wa.me` no admite `+`, espacios ni
+  guiones, y un `0` inicial de larga distancia no se aÃ±ade.
+- Datos ficticios con apariencia real: deben ser obviamente de ejemplo (nÃºmero `000 000 0000`,
+  comentario de cabecera) para que no se publique por error (D-00).
+- TypeScript estricto: usar `import type` para los tipos (`verbatimModuleSyntax`); no relajar
+  `tsconfig.json` ni reglas de ESLint para pasar las puertas.
+
+codex
+REVISOR: ux
+VEREDICTO: NO_APLICA
+tokens used
+16.521
+REVISOR: ux
+VEREDICTO: NO_APLICA

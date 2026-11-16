@@ -1,0 +1,4 @@
+# Cada app es su propio repositorio git; la fábrica versiona brain, bandeja y tareas.
+proyectos/*/app/
+proyectos/*/.worktrees/
+node_modules/

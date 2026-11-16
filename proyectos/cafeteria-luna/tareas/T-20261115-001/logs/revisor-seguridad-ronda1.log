@@ -1,0 +1,2400 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones\revisor-seguridad-ronda1.md -m gpt-6.1-sol -c model_reasoning_effort="high" -s workspace-write -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **revisor de seguridad**. No escribiste este código. Busca cómo podría romperse o abusarse.
+
+## Qué miras
+Obtén el cambio con `git -C <carpeta de trabajo> diff main...HEAD` (y `--stat`). Revisa:
+- Secretos o claves en el código, `.env` versionado, credenciales en logs.
+- Inyección (SQL, HTML/XSS, comandos), validación de entradas en formularios y APIs.
+- Autenticación y autorización: ¿alguien puede ver o cambiar lo que no debe? Reglas RLS si hay Supabase.
+- Dependencias nuevas: ¿son conocidas y necesarias? (`npm audit --omit=dev` si hay package.json).
+- Datos personales: qué se recoge, dónde se guarda, si se expone.
+- Enlaces externos sin `rel="noopener"`, CORS abierto, cabeceras inseguras.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: seguridad
+VEREDICTO: OK | CAMBIOS
+Hallazgos (de más a menos grave):
+1. [CRÍTICO|ALTO|MEDIO|BAJO] archivo:línea — problema — cómo se explota — qué se espera
+```
+Sin hallazgos → `VEREDICTO: OK` y "Sin hallazgos". No inventes problemas para parecer útil.
+Bash/PowerShell solo para leer y ejecutar comprobaciones; nunca para modificar archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-001 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-001): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-001
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 01a1dd13-12e4-72e0-936c-8f45ca10e7eb
+--------
+user
+Eres el **revisor de seguridad**. No escribiste este código. Busca cómo podría romperse o abusarse.
+
+## Qué miras
+Obtén el cambio con `git -C <carpeta de trabajo> diff main...HEAD` (y `--stat`). Revisa:
+- Secretos o claves en el código, `.env` versionado, credenciales en logs.
+- Inyección (SQL, HTML/XSS, comandos), validación de entradas en formularios y APIs.
+- Autenticación y autorización: ¿alguien puede ver o cambiar lo que no debe? Reglas RLS si hay Supabase.
+- Dependencias nuevas: ¿son conocidas y necesarias? (`npm audit --omit=dev` si hay package.json).
+- Datos personales: qué se recoge, dónde se guarda, si se expone.
+- Enlaces externos sin `rel="noopener"`, CORS abierto, cabeceras inseguras.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: seguridad
+VEREDICTO: OK | CAMBIOS
+Hallazgos (de más a menos grave):
+1. [CRÍTICO|ALTO|MEDIO|BAJO] archivo:línea — problema — cómo se explota — qué se espera
+```
+Sin hallazgos → `VEREDICTO: OK` y "Sin hallazgos". No inventes problemas para parecer útil.
+Bash/PowerShell solo para leer y ejecutar comprobaciones; nunca para modificar archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-001 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-001): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-001
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Leeré las reglas de la fábrica y el contexto de la tarea, y después revisaré el diff y ejecutaré las comprobaciones de seguridad aplicables sin modificar archivos.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\CLAUDE.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+ succeeded in 4336ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+entrada â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\.claude\\agents' | Select-Object Name; Get-Content -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\index.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+ succeeded in 4685ms:
+
+Name                  
+----                  
+analista.md           
+aprobador.md          
+arquitecto.md         
+clasificador-riesgo.md
+constructor.md        
+disenador.md          
+revisor-codigo.md     
+revisor-seguridad.md  
+revisor-ui.md         
+revisor-ux.md         
+spec-writer.md        
+# Brain â€” Ã­ndice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | LÃ©elo cuandoâ€¦ |
+|---|---|---|
+| `vision.md` | Problema, pÃºblico, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar cÃ³digo |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por quÃ© (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavÃ­a NO sabe | te falte informaciÃ³n |
+| `log.md` | Historial de tareas cerradas | quieras saber quÃ© se hizo |
+
+## CÃ³mo se mantiene
+- DecisiÃ³n nueva â†’ entrada en `decisiones.md` (con fecha y tarea que la originÃ³).
+- Duda que nadie resolviÃ³ â†’ `huecos.md`. No inventes la respuesta.
+- Tarea cerrada â†’ entrada en `log.md`.
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\.claude\\agents\\revisor-seguridad.md'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\decisiones.md'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\arquitectura.md'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261115-001\\spec.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "git -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' status --short; git -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' diff main...HEAD --stat; git -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' diff main...HEAD" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+ succeeded in 3126ms:
+---
+name: revisor-seguridad
+description: Revisor 1 de 4. Revisa con contexto limpio la seguridad del cambio de una tarea. Solo dictamina; nunca edita código.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: opus
+---
+
+Eres el **revisor de seguridad**. No escribiste este código. Busca cómo podría romperse o abusarse.
+
+## Qué miras
+Obtén el cambio con `git -C <carpeta de trabajo> diff main...HEAD` (y `--stat`). Revisa:
+- Secretos o claves en el código, `.env` versionado, credenciales en logs.
+- Inyección (SQL, HTML/XSS, comandos), validación de entradas en formularios y APIs.
+- Autenticación y autorización: ¿alguien puede ver o cambiar lo que no debe? Reglas RLS si hay Supabase.
+- Dependencias nuevas: ¿son conocidas y necesarias? (`npm audit --omit=dev` si hay package.json).
+- Datos personales: qué se recoge, dónde se guarda, si se expone.
+- Enlaces externos sin `rel="noopener"`, CORS abierto, cabeceras inseguras.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: seguridad
+VEREDICTO: OK | CAMBIOS
+Hallazgos (de más a menos grave):
+1. [CRÍTICO|ALTO|MEDIO|BAJO] archivo:línea — problema — cómo se explota — qué se espera
+```
+Sin hallazgos → `VEREDICTO: OK` y "Sin hallazgos". No inventes problemas para parecer útil.
+Bash/PowerShell solo para leer y ejecutar comprobaciones; nunca para modificar archivos.
+# Decisiones
+
+Lo que está aquí ya se decidió. No se rediscute sin una decisión humana nueva.
+
+<!--
+## D-01 · <título> (AAAA-MM-DD · origen: T-xxxx)
+- Contexto:
+- Decisión:
+- Alternativas descartadas:
+- Consecuencias:
+-->
+
+## D-00 · Datos de negocio de ejemplo para la demo (2026-11-14 · origen: humano)
+- Contexto: los datos reales del negocio están en huecos.md y aún no se conocen.
+- Decisión: mientras tanto se usan datos ficticios claramente marcados (precios en MXN, horario y dirección de ejemplo, WhatsApp +52 000 000 0000). Se guardan en un único archivo de datos para sustituirlos fácilmente.
+- Consecuencias: el sitio no se publica hasta resolver los huecos que bloquean la publicación.
+
+## D-01 · Stack: Vite + TypeScript sin framework (2026-11-14 · origen: arquitecto)
+- Contexto: landing de una sola página, sin backend ni estado. `estandares/stack.md` indica para
+  sitios de una página "HTML + CSS + JS sin framework", y a la vez exige las puertas `lint`,
+  `typecheck`, `test` y `build` vía `npm run` en todo proyecto con `package.json`.
+- Decisión: **Vite** como servidor de desarrollo y build estático, con **TypeScript vanilla** (sin
+  framework de UI). Es lo mínimo que mantiene la regla "sin framework" y da las cuatro puertas.
+  TypeScript tipa el archivo de datos (D-00): al sustituir los datos ficticios por los reales, un
+  campo mal escrito falla en `typecheck` en vez de en producción.
+- Alternativas descartadas: HTML/CSS/JS sin `package.json` (`verificar.mjs` no ejecutaría ninguna
+  puerta y no habría TDD); Astro + Tailwind (más configuración y conceptos para una sola página);
+  Vite + React (framework innecesario: no hay interactividad); JS sin TypeScript (se perdería la
+  puerta `typecheck` y la validación del archivo de datos).
+- Consecuencias: el estándar de estilo "un componente por archivo en `PascalCase.tsx`" no aplica;
+  cada sección es un módulo `camelCase.ts` en `src/sections/` que devuelve un `HTMLElement`.
+
+## D-02 · Estilos con CSS plano y custom properties, sin Tailwind (2026-11-14 · origen: arquitecto)
+- Contexto: pocos estilos, una sola página y el objetivo de Lighthouse ≥ 90.
+- Decisión: CSS plano, mobile-first. Los tokens de `diseno.md` se declaran como custom properties en
+  `src/styles/tokens.css` y el resto de CSS solo usa `var(--…)`.
+- Alternativas descartadas: Tailwind CSS (dependencia y configuración extra para muy poco CSS).
+- Consecuencias: el **diseñador** entrega los tokens como bloque `:root { --… }` listo para copiar en
+  lugar del bloque `theme.extend` de Tailwind.
+
+## D-03 · Puertas de calidad (2026-11-14 · origen: arquitecto)
+- Decisión: `lint` = ESLint 9 (flat config) + typescript-eslint; `typecheck` = `tsc --noEmit`;
+  `test` = `vitest run` con entorno **jsdom**; `build` = `vite build`. Pruebas junto al código
+  (`*.test.ts`).
+- Alternativas descartadas: happy-dom (menos fiel para pruebas de accesibilidad); Playwright en las
+  puertas (pesado para esta fase; Lighthouse y el ancho de 375 px se verifican en la tarea 006).
+- Consecuencias: CA-05.3 (Lighthouse) no es automatizable en `npm run` y se verifica manualmente
+  sobre `npm run preview`, dejando el informe en el rastro de la tarea.
+
+## D-04 · Renderizado: esqueleto estático + datos pintados en cliente (2026-11-14 · origen: arquitecto)
+- Contexto: D-00 exige que todos los datos del negocio vivan en un único archivo.
+- Decisión: `index.html` contiene la estructura estática (landmarks, navegación, encabezados de
+  sección, textos fijos). `src/main.ts` lee `src/data/business.ts` y monta el contenido de cada
+  sección con funciones `datos → HTMLElement` que usan `textContent`/`setAttribute` (nunca
+  `innerHTML` con datos).
+- Alternativas descartadas: datos copiados en el HTML (rompe D-00); prerender en build con un plugin
+  de Vite (más complejo; queda como plan B si Lighthouse móvil baja de 90).
+- Consecuencias: sin JavaScript la página muestra la estructura pero no los datos; aceptable para el
+  público objetivo (móvil moderno).
+
+## D-05 · Integraciones sin claves: WhatsApp, OpenStreetMap y Google Maps URLs (2026-11-14 · origen: arquitecto)
+- Decisión: reserva con enlace `https://wa.me/<dígitos>?text=<mensaje codificado>`; mapa con iframe
+  de OpenStreetMap con marcador y `loading="lazy"`; "Cómo llegar" con
+  `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`.
+- Alternativas descartadas: iframe de Google Maps (más pesado y con cookies de terceros); API de
+  WhatsApp Business (innecesaria: no hay reservas propias, ver spec "No entra"); URI `geo:` (no
+  funciona en iOS ni escritorio).
+- Consecuencias: no hay secretos ni `.env`. Las coordenadas también son datos del negocio y van en
+  `business.ts` (hueco añadido en `huecos.md`).
+
+## D-06 · Formato de precio (2026-11-14 · origen: arquitecto, deriva de D-00)
+- Decisión: los precios se guardan como número y se formatean en un único sitio
+  (`src/lib/formatPrice.ts`) con `Intl.NumberFormat(business.locale, { style: "currency",
+  currency: business.currency })`; hoy `es-MX` / `MXN`.
+- Consecuencias: si el hueco de moneda se resuelve con otra moneda, solo cambian `locale` y
+  `currency` en `business.ts`.
+
+## D-07 · Versiones y TypeScript estricto (2026-11-14 · origen: T-20261114-001)
+- Decisión: vite 7 + vitest 3 + typescript 5 + eslint 9 (por compatibilidad con typescript-eslint 8), versiones fijadas en package-lock.json; instalar con `npm ci`. tsconfig añade noUnusedLocals, noUnusedParameters, noFallthroughCasesInSwitch, verbatimModuleSyntax e isolatedModules sobre `strict`.
+- Pendiente de decisión humana: pasar a ESLint 10 (npm avisa que la 9 ya no tiene soporte).
+
+## D-08 · Cabecera, foco y botón de WhatsApp (2026-11-15 · origen: T-20261115-001)
+- Decisión: por debajo de 768 px la cabecera sticky ocupa dos filas (marca a `--header-height`,
+  navegación a `--tap-min`); `scroll-margin-top` y la altura de la portada restan
+  `header-height + tap-min` en móvil y solo `header-height` desde 768 px.
+- El hover del botón de WhatsApp lo oscurece ~10 % con
+  `color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text))`; su altura mínima es `var(--space-7)` (48 px).
+- `main#contenido` lleva `tabindex="-1"` sin contorno de foco, para que "Saltar al contenido" mueva
+  el foco sin dibujar un anillo alrededor de toda la página.
+- Pendiente: `main.css` mide 317 líneas (guía ~200); dividirlo en la tarea 006.
+# Arquitectura
+
+Landing de una sola página, estática, sin backend. Ver decisiones D-01 a D-06.
+
+## Stack
+- **Vite** (servidor de desarrollo + build estático a `dist/`) con **TypeScript** "vanilla": sin
+  framework de UI (D-01).
+- **CSS plano** con custom properties (tokens de `diseno.md`); sin Tailwind (D-02).
+- **Calidad** (D-03): ESLint 9 (flat config) + typescript-eslint · `tsc --noEmit` · Vitest + jsdom.
+- Sin dependencias de producción: todo lo instalado es `devDependencies`.
+- Node LTS actual; versiones fijadas en `package-lock.json`.
+
+## Estructura de `app/`
+```
+app/
+├── index.html              # Esqueleto semántico estático (lang="es"): header+nav, <main> con las
+│                           # secciones (id + <h2>), contenedores vacíos para los datos, footer.
+├── package.json            # scripts: dev, lint, typecheck, test, build, preview
+├── package-lock.json
+├── tsconfig.json
+├── vite.config.ts          # build + bloque `test` de Vitest (environment: jsdom)
+├── eslint.config.js
+├── public/                 # favicon e imágenes estáticas (si las hay)
+└── src/
+    ├── main.ts             # Punto de entrada: importa estilos y monta cada sección en su contenedor
+    ├── data/
+    │   └── business.ts     # ÚNICO archivo de datos del negocio (D-00), tipado y marcado como ficticio
+    ├── lib/                # Funciones puras, sin DOM
+    │   ├── formatPrice.ts  # número → texto con moneda (Intl.NumberFormat)
+    │   ├── whatsapp.ts     # número + mensaje → URL wa.me
+    │   └── maps.ts         # coordenadas → URL de "Cómo llegar" y URL del mapa embebido
+    ├── sections/           # Una función por sección: datos → HTMLElement (DOM API)
+    │   ├── hero.ts         # Portada: nombre, eslogan, botón WhatsApp
+    │   ├── menu.ts         # Menú: Bebidas y Postres
+    │   ├── location.ts     # Horario y ubicación: tabla de horario, dirección, mapa, "Cómo llegar"
+    │   └── reserve.ts      # Reservar: texto + botón WhatsApp
+    └── styles/
+        ├── tokens.css      # Tokens de diseno.md como custom properties en :root
+        └── main.css        # Estilos base, layout mobile-first, componentes
+```
+- Pruebas **junto al código**: `src/**/<modulo>.test.ts`. Las pruebas de estructura de la página
+  leen `index.html` y lo cargan en jsdom.
+- Nombres de código en inglés; textos visibles en español (estándar de estilo).
+- Archivos de más de ~200 líneas se dividen.
+
+## Rutas / páginas
+Una sola ruta: `/` (`index.html`). Navegación interna por anclas, en este orden:
+
+| Ancla | Sección | Contenido |
+|---|---|---|
+| `#inicio` | Portada | Nombre "Cafetería Luna", eslogan, botón "Reservar mesa por WhatsApp" |
+| `#menu` | Menú | Grupos "Bebidas" y "Postres"; producto = nombre + precio |
+| `#horario` | Horario y ubicación | Horario lunes→domingo (incl. cierres), dirección, mapa, "Cómo llegar" |
+| `#reservar` | Reservar | Texto breve + botón "Reservar mesa por WhatsApp" |
+| — | Pie | Nombre, dirección corta, aviso de datos de ejemplo mientras rija D-00 |
+
+La cabecera con la navegación (Menú · Horario y ubicación · Reservar) es **fija/sticky**, de modo
+que es accesible desde cualquier punto de la página (CA-01.3).
+
+## Datos e integraciones
+### Datos (`src/data/business.ts`)
+Constante tipada `business` con: `name`, `slogan`, `locale` (`es-MX`), `currency` (`MXN`),
+`menu` (`drinks[]`, `desserts[]` de `{ name, price }`), `hours` (7 entradas lunes→domingo,
+`{ day, open, close } | { day, closed: true }`), `address` (texto completo), `coordinates`
+(`{ lat, lng }`), `whatsapp` (`{ number: "520000000000", message }`).
+- Mientras rija D-00 los valores son **ficticios** y el archivo lo dice en un comentario de cabecera.
+- Sustituir los datos reales = editar solo este archivo. Ningún otro módulo contiene datos del negocio.
+
+### Integraciones (todas sin claves ni `.env`)
+| Integración | Cómo | CA |
+|---|---|---|
+| WhatsApp | Enlace `https://wa.me/<número solo dígitos>?text=<mensaje con encodeURIComponent>`. Abre la app en móvil y WhatsApp Web/página de WhatsApp en escritorio. | CA-04.2–04.4 |
+| Mapa | `<iframe>` de OpenStreetMap (`export/embed.html` con `bbox` y `marker`), `loading="lazy"`, con `title` accesible. | CA-03.3 |
+| Cómo llegar | Enlace `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`: abre la app de mapas en móvil o la web en escritorio. | CA-03.4 |
+
+### Reglas de implementación
+- Los datos se insertan en el DOM **solo** con `textContent` / `setAttribute`; prohibido `innerHTML`
+  con datos.
+- Enlaces externos: `target="_blank"` + `rel="noopener noreferrer"` y un nombre accesible que indique
+  el propósito (p. ej., `aria-label` del botón de WhatsApp).
+- No se recogen datos personales; sin formularios, cookies propias ni analítica (hueco abierto).
+- Rendimiento (Lighthouse móvil ≥ 90): sin librerías de UI, mapa diferido (`loading="lazy"`), imágenes
+  con `width`/`height` y formatos modernos, fuentes con `font-display: swap` y como mucho 2 familias.
+
+## Zonas sensibles (riesgo ALTO: requieren aprobación humana)
+Además de lo que ya detecta `scripts/riesgo.mjs` (dependencias, configuración de build):
+- `src/data/business.ts` — un número o un mensaje de WhatsApp erróneo rompe el objetivo principal de
+  negocio (reservas) sin que falle ninguna prueba; un precio, horario o dirección erróneos engañan al
+  cliente. Cualquier cambio exige revisión humana.
+- `src/lib/whatsapp.ts` y los botones de reserva (`src/sections/hero.ts`, `src/sections/reserve.ts`) —
+  es el embudo de conversión: si la URL se construye mal, no entra ninguna reserva.
+- `index.html` y `src/main.ts` — si el esqueleto o el montaje fallan, la página queda en blanco.
+- `package.json`, `package-lock.json`, `vite.config.ts`, `tsconfig.json`, `eslint.config.js` —
+  dependencias y build (ya cubiertos por el script).
+- Cualquier recurso de terceros nuevo (iframes, scripts, fuentes externas) — afecta a privacidad y
+  rendimiento.
+
+## Cómo ejecutar
+- Instalar: `npm install` (dentro de `app/` o del worktree)
+- Desarrollo: `npm run dev`
+- Previsualizar el build: `npm run build && npm run preview`
+- Puertas: `node scripts/verificar.mjs <carpeta>` (desde la raíz de la fábrica) → `lint`, `typecheck`,
+  `test`, `build`
+- Lighthouse (CA-05.3, manual): auditoría móvil sobre `npm run preview`.
+
+## Hosting
+Estático (`dist/`) en Vercel o Netlify, **solo cuando el humano lo pida** y con los huecos de
+contenido resueltos (D-00). Dominio: pendiente (`huecos.md`).
+# T-20261115-001 · Esqueleto de la página, navegación, portada y sección Reservar
+Tipo: tarea      Toca interfaz: sí      Texto visible para el usuario: sí
+
+Cubre de `brain/spec.md`: CA-01.1, CA-01.2, CA-01.3 y CA-04.1 (y la parte de botón de CA-04.2 a
+CA-04.4: la URL ya existe desde T-20261114-002; aquí se usa en los dos botones).
+
+## Contexto (qué dice el brain que importa aquí)
+- **D-04**: `index.html` tiene la estructura estática (landmarks, navegación, encabezados de sección,
+  textos fijos). `src/main.ts` lee `src/data/business.ts` y monta cada sección con funciones
+  `datos → HTMLElement` que usan solo `textContent`/`setAttribute` (**nunca** `innerHTML` con datos).
+  Sin JavaScript se ve la estructura pero no los datos (aceptado).
+- **D-00**: el nombre, el eslogan, el número y el mensaje de WhatsApp viven **solo** en
+  `src/data/business.ts` (valores ficticios). `hero.ts` y `reserve.ts` los reciben como parámetros,
+  no los importan ni los copian. Excepción ya existente: el nombre "Cafetería Luna" es la marca fijada
+  en `vision.md` (no es un hueco) y ya está estático en `<title>`; también puede ir estático en la
+  cabecera y el pie.
+- **D-05 / T-20261114-002**: la URL de reserva la construye `buildWhatsAppUrl(number, message)`
+  (`src/lib/whatsapp.ts`). `main.ts` la calcula **una vez** con `business.whatsapp` y la pasa a portada
+  y Reservar, así los dos botones apuntan exactamente a la misma URL.
+- **D-01**: cada sección es un módulo `camelCase.ts` en `src/sections/` que devuelve un `HTMLElement`.
+- **D-02**: CSS plano mobile-first; el bloque "Tokens CSS" de `diseno.md` va **tal cual** en
+  `src/styles/tokens.css`; `main.css` solo usa `var(--…)` (nada de colores ni tamaños a mano,
+  `estandares/estilo-codigo.md`).
+- **D-03**: Vitest + jsdom; pruebas junto al código. jsdom no calcula layout: lo que depende del
+  pintado real (que quepa sin scroll a 375 px, alto táctil) se comprueba a mano y queda en el rastro
+  (igual que D-03 hace con Lighthouse).
+- **arquitectura.md → Rutas**: anclas `#inicio`, `#menu`, `#horario`, `#reservar`, en ese orden;
+  cabecera **sticky** con navegación Menú · Horario y ubicación · Reservar (CA-01.3); pie con nombre
+  y aviso de datos de ejemplo mientras rija D-00. Enlaces externos con `target="_blank"` +
+  `rel="noopener noreferrer"` y nombre accesible que indique el propósito.
+- **diseno.md**: botón variante `whatsapp` (fondo `--color-whatsapp`, texto `--color-on-whatsapp`,
+  `min-height: 48px`, `--radius-pill`, peso 700, icono de chat decorativo a la izquierda con
+  `aria-hidden`, ancho completo en móvil); cabecera sticky (`--header-height`, fondo `--color-surface`,
+  borde inferior `--color-border`, nombre en Fraunces 700, enlaces `ghost` de 44 px de alto, sin scroll
+  horizontal a 375 px: si no caben, la nav pasa a una segunda fila); `scroll-margin-top` en las
+  secciones para que el ancla no quede tapada; enlace "Saltar al contenido" visible al recibir foco;
+  portada con `min-height: calc(100svh - <alto de cabecera>)` que muestra nombre, eslogan y botón sin
+  scroll; foco `outline: 3px solid var(--color-focus); outline-offset: 3px` (nunca sobre `primary`);
+  transiciones ≤ 150 ms desactivadas con `prefers-reduced-motion: reduce`; secciones alternando fondos
+  `bg`/`surface`; pie con `--color-footer-bg`/`--color-footer-text`, texto `--text-sm`.
+- **vision.md**: tuteo, frases cortas, tono cercano y cálido. `locale` es `es-MX` (evitar "vosotros").
+- **Estado del código (main = worktree)**: `index.html` mínimo (solo `<head>` y el `<script>`),
+  `src/main.ts` solo importa los CSS, `tokens.css` y `main.css` vacíos, `src/data/business.ts` y
+  `src/lib/whatsapp.ts` ya integrados. No existe `src/sections/`. `src/project.test.ts` (de
+  T-20261114-001) tiene dos pruebas que fijaban el estado **anterior** y que esta tarea vuelve
+  obsoletas a propósito: "CA-4: index.html has no section content yet" y la parte de "CA-5" que exige
+  `tokens.css`/`main.css` sin reglas. Deben sustituirse (ver CA-13); no es desactivar pruebas para
+  pasar puertas, es que describían otra fase.
+
+## Objetivo
+Que la página tenga su esqueleto semántico completo (cabecera sticky con navegación, `<main>` con
+las cuatro secciones, pie), una portada que muestre de inmediato el nombre, el eslogan y el botón
+"Reservar mesa por WhatsApp", y una sección Reservar con un texto breve y el mismo botón; todo con los
+tokens de `diseno.md`. Menú y Horario quedan como secciones con su `<h2>` y sin contenido (tareas 004
+y 005).
+
+## Textos visibles (exactos)
+| Dónde | Texto |
+|---|---|
+| Enlace de salto (visible al enfocarlo) | `Saltar al contenido` |
+| Marca en la cabecera (enlace a `#inicio`) | `Cafetería Luna` |
+| Navegación | `Menú` · `Horario y ubicación` · `Reservar` |
+| `<h2>` de las secciones | `Menú` · `Horario y ubicación` · `Reservar` |
+| Portada `<h1>` y eslogan | `business.name` y `business.slogan` (de los datos, no se escriben a mano) |
+| Botón (portada y Reservar) | `Reservar mesa por WhatsApp` |
+| Nombre accesible del botón (`aria-label`) | `Reservar mesa por WhatsApp (se abre en una pestaña nueva)` |
+| Texto de la sección Reservar | `¿Quieres asegurar tu mesa? Escríbenos por WhatsApp con la fecha, la hora y cuántas personas vienen. Te respondemos para confirmarla.` |
+| Pie | `Cafetería Luna` y el aviso `Página de demostración: el eslogan, el menú, los precios, el horario, la dirección y el número de WhatsApp son datos de ejemplo.` |
+
+## Criterios de aceptación
+### Esqueleto (`index.html`; pruebas que cargan `index.html` en jsdom)
+- **CA-1** — Dado `index.html`, cuando se carga, entonces conserva el `<head>` actual (`lang="es"`,
+  `<title>Cafetería Luna</title>`, charset UTF-8, viewport y `<script type="module" src="/src/main.ts">`)
+  y los hijos del `<body>` (sin contar el `<script>`) son, en este orden, exactamente un `<header>`,
+  un `<main id="contenido">` y un `<footer>`.
+- **CA-2** — Dado `<main>`, cuando se recorren sus hijos `<section>`, entonces son exactamente cuatro,
+  en este orden, con `id` `inicio`, `menu`, `horario` y `reservar`; `#menu`, `#horario` y `#reservar`
+  contienen cada una un `<h2>` estático con el texto `Menú`, `Horario y ubicación` y `Reservar`
+  respectivamente, y cada sección tiene `aria-labelledby` que apunta al `id` de su encabezado
+  (`#inicio` apunta al `<h1>` que crea `hero.ts`, ver CA-7). En `index.html` no hay ningún `<h1>`
+  (lo pone la portada con los datos).
+- **CA-3** — Dado el `<header>`, cuando se lee, entonces contiene: (a) como **primer elemento
+  enfocable del `<body>`** un enlace `Saltar al contenido` con `href="#contenido"`; (b) un enlace con
+  el texto `Cafetería Luna` y `href="#inicio"` (no es un encabezado); (c) un `<nav>` con
+  `aria-label="Principal"` que contiene exactamente tres enlaces, en este orden, con texto `Menú`,
+  `Horario y ubicación`, `Reservar` y `href` `#menu`, `#horario`, `#reservar`.
+- **CA-4** — Dado cada enlace interno del documento (`href` que empieza por `#`), cuando se resuelve
+  su destino, entonces existe en el documento un elemento con ese `id` (ningún ancla rota).
+- **CA-5** — Dado el `<footer>`, cuando se lee, entonces contiene el texto `Cafetería Luna` y el aviso
+  exacto de la tabla "Textos visibles" (D-00).
+
+### Botón de reserva (`src/sections/reserve.ts`; pruebas en `src/sections/reserve.test.ts`)
+- **CA-6** — Dada `createReserveButton(url)` exportada desde `reserve.ts`, cuando se llama con una URL
+  `https://wa.me/…`, entonces devuelve un `<a>` con: `href` igual a esa URL; texto visible exacto
+  `Reservar mesa por WhatsApp`; `aria-label` exacto
+  `Reservar mesa por WhatsApp (se abre en una pestaña nueva)` (empieza por el texto visible);
+  `target="_blank"`; `rel` que contiene `noopener` y `noreferrer`; un icono `<svg>` decorativo creado
+  con la API DOM, con `aria-hidden="true"` y `focusable="false"`, colocado antes del texto; y la clase
+  de la variante `whatsapp` del botón. Si la URL no empieza por `https://wa.me/` (p. ej.
+  `javascript:alert(1)` o `""`), lanza un `Error` en lugar de crear el enlace.
+
+### Portada (`src/sections/hero.ts`; pruebas en `src/sections/hero.test.ts`)
+- **CA-7** — Dada la función de portada (p. ej. `renderHero({ name, slogan }, reserveUrl)`), cuando se
+  llama con datos de prueba, entonces devuelve un elemento cuyo **primer** hijo es un `<h1>` con el
+  `name` recibido (y el `id` al que apunta `aria-labelledby` de `#inicio`), seguido de un `<p>` con el
+  `slogan` y después el botón de CA-6 con `href === reserveUrl`; no hay ningún otro contenido antes
+  del botón.
+- **CA-8** — Dado un `name` o `slogan` que contiene HTML (p. ej. `<img src=x onerror=alert(1)>`), cuando
+  se pinta la portada, entonces aparece como texto literal y no se crea ningún elemento `<img>`
+  (prueba de que se usa `textContent`).
+
+### Sección Reservar (`src/sections/reserve.ts`; pruebas en `src/sections/reserve.test.ts`)
+- **CA-9** — Dada la función de la sección Reservar (p. ej. `renderReserve(reserveUrl)`), cuando se
+  llama, entonces devuelve un elemento con un `<p>` con el texto exacto de la tabla "Textos visibles"
+  seguido del botón de CA-6 con `href === reserveUrl`.
+
+### Montaje (`src/main.ts`; pruebas en `src/main.test.ts`)
+- **CA-10** — Dado el `<body>` de `index.html` cargado en jsdom, cuando se ejecuta el montaje de
+  `main.ts`, entonces: `#inicio` contiene el `<h1>` con `business.name` y el eslogan
+  `business.slogan`; `#reservar` contiene, después de su `<h2>`, el texto de Reservar y el botón; la
+  página tiene **exactamente un** `<h1>`; y hay **exactamente dos** enlaces `Reservar mesa por WhatsApp`
+  (uno en `#inicio`, otro en `#reservar`), ambos con `href` idéntico a
+  `buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message)` (que empieza por
+  `https://wa.me/520000000000?text=` y cuyo texto decodificado menciona fecha, hora y personas).
+- **CA-11** — Dado un documento al que le falta un contenedor de montaje (p. ej. sin `#reservar`),
+  cuando se ejecuta el montaje, entonces lanza un `Error` cuyo mensaje nombra el selector que falta
+  (fallo visible en vez de una página a medias en silencio).
+- **CA-12** — Dado el código fuente de `src/main.ts`, `src/sections/hero.ts` y
+  `src/sections/reserve.ts`, cuando una prueba lo lee, entonces no contiene `innerHTML`,
+  `outerHTML` ni `insertAdjacentHTML`; y `hero.ts`/`reserve.ts` no contienen el eslogan, el número
+  (`520000000000`) ni el mensaje de WhatsApp ni importan `business` (los datos llegan por parámetro,
+  D-00).
+
+### Estilos (`src/styles/*.css`; pruebas que leen los archivos)
+- **CA-13** — Dado `src/project.test.ts`, cuando se actualiza, entonces "CA-4" pasa a comprobar el
+  esqueleto nuevo (o se elimina en favor de CA-1/CA-2 de esta tarea) y "CA-5" sigue comprobando que
+  existen `src/main.ts`, `tokens.css` y `main.css` pero ya **no** exige que estén vacíos; el resto de
+  pruebas de ese archivo (CA-1, CA-2, CA-3, CA-6, CA-7) no se modifica y pasa.
+- **CA-14** — Dado `src/styles/tokens.css`, cuando una prueba lo lee, entonces declara en `:root`
+  todas las custom properties del bloque "Tokens CSS" de `diseno.md` con sus valores exactos (como
+  mínimo comprobados: los 18 `--color-*`, `--font-heading`, `--font-body`, `--text-xs`…`--text-3xl`,
+  `--space-1`…`--space-8`, `--tap-min: 44px` y `--header-height: 56px`) y un bloque
+  `@media (min-width: 768px)` que redefine `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl`,
+  `--text-3xl`, `--gutter` y `--header-height: 64px`.
+- **CA-15** — Dado `src/styles/main.css`, cuando una prueba lo lee (sin comentarios), entonces: no
+  contiene literales de color (`#` hexadecimal, `rgb(`, `rgba(`, `hsl(`); la regla de la cabecera
+  tiene `position: sticky` y `top: 0`; las secciones tienen `scroll-margin-top` basado en
+  `var(--header-height)`; hay una regla `:focus-visible` que usa `var(--color-focus)`; y hay un bloque
+  `@media (prefers-reduced-motion: reduce)`.
+
+### Comprobación manual (jsdom no pinta; se deja en `build-rondaN.md`)
+- **CA-16** — Dado `npm run dev` en un viewport de **375×667** (DevTools), cuando se carga la página,
+  entonces: (a) se ven el nombre, el eslogan y el botón `Reservar mesa por WhatsApp` sin hacer scroll
+  (CA-01.1, CA-01.2); (b) no hay scroll horizontal y la cabecera no se corta; (c) al pulsar cada
+  enlace de la navegación la página llega a su sección y el `<h2>` queda visible, no tapado por la
+  cabecera sticky, que sigue arriba (CA-01.3); (d) los enlaces de la navegación y los botones miden
+  al menos 44 px de alto y los botones ocupan el ancho del contenedor; (e) con el teclado, `Tab`
+  muestra primero "Saltar al contenido" y el foco se ve con el anillo azul en todos los enlaces; (f)
+  el botón abre `wa.me` en una pestaña nueva con el mensaje pre-rellenado legible. El constructor
+  anota el resultado de cada punto (y una captura si puede) en `build-rondaN.md`.
+
+### Puertas
+- **CA-17** — Dada la carpeta de trabajo, cuando se ejecuta `node scripts/verificar.mjs
+  proyectos/cafeteria-luna/.worktrees/T-20261115-001` desde la raíz de la fábrica, entonces `lint`,
+  `typecheck`, `test` y `build` salen `ok` (ninguna `omitida`), y las pruebas de
+  `src/data/business.test.ts` y `src/lib/whatsapp.test.ts` pasan sin modificarse.
+
+## Plan
+1. **TDD — estructura**: en un `src/page.test.ts` (o similar) escribir CA-1 a CA-5 leyendo
+   `index.html` como hace `project.test.ts`; actualizar en `src/project.test.ts` solo "CA-4" y "CA-5"
+   (CA-13). Fallan.
+2. Escribir el esqueleto en `index.html`: `<header>` (salto, marca, `<nav aria-label="Principal">`),
+   `<main id="contenido">` con `section#inicio` (vacía, `aria-labelledby="inicio-titulo"`),
+   `section#menu`, `section#horario` y `section#reservar` con su `<h2 id="…-titulo">` estático, y
+   `<footer>` con nombre y aviso. Sin `<h1>`. Mantener el `<head>` intacto.
+3. **TDD — botón y secciones**: `src/sections/reserve.test.ts` (CA-6, CA-9) y
+   `src/sections/hero.test.ts` (CA-7, CA-8). Implementar `src/sections/reserve.ts`
+   (`createReserveButton(url)` con validación `https://wa.me/`, icono SVG con `createElementNS`, y
+   `renderReserve(url)`) y `src/sections/hero.ts` (`renderHero({ name, slogan }, url)`, que reutiliza
+   `createReserveButton` importándolo de `reserve.ts`: un solo sitio construye el botón).
+4. **TDD — montaje**: `src/main.test.ts` (CA-10, CA-11, CA-12). Sugerencia: `main.ts` exporta una
+   función `mount(doc: Document)` que busca `#inicio` y `#reservar` (Error con el selector si falta),
+   calcula `buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message)` una vez y añade
+   `renderHero(...)` a `#inicio` y `renderReserve(...)` tras el `<h2>` de `#reservar`; al final del
+   módulo se llama con `document`. Ojo: si el montaje se ejecuta al importar, la prueba debe cargar el
+   `<body>` de `index.html` en `document` **antes** de `await import("./main")` (y `vi.resetModules()`
+   entre casos). Se mantienen los imports de CSS en el orden actual.
+5. **TDD — estilos**: pruebas de CA-14 y CA-15; copiar el bloque "Tokens CSS" de `diseno.md` tal cual
+   en `tokens.css`; escribir en `main.css` (mobile-first, solo `var(--…)`): base (`body` con
+   `--font-body`, `--color-bg`, `--leading-body`; títulos con `--font-heading`), contenedor
+   (`--container-max`, `--gutter`), enlace de salto oculto hasta el foco, cabecera sticky (si la nav no
+   cabe en una fila a 375 px pasa a una segunda; entonces `scroll-margin-top` y el `min-height` de la
+   portada deben descontar el alto real, p. ej. `calc(var(--header-height) + var(--tap-min))` en móvil
+   y `var(--header-height)` desde 768 px), enlaces `ghost` de 44 px, secciones alternando `bg`/`surface`
+   con `padding-block` `--space-7`/`--space-8`, portada a alto de pantalla, botón base + variante
+   `whatsapp` (hover ~10 % más oscuro sin color a mano, p. ej. `filter: brightness(.9)` o
+   `color-mix` con tokens), ancho completo en móvil, `:focus-visible` con el anillo de `diseno.md`
+   (en el pie, anillo en `--color-secondary`), pie, y `prefers-reduced-motion`.
+6. Comprobación manual CA-16 a 375×667 y anotarla en `build-rondaN.md`.
+7. `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261115-001` hasta que las
+   cuatro puertas pasen (CA-17).
+
+Archivos que cambian: `index.html`, `src/main.ts`, `src/styles/tokens.css`, `src/styles/main.css`,
+`src/project.test.ts` (solo CA-4/CA-5). Nuevos: `src/sections/hero.ts`, `src/sections/reserve.ts`,
+sus `*.test.ts`, `src/main.test.ts` y la prueba de estructura de página. No deben cambiar
+`src/data/business.ts`, `src/lib/whatsapp.ts`, `package.json`, `package-lock.json` ni la
+configuración (`vite.config.ts`, `tsconfig.json`, `eslint.config.js`).
+
+## Fuera de alcance
+- Contenido de Menú (`menu.ts`, `formatPrice.ts`: tarea 004) y de Horario y ubicación (`location.ts`,
+  `maps.ts`, mapa, "Cómo llegar": tarea 005). Aquí esas secciones solo llevan su `<h2>`.
+- **Carga de Google Fonts** (Fraunces y DM Sans): es un recurso de terceros, zona sensible por
+  privacidad y rendimiento, y la entrada no lo pide. Se usan las pilas `--font-heading`/`--font-body`
+  de los tokens (con sus fallbacks). Pregunta añadida a `brain/huecos.md`.
+- Dirección corta en el pie: `business.ts` solo tiene la dirección completa y no hay módulo de pie;
+  se deja para la tarea 005 (dirección) o 006.
+- Resaltado de la sección activa en la navegación (subrayado de 3 px; necesita JS de scroll) y los
+  motivos decorativos de luna creciente en `<h2>` y pie: pulido posterior (tarea 006 o nueva).
+- Lighthouse, auditoría completa de 44×44 px y de encabezados en toda la página (tarea 006).
+- Texto definitivo del mensaje de WhatsApp, eslogan y número reales (`huecos.md`, D-00). No se tocan
+  `business.ts` ni `whatsapp.ts`.
+- `<meta name="description">`, favicon, imágenes de portada, modo oscuro (no aplica, `diseno.md`).
+- Dependencias nuevas (no hacen falta).
+
+## Riesgos / zonas sensibles que toca
+- **Riesgo ALTO** (`zonas-sensibles.txt`): modifica `index.html` y `src/main.ts` (si fallan, página en
+  blanco) y crea `src/sections/hero.ts` y `src/sections/reserve.ts` (los botones de reserva: el embudo
+  de conversión). Requiere **aprobación humana** en el cierre.
+- Embudo de reserva: los dos botones deben usar la URL de `buildWhatsAppUrl` sin reconstruirla ni
+  recodificarla (doble codificación = mensaje ilegible). CA-10 lo fija; la validación `https://wa.me/`
+  de CA-6 impide que un `href` peligroso (`javascript:`) llegue al DOM.
+- XSS: datos solo con `textContent`/`setAttribute`; el icono SVG con `createElementNS`, nunca con
+  cadenas HTML (CA-8, CA-12).
+- Nombre accesible: el `aria-label` debe **empezar** por el texto visible (WCAG 2.5.3, "label in
+  name"); si se cambia el texto del botón, cambiar los dos a la vez.
+- Cabecera sticky en móvil: si la nav pasa a dos filas, el alto real supera `--header-height` (56 px)
+  y las anclas quedarían tapadas o la portada pediría scroll; comprobarlo en CA-16 (c) y (a).
+- Foco: el anillo nunca se dibuja sobre `--color-primary` (contraste 1:1) ni con `--color-secondary`
+  sobre fondos claros (`diseno.md`).
+- Pruebas obsoletas: solo se cambian "CA-4" y "CA-5" de `project.test.ts`, y solo en lo que la nueva
+  fase invalida; cualquier otro cambio en pruebas existentes es motivo de rechazo.
+- Mensaje de WhatsApp con campos vacíos al final (sugerencia del aprobador de T-20261114-002):
+  revisar en CA-16 (f) cómo se ve; si se ve mal, se anota para el humano, no se cambia `business.ts`
+  en esta tarea.
+
+ exited 1 in 9097ms:
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 1
++ git -C 'C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c19 ...
++ ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 197
++ ... cafeteria-luna\.worktrees\T-20261115-001' status --short; git -C 'C:\ ...
++                                                               ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 402
++ ... -luna\.worktrees\T-20261115-001' diff main...HEAD --stat; git -C 'C:\ ...
++                                                               ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$candidates = @('"'C:\\Program Files\\Git\\cmd\\git.exe', 'C:\\Program Files\\Git\\bin\\git.exe', 'C:\\Program Files\\nodejs\\npm.cmd', 'C:\\Program Files\\nodejs\\node.exe', 'C:\\Users\\FRANC\\AppData\\Local\\Programs\\Git\\cmd\\git.exe'); "'$candidates | ForEach-Object { if (Test-Path -LiteralPath $_) { $_ } }; Get-Command node,npm,rg -ErrorAction SilentlyContinue | Select-Object Name,Source; $env:PATH' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+ succeeded in 7763ms:
+C:\Program Files\nodejs\npm.cmd
+C:\Program Files\nodejs\node.exe
+
+Name     Source                          
+----     ------                          
+node.exe C:\Program Files\nodejs\node.exe
+npm.ps1  C:\Program Files\nodejs\npm.ps1 
+C:\Users\FRANC\.codex\tmp\arg0-windows\codex-arg07TkO2S;C:\Program Files\BellSoft\LibericaJDK-26-Full\bin\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\nodejs\;C:\Program Files (x86)\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\180\Tools\Binn\;C:\Program Files\Microsoft SQL Server\170\DTS\Binn\;C:\Users\FRANC\.cargo\bin;C:\Users\FRANC\AppData\Local\Programs\Python\Launcher\;C:\Users\FRANC\AppData\Local\Microsoft\WindowsApps;C:\Users\FRANC\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\FRANC\.dotnet\tools;C:\ProgramData\FRANC\GitHubDesktop\bin;C:\Users\FRANC\AppData\Roaming\npm;C:\Users\FRANC\AppData\Local\Programs\Microsoft VS Code\bin\copilot-shim;C:\Users\FRANC\AppData\Local\Microsoft\WinGet\Links;C:\Users\FRANC\AppData\Local\Programs\MinGit\cmd;C:\Users\FRANC\AppData\Local\Programs\Python\Python314;C:\Program Files\nodejs
+
+
+
+codex
+El contexto define una página estática sin formularios ni backend. Git no está disponible en el PATH de esta sesión; localizaré el ejecutable para obtener el diff solicitado.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\GitHubDesktop','C:\\ProgramData\\FRANC\\GitHubDesktop','C:\\Users\\FRANC\\AppData\\Local\\Programs\\MinGit' -Filter git.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -Force -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' | Select-Object Name; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001\\package.json'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001\\.git'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001\\src\\sections\\reserve.ts','C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001\\src\\sections\\hero.ts','C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001\\src\\main.ts','C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001\\src\\lib\\whatsapp.ts'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+ exited 1 in 3635ms:
+C:\ProgramData\FRANC\GitHubDesktop\app-3.5.12\resources\app\git\cmd\git.exe
+C:\ProgramData\FRANC\GitHubDesktop\app-3.5.12\resources\app\git\mingw64\bin\git.exe
+
+ succeeded in 3880ms:
+
+Name             
+----             
+dist             
+node_modules     
+src              
+.git             
+.gitignore       
+eslint.config.js 
+index.html       
+package-lock.json
+package.json     
+README.md        
+tsconfig.json    
+vite.config.ts   
+{
+  "name": "cafeteria-luna",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^24.19.2",
+    "eslint": "^9.39.5",
+    "globals": "^17.14.0",
+    "jsdom": "^31.0.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.2",
+    "vite": "^7.3.8",
+    "vitest": "^3.2.7"
+  }
+}
+gitdir: C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/app/.git/worktrees/T-20261115-001
+/**
+ * "Reservar" section and the WhatsApp reserve button shared with the hero (single place that builds it).
+ * The URL arrives as a parameter, already built by buildWhatsAppUrl (D-00, D-05): never rebuilt here.
+ */
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+const WHATSAPP_URL_PREFIX = "https://wa.me/";
+
+const BUTTON_TEXT = "Reservar mesa por WhatsApp";
+// The accessible name starts with the visible text (WCAG 2.5.3): change both together.
+const BUTTON_LABEL = `${BUTTON_TEXT} (se abre en una pestaña nueva)`;
+const RESERVE_TEXT =
+  "¿Quieres asegurar tu mesa? Escríbenos por WhatsApp con la fecha, la hora y cuántas personas vienen. Te respondemos para confirmarla.";
+
+// Speech bubble outline, drawn with the DOM API (no HTML strings).
+const CHAT_ICON_PATH =
+  "M4 3h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z";
+
+function createChatIcon(): SVGSVGElement {
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("class", "btn__icon");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("focusable", "false");
+  const path = document.createElementNS(SVG_NS, "path");
+  path.setAttribute("d", CHAT_ICON_PATH);
+  path.setAttribute("fill", "currentColor");
+  svg.append(path);
+  return svg;
+}
+
+export function createReserveButton(url: string): HTMLAnchorElement {
+  // Guard: only a wa.me link may reach the href (blocks javascript: and other schemes).
+  if (!url.startsWith(WHATSAPP_URL_PREFIX)) {
+    throw new Error(`Reserve URL must start with ${WHATSAPP_URL_PREFIX}`);
+  }
+  const link = document.createElement("a");
+  link.className = "btn btn--whatsapp";
+  link.setAttribute("href", url);
+  link.setAttribute("target", "_blank");
+  link.setAttribute("rel", "noopener noreferrer");
+  link.setAttribute("aria-label", BUTTON_LABEL);
+  const label = document.createElement("span");
+  label.textContent = BUTTON_TEXT;
+  link.append(createChatIcon(), label);
+  return link;
+}
+
+export function renderReserve(reserveUrl: string): HTMLElement {
+  const body = document.createElement("div");
+  body.className = "reserve";
+  const text = document.createElement("p");
+  text.className = "reserve__text";
+  text.textContent = RESERVE_TEXT;
+  body.append(text, createReserveButton(reserveUrl));
+  return body;
+}
+import { createReserveButton } from "./reserve";
+
+/** Hero data; it comes from src/data/business.ts through main.ts, never imported here (D-00). */
+export interface HeroContent {
+  name: string;
+  slogan: string;
+}
+
+// Must match aria-labelledby of section#inicio in index.html.
+export const HERO_TITLE_ID = "inicio-titulo";
+
+export function renderHero({ name, slogan }: HeroContent, reserveUrl: string): HTMLElement {
+  const content = document.createElement("div");
+  content.className = "hero__content container";
+
+  const title = document.createElement("h1");
+  title.id = HERO_TITLE_ID;
+  title.className = "hero__title";
+  title.textContent = name;
+
+  const tagline = document.createElement("p");
+  tagline.className = "hero__slogan";
+  tagline.textContent = slogan;
+
+  content.append(title, tagline, createReserveButton(reserveUrl));
+  return content;
+}
+import "./styles/tokens.css";
+import "./styles/main.css";
+import { business } from "./data/business";
+import { buildWhatsAppUrl } from "./lib/whatsapp";
+import { renderHero } from "./sections/hero";
+import { renderReserve } from "./sections/reserve";
+
+function requireElement(doc: Document, selector: string): Element {
+  const element = doc.querySelector(selector);
+  if (!element) {
+    throw new Error(`Mount container not found in index.html: ${selector}`);
+  }
+  return element;
+}
+
+/** Paints the business data into the static skeleton of index.html (D-04). */
+export function mount(doc: Document): void {
+  // Look up every container first so a missing one fails before the page is half painted.
+  const hero = requireElement(doc, "#inicio");
+  const reserveHeading = requireElement(doc, "#reservar h2");
+
+  // Built once so both reserve buttons point to exactly the same URL.
+  const reserveUrl = buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message);
+
+  hero.append(renderHero({ name: business.name, slogan: business.slogan }, reserveUrl));
+  reserveHeading.after(renderReserve(reserveUrl));
+}
+
+mount(document);
+/**
+ * Builds the WhatsApp "click to chat" link (D-05): https://wa.me/<digits>?text=<message>.
+ * Works for the mobile app and for WhatsApp Web on desktop.
+ * Pure function: the number and message come from src/data/business.ts, never from here.
+ */
+export function buildWhatsAppUrl(number: string, message: string): string {
+  // wa.me only accepts digits: drop "+", spaces, dashes, parentheses and anything else.
+  const digits = number.replace(/\D/g, "");
+  if (digits === "") {
+    throw new Error("WhatsApp number must contain at least one digit");
+  }
+  // encodeURIComponent (not URLSearchParams) so spaces become %20 instead of "+".
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+}
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' status --short; & 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' diff main...HEAD --stat; & 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' diff main...HEAD" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:\\Program Files\\nodejs\\npm.cmd' audit --omit=dev --ignore-scripts --cache 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261115-001\\revisiones\\.npm-cache'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-001
+ succeeded in 482ms:
+ index.html                   |  38 ++++++
+ src/main.test.ts             | 106 +++++++++++++++
+ src/main.ts                  |  27 ++++
+ src/page.test.ts             | 120 ++++++++++++++++
+ src/project.test.ts          |  16 +--
+ src/sections/hero.test.ts    |  34 +++++
+ src/sections/hero.ts         |  27 ++++
+ src/sections/reserve.test.ts |  62 +++++++++
+ src/sections/reserve.ts      |  57 ++++++++
+ src/styles/main.css          | 317 ++++++++++++++++++++++++++++++++++++++++++-
+ src/styles/styles.test.ts    | 148 ++++++++++++++++++++
+ src/styles/tokens.css        |  74 +++++++++-
+ 12 files changed, 1016 insertions(+), 10 deletions(-)
+diff --git a/index.html b/index.html
+index af8dd13..eb545b0 100644
+--- a/index.html
++++ b/index.html
+@@ -6,6 +6,44 @@
+     <title>Cafetería Luna</title>
+   </head>
+   <body>
++    <header class="site-header">
++      <a class="skip-link" href="#contenido">Saltar al contenido</a>
++      <div class="site-header__inner container">
++        <a class="brand" href="#inicio">Cafetería Luna</a>
++        <nav class="site-nav" aria-label="Principal">
++          <ul class="site-nav__list">
++            <li><a class="nav-link" href="#menu">Menú</a></li>
++            <li><a class="nav-link" href="#horario">Horario y ubicación</a></li>
++            <li><a class="nav-link" href="#reservar">Reservar</a></li>
++          </ul>
++        </nav>
++      </div>
++    </header>
++    <main id="contenido" tabindex="-1">
++      <!-- La portada (h1, eslogan y botón) la monta src/sections/hero.ts con los datos de business.ts (D-04). -->
++      <section id="inicio" class="section hero" aria-labelledby="inicio-titulo"></section>
++      <section id="menu" class="section" aria-labelledby="menu-titulo">
++        <div class="container">
++          <h2 id="menu-titulo">Menú</h2>
++        </div>
++      </section>
++      <section id="horario" class="section" aria-labelledby="horario-titulo">
++        <div class="container">
++          <h2 id="horario-titulo">Horario y ubicación</h2>
++        </div>
++      </section>
++      <section id="reservar" class="section" aria-labelledby="reservar-titulo">
++        <div class="container">
++          <h2 id="reservar-titulo">Reservar</h2>
++        </div>
++      </section>
++    </main>
++    <footer class="site-footer">
++      <div class="container">
++        <p class="site-footer__name">Cafetería Luna</p>
++        <p class="site-footer__notice">Página de demostración: el eslogan, el menú, los precios, el horario, la dirección y el número de WhatsApp son datos de ejemplo.</p>
++      </div>
++    </footer>
+     <script type="module" src="/src/main.ts"></script>
+   </body>
+ </html>
+diff --git a/src/main.test.ts b/src/main.test.ts
+new file mode 100644
+index 0000000..63a49ec
+--- /dev/null
++++ b/src/main.test.ts
+@@ -0,0 +1,106 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { beforeEach, describe, expect, it, vi } from "vitest";
++import { business } from "./data/business";
++import { buildWhatsAppUrl } from "./lib/whatsapp";
++
++const srcDir = dirname(fileURLToPath(import.meta.url));
++const readSource = (relativePath: string): string => readFileSync(resolve(srcDir, relativePath), "utf8");
++const indexBody = (): HTMLElement =>
++  new DOMParser().parseFromString(readSource("../index.html"), "text/html").body;
++
++const BUTTON_TEXT = "Reservar mesa por WhatsApp";
++
++// main.ts mounts on import, so the page body must be in place before each import.
++const loadPage = (body: HTMLElement = indexBody()): void => {
++  document.body.replaceWith(document.importNode(body, true));
++};
++
++const reserveLinks = (): HTMLAnchorElement[] =>
++  Array.from(document.querySelectorAll("a")).filter((a) => a.textContent?.trim() === BUTTON_TEXT);
++
++beforeEach(() => {
++  vi.resetModules();
++});
++
++describe("CA-10: mounting index.html", () => {
++  it("fills #inicio with the h1 and slogan from business, leaving a single <h1>", async () => {
++    loadPage();
++    await import("./main");
++    const hero = document.getElementById("inicio");
++    expect(hero?.querySelector("h1")?.textContent).toBe(business.name);
++    expect(hero?.querySelector("p")?.textContent).toBe(business.slogan);
++    expect(document.querySelectorAll("h1")).toHaveLength(1);
++  });
++
++  it("adds the reserve text and button after the <h2> of #reservar", async () => {
++    loadPage();
++    await import("./main");
++    const h2 = document.querySelector("#reservar h2");
++    const after = h2?.nextElementSibling;
++    expect(after?.querySelector("p")?.textContent).toMatch(/^¿Quieres asegurar tu mesa\?/);
++    expect(after?.querySelector("a")?.textContent?.trim()).toBe(BUTTON_TEXT);
++  });
++
++  it("has exactly two reserve buttons, in #inicio and #reservar, with the same buildWhatsAppUrl href", async () => {
++    loadPage();
++    await import("./main");
++    const expected = buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message);
++    expect(expected.startsWith("https://wa.me/520000000000?text=")).toBe(true);
++    const decoded = decodeURIComponent(expected.split("?text=")[1] ?? "").toLowerCase();
++    for (const word of ["fecha", "hora", "personas"]) {
++      expect(decoded).toContain(word);
++    }
++
++    const links = reserveLinks();
++    expect(links).toHaveLength(2);
++    expect(links[0]?.closest("section")?.id).toBe("inicio");
++    expect(links[1]?.closest("section")?.id).toBe("reservar");
++    for (const link of links) {
++      expect(link.getAttribute("href")).toBe(expected);
++    }
++  });
++});
++
++describe("CA-11: a missing mount container fails loudly", () => {
++  it("throws on import naming #reservar when that section is missing", async () => {
++    const body = indexBody();
++    body.querySelector("#reservar")?.remove();
++    loadPage(body);
++    await expect(import("./main")).rejects.toThrow("#reservar");
++  });
++
++  it("throws from mount() naming #inicio when that section is missing, without touching the page", async () => {
++    loadPage();
++    const { mount } = await import("./main");
++    const broken = document.implementation.createHTMLDocument("broken");
++    broken.body.replaceWith(broken.importNode(indexBody(), true));
++    broken.querySelector("#inicio")?.remove();
++    expect(() => mount(broken)).toThrow("#inicio");
++    expect(broken.querySelectorAll("a.btn--whatsapp")).toHaveLength(0);
++  });
++});
++
++describe("CA-12: no HTML injection APIs and no business data in the sections", () => {
++  const forbiddenApis = ["innerHTML", "outerHTML", "insertAdjacentHTML"];
++
++  it.each(["main.ts", "sections/hero.ts", "sections/reserve.ts"])("%s uses no HTML-string DOM API", (file) => {
++    const source = readSource(file);
++    for (const api of forbiddenApis) {
++      expect(source, `${file} contains ${api}`).not.toContain(api);
++    }
++  });
++
++  it.each(["sections/hero.ts", "sections/reserve.ts"])("%s holds no business data and does not import it", (file) => {
++    const source = readSource(file);
++    expect(source).not.toContain(business.slogan);
++    expect(source).not.toContain(business.whatsapp.number);
++    expect(source).not.toContain(business.whatsapp.message);
++    for (const line of business.whatsapp.message.split("\n")) {
++      if (line.trim().length > 8) expect(source).not.toContain(line.trim());
++    }
++    expect(source).not.toMatch(/import[^;]*\bbusiness\b/);
++    expect(source).not.toMatch(/from\s+["'][^"']*data\/business["']/);
++  });
++});
+diff --git a/src/main.ts b/src/main.ts
+index 6eb54f5..14ae688 100644
+--- a/src/main.ts
++++ b/src/main.ts
+@@ -1,2 +1,29 @@
+ import "./styles/tokens.css";
+ import "./styles/main.css";
++import { business } from "./data/business";
++import { buildWhatsAppUrl } from "./lib/whatsapp";
++import { renderHero } from "./sections/hero";
++import { renderReserve } from "./sections/reserve";
++
++function requireElement(doc: Document, selector: string): Element {
++  const element = doc.querySelector(selector);
++  if (!element) {
++    throw new Error(`Mount container not found in index.html: ${selector}`);
++  }
++  return element;
++}
++
++/** Paints the business data into the static skeleton of index.html (D-04). */
++export function mount(doc: Document): void {
++  // Look up every container first so a missing one fails before the page is half painted.
++  const hero = requireElement(doc, "#inicio");
++  const reserveHeading = requireElement(doc, "#reservar h2");
++
++  // Built once so both reserve buttons point to exactly the same URL.
++  const reserveUrl = buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message);
++
++  hero.append(renderHero({ name: business.name, slogan: business.slogan }, reserveUrl));
++  reserveHeading.after(renderReserve(reserveUrl));
++}
++
++mount(document);
+diff --git a/src/page.test.ts b/src/page.test.ts
+new file mode 100644
+index 0000000..0d73029
+--- /dev/null
++++ b/src/page.test.ts
+@@ -0,0 +1,120 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++
++// Structure of the static skeleton in index.html (D-04). jsdom parses it; nothing is mounted here.
++const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
++const indexHtml = readFileSync(resolve(projectRoot, "index.html"), "utf8");
++const loadIndexHtml = (): Document => new DOMParser().parseFromString(indexHtml, "text/html");
++
++const FOOTER_NOTICE =
++  "Página de demostración: el eslogan, el menú, los precios, el horario, la dirección y el número de WhatsApp son datos de ejemplo.";
++
++const FOCUSABLE = "a[href], button, input, select, textarea, [tabindex]:not([tabindex='-1'])";
++
++const text = (element: Element | null): string => (element?.textContent ?? "").replace(/\s+/g, " ").trim();
++
++describe("CA-1: head is kept and body is header, main#contenido, footer", () => {
++  it("keeps lang, title, charset, viewport and the module script", () => {
++    const doc = loadIndexHtml();
++    expect(doc.documentElement.getAttribute("lang")).toBe("es");
++    expect(doc.title).toBe("Cafetería Luna");
++    expect(doc.querySelector("meta[charset]")?.getAttribute("charset")?.toUpperCase()).toBe("UTF-8");
++    expect(doc.querySelector('meta[name="viewport"]')?.getAttribute("content")).toBe(
++      "width=device-width, initial-scale=1",
++    );
++    expect(doc.querySelector('script[type="module"][src="/src/main.ts"]')).not.toBeNull();
++  });
++
++  it("has exactly header, main#contenido and footer as body children (script aside)", () => {
++    const doc = loadIndexHtml();
++    const children = Array.from(doc.body.children).filter((child) => child.tagName !== "SCRIPT");
++    expect(children.map((child) => child.tagName)).toEqual(["HEADER", "MAIN", "FOOTER"]);
++    expect(children[1]?.id).toBe("contenido");
++  });
++});
++
++describe("CA-2: four sections in main with their headings", () => {
++  it("has sections inicio, menu, horario, reservar in that order", () => {
++    const doc = loadIndexHtml();
++    const main = doc.querySelector("main");
++    const sections = Array.from(main?.children ?? []).filter((child) => child.tagName === "SECTION");
++    expect(sections.map((section) => section.id)).toEqual(["inicio", "menu", "horario", "reservar"]);
++    expect(main?.querySelectorAll("section")).toHaveLength(4);
++  });
++
++  it("gives menu, horario and reservar a static <h2> referenced by aria-labelledby", () => {
++    const doc = loadIndexHtml();
++    const expected: Record<string, string> = { menu: "Menú", horario: "Horario y ubicación", reservar: "Reservar" };
++    for (const [id, heading] of Object.entries(expected)) {
++      const section = doc.getElementById(id);
++      const h2s = section?.querySelectorAll("h2") ?? [];
++      expect(h2s, `#${id} h2`).toHaveLength(1);
++      const h2 = h2s[0];
++      expect(text(h2 ?? null)).toBe(heading);
++      const labelledBy = section?.getAttribute("aria-labelledby");
++      expect(labelledBy, `#${id} aria-labelledby`).toBeTruthy();
++      expect(labelledBy).toBe(h2?.id);
++    }
++  });
++
++  it("points #inicio to the hero <h1> id and has no <h1> in the static HTML", () => {
++    const doc = loadIndexHtml();
++    expect(doc.getElementById("inicio")?.getAttribute("aria-labelledby")).toBe("inicio-titulo");
++    expect(doc.querySelectorAll("h1")).toHaveLength(0);
++  });
++});
++
++describe("CA-3: header with skip link, brand link and main navigation", () => {
++  it("has the skip link as the first focusable element of the body", () => {
++    const doc = loadIndexHtml();
++    const first = doc.body.querySelector(FOCUSABLE);
++    expect(first?.tagName).toBe("A");
++    expect(text(first)).toBe("Saltar al contenido");
++    expect(first?.getAttribute("href")).toBe("#contenido");
++    expect(first?.closest("header")).not.toBeNull();
++  });
++
++  it("has a brand link to #inicio that is not a heading", () => {
++    const doc = loadIndexHtml();
++    const header = doc.querySelector("header");
++    const brand = Array.from(header?.querySelectorAll("a") ?? []).find((a) => text(a) === "Cafetería Luna");
++    expect(brand).toBeDefined();
++    expect(brand?.getAttribute("href")).toBe("#inicio");
++    expect(brand?.closest("h1, h2, h3, h4, h5, h6")).toBeNull();
++    expect(brand?.querySelector("h1, h2, h3, h4, h5, h6")).toBeNull();
++  });
++
++  it("has nav[aria-label=Principal] with exactly Menú, Horario y ubicación, Reservar", () => {
++    const doc = loadIndexHtml();
++    const navs = doc.querySelectorAll('header nav[aria-label="Principal"]');
++    expect(navs).toHaveLength(1);
++    const links = Array.from(navs[0]?.querySelectorAll("a") ?? []);
++    expect(links.map((a) => text(a))).toEqual(["Menú", "Horario y ubicación", "Reservar"]);
++    expect(links.map((a) => a.getAttribute("href"))).toEqual(["#menu", "#horario", "#reservar"]);
++  });
++});
++
++describe("CA-4: no broken internal anchors", () => {
++  it("every href starting with # resolves to an element id", () => {
++    const doc = loadIndexHtml();
++    const anchors = Array.from(doc.querySelectorAll('a[href^="#"]'));
++    expect(anchors.length).toBeGreaterThanOrEqual(5);
++    for (const anchor of anchors) {
++      const id = anchor.getAttribute("href")?.slice(1) ?? "";
++      expect(id, "empty fragment").not.toBe("");
++      expect(doc.getElementById(id), `target of href="#${id}"`).not.toBeNull();
++    }
++  });
++});
++
++describe("CA-5: footer with name and demo-data notice (D-00)", () => {
++  it("contains Cafetería Luna and the exact notice", () => {
++    const doc = loadIndexHtml();
++    const footer = doc.querySelector("footer");
++    expect(text(footer)).toContain("Cafetería Luna");
++    const paragraphs = Array.from(footer?.querySelectorAll("p") ?? []).map((p) => text(p));
++    expect(paragraphs).toContain(FOOTER_NOTICE);
++  });
++});
+diff --git a/src/project.test.ts b/src/project.test.ts
+index 21283ff..7ea0c80 100644
+--- a/src/project.test.ts
++++ b/src/project.test.ts
+@@ -18,8 +18,6 @@ const readPackageJson = (): PackageJson => JSON.parse(readText("package.json"))
+ 
+ const loadIndexHtml = (): Document => new DOMParser().parseFromString(readText("index.html"), "text/html");
+ 
+-const stripCssComments = (css: string): string => css.replace(/\/\*[\s\S]*?\*\//g, "").trim();
+-
+ describe("CA-1: package.json scripts", () => {
+   it("defines dev, lint, typecheck, test, build and preview with the agreed commands", () => {
+     const scripts = readPackageJson().scripts ?? {};
+@@ -61,20 +59,22 @@ describe("CA-3: index.html head", () => {
+   });
+ });
+ 
+-describe("CA-4: index.html has no section content yet", () => {
+-  it("contains no <section> and no <h2>", () => {
++// Updated in T-20261115-001: the page skeleton now exists (detailed checks in src/page.test.ts).
++describe("CA-4: index.html has the page skeleton", () => {
++  it("contains the four sections in order and the three static <h2>", () => {
+     const doc = loadIndexHtml();
+-    expect(doc.querySelectorAll("section, h2")).toHaveLength(0);
++    const ids = Array.from(doc.querySelectorAll("main > section")).map((section) => section.id);
++    expect(ids).toEqual(["inicio", "menu", "horario", "reservar"]);
++    expect(doc.querySelectorAll("h2")).toHaveLength(3);
+   });
+ });
+ 
++// Updated in T-20261115-001: the stylesheets now have rules, so emptiness is no longer required.
+ describe("CA-5: base source files", () => {
+-  it("has src/main.ts and the two stylesheets, both without rules", () => {
++  it("has src/main.ts and the two stylesheets", () => {
+     for (const file of ["src/main.ts", "src/styles/tokens.css", "src/styles/main.css"]) {
+       expect(existsSync(fromRoot(file)), file).toBe(true);
+     }
+-    expect(stripCssComments(readText("src/styles/tokens.css"))).toBe("");
+-    expect(stripCssComments(readText("src/styles/main.css"))).toBe("");
+   });
+ });
+ 
+diff --git a/src/sections/hero.test.ts b/src/sections/hero.test.ts
+new file mode 100644
+index 0000000..9028b4a
+--- /dev/null
++++ b/src/sections/hero.test.ts
+@@ -0,0 +1,34 @@
++import { describe, expect, it } from "vitest";
++import { renderHero } from "./hero";
++
++const URL_OK = "https://wa.me/521234567890?text=Hola%20prueba";
++const content = { name: "Café de Prueba", slogan: "Un eslogan de prueba" };
++
++describe("CA-7: renderHero({ name, slogan }, reserveUrl)", () => {
++  it("renders <h1> name, then <p> slogan, then the reserve button, and nothing else before it", () => {
++    const hero = renderHero(content, URL_OK);
++    const children = Array.from(hero.children);
++    expect(children.map((child) => child.tagName)).toEqual(["H1", "P", "A"]);
++    expect(hero.firstChild).toBe(children[0]);
++    expect(children[0]?.textContent).toBe(content.name);
++    expect(children[1]?.textContent).toBe(content.slogan);
++    expect(children[2]?.getAttribute("href")).toBe(URL_OK);
++    expect(children[2]?.textContent?.trim()).toBe("Reservar mesa por WhatsApp");
++    expect(children[2]?.classList.contains("btn--whatsapp")).toBe(true);
++  });
++
++  it("gives the <h1> the id that #inicio's aria-labelledby points to", () => {
++    const hero = renderHero(content, URL_OK);
++    expect(hero.querySelector("h1")?.id).toBe("inicio-titulo");
++  });
++});
++
++describe("CA-8: data is rendered as text, never as HTML", () => {
++  it("shows HTML in name or slogan literally and creates no <img>", () => {
++    const payload = "<img src=x onerror=alert(1)>";
++    const hero = renderHero({ name: payload, slogan: payload }, URL_OK);
++    expect(hero.querySelector("img")).toBeNull();
++    expect(hero.querySelector("h1")?.textContent).toBe(payload);
++    expect(hero.querySelector("p")?.textContent).toBe(payload);
++  });
++});
+diff --git a/src/sections/hero.ts b/src/sections/hero.ts
+new file mode 100644
+index 0000000..4a2e389
+--- /dev/null
++++ b/src/sections/hero.ts
+@@ -0,0 +1,27 @@
++﻿import { createReserveButton } from "./reserve";
++
++/** Hero data; it comes from src/data/business.ts through main.ts, never imported here (D-00). */
++export interface HeroContent {
++  name: string;
++  slogan: string;
++}
++
++// Must match aria-labelledby of section#inicio in index.html.
++export const HERO_TITLE_ID = "inicio-titulo";
++
++export function renderHero({ name, slogan }: HeroContent, reserveUrl: string): HTMLElement {
++  const content = document.createElement("div");
++  content.className = "hero__content container";
++
++  const title = document.createElement("h1");
++  title.id = HERO_TITLE_ID;
++  title.className = "hero__title";
++  title.textContent = name;
++
++  const tagline = document.createElement("p");
++  tagline.className = "hero__slogan";
++  tagline.textContent = slogan;
++
++  content.append(title, tagline, createReserveButton(reserveUrl));
++  return content;
++}
+diff --git a/src/sections/reserve.test.ts b/src/sections/reserve.test.ts
+new file mode 100644
+index 0000000..6ed98d8
+--- /dev/null
++++ b/src/sections/reserve.test.ts
+@@ -0,0 +1,62 @@
++import { describe, expect, it } from "vitest";
++import { createReserveButton, renderReserve } from "./reserve";
++
++const URL_OK = "https://wa.me/521234567890?text=Hola%20prueba";
++const BUTTON_TEXT = "Reservar mesa por WhatsApp";
++const BUTTON_LABEL = "Reservar mesa por WhatsApp (se abre en una pestaña nueva)";
++const RESERVE_TEXT =
++  "¿Quieres asegurar tu mesa? Escríbenos por WhatsApp con la fecha, la hora y cuántas personas vienen. Te respondemos para confirmarla.";
++
++describe("CA-6: createReserveButton(url)", () => {
++  it("returns a link to the given URL with the exact visible text and accessible name", () => {
++    const button = createReserveButton(URL_OK);
++    expect(button.tagName).toBe("A");
++    expect(button.getAttribute("href")).toBe(URL_OK);
++    expect(button.textContent?.trim()).toBe(BUTTON_TEXT);
++    expect(button.getAttribute("aria-label")).toBe(BUTTON_LABEL);
++    expect(button.getAttribute("aria-label")?.startsWith(BUTTON_TEXT)).toBe(true);
++  });
++
++  it("opens in a new tab with noopener and noreferrer", () => {
++    const button = createReserveButton(URL_OK);
++    expect(button.getAttribute("target")).toBe("_blank");
++    const rel = (button.getAttribute("rel") ?? "").split(/\s+/);
++    expect(rel).toContain("noopener");
++    expect(rel).toContain("noreferrer");
++  });
++
++  it("has a decorative DOM-created <svg> icon before the text", () => {
++    const button = createReserveButton(URL_OK);
++    const svg = button.querySelector("svg");
++    expect(svg).not.toBeNull();
++    expect(svg?.namespaceURI).toBe("http://www.w3.org/2000/svg");
++    expect(svg?.getAttribute("aria-hidden")).toBe("true");
++    expect(svg?.getAttribute("focusable")).toBe("false");
++    expect(button.firstElementChild).toBe(svg);
++    expect(button.firstChild).toBe(svg);
++  });
++
++  it("uses the whatsapp button variant class", () => {
++    const button = createReserveButton(URL_OK);
++    expect(button.classList.contains("btn")).toBe(true);
++    expect(button.classList.contains("btn--whatsapp")).toBe(true);
++  });
++
++  it.each(["javascript:alert(1)", "", "http://wa.me/52", "https://evil.example/https://wa.me/", " https://wa.me/52"])(
++    "throws instead of creating a link for %j",
++    (badUrl) => {
++      expect(() => createReserveButton(badUrl)).toThrow(Error);
++    },
++  );
++});
++
++describe("CA-9: renderReserve(url)", () => {
++  it("returns the reserve text followed by the reserve button", () => {
++    const element = renderReserve(URL_OK);
++    const children = Array.from(element.children);
++    expect(children.map((child) => child.tagName)).toEqual(["P", "A"]);
++    expect(children[0]?.textContent).toBe(RESERVE_TEXT);
++    expect(children[1]?.getAttribute("href")).toBe(URL_OK);
++    expect(children[1]?.textContent?.trim()).toBe(BUTTON_TEXT);
++  });
++});
+diff --git a/src/sections/reserve.ts b/src/sections/reserve.ts
+new file mode 100644
+index 0000000..bca141c
+--- /dev/null
++++ b/src/sections/reserve.ts
+@@ -0,0 +1,57 @@
++﻿/**
++ * "Reservar" section and the WhatsApp reserve button shared with the hero (single place that builds it).
++ * The URL arrives as a parameter, already built by buildWhatsAppUrl (D-00, D-05): never rebuilt here.
++ */
++
++const SVG_NS = "http://www.w3.org/2000/svg";
++const WHATSAPP_URL_PREFIX = "https://wa.me/";
++
++const BUTTON_TEXT = "Reservar mesa por WhatsApp";
++// The accessible name starts with the visible text (WCAG 2.5.3): change both together.
++const BUTTON_LABEL = `${BUTTON_TEXT} (se abre en una pestaña nueva)`;
++const RESERVE_TEXT =
++  "¿Quieres asegurar tu mesa? Escríbenos por WhatsApp con la fecha, la hora y cuántas personas vienen. Te respondemos para confirmarla.";
++
++// Speech bubble outline, drawn with the DOM API (no HTML strings).
++const CHAT_ICON_PATH =
++  "M4 3h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z";
++
++function createChatIcon(): SVGSVGElement {
++  const svg = document.createElementNS(SVG_NS, "svg");
++  svg.setAttribute("class", "btn__icon");
++  svg.setAttribute("viewBox", "0 0 24 24");
++  svg.setAttribute("aria-hidden", "true");
++  svg.setAttribute("focusable", "false");
++  const path = document.createElementNS(SVG_NS, "path");
++  path.setAttribute("d", CHAT_ICON_PATH);
++  path.setAttribute("fill", "currentColor");
++  svg.append(path);
++  return svg;
++}
++
++export function createReserveButton(url: string): HTMLAnchorElement {
++  // Guard: only a wa.me link may reach the href (blocks javascript: and other schemes).
++  if (!url.startsWith(WHATSAPP_URL_PREFIX)) {
++    throw new Error(`Reserve URL must start with ${WHATSAPP_URL_PREFIX}`);
++  }
++  const link = document.createElement("a");
++  link.className = "btn btn--whatsapp";
++  link.setAttribute("href", url);
++  link.setAttribute("target", "_blank");
++  link.setAttribute("rel", "noopener noreferrer");
++  link.setAttribute("aria-label", BUTTON_LABEL);
++  const label = document.createElement("span");
++  label.textContent = BUTTON_TEXT;
++  link.append(createChatIcon(), label);
++  return link;
++}
++
++export function renderReserve(reserveUrl: string): HTMLElement {
++  const body = document.createElement("div");
++  body.className = "reserve";
++  const text = document.createElement("p");
++  text.className = "reserve__text";
++  text.textContent = RESERVE_TEXT;
++  body.append(text, createReserveButton(reserveUrl));
++  return body;
++}
+diff --git a/src/styles/main.css b/src/styles/main.css
+index b7b6454..0bf4ca9 100644
+--- a/src/styles/main.css
++++ b/src/styles/main.css
+@@ -1 +1,316 @@
+-/* Estilos base y layout mobile-first; solo usan var(--…) de tokens.css (D-02). Llegan en tareas posteriores. */
++/* Estilos base y layout mobile-first; solo usan var(--…) de tokens.css (D-02, brain/diseno.md). */
++
++/* ── Base ─────────────────────────────────────────────── */
++*,
++*::before,
++*::after {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++  font-family: var(--font-body);
++  font-size: var(--text-base);
++  line-height: var(--leading-body);
++  color: var(--color-text);
++  background: var(--color-bg);
++  overflow-wrap: break-word;
++}
++
++h1,
++h2,
++h3 {
++  margin: 0;
++  font-family: var(--font-heading);
++  line-height: var(--leading-heading);
++  color: var(--color-text);
++  overflow-wrap: anywhere;
++}
++
++p {
++  margin: 0;
++}
++
++a {
++  color: var(--color-primary);
++}
++
++.container {
++  width: 100%;
++  max-width: var(--container-max);
++  margin-inline: auto;
++  padding-inline: var(--gutter);
++}
++
++/* ── Foco: anillo azul que cae sobre el fondo, nunca sobre el primario ── */
++:focus-visible {
++  outline: 3px solid var(--color-focus);
++  outline-offset: 3px;
++}
++
++/* main recibe el foco del enlace de salto; el anillo alrededor de toda la página no aporta. */
++main:focus {
++  outline: none;
++}
++
++/* ── Enlace "Saltar al contenido": oculto hasta recibir foco ── */
++.skip-link {
++  position: absolute;
++  top: var(--space-2);
++  left: var(--space-2);
++  z-index: 20;
++  display: inline-flex;
++  align-items: center;
++  min-height: var(--tap-min);
++  padding-inline: var(--space-4);
++  border-radius: var(--radius-sm);
++  background: var(--color-surface-raised);
++  color: var(--color-primary);
++  font-weight: 700;
++  box-shadow: var(--shadow-md);
++}
++
++.skip-link:not(:focus) {
++  width: 1px;
++  height: 1px;
++  min-height: 0;
++  padding: 0;
++  overflow: hidden;
++  clip-path: inset(50%);
++  white-space: nowrap;
++}
++
++/* ── Cabecera sticky ──────────────────────────────────── */
++/* Móvil: el nombre ocupa una fila de --header-height y la navegación otra de --tap-min
++   (las tres entradas no caben junto al nombre en 375 px). Desde 768 px, una sola fila. */
++.site-header {
++  position: sticky;
++  top: 0;
++  z-index: 10;
++  background: var(--color-surface);
++  border-bottom: 1px solid var(--color-border);
++}
++
++.site-header__inner {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  justify-content: space-between;
++  column-gap: var(--space-4);
++}
++
++.brand {
++  display: inline-flex;
++  align-items: center;
++  min-height: var(--header-height);
++  font-family: var(--font-heading);
++  font-weight: 700;
++  font-size: var(--text-lg);
++  line-height: var(--leading-heading);
++  color: var(--color-text);
++  text-decoration: none;
++}
++
++.site-nav {
++  flex-basis: 100%;
++  min-width: 0;
++}
++
++.site-nav__list {
++  display: flex;
++  gap: var(--space-2);
++  margin: 0 calc(-1 * var(--space-2));
++  padding: 0;
++  list-style: none;
++}
++
++.nav-link {
++  display: inline-flex;
++  align-items: center;
++  min-height: var(--tap-min);
++  padding-inline: var(--space-2);
++  border-radius: var(--radius-sm);
++  font-size: var(--text-sm);
++  font-weight: 500;
++  color: var(--color-primary);
++  text-decoration: none;
++  white-space: nowrap;
++}
++
++.nav-link:hover {
++  text-decoration: underline;
++  text-underline-offset: var(--space-1);
++}
++
++/* ── Secciones ────────────────────────────────────────── */
++/* El ancla deja el título bajo la cabecera de dos filas (nombre + navegación). */
++main > section {
++  padding-block: var(--space-7);
++  scroll-margin-top: calc(var(--header-height) + var(--tap-min));
++}
++
++main > section:nth-of-type(even) {
++  background: var(--color-surface);
++}
++
++main > section h2 {
++  margin-bottom: var(--space-5);
++  font-size: var(--text-2xl);
++  font-weight: 600;
++}
++
++/* ── Portada ──────────────────────────────────────────── */
++/* Alto visible menos la cabecera: nombre, eslogan y botón sin hacer scroll (CA-01.1, CA-01.2). */
++.hero {
++  display: flex;
++  align-items: center;
++  min-height: calc(100vh - var(--header-height) - var(--tap-min));
++  min-height: calc(100svh - var(--header-height) - var(--tap-min));
++}
++
++.hero__content {
++  display: flex;
++  flex-direction: column;
++  align-items: flex-start;
++  gap: var(--space-4);
++}
++
++.hero__title {
++  font-size: var(--text-3xl);
++  font-weight: 700;
++}
++
++.hero__slogan {
++  max-width: 65ch;
++  margin-bottom: var(--space-3);
++  font-size: var(--text-lg);
++  color: var(--color-text-muted);
++}
++
++/* ── Reservar ─────────────────────────────────────────── */
++.reserve__text {
++  max-width: 65ch;
++  margin-bottom: var(--space-5);
++}
++
++/* ── Botón ────────────────────────────────────────────── */
++.btn {
++  display: inline-flex;
++  align-items: center;
++  justify-content: center;
++  gap: var(--space-2);
++  min-height: var(--space-7); /* 48 px (diseno.md) */
++  padding: 0 var(--space-5);
++  border: 2px solid transparent;
++  border-radius: var(--radius-pill);
++  font-family: var(--font-body);
++  font-weight: 700;
++  font-size: var(--text-base);
++  line-height: var(--leading-heading);
++  text-align: center;
++  text-decoration: none;
++  cursor: pointer;
++  transition: background-color 150ms ease, transform 150ms ease;
++}
++
++.btn:active {
++  transform: translateY(1px);
++}
++
++.btn__icon {
++  flex: none;
++  width: var(--space-5);
++  height: var(--space-5);
++}
++
++/* Móvil: ocupa el ancho del contenedor (diseno.md). */
++.btn--whatsapp {
++  width: 100%;
++  background: var(--color-whatsapp);
++  color: var(--color-on-whatsapp);
++}
++
++/* Hover ~10 % más oscuro, mezclando con un token (sin colores a mano). */
++.btn--whatsapp:hover {
++  background: color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text));
++}
++
++/* ── Pie ──────────────────────────────────────────────── */
++.site-footer {
++  padding-block: var(--space-7);
++  background: var(--color-footer-bg);
++  color: var(--color-footer-text);
++  font-size: var(--text-sm);
++}
++
++.site-footer a {
++  color: var(--color-footer-text);
++  text-decoration: underline;
++}
++
++/* En el pie oscuro el anillo va en dorado (9.75:1 sobre footer-bg). */
++.site-footer :focus-visible {
++  outline-color: var(--color-secondary);
++}
++
++.site-footer__name {
++  margin-bottom: var(--space-2);
++  font-family: var(--font-heading);
++  font-weight: 700;
++  font-size: var(--text-lg);
++}
++
++.site-footer__notice {
++  max-width: 65ch;
++}
++
++/* ── Desde 768 px ─────────────────────────────────────── */
++@media (min-width: 768px) {
++  .site-header__inner {
++    flex-wrap: nowrap;
++    min-height: var(--header-height);
++  }
++
++  .site-nav {
++    flex-basis: auto;
++  }
++
++  .site-nav__list {
++    margin: 0;
++  }
++
++  main > section {
++    padding-block: var(--space-8);
++    scroll-margin-top: var(--header-height);
++  }
++
++  .hero {
++    min-height: calc(100vh - var(--header-height));
++    min-height: calc(100svh - var(--header-height));
++  }
++
++  .btn--whatsapp {
++    width: auto;
++  }
++}
++
++/* ── Movimiento reducido ──────────────────────────────── */
++@media (prefers-reduced-motion: no-preference) {
++  html {
++    scroll-behavior: smooth;
++  }
++}
++
++@media (prefers-reduced-motion: reduce) {
++  *,
++  *::before,
++  *::after {
++    transition: none !important;
++    animation: none !important;
++    scroll-behavior: auto !important;
++  }
++
++  .btn:active {
++    transform: none;
++  }
++}
+diff --git a/src/styles/styles.test.ts b/src/styles/styles.test.ts
+new file mode 100644
+index 0000000..447a1e9
+--- /dev/null
++++ b/src/styles/styles.test.ts
+@@ -0,0 +1,148 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++
++const stylesDir = dirname(fileURLToPath(import.meta.url));
++const stripComments = (css: string): string => css.replace(/\/\*[\s\S]*?\*\//g, "");
++const readCss = (file: string): string => stripComments(readFileSync(resolve(stylesDir, file), "utf8"));
++const normalize = (value: string): string => value.replace(/\s+/g, " ").trim();
++
++const parseDeclarations = (block: string): Map<string, string> => {
++  const declarations = new Map<string, string>();
++  for (const match of block.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) {
++    declarations.set(match[1] ?? "", normalize(match[2] ?? ""));
++  }
++  return declarations;
++};
++
++interface CssRule {
++  selector: string;
++  body: string;
++}
++
++// Innermost rules only (rules nested in @media come out with their own selector).
++const parseRules = (css: string): CssRule[] =>
++  Array.from(css.matchAll(/([^{}]+)\{([^{}]*)\}/g), (match) => ({
++    selector: normalize(match[1] ?? ""),
++    body: normalize(match[2] ?? ""),
++  }));
++
++// Copied from the "Tokens CSS" block of brain/diseno.md.
++const ROOT_TOKENS: Record<string, string> = {
++  "--color-bg": "#FBF6EE",
++  "--color-surface": "#F3EADB",
++  "--color-surface-raised": "#FFFFFF",
++  "--color-text": "#2B1D14",
++  "--color-text-muted": "#6B5646",
++  "--color-primary": "#7A3E1D",
++  "--color-primary-hover": "#62301A",
++  "--color-on-primary": "#FFFFFF",
++  "--color-secondary": "#E9C46A",
++  "--color-on-secondary": "#2B1D14",
++  "--color-whatsapp": "#1E6B45",
++  "--color-on-whatsapp": "#FFFFFF",
++  "--color-success": "#2E6B3A",
++  "--color-error": "#B3261E",
++  "--color-border": "#D9C9B3",
++  "--color-focus": "#1F4E8C",
++  "--color-footer-bg": "#2B1D14",
++  "--color-footer-text": "#F3EADB",
++  "--font-heading": '"Fraunces", Georgia, "Times New Roman", serif',
++  "--font-body": '"DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif',
++  "--text-xs": "0.8125rem",
++  "--text-sm": "0.9375rem",
++  "--text-base": "1rem",
++  "--text-lg": "1.125rem",
++  "--text-xl": "1.5rem",
++  "--text-2xl": "1.875rem",
++  "--text-3xl": "2.5rem",
++  "--leading-body": "1.6",
++  "--leading-heading": "1.2",
++  "--space-1": "0.25rem",
++  "--space-2": "0.5rem",
++  "--space-3": "0.75rem",
++  "--space-4": "1rem",
++  "--space-5": "1.5rem",
++  "--space-6": "2rem",
++  "--space-7": "3rem",
++  "--space-8": "4.5rem",
++  "--radius-sm": "6px",
++  "--radius-md": "12px",
++  "--radius-lg": "20px",
++  "--radius-pill": "999px",
++  "--shadow-sm": "0 1px 2px rgb(43 29 20 / 0.08), 0 1px 3px rgb(43 29 20 / 0.06)",
++  "--shadow-md": "0 4px 12px rgb(43 29 20 / 0.12), 0 2px 4px rgb(43 29 20 / 0.06)",
++  "--container-max": "64rem",
++  "--gutter": "var(--space-4)",
++  "--tap-min": "44px",
++  "--header-height": "56px",
++};
++
++const MD_TOKENS: Record<string, string> = {
++  "--text-base": "1.0625rem",
++  "--text-lg": "1.25rem",
++  "--text-xl": "1.75rem",
++  "--text-2xl": "2.5rem",
++  "--text-3xl": "3.75rem",
++  "--gutter": "var(--space-5)",
++  "--header-height": "64px",
++};
++
++const MD_BLOCK = /@media\s*\(\s*min-width:\s*768px\s*\)\s*\{\s*:root\s*\{([^}]*)\}\s*\}/;
++
++describe("CA-14: tokens.css declares the diseno.md tokens", () => {
++  const css = readCss("tokens.css");
++
++  it("declares every token of the :root block with its exact value", () => {
++    const rootMatch = css.replace(MD_BLOCK, "").match(/:root\s*\{([^}]*)\}/);
++    expect(rootMatch, ":root block").not.toBeNull();
++    const declared = parseDeclarations(rootMatch?.[1] ?? "");
++    expect(Object.keys(ROOT_TOKENS).filter((name) => name.startsWith("--color-"))).toHaveLength(18);
++    for (const [name, value] of Object.entries(ROOT_TOKENS)) {
++      expect(declared.get(name), name).toBe(value);
++    }
++  });
++
++  it("redefines the type scale, gutter and header height from 768 px", () => {
++    const mdMatch = css.match(MD_BLOCK);
++    expect(mdMatch, "@media (min-width: 768px) { :root { … } }").not.toBeNull();
++    const declared = parseDeclarations(mdMatch?.[1] ?? "");
++    for (const [name, value] of Object.entries(MD_TOKENS)) {
++      expect(declared.get(name), name).toBe(value);
++    }
++  });
++});
++
++describe("CA-15: main.css only uses tokens and covers the base behaviours", () => {
++  const css = readCss("main.css");
++  const rules = parseRules(css);
++
++  it("has no color literals", () => {
++    expect(css).not.toMatch(/#[0-9a-f]{3,8}(?![\w-])/i);
++    expect(css).not.toMatch(/\b(rgba?|hsla?)\(/i);
++  });
++
++  it("makes the header sticky at the top", () => {
++    const header = rules.find((rule) => /header/.test(rule.selector) && /position: sticky/.test(rule.body));
++    expect(header, "sticky header rule").toBeDefined();
++    expect(header?.body).toMatch(/(^|;\s*)top: 0(;|$)/);
++  });
++
++  it("gives sections a scroll-margin-top based on var(--header-height)", () => {
++    const sections = rules.filter((rule) => /section/.test(rule.selector) && /scroll-margin-top:/.test(rule.body));
++    expect(sections.length).toBeGreaterThan(0);
++    for (const rule of sections) {
++      expect(rule.body).toMatch(/scroll-margin-top:[^;]*var\(--header-height\)/);
++    }
++  });
++
++  it("draws :focus-visible with var(--color-focus)", () => {
++    const focus = rules.find((rule) => /:focus-visible/.test(rule.selector) && /var\(--color-focus\)/.test(rule.body));
++    expect(focus, ":focus-visible rule").toBeDefined();
++  });
++
++  it("has a prefers-reduced-motion: reduce block", () => {
++    expect(css).toMatch(/@media\s*\(\s*prefers-reduced-motion:\s*reduce\s*\)\s*\{/);
++  });
++});
+diff --git a/src/styles/tokens.css b/src/styles/tokens.css
+index 7077212..44bbf5d 100644
+--- a/src/styles/tokens.css
++++ b/src/styles/tokens.css
+@@ -1 +1,73 @@
+-/* Custom properties de brain/diseno.md (D-02). Se copian en una tarea posterior. */
++/* Custom properties de brain/diseno.md (D-02), copiadas tal cual del bloque "Tokens CSS". */
++:root {
++  /* Color */
++  --color-bg: #FBF6EE;
++  --color-surface: #F3EADB;
++  --color-surface-raised: #FFFFFF;
++  --color-text: #2B1D14;
++  --color-text-muted: #6B5646;
++  --color-primary: #7A3E1D;
++  --color-primary-hover: #62301A;
++  --color-on-primary: #FFFFFF;
++  --color-secondary: #E9C46A;
++  --color-on-secondary: #2B1D14;
++  --color-whatsapp: #1E6B45;
++  --color-on-whatsapp: #FFFFFF;
++  --color-success: #2E6B3A;
++  --color-error: #B3261E;
++  --color-border: #D9C9B3;
++  --color-focus: #1F4E8C;
++  --color-footer-bg: #2B1D14;
++  --color-footer-text: #F3EADB;
++
++  /* Tipografía */
++  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
++  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
++  --text-xs: 0.8125rem;
++  --text-sm: 0.9375rem;
++  --text-base: 1rem;
++  --text-lg: 1.125rem;
++  --text-xl: 1.5rem;
++  --text-2xl: 1.875rem;
++  --text-3xl: 2.5rem;
++  --leading-body: 1.6;
++  --leading-heading: 1.2;
++
++  /* Espaciado (escala de 4 px) */
++  --space-1: 0.25rem;
++  --space-2: 0.5rem;
++  --space-3: 0.75rem;
++  --space-4: 1rem;
++  --space-5: 1.5rem;
++  --space-6: 2rem;
++  --space-7: 3rem;
++  --space-8: 4.5rem;
++
++  /* Radios */
++  --radius-sm: 6px;
++  --radius-md: 12px;
++  --radius-lg: 20px;
++  --radius-pill: 999px;
++
++  /* Sombras */
++  --shadow-sm: 0 1px 2px rgb(43 29 20 / 0.08), 0 1px 3px rgb(43 29 20 / 0.06);
++  --shadow-md: 0 4px 12px rgb(43 29 20 / 0.12), 0 2px 4px rgb(43 29 20 / 0.06);
++
++  /* Layout */
++  --container-max: 64rem;      /* 1024 px */
++  --gutter: var(--space-4);
++  --tap-min: 44px;             /* zona táctil mínima (CA-05.2) */
++  --header-height: 56px;
++}
++
++@media (min-width: 768px) {
++  :root {
++    --text-base: 1.0625rem;
++    --text-lg: 1.25rem;
++    --text-xl: 1.75rem;
++    --text-2xl: 2.5rem;
++    --text-3xl: 3.75rem;
++    --gutter: var(--space-5);
++    --header-height: 64px;
++  }
++}
+
+ succeeded in 8117ms:
+found 0 vulnerabilities
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' diff main...HEAD --check; & 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' diff main...HEAD -- src/sections/hero.ts src/sections/reserve.test.ts" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' ls-files; & 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' grep -n -I -E 'innerHTML|outerHTML|insertAdjacentHTML|eval\\(|new Function|fetch\\(|XMLHttpRequest|localStorage|sessionStorage|document.cookie|console\\.|https?://|@import|url\\(' -- . ':"'!package-lock.json'"'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001\\src\\sections\\reserve.test.ts','C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001\\vite.config.ts','C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001\\src\\data\\business.ts'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+ succeeded in 1847ms:
+diff --git a/src/sections/hero.ts b/src/sections/hero.ts
+new file mode 100644
+index 0000000..4a2e389
+--- /dev/null
++++ b/src/sections/hero.ts
+@@ -0,0 +1,27 @@
++﻿import { createReserveButton } from "./reserve";
++
++/** Hero data; it comes from src/data/business.ts through main.ts, never imported here (D-00). */
++export interface HeroContent {
++  name: string;
++  slogan: string;
++}
++
++// Must match aria-labelledby of section#inicio in index.html.
++export const HERO_TITLE_ID = "inicio-titulo";
++
++export function renderHero({ name, slogan }: HeroContent, reserveUrl: string): HTMLElement {
++  const content = document.createElement("div");
++  content.className = "hero__content container";
++
++  const title = document.createElement("h1");
++  title.id = HERO_TITLE_ID;
++  title.className = "hero__title";
++  title.textContent = name;
++
++  const tagline = document.createElement("p");
++  tagline.className = "hero__slogan";
++  tagline.textContent = slogan;
++
++  content.append(title, tagline, createReserveButton(reserveUrl));
++  return content;
++}
+diff --git a/src/sections/reserve.test.ts b/src/sections/reserve.test.ts
+new file mode 100644
+index 0000000..6ed98d8
+--- /dev/null
++++ b/src/sections/reserve.test.ts
+@@ -0,0 +1,62 @@
++import { describe, expect, it } from "vitest";
++import { createReserveButton, renderReserve } from "./reserve";
++
++const URL_OK = "https://wa.me/521234567890?text=Hola%20prueba";
++const BUTTON_TEXT = "Reservar mesa por WhatsApp";
++const BUTTON_LABEL = "Reservar mesa por WhatsApp (se abre en una pestaña nueva)";
++const RESERVE_TEXT =
++  "¿Quieres asegurar tu mesa? Escríbenos por WhatsApp con la fecha, la hora y cuántas personas vienen. Te respondemos para confirmarla.";
++
++describe("CA-6: createReserveButton(url)", () => {
++  it("returns a link to the given URL with the exact visible text and accessible name", () => {
++    const button = createReserveButton(URL_OK);
++    expect(button.tagName).toBe("A");
++    expect(button.getAttribute("href")).toBe(URL_OK);
++    expect(button.textContent?.trim()).toBe(BUTTON_TEXT);
++    expect(button.getAttribute("aria-label")).toBe(BUTTON_LABEL);
++    expect(button.getAttribute("aria-label")?.startsWith(BUTTON_TEXT)).toBe(true);
++  });
++
++  it("opens in a new tab with noopener and noreferrer", () => {
++    const button = createReserveButton(URL_OK);
++    expect(button.getAttribute("target")).toBe("_blank");
++    const rel = (button.getAttribute("rel") ?? "").split(/\s+/);
++    expect(rel).toContain("noopener");
++    expect(rel).toContain("noreferrer");
++  });
++
++  it("has a decorative DOM-created <svg> icon before the text", () => {
++    const button = createReserveButton(URL_OK);
++    const svg = button.querySelector("svg");
++    expect(svg).not.toBeNull();
++    expect(svg?.namespaceURI).toBe("http://www.w3.org/2000/svg");
++    expect(svg?.getAttribute("aria-hidden")).toBe("true");
++    expect(svg?.getAttribute("focusable")).toBe("false");
++    expect(button.firstElementChild).toBe(svg);
++    expect(button.firstChild).toBe(svg);
++  });
++
++  it("uses the whatsapp button variant class", () => {
++    const button = createReserveButton(URL_OK);
++    expect(button.classList.contains("btn")).toBe(true);
++    expect(button.classList.contains("btn--whatsapp")).toBe(true);
++  });
++
++  it.each(["javascript:alert(1)", "", "http://wa.me/52", "https://evil.example/https://wa.me/", " https://wa.me/52"])(
++    "throws instead of creating a link for %j",
++    (badUrl) => {
++      expect(() => createReserveButton(badUrl)).toThrow(Error);
++    },
++  );
++});
++
++describe("CA-9: renderReserve(url)", () => {
++  it("returns the reserve text followed by the reserve button", () => {
++    const element = renderReserve(URL_OK);
++    const children = Array.from(element.children);
++    expect(children.map((child) => child.tagName)).toEqual(["P", "A"]);
++    expect(children[0]?.textContent).toBe(RESERVE_TEXT);
++    expect(children[1]?.getAttribute("href")).toBe(URL_OK);
++    expect(children[1]?.textContent?.trim()).toBe(BUTTON_TEXT);
++  });
++});
+
+ succeeded in 2957ms:
+.gitignore
+README.md
+eslint.config.js
+index.html
+package-lock.json
+package.json
+src/data/business.test.ts
+src/data/business.ts
+src/lib/whatsapp.test.ts
+src/lib/whatsapp.ts
+src/main.test.ts
+src/main.ts
+src/page.test.ts
+src/project.test.ts
+src/sections/hero.test.ts
+src/sections/hero.ts
+src/sections/reserve.test.ts
+src/sections/reserve.ts
+src/styles/main.css
+src/styles/styles.test.ts
+src/styles/tokens.css
+tsconfig.json
+vite.config.ts
+src/lib/whatsapp.test.ts:15:    expect(buildWhatsAppUrl(number, "Hola").startsWith("https://wa.me/520000000000?text=")).toBe(true);
+src/lib/whatsapp.test.ts:37:  it("is https://wa.me/<digits> with text as the only parameter", () => {
+src/lib/whatsapp.test.ts:56:    expect(url.startsWith("https://wa.me/520000000000?text=")).toBe(true);
+src/lib/whatsapp.ts:2: * Builds the WhatsApp "click to chat" link (D-05): https://wa.me/<digits>?text=<message>.
+src/lib/whatsapp.ts:13:  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+src/main.test.ts:50:    expect(expected.startsWith("https://wa.me/520000000000?text=")).toBe(true);
+src/main.test.ts:86:  const forbiddenApis = ["innerHTML", "outerHTML", "insertAdjacentHTML"];
+src/sections/hero.test.ts:4:const URL_OK = "https://wa.me/521234567890?text=Hola%20prueba";
+src/sections/reserve.test.ts:4:const URL_OK = "https://wa.me/521234567890?text=Hola%20prueba";
+src/sections/reserve.test.ts:32:    expect(svg?.namespaceURI).toBe("http://www.w3.org/2000/svg");
+src/sections/reserve.test.ts:45:  it.each(["javascript:alert(1)", "", "http://wa.me/52", "https://evil.example/https://wa.me/", " https://wa.me/52"])(
+src/sections/reserve.ts:6:const SVG_NS = "http://www.w3.org/2000/svg";
+src/sections/reserve.ts:7:const WHATSAPP_URL_PREFIX = "https://wa.me/";
+import { describe, expect, it } from "vitest";
+import { createReserveButton, renderReserve } from "./reserve";
+
+const URL_OK = "https://wa.me/521234567890?text=Hola%20prueba";
+const BUTTON_TEXT = "Reservar mesa por WhatsApp";
+const BUTTON_LABEL = "Reservar mesa por WhatsApp (se abre en una pestaña nueva)";
+const RESERVE_TEXT =
+  "¿Quieres asegurar tu mesa? Escríbenos por WhatsApp con la fecha, la hora y cuántas personas vienen. Te respondemos para confirmarla.";
+
+describe("CA-6: createReserveButton(url)", () => {
+  it("returns a link to the given URL with the exact visible text and accessible name", () => {
+    const button = createReserveButton(URL_OK);
+    expect(button.tagName).toBe("A");
+    expect(button.getAttribute("href")).toBe(URL_OK);
+    expect(button.textContent?.trim()).toBe(BUTTON_TEXT);
+    expect(button.getAttribute("aria-label")).toBe(BUTTON_LABEL);
+    expect(button.getAttribute("aria-label")?.startsWith(BUTTON_TEXT)).toBe(true);
+  });
+
+  it("opens in a new tab with noopener and noreferrer", () => {
+    const button = createReserveButton(URL_OK);
+    expect(button.getAttribute("target")).toBe("_blank");
+    const rel = (button.getAttribute("rel") ?? "").split(/\s+/);
+    expect(rel).toContain("noopener");
+    expect(rel).toContain("noreferrer");
+  });
+
+  it("has a decorative DOM-created <svg> icon before the text", () => {
+    const button = createReserveButton(URL_OK);
+    const svg = button.querySelector("svg");
+    expect(svg).not.toBeNull();
+    expect(svg?.namespaceURI).toBe("http://www.w3.org/2000/svg");
+    expect(svg?.getAttribute("aria-hidden")).toBe("true");
+    expect(svg?.getAttribute("focusable")).toBe("false");
+    expect(button.firstElementChild).toBe(svg);
+    expect(button.firstChild).toBe(svg);
+  });
+
+  it("uses the whatsapp button variant class", () => {
+    const button = createReserveButton(URL_OK);
+    expect(button.classList.contains("btn")).toBe(true);
+    expect(button.classList.contains("btn--whatsapp")).toBe(true);
+  });
+
+  it.each(["javascript:alert(1)", "", "http://wa.me/52", "https://evil.example/https://wa.me/", " https://wa.me/52"])(
+    "throws instead of creating a link for %j",
+    (badUrl) => {
+      expect(() => createReserveButton(badUrl)).toThrow(Error);
+    },
+  );
+});
+
+describe("CA-9: renderReserve(url)", () => {
+  it("returns the reserve text followed by the reserve button", () => {
+    const element = renderReserve(URL_OK);
+    const children = Array.from(element.children);
+    expect(children.map((child) => child.tagName)).toEqual(["P", "A"]);
+    expect(children[0]?.textContent).toBe(RESERVE_TEXT);
+    expect(children[1]?.getAttribute("href")).toBe(URL_OK);
+    expect(children[1]?.textContent?.trim()).toBe(BUTTON_TEXT);
+  });
+});
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    environment: "jsdom",
+  },
+});
+/*
+ * DATOS FICTICIOS (decisión D-00 del brain).
+ * Todos los valores de este archivo son de ejemplo: menú y precios en MXN, horario, dirección,
+ * coordenadas y WhatsApp (+52 000 000 0000). Deben sustituirse por los reales antes de publicar
+ * (ver brain/huecos.md). Para cambiarlos, edita solo este archivo: ningún otro módulo contiene
+ * datos del negocio.
+ */
+
+export interface MenuItem {
+  name: string;
+  /** Price as a number in `currency`; formatting lives in src/lib/formatPrice.ts (D-06). */
+  price: number;
+}
+
+export interface OpenDay {
+  day: string;
+  /** "HH:MM", 24 h. */
+  open: string;
+  /** "HH:MM", 24 h, later than `open`. */
+  close: string;
+  closed?: never;
+}
+
+export interface ClosedDay {
+  day: string;
+  closed: true;
+  open?: never;
+  close?: never;
+}
+
+export type DayHours = OpenDay | ClosedDay;
+
+export interface Business {
+  name: string;
+  slogan: string;
+  locale: string;
+  currency: string;
+  menu: {
+    drinks: MenuItem[];
+    desserts: MenuItem[];
+  };
+  /** Seven entries, Monday to Sunday. */
+  hours: DayHours[];
+  address: string;
+  coordinates: { lat: number; lng: number };
+  /** `number`: digits only, country code included. */
+  whatsapp: { number: string; message: string };
+}
+
+export const business: Business = {
+  name: "Cafetería Luna",
+  slogan: "Tu rincón tranquilo para un buen café",
+  locale: "es-MX",
+  currency: "MXN",
+  menu: {
+    drinks: [
+      { name: "Café americano", price: 45 },
+      { name: "Capuchino", price: 55 },
+      { name: "Latte", price: 60 },
+      { name: "Chocolate caliente", price: 50 },
+    ],
+    desserts: [
+      { name: "Pastel de chocolate", price: 75 },
+      { name: "Cheesecake de frutos rojos", price: 80 },
+      { name: "Pan de elote", price: 45 },
+    ],
+  },
+  hours: [
+    { day: "Lunes", closed: true },
+    { day: "Martes", open: "08:00", close: "20:00" },
+    { day: "Miércoles", open: "08:00", close: "20:00" },
+    { day: "Jueves", open: "08:00", close: "20:00" },
+    { day: "Viernes", open: "08:00", close: "21:00" },
+    { day: "Sábado", open: "09:00", close: "21:00" },
+    { day: "Domingo", open: "09:00", close: "15:00" },
+  ],
+  address: "Calle Ejemplo 123, Col. Centro, 00000 Ciudad de México, CDMX, México",
+  coordinates: { lat: 19.4326, lng: -99.1332 },
+  whatsapp: {
+    number: "520000000000",
+    message:
+      "¡Hola, Cafetería Luna! Quiero reservar una mesa. ¿Me ayudas?\nFecha: \nHora: \nNúmero de personas: ",
+  },
+};
+
+codex
+El diff no añade dependencias ni archivos `.env`. Los datos se insertan con `textContent` y ambos botones usan `noopener noreferrer`; `npm audit --omit=dev` informa 0 vulnerabilidades. Comprobaré también con cargas de prueba que el HTML se muestre como texto y se rechacen las URL peligrosas.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@'
+const fs = require(\"node:fs\");
+const path = require(\"node:path\");
+const vm = require(\"node:vm\");
+const assert = require(\"node:assert/strict\");
+const ts = require(\"typescript\");
+const { JSDOM } = require(\"jsdom\");
+const dom = new JSDOM(fs.readFileSync(\"index.html\", \"utf8\"), { url: \"https://cafeteria.example/\" });
+const cache = new Map();
+function load(relative) {
+  const filename = path.resolve(relative);
+  if (cache.has(filename)) return cache.get(filename);
+  const output = ts.transpileModule(fs.readFileSync(filename, \"utf8\"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 }
+  }).outputText;
+  const exports = {};
+  cache.set(filename, exports);
+  const req = name => name.endsWith(\".css\") ? {} : load(path.resolve(path.dirname(filename), name + \".ts\"));
+  vm.runInNewContext(\"(function(exports,require){\"+output+\"\\n})\", { document: dom.window.document }, { filename })(exports, req);
+  return exports;
+}
+const { renderHero } = load(\"src/sections/hero.ts\");
+const { createReserveButton } = load(\"src/sections/reserve.ts\");
+const { buildWhatsAppUrl } = load(\"src/lib/whatsapp.ts\");
+const payloads = [\"<img src=x onerror=alert(1)>\", \"</h1><script>alert(1)</script>\", \"<svg onload=alert(1)>\", \"&lt;script&gt;\"];
+for (const payload of payloads) {
+  const hero = renderHero({name: payload, slogan: payload}, \"https://wa.me/520000000000\");
+  assert.equal(hero.querySelector(\"h1\").textContent, payload);
+  assert.equal(hero.querySelector(\"p\").textContent, payload);
+  assert.equal(hero.querySelectorAll(\"img,script,[onerror],[onload]\").length, 0);
+}
+for (const url of [\"javascript:alert(1)\", \"data:text/html,<script>alert(1)</script>\", \"//evil.example\", \"https://wa.me.evil.example/52\", \"https://wa.me@evil.example/52\", \"https://evil.example/https://wa.me/\"]) {
+  assert.throws(() => createReserveButton(url));
+}
+const message = '&x=1#<img src=x onerror=alert(1)>';
+const url = new URL(buildWhatsAppUrl('+52 000 000 0000', message));
+assert.equal(url.origin, \"https://wa.me\");
+assert.deepEqual([...url.searchParams.keys()], [\"text\"]);
+assert.equal(url.searchParams.get(\"text\"), message);
+load(\"src/main.ts\");
+const links = [...dom.window.document.querySelectorAll('a[target=\"_blank\"]')];
+assert.equal(links.length, 2);
+assert.equal(links[0].href, links[1].href);
+for (const link of links) {
+  assert.equal(new URL(link.href).origin, \"https://wa.me\");
+  assert(link.relList.contains(\"noopener\"));
+  assert(link.relList.contains(\"noreferrer\"));
+}
+console.log(\"OK: XSS payloads rendered as text; dangerous URLs rejected; message encoded; both mounted links protected.\");
+'@ | & 'C:\\Program Files\\nodejs\\node.exe' -" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-001
+ succeeded in 4974ms:
+OK: XSS payloads rendered as text; dangerous URLs rejected; message encoded; both mounted links protected.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001' status --short" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-001\revisiones
+ succeeded in 1344ms:
+codex
+REVISOR: seguridad
+VEREDICTO: OK
+Sin hallazgos.
+tokens used
+48.663
+REVISOR: seguridad
+VEREDICTO: OK
+Sin hallazgos.

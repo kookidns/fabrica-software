@@ -1,0 +1,1251 @@
+{
+  "chrome": "Chrome/157.0.8103.80",
+  "ca18": [
+    {
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "scrollY": 0,
+      "headerBottom": 101,
+      "heading": null,
+      "headingTop": null,
+      "headingBottom": null,
+      "headingVisible": null,
+      "outside": [],
+      "clipped": [],
+      "point": "arriba-cabecera",
+      "capture": "ca18-375-arriba-cabecera.png"
+    },
+    {
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "scrollY": 1,
+      "headerBottom": 101,
+      "heading": "Cafetería Luna",
+      "headingTop": 299,
+      "headingBottom": 347,
+      "headingVisible": true,
+      "outside": [],
+      "clipped": [],
+      "point": "inicio",
+      "capture": "ca18-375-inicio.png"
+    },
+    {
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "scrollY": 568,
+      "headerBottom": 101,
+      "heading": "Menú",
+      "headingTop": 148,
+      "headingBottom": 184,
+      "headingVisible": true,
+      "outside": [],
+      "clipped": [],
+      "point": "menu",
+      "capture": "ca18-375-menu.png"
+    },
+    {
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "scrollY": 1264,
+      "headerBottom": 101,
+      "heading": "Horario y ubicación",
+      "headingTop": 148,
+      "headingBottom": 184,
+      "headingVisible": true,
+      "outside": [],
+      "clipped": [],
+      "point": "horario",
+      "capture": "ca18-375-horario.png"
+    },
+    {
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "scrollY": 1803,
+      "headerBottom": 101,
+      "heading": null,
+      "headingTop": null,
+      "headingBottom": null,
+      "headingVisible": null,
+      "outside": [],
+      "clipped": [],
+      "point": "horario-tabla-dir",
+      "capture": "ca18-375-horario-tabla-dir.png"
+    },
+    {
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "scrollY": 2270,
+      "headerBottom": 101,
+      "heading": "Reservar",
+      "headingTop": 179,
+      "headingBottom": 215,
+      "headingVisible": true,
+      "outside": [],
+      "clipped": [],
+      "point": "reservar",
+      "capture": "ca18-375-reservar.png"
+    },
+    {
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "scrollY": 2270,
+      "headerBottom": 101,
+      "heading": "Cafetería Luna",
+      "headingTop": 510,
+      "headingBottom": 539,
+      "headingVisible": true,
+      "outside": [],
+      "clipped": [],
+      "point": "pie",
+      "capture": "ca18-375-pie.png"
+    }
+  ],
+  "ca19": {
+    "rows": [
+      {
+        "element": "a.skip-link",
+        "name": "Saltar al contenido",
+        "width": 173.19,
+        "height": 44,
+        "focused": true,
+        "ok": true
+      },
+      {
+        "element": "a.brand",
+        "name": "Cafetería Luna",
+        "width": 137.09,
+        "height": 56,
+        "focused": false,
+        "ok": true
+      },
+      {
+        "element": "a.nav-link",
+        "name": "Menú",
+        "width": 55.34,
+        "height": 44,
+        "focused": false,
+        "ok": true
+      },
+      {
+        "element": "a.nav-link",
+        "name": "Horario y ubicación",
+        "width": 148.95,
+        "height": 44,
+        "focused": false,
+        "ok": true
+      },
+      {
+        "element": "a.nav-link",
+        "name": "Reservar",
+        "width": 74.25,
+        "height": 44,
+        "focused": false,
+        "ok": true
+      },
+      {
+        "element": "a.btn.btn--whatsapp",
+        "name": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+        "width": 343,
+        "height": 48,
+        "focused": false,
+        "ok": true
+      },
+      {
+        "element": "a.btn.btn--secondary",
+        "name": "Cómo llegar (se abre en una pestaña nueva)",
+        "width": 343,
+        "height": 48,
+        "focused": false,
+        "ok": true
+      },
+      {
+        "element": "a.btn.btn--whatsapp",
+        "name": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+        "width": 343,
+        "height": 48,
+        "focused": false,
+        "ok": true
+      }
+    ],
+    "skipCapture": "ca19-375-skip-link-foco.png",
+    "iframe": {
+      "width": 341,
+      "height": 255
+    },
+    "osmUrl": "https://www.openstreetmap.org/export/embed.html?bbox=-99.138200%2C19.427600%2C-99.128200%2C19.437600&layer=mapnik&marker=19.432600%2C-99.133200",
+    "osm": [
+      {
+        "element": "canvas.maplibregl-canvas",
+        "name": "Mapa",
+        "width": 341,
+        "height": 255
+      },
+      {
+        "element": "button.maplibregl-ctrl-zoom-in",
+        "name": "Acercar",
+        "width": 29,
+        "height": 29
+      },
+      {
+        "element": "button.maplibregl-ctrl-zoom-out",
+        "name": "Alejar",
+        "width": 29,
+        "height": 29
+      },
+      {
+        "element": "a.maplibregl-ctrl-attrib-report-link",
+        "name": "Reportar un problema",
+        "width": 116.73,
+        "height": 14
+      },
+      {
+        "element": "a.",
+        "name": "Colaboradores de OpenStreetMap",
+        "width": 183.45,
+        "height": 14
+      },
+      {
+        "element": "a.donate-attr",
+        "name": "Hacer una donación",
+        "width": 107.42,
+        "height": 14
+      },
+      {
+        "element": "a.",
+        "name": "Términos del sitio web y de la API",
+        "width": 180.09,
+        "height": 14
+      }
+    ],
+    "mapCapture": "ca19-375-mapa-controles.png"
+  },
+  "ca20": {
+    "forward": [
+      {
+        "kind": "element",
+        "element": "a.skip-link",
+        "name": "Saltar al contenido",
+        "section": "cabecera",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 8,
+          "bottom": 52,
+          "left": 8,
+          "right": 181
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "capture": "ca20-375-foco-salto.png"
+      },
+      {
+        "kind": "element",
+        "element": "a.brand",
+        "name": "Cafetería Luna",
+        "section": "cabecera",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 0,
+          "bottom": 56,
+          "left": 16,
+          "right": 153
+        },
+        "headerBottom": 101,
+        "ringInViewport": false,
+        "underHeader": false,
+        "topmost": true,
+        "capture": "ca20-375-foco-marca.png"
+      },
+      {
+        "kind": "element",
+        "element": "a.nav-link",
+        "name": "Menú",
+        "section": "cabecera",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 56,
+          "bottom": 100,
+          "left": 8,
+          "right": 63
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "capture": "ca20-375-foco-nav-link-menu.png"
+      },
+      {
+        "kind": "element",
+        "element": "a.nav-link",
+        "name": "Horario y ubicación",
+        "section": "cabecera",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 56,
+          "bottom": 100,
+          "left": 71,
+          "right": 220
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true
+      },
+      {
+        "kind": "element",
+        "element": "a.nav-link",
+        "name": "Reservar",
+        "section": "cabecera",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 56,
+          "bottom": 100,
+          "left": 228,
+          "right": 303
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true
+      },
+      {
+        "kind": "element",
+        "element": "a.btn.btn--whatsapp",
+        "name": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+        "section": "inicio",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 421,
+          "bottom": 469,
+          "left": 16,
+          "right": 359
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "capture": "ca20-375-foco-btn-whatsapp-portada.png"
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 206,
+          "bottom": 461,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "canvas.maplibregl-canvas \"Mapa\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 206,
+          "bottom": 461,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "button.maplibregl-ctrl-zoom-in \"Acercar\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 206,
+          "bottom": 461,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "button.maplibregl-ctrl-zoom-out \"Alejar\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 206,
+          "bottom": 461,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "a.maplibregl-ctrl-attrib-report-link \"Reportar un problema\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 206,
+          "bottom": 461,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "a. \"Colaboradores de OpenStreetMap\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 206,
+          "bottom": 461,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "a.donate-attr \"Hacer una donación\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 206,
+          "bottom": 461,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "a. \"Términos del sitio web y de la API\""
+      },
+      {
+        "kind": "element",
+        "element": "a.btn.btn--secondary",
+        "name": "Cómo llegar (se abre en una pestaña nueva)",
+        "section": "horario",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 478,
+          "bottom": 526,
+          "left": 16,
+          "right": 359
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "capture": "ca20-375-foco-btn-como-llegar.png"
+      },
+      {
+        "kind": "element",
+        "element": "a.btn.btn--whatsapp",
+        "name": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+        "section": "reservar",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 366,
+          "bottom": 414,
+          "left": 16,
+          "right": 359
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "capture": "ca20-375-foco-btn-whatsapp-reservar.png"
+      }
+    ],
+    "backward": [
+      {
+        "kind": "element",
+        "element": "a.btn.btn--secondary",
+        "name": "Cómo llegar (se abre en una pestaña nueva)",
+        "section": "horario",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 35,
+          "bottom": 83,
+          "left": 16,
+          "right": 359
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": true,
+        "topmost": false
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": -237,
+          "bottom": 18,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": false,
+        "underHeader": true,
+        "topmost": false,
+        "inner": "a. \"Términos del sitio web y de la API\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": -237,
+          "bottom": 18,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": false,
+        "underHeader": true,
+        "topmost": false,
+        "inner": "a.donate-attr \"Hacer una donación\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 108,
+          "bottom": 363,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "a. \"Colaboradores de OpenStreetMap\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 108,
+          "bottom": 363,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "a.maplibregl-ctrl-attrib-report-link \"Reportar un problema\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 108,
+          "bottom": 363,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "button.maplibregl-ctrl-zoom-out \"Alejar\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 108,
+          "bottom": 363,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "button.maplibregl-ctrl-zoom-in \"Acercar\""
+      },
+      {
+        "kind": "iframe",
+        "element": "iframe.",
+        "name": "Mapa con la ubicación de la cafetería",
+        "section": "horario",
+        "focusVisible": false,
+        "outline": "none 3px rgb(43, 29, 20) offset 0px",
+        "rect": {
+          "top": 108,
+          "bottom": 363,
+          "left": 17,
+          "right": 358
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true,
+        "inner": "canvas.maplibregl-canvas \"Mapa\""
+      },
+      {
+        "kind": "element",
+        "element": "a.btn.btn--whatsapp",
+        "name": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+        "section": "inicio",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 310,
+          "bottom": 358,
+          "left": 16,
+          "right": 359
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true
+      },
+      {
+        "kind": "element",
+        "element": "a.nav-link",
+        "name": "Reservar",
+        "section": "cabecera",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 56,
+          "bottom": 100,
+          "left": 228,
+          "right": 303
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true
+      },
+      {
+        "kind": "element",
+        "element": "a.nav-link",
+        "name": "Horario y ubicación",
+        "section": "cabecera",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 56,
+          "bottom": 100,
+          "left": 71,
+          "right": 220
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true
+      },
+      {
+        "kind": "element",
+        "element": "a.nav-link",
+        "name": "Menú",
+        "section": "cabecera",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 56,
+          "bottom": 100,
+          "left": 8,
+          "right": 63
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true
+      },
+      {
+        "kind": "element",
+        "element": "a.brand",
+        "name": "Cafetería Luna",
+        "section": "cabecera",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 0,
+          "bottom": 56,
+          "left": 16,
+          "right": 153
+        },
+        "headerBottom": 101,
+        "ringInViewport": false,
+        "underHeader": false,
+        "topmost": true
+      },
+      {
+        "kind": "element",
+        "element": "a.skip-link",
+        "name": "Saltar al contenido",
+        "section": "cabecera",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 8,
+          "bottom": 52,
+          "left": 8,
+          "right": 181
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true
+      }
+    ],
+    "skip": {
+      "skipFocused": {
+        "active": true,
+        "width": 173,
+        "height": 44
+      },
+      "afterEnter": {
+        "activeId": "contenido",
+        "activeTag": "MAIN",
+        "hash": "#contenido",
+        "scrollY": 101
+      },
+      "nextAfterSkip": {
+        "kind": "element",
+        "element": "a.btn.btn--whatsapp",
+        "name": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+        "section": "inicio",
+        "focusVisible": true,
+        "outline": "solid 3px rgb(31, 78, 140) offset 3px",
+        "rect": {
+          "top": 320,
+          "bottom": 368,
+          "left": 16,
+          "right": 359
+        },
+        "headerBottom": 101,
+        "ringInViewport": true,
+        "underHeader": false,
+        "topmost": true
+      }
+    },
+    "skipCapture": "ca20-375-tras-salto-siguiente-tab.png"
+  },
+  "ca21": {
+    "375": {
+      "images": {
+        "normal-cabecera": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "normal-inicio": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "normal-menu": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "normal-horario": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "normal-horario-direccion": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "normal-reservar": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "normal-pie": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "barrido-01": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "barrido-02": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "barrido-03": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "barrido-04": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "barrido-05": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "barrido-06": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "hover-wa-portada": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "foco-wa-portada": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "hover-como-llegar": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "foco-como-llegar": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "hover-wa-reservar": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        },
+        "foco-wa-reservar": {
+          "sameSize": true,
+          "size": [
+            375,
+            667
+          ],
+          "diffPixels": 0
+        }
+      },
+      "styleDiffs": [
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[0]>a[0]",
+          "prop": "min-inline-size",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[0]>a[0]",
+          "prop": "min-width",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[1]>a[0]",
+          "prop": "min-inline-size",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[1]>a[0]",
+          "prop": "min-width",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[2]>a[0]",
+          "prop": "min-inline-size",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[2]>a[0]",
+          "prop": "min-width",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[0]>div[0]>a[2]",
+          "prop": "min-inline-size",
+          "antes": "auto",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[0]>div[0]>a[2]",
+          "prop": "min-width",
+          "antes": "auto",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[2]>div[0]>div[1]>div[1]>a[3]",
+          "prop": "min-inline-size",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[2]>div[0]>div[1]>div[1]>a[3]",
+          "prop": "min-width",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[3]>div[0]>div[1]>a[1]",
+          "prop": "min-inline-size",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[3]>div[0]>div[1]>a[1]",
+          "prop": "min-width",
+          "antes": "0px",
+          "despues": "44px"
+        }
+      ],
+      "elements": 109
+    },
+    "1024": {
+      "images": {
+        "normal-cabecera": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "normal-inicio": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "normal-menu": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "normal-horario": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "normal-horario-direccion": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "normal-reservar": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "normal-pie": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "barrido-01": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "barrido-02": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "barrido-03": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "barrido-04": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "hover-wa-portada": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "foco-wa-portada": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "hover-como-llegar": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "foco-como-llegar": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "hover-wa-reservar": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        },
+        "foco-wa-reservar": {
+          "sameSize": true,
+          "size": [
+            1024,
+            768
+          ],
+          "diffPixels": 0
+        }
+      },
+      "styleDiffs": [
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[0]>a[0]",
+          "prop": "min-inline-size",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[0]>a[0]",
+          "prop": "min-width",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[1]>a[0]",
+          "prop": "min-inline-size",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[1]>a[0]",
+          "prop": "min-width",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[2]>a[0]",
+          "prop": "min-inline-size",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>header[0]>div[1]>nav[1]>ul[0]>li[2]>a[0]",
+          "prop": "min-width",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[0]>div[0]>a[2]",
+          "prop": "min-inline-size",
+          "antes": "auto",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[0]>div[0]>a[2]",
+          "prop": "min-width",
+          "antes": "auto",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[2]>div[0]>div[1]>div[1]>a[3]",
+          "prop": "min-inline-size",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[2]>div[0]>div[1]>div[1]>a[3]",
+          "prop": "min-width",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[3]>div[0]>div[1]>a[1]",
+          "prop": "min-inline-size",
+          "antes": "0px",
+          "despues": "44px"
+        },
+        {
+          "path": "html[0]>body[1]>main[1]>section[3]>div[0]>div[1]>a[1]",
+          "prop": "min-width",
+          "antes": "0px",
+          "despues": "44px"
+        }
+      ],
+      "elements": 109
+    }
+  },
+  "ca18full": "ca18-375-pagina-completa.png"
+}

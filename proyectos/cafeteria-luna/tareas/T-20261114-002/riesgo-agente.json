@@ -1,0 +1,4 @@
+{
+  "nivel": "ALTO",
+  "motivo": "riesgo-codigo.json ya indica ALTO y el cambio afecta zonas sensibles: datos del negocio y construcción del enlace de reservas por WhatsApp."
+}

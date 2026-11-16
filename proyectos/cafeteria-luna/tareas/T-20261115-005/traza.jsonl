@@ -1,0 +1,17 @@
+{"ts":"2026-11-15T07:46:36.357Z","estacion":"entrada","resultado":"CREADA","nota":"bandeja/007-anillo-foco-marca.md"}
+{"ts":"2026-11-15T07:46:36.422Z","estacion":"spec-writer","resultado":"EN_CURSO","nota":"Claude opus (subagente)"}
+{"ts":"2026-11-15T07:50:16.136Z","estacion":"spec-writer","resultado":"OK","nota":"5 CA; header.css + split.test.ts; sin zonas sensibles; 1 hueco"}
+{"ts":"2026-11-15T07:50:16.195Z","estacion":"constructor","resultado":"EN_CURSO","nota":"Claude opus (subagente), ronda 1"}
+{"ts":"2026-11-15T07:57:11.063Z","estacion":"constructor","resultado":"OK","nota":"546e405; 280 pruebas; puertas ok; anillo top -6 -> 0 en 3 anchos"}
+{"ts":"2026-11-15T07:57:34.360Z","estacion":"evidencia","resultado":"OK","nota":"evidencia-ronda1/ (3 vistas, 16 pasos de Tab, comparación con main)"}
+{"ts":"2026-11-15T07:59:08.639Z","estacion":"revisor-ux","resultado":"OK","nota":"codex gpt-6.1-sol · 76s"}
+{"ts":"2026-11-15T07:59:10.670Z","estacion":"revisor-ui","resultado":"OK","nota":"codex gpt-6-astra · 78s"}
+{"ts":"2026-11-15T07:59:14.476Z","estacion":"revisor-codigo","resultado":"OK","nota":"Claude sonnet; 2 BAJO; 768/1024 px no verificados por él"}
+{"ts":"2026-11-15T07:59:52.173Z","estacion":"revisor-seguridad","resultado":"OK","nota":"codex gpt-6.1-sol · 120s"}
+{"ts":"2026-11-15T08:00:16.891Z","estacion":"revisores-codex","resultado":"OK","nota":"seguridad, UX y UI OK, con evidencia de la fabrica"}
+{"ts":"2026-11-15T08:00:16.948Z","estacion":"aprobador","resultado":"EN_CURSO","nota":"Claude opus (subagente)"}
+{"ts":"2026-11-15T08:02:58.604Z","estacion":"aprobador","resultado":"APROBADO","nota":"ronda 1; MEDIO: capturas -final del constructor vacias pese a describirse como validas"}
+{"ts":"2026-11-15T08:02:58.958Z","estacion":"riesgo-codigo","resultado":"BAJO","nota":""}
+{"ts":"2026-11-15T08:03:50.328Z","estacion":"clasificador-riesgo","resultado":"ALTO","nota":"codex gpt-6.1-sol · 51s"}
+{"ts":"2026-11-15T08:03:59.948Z","estacion":"cierre","resultado":"ESPERANDO_HUMANO","nota":"El cálculo determinista indica BAJO, pero el acceso denegado a Git impidió verificar el diff completo; ante la duda, corresponde ALTO."}
+{"ts":"2026-11-15T08:19:05.061Z","estacion":"cierre","resultado":"INTEGRADA","nota":"aprobada por humano"}

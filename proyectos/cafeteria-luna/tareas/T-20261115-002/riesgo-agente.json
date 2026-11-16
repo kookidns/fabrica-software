@@ -1,0 +1,4 @@
+{
+  "nivel": "ALTO",
+  "motivo": "El cálculo determinista ya indica ALTO y el cambio modifica src/main.ts, zona sensible cuyo fallo puede impedir el montaje de la página y los botones de reserva."
+}

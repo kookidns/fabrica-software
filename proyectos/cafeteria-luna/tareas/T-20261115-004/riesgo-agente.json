@@ -1,0 +1,4 @@
+{
+  "nivel": "ALTO",
+  "motivo": "El cálculo determinista ya indica ALTO por cambios en zonas sensibles (src/main.ts y src/sections/location.ts) y un diff de 1143 líneas."
+}

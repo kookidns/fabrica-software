@@ -1,0 +1,9 @@
+﻿# Zonas sensibles de cafeteria-luna (extraídas de brain/arquitectura.md)
+src/data/business.ts
+src/lib/whatsapp.ts
+src/sections/hero.ts
+src/sections/reserve.ts
+index.html
+src/main.ts
+src/lib/maps.ts
+src/sections/location.ts

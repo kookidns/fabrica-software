@@ -1,0 +1,4 @@
+{
+  "nivel": "ALTO",
+  "motivo": "El cálculo determinista ya indica ALTO: se modifica src/main.ts, zona sensible, y se incorpora un iframe de terceros de OpenStreetMap."
+}

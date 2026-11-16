@@ -1,0 +1,736 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\riesgo-agente.json -m gpt-6.1-sol -c model_reasoning_effort="high" -s read-only -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004 --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **clasificador de riesgo**. Equivocarte hacia abajo puede tumbar el sistema; hacia arriba
+solo cuesta un minuto del humano. Ante la duda: ALTO.
+
+## Entradas
+- `tareas/<ID>/riesgo-codigo.json` (cálculo determinista de `scripts/riesgo.mjs`).
+- `tareas/<ID>/spec.md` y `brain/arquitectura.md` (sección "Zonas sensibles").
+- El cambio: `git -C <carpeta de trabajo> diff main...HEAD`.
+
+## Criterio
+- **BAJO**: cambios cosméticos o de contenido (textos, colores, estilos, una sección estática nueva,
+  documentación) que no tocan datos, auth, backend, dependencias ni configuración.
+- **ALTO**: base de datos o migraciones, autenticación/permisos, pagos, backend o lógica de negocio
+  core, dependencias o build, configuración, borrado de datos, o cualquier cosa que pueda tumbar la app.
+
+Si `riesgo-codigo.json` ya dice ALTO, tu respuesta es ALTO (puedes añadir motivos).
+
+## Formato de respuesta (obligatorio, JSON válido y nada más)
+```json
+{"nivel": "BAJO", "motivo": "una frase"}
+```
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-004 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-004): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-004
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- No escribas archivos. Tu entrega es tu último mensaje.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: none
+session id: 01a1de0c-6c33-7733-9fdd-0bea630f05b9
+--------
+user
+Eres el **clasificador de riesgo**. Equivocarte hacia abajo puede tumbar el sistema; hacia arriba
+solo cuesta un minuto del humano. Ante la duda: ALTO.
+
+## Entradas
+- `tareas/<ID>/riesgo-codigo.json` (cálculo determinista de `scripts/riesgo.mjs`).
+- `tareas/<ID>/spec.md` y `brain/arquitectura.md` (sección "Zonas sensibles").
+- El cambio: `git -C <carpeta de trabajo> diff main...HEAD`.
+
+## Criterio
+- **BAJO**: cambios cosméticos o de contenido (textos, colores, estilos, una sección estática nueva,
+  documentación) que no tocan datos, auth, backend, dependencias ni configuración.
+- **ALTO**: base de datos o migraciones, autenticación/permisos, pagos, backend o lógica de negocio
+  core, dependencias o build, configuración, borrado de datos, o cualquier cosa que pueda tumbar la app.
+
+Si `riesgo-codigo.json` ya dice ALTO, tu respuesta es ALTO (puedes añadir motivos).
+
+## Formato de respuesta (obligatorio, JSON válido y nada más)
+```json
+{"nivel": "BAJO", "motivo": "una frase"}
+```
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-004 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-004): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-004
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- No escribas archivos. Tu entrega es tu último mensaje.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Revisaré las instrucciones, el cálculo de riesgo y el diff para clasificar el cambio.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\CLAUDE.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004
+ succeeded in 1466ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+entrada â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw -Encoding UTF8 '.claude\\agents\\clasificador-riesgo.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw -Encoding UTF8 'brain\\index.md'
+Get-Content -Raw -Encoding UTF8 'brain\\arquitectura.md'
+Get-Content -Raw -Encoding UTF8 'tareas\\T-20261115-004\\riesgo-codigo.json'
+Get-Content -Raw -Encoding UTF8 'tareas\\T-20261115-004\\spec.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'git diff main...HEAD' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-004
+ succeeded in 2066ms:
+---
+name: clasificador-riesgo
+description: Decide si una tarea aprobada es lo bastante sensible como para exigir revisión humana antes de integrarse en main. Solo puede subir el riesgo calculado por el script, nunca bajarlo.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: opus
+---
+
+Eres el **clasificador de riesgo**. Equivocarte hacia abajo puede tumbar el sistema; hacia arriba
+solo cuesta un minuto del humano. Ante la duda: ALTO.
+
+## Entradas
+- `tareas/<ID>/riesgo-codigo.json` (cálculo determinista de `scripts/riesgo.mjs`).
+- `tareas/<ID>/spec.md` y `brain/arquitectura.md` (sección "Zonas sensibles").
+- El cambio: `git -C <carpeta de trabajo> diff main...HEAD`.
+
+## Criterio
+- **BAJO**: cambios cosméticos o de contenido (textos, colores, estilos, una sección estática nueva,
+  documentación) que no tocan datos, auth, backend, dependencias ni configuración.
+- **ALTO**: base de datos o migraciones, autenticación/permisos, pagos, backend o lógica de negocio
+  core, dependencias o build, configuración, borrado de datos, o cualquier cosa que pueda tumbar la app.
+
+Si `riesgo-codigo.json` ya dice ALTO, tu respuesta es ALTO (puedes añadir motivos).
+
+## Formato de respuesta (obligatorio, JSON válido y nada más)
+```json
+{"nivel": "BAJO", "motivo": "una frase"}
+```
+
+
+ succeeded in 2131ms:
+# Brain — índice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | Léelo cuando… |
+|---|---|---|
+| `vision.md` | Problema, público, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar código |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por qué (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavía NO sabe | te falte información |
+| `log.md` | Historial de tareas cerradas | quieras saber qué se hizo |
+
+## Cómo se mantiene
+- Decisión nueva → entrada en `decisiones.md` (con fecha y tarea que la originó).
+- Duda que nadie resolvió → `huecos.md`. No inventes la respuesta.
+- Tarea cerrada → entrada en `log.md`.
+
+# Arquitectura
+
+Landing de una sola página, estática, sin backend. Ver decisiones D-01 a D-06.
+
+## Stack
+- **Vite** (servidor de desarrollo + build estático a `dist/`) con **TypeScript** "vanilla": sin
+  framework de UI (D-01).
+- **CSS plano** con custom properties (tokens de `diseno.md`); sin Tailwind (D-02).
+- **Calidad** (D-03): ESLint 9 (flat config) + typescript-eslint · `tsc --noEmit` · Vitest + jsdom.
+- Sin dependencias de producción: todo lo instalado es `devDependencies`.
+- Node LTS actual; versiones fijadas en `package-lock.json`.
+
+## Estructura de `app/`
+```
+app/
+├── index.html              # Esqueleto semántico estático (lang="es"): header+nav, <main> con las
+│                           # secciones (id + <h2>), contenedores vacíos para los datos, footer.
+├── package.json            # scripts: dev, lint, typecheck, test, build, preview
+├── package-lock.json
+├── tsconfig.json
+├── vite.config.ts          # build + bloque `test` de Vitest (environment: jsdom)
+├── eslint.config.js
+├── public/                 # favicon e imágenes estáticas (si las hay)
+└── src/
+    ├── main.ts             # Punto de entrada: importa estilos y monta cada sección en su contenedor
+    ├── data/
+    │   └── business.ts     # ÚNICO archivo de datos del negocio (D-00), tipado y marcado como ficticio
+    ├── lib/                # Funciones puras, sin DOM
+    │   ├── formatPrice.ts  # número → texto con moneda (Intl.NumberFormat)
+    │   ├── whatsapp.ts     # número + mensaje → URL wa.me
+    │   └── maps.ts         # coordenadas → URL de "Cómo llegar" y URL del mapa embebido
+    ├── sections/           # Una función por sección: datos → HTMLElement (DOM API)
+    │   ├── hero.ts         # Portada: nombre, eslogan, botón WhatsApp
+    │   ├── menu.ts         # Menú: Bebidas y Postres
+    │   ├── location.ts     # Horario y ubicación: tabla de horario, dirección, mapa, "Cómo llegar"
+    │   └── reserve.ts      # Reservar: texto + botón WhatsApp
+    └── styles/
+        ├── tokens.css      # Tokens de diseno.md como custom properties en :root
+        └── main.css        # Estilos base, layout mobile-first, componentes
+```
+- Pruebas **junto al código**: `src/**/<modulo>.test.ts`. Las pruebas de estructura de la página
+  leen `index.html` y lo cargan en jsdom.
+- Nombres de código en inglés; textos visibles en español (estándar de estilo).
+- Archivos de más de ~200 líneas se dividen.
+
+## Rutas / páginas
+Una sola ruta: `/` (`index.html`). Navegación interna por anclas, en este orden:
+
+| Ancla | Sección | Contenido |
+|---|---|---|
+| `#inicio` | Portada | Nombre "Cafetería Luna", eslogan, botón "Reservar mesa por WhatsApp" |
+| `#menu` | Menú | Grupos "Bebidas" y "Postres"; producto = nombre + precio |
+| `#horario` | Horario y ubicación | Horario lunes→domingo (incl. cierres), dirección, mapa, "Cómo llegar" |
+| `#reservar` | Reservar | Texto breve + botón "Reservar mesa por WhatsApp" |
+| — | Pie | Nombre, dirección corta, aviso de datos de ejemplo mientras rija D-00 |
+
+La cabecera con la navegación (Menú · Horario y ubicación · Reservar) es **fija/sticky**, de modo
+que es accesible desde cualquier punto de la página (CA-01.3).
+
+## Datos e integraciones
+### Datos (`src/data/business.ts`)
+Constante tipada `business` con: `name`, `slogan`, `locale` (`es-MX`), `currency` (`MXN`),
+`menu` (`drinks[]`, `desserts[]` de `{ name, price }`), `hours` (7 entradas lunes→domingo,
+`{ day, open, close } | { day, closed: true }`), `address` (texto completo), `coordinates`
+(`{ lat, lng }`), `whatsapp` (`{ number: "520000000000", message }`).
+- Mientras rija D-00 los valores son **ficticios** y el archivo lo dice en un comentario de cabecera.
+- Sustituir los datos reales = editar solo este archivo. Ningún otro módulo contiene datos del negocio.
+
+### Integraciones (todas sin claves ni `.env`)
+| Integración | Cómo | CA |
+|---|---|---|
+| WhatsApp | Enlace `https://wa.me/<número solo dígitos>?text=<mensaje con encodeURIComponent>`. Abre la app en móvil y WhatsApp Web/página de WhatsApp en escritorio. | CA-04.2–04.4 |
+| Mapa | `<iframe>` de OpenStreetMap (`export/embed.html` con `bbox` y `marker`), `loading="lazy"`, con `title` accesible. | CA-03.3 |
+| Cómo llegar | Enlace `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`: abre la app de mapas en móvil o la web en escritorio. | CA-03.4 |
+
+### Reglas de implementación
+- Los datos se insertan en el DOM **solo** con `textContent` / `setAttribute`; prohibido `innerHTML`
+  con datos.
+- Enlaces externos: `target="_blank"` + `rel="noopener noreferrer"` y un nombre accesible que indique
+  el propósito (p. ej., `aria-label` del botón de WhatsApp).
+- No se recogen datos personales; sin formularios, cookies propias ni analítica (hueco abierto).
+- Rendimiento (Lighthouse móvil ≥ 90): sin librerías de UI, mapa diferido (`loading="lazy"`), imágenes
+  con `width`/`height` y formatos modernos, fuentes con `font-display: swap` y como mucho 2 familias.
+
+## Zonas sensibles (riesgo ALTO: requieren aprobación humana)
+Además de lo que ya detecta `scripts/riesgo.mjs` (dependencias, configuración de build):
+- `src/data/business.ts` — un número o un mensaje de WhatsApp erróneo rompe el objetivo principal de
+  negocio (reservas) sin que falle ninguna prueba; un precio, horario o dirección erróneos engañan al
+  cliente. Cualquier cambio exige revisión humana.
+- `src/lib/whatsapp.ts` y los botones de reserva (`src/sections/hero.ts`, `src/sections/reserve.ts`) —
+  es el embudo de conversión: si la URL se construye mal, no entra ninguna reserva.
+- `index.html` y `src/main.ts` — si el esqueleto o el montaje fallan, la página queda en blanco.
+- `package.json`, `package-lock.json`, `vite.config.ts`, `tsconfig.json`, `eslint.config.js` —
+  dependencias y build (ya cubiertos por el script).
+- Cualquier recurso de terceros nuevo (iframes, scripts, fuentes externas) — afecta a privacidad y
+  rendimiento.
+
+## Cómo ejecutar
+- Instalar: `npm install` (dentro de `app/` o del worktree)
+- Desarrollo: `npm run dev`
+- Previsualizar el build: `npm run build && npm run preview`
+- Puertas: `node scripts/verificar.mjs <carpeta>` (desde la raíz de la fábrica) → `lint`, `typecheck`,
+  `test`, `build`
+- Lighthouse (CA-05.3, manual): auditoría móvil sobre `npm run preview`.
+
+## Hosting
+Estático (`dist/`) en Vercel o Netlify, **solo cuando el humano lo pida** y con los huecos de
+contenido resueltos (D-00). Dominio: pendiente (`huecos.md`).
+
+{
+  "nivel": "ALTO",
+  "motivos": [
+    "zona sensible del proyecto (src/main.ts): src/main.ts",
+    "zona sensible del proyecto (src/sections/location.ts): src/sections/location.ts",
+    "cambio grande: 1143 líneas (> 300)"
+  ],
+  "archivos": [
+    "src/a11y.test.ts",
+    "src/main.ts",
+    "src/sections/location.guards.test.ts",
+    "src/sections/location.ts",
+    "src/styles/buttons.css",
+    "src/styles/buttons.test.ts",
+    "src/styles/footer.css",
+    "src/styles/header.css",
+    "src/styles/hero.css",
+    "src/styles/location.css",
+    "src/styles/location.test.ts",
+    "src/styles/main.css",
+    "src/styles/reserve.css",
+    "src/styles/split.test.ts",
+    "src/styles/styles.test.ts"
+  ],
+  "lineas": 1143
+}
+
+# T-20261115-004 · Pulido móvil, accesibilidad y auditoría Lighthouse
+Tipo: tarea      Toca interfaz: sí      Texto visible para el usuario: no
+
+Cubre de `brain/spec.md`: CA-05.1, CA-05.2, CA-05.3 y CA-05.4 (HU-05). También cierra lo que las tareas
+anteriores dejaron para la 006: dividir `main.css` (D-08), mover `.btn--secondary` (D-10), corregir el
+comentario "Leaflet" de `location.ts` y probar sus guardias de prefijo (aprobación de T-20261115-003).
+No cambia ningún texto visible ni ningún dato del negocio.
+
+## Contexto (qué dice el brain que importa aquí)
+- **D-03**: las puertas son `lint`, `typecheck`, `test` (Vitest + jsdom) y `build`. **Lighthouse
+  (CA-05.3) no se puede automatizar en `npm run`**: el constructor lo comprueba a mano sobre
+  `npm run preview` y guarda el informe en el rastro de la tarea. jsdom no calcula el layout, así que
+  los 375 px, los 44×44 px y el foco visible se comprueban con pruebas de estructura y de CSS más una
+  comprobación manual.
+- **D-08**: `main.css` mide 317 líneas y la guía es de unas 200 (`arquitectura.md`: "Archivos de más
+  de ~200 líneas se dividen"). Su división quedó para esta tarea. **D-10**: `.btn--secondary` vive en
+  `location.css` hasta esa división. **D-09**: cada sección tiene su propio archivo de estilos y se
+  importa en `main.ts` después de `main.css`.
+- **D-02 / diseno.md**: CSS plano, solo `var(--…)`. Toda zona táctil mide al menos 44×44 px
+  (`--tap-min: 44px`, que ya existe en `tokens.css` y ya se prueba en `styles.test.ts`). Hay un anillo
+  de foco global `:focus-visible` con `--color-focus`; el único contorno anulado es `main:focus` (D-08).
+  Las transiciones se desactivan con `prefers-reduced-motion: reduce`.
+- **Estado del código (main = worktree)**:
+  - Elementos interactivos de la página: `.skip-link`, `.brand`, tres `.nav-link`, dos
+    `a.btn.btn--whatsapp` (portada y Reservar), `a.btn.btn--secondary` ("Cómo llegar") y el `<iframe>`
+    de OSM. No hay `<img>`. El único `<svg>` es el icono del botón de WhatsApp, con
+    `aria-hidden="true"`. Hoy no hay formularios ni `<button>`.
+  - Alturas: `.skip-link`, `.nav-link` → `min-height: var(--tap-min)`; `.brand` →
+    `var(--header-height)` (56/64 px); `.btn` → `var(--space-7)` (48 px). El ancho depende del texto:
+    ningún selector fija `min-width`. "Menú" (`.nav-link`, 15 px y 8 px de relleno por lado) mide unos
+    50 px, poco margen.
+  - `main.css` mezcla la base global con la cabecera, la portada, Reservar, los botones y el pie.
+    `styles.test.ts` (CA-15 de T-20261114-001) lee `main.css` para buscar la cabecera sticky, el
+    `scroll-margin-top`, el `:focus-visible` y el bloque `prefers-reduced-motion: reduce`.
+    `src/styles/location.test.ts` (CA-19 f de T-20261115-003) busca `.btn--secondary` en
+    `location.css`.
+  - El bloque `prefers-reduced-motion: reduce` de `main.css` anula `.btn:active { transform }`. Si
+    `.btn` pasa a otro archivo importado **después**, su `.btn:active` ganaría la cascada a esa
+    anulación, con la misma especificidad. Hay que mover la anulación junto con el botón.
+  - `src/sections/location.ts:24` dice "Leaflet needs scripts", pero el embed de OSM usa MapLibre GL
+    (D-10). Las guardias de prefijo de `createMap` y `createDirectionsLink` no tienen ninguna prueba que
+    las haga fallar, porque `maps.ts` siempre devuelve URLs válidas.
+- **log.md / aprobación de T-20261115-003**: los controles +/− y la atribución del iframe de OSM miden
+  unos 30 px. Son de otro origen y no se pueden estilar. El aprobador los aceptó como excepción y pidió
+  documentarla en la 006. **D-10**: ampliar los permisos del `sandbox` o cambiar de proveedor
+  requiere una decisión humana. El marcador queda algo por debajo del centro a 768 px: corregirlo
+  obligaría a cambiar el `d` del bbox de D-10.
+- **Huecos que afectan a la medición**: Google Fonts sigue sin aprobarse, así que hoy la página usa
+  las fuentes del sistema. Lighthouse mide esa situación; si más adelante se cargan fuentes externas,
+  habrá que repetir la medición.
+
+## Decisiones de esta spec (a registrar en `decisiones.md` y `diseno.md` al cerrar, si se aceptan)
+1. **División de `main.css`** (resuelve el pendiente de D-08 y el de D-10). Es un movimiento puro de
+   reglas: no cambia ninguna declaración salvo las de la decisión 2.
+
+   | Archivo | Contenido (selectores exactos) |
+   |---|---|
+   | `main.css` (se queda) | `*, *::before, *::after` · `body` · `h1, h2, h3` · `p` · `a` · `.container` · `:focus-visible` · `main:focus` · `main > section` · `main > section:nth-of-type(even)` · `main > section h2` · `@media (min-width: 768px)` → `main > section` · `@media (prefers-reduced-motion: no-preference)` → `html` · `@media (prefers-reduced-motion: reduce)` → `*, *::before, *::after` |
+   | `header.css` (nuevo) | `.skip-link` · `.skip-link:not(:focus)` · `.site-header` · `.site-header__inner` · `.brand` · `.site-nav` · `.site-nav__list` · `.nav-link` · `.nav-link:hover` · `@media (min-width: 768px)` → `.site-header__inner`, `.site-nav`, `.site-nav__list` |
+   | `buttons.css` (nuevo) | `.btn` · `.btn:active` · `.btn__icon` · `.btn--whatsapp` · `.btn--whatsapp:hover` · `.btn--secondary` · `.btn--secondary:hover` · `@media (min-width: 768px)` → `.btn--whatsapp`, `.btn--secondary` · `@media (prefers-reduced-motion: reduce)` → `.btn:active` |
+   | `hero.css` (nuevo) | `.hero` · `.hero__content` · `.hero__title` · `.hero__slogan` · `@media (min-width: 768px)` → `.hero` |
+   | `reserve.css` (nuevo) | `.reserve__text` |
+   | `footer.css` (nuevo) | `.site-footer` · `.site-footer a` · `.site-footer :focus-visible` · `.site-footer__name` · `.site-footer__notice` |
+   | `location.css` (cambia) | Pierde `.btn--secondary`, `.btn--secondary:hover` y su regla de 768 px. El margen superior propio de la sección pasa a `.location__place .btn--secondary { margin-top: var(--space-4); }` |
+
+   Orden de importación en `main.ts`: `tokens.css`, `main.css`, `header.css`, `buttons.css`, `hero.css`,
+   `reserve.css`, `footer.css`, `menu.css`, `location.css`. Los componentes compartidos van antes que
+   las secciones, para que una sección pueda ajustar un componente sin `!important`.
+2. **Zona táctil verificable**: se añade `min-width: var(--tap-min)` a `.nav-link` y a `.btn`. Con eso
+   los 44 px de ancho no dependen de la longitud del texto. No cambia nada visible a 375 px, porque
+   todos ya miden más. `.skip-link` y `.brand` no lo necesitan: su texto ("Saltar al contenido",
+   "Cafetería Luna") siempre es más ancho. Además, `min-width` anularía el `width: 1px` de
+   `.skip-link:not(:focus)`.
+3. **Excepción conocida de CA-05.2 (pendiente de confirmación humana; ver `huecos.md`)**: los controles
+   internos del embed de OpenStreetMap (zoom +/− y enlaces de atribución, unos 30 px) no se pueden
+   llevar a 44×44 px, porque viven en un iframe de otro origen. La acción táctil equivalente es "Cómo
+   llegar" (48 px de alto, ancho completo en móvil). Esta tarea no cambia el iframe, su `sandbox` ni el
+   proveedor (D-05, D-10).
+4. **Procedimiento de Lighthouse (D-03)**: modo móvil, con la configuración por defecto (emulación móvil
+   y estrangulamiento simulado), sobre el build servido con `npm run preview`. Se hacen **3 ejecuciones**
+   y el criterio se aplica a la **mediana** de cada categoría. No se añade ninguna dependencia al
+   proyecto: se usa el panel Lighthouse de Chrome DevTools o la CLI con `npx` lanzada **fuera** de la
+   carpeta de trabajo. Los informes se guardan en `tareas/T-20261115-004/lighthouse/`.
+
+## Objetivo
+Dejar demostrado, con pruebas automáticas donde jsdom lo permite y con comprobación manual e informe
+donde no, que la página cumple HU-05 a 375 px:
+- sin scroll horizontal ni texto cortado;
+- zonas táctiles de al menos 44×44 px en todo lo que es nuestro;
+- foco visible;
+- un encabezado por sección, `alt` en toda imagen y el botón de WhatsApp anunciando su propósito;
+- Lighthouse móvil con rendimiento y accesibilidad de al menos 90.
+
+Además:
+- dividir `main.css` en archivos de menos de 200 líneas sin ningún cambio visual;
+- corregir el comentario de `location.ts` y cubrir sus guardias de prefijo con pruebas.
+
+## Criterios de aceptación
+
+### Accesibilidad de la página montada (nuevo `src/a11y.test.ts`)
+Las pruebas cargan el `<body>` de `index.html` en jsdom e importan `./main`, igual que `loadPage()` en
+`src/main.test.ts` (con `vi.resetModules()` antes de cada importación), y comprueban el documento ya
+montado con los datos reales de `business.ts`.
+
+- **CA-1** — Dada la página montada, cuando se recorre cada `main > section`, entonces:
+  - cada una tiene `aria-labelledby` y apunta a un `<h1>` o `<h2>` **dentro de esa sección**, con texto
+    no vacío;
+  - cada sección contiene exactamente un `<h1>` o `<h2>`;
+  - el documento tiene exactamente un `<h1>`, dentro de `#inicio`.
+
+  (CA-05.4)
+- **CA-2** — Dados todos los `h1`–`h6` del documento en orden, cuando se comparan los niveles, entonces
+  el primero es `h1` y ninguno sube más de un nivel respecto al anterior: no hay saltos como `h2` → `h4`
+  (CA-05.4).
+- **CA-3** — Dada la página montada, cuando se buscan imágenes y gráficos, entonces:
+  - ningún `<img>` carece del atributo `alt`. La comprobación recorre **todos** los `img`, así que
+    hoy pasa sin ninguno y fallará si alguien añade uno sin `alt`;
+  - todo `<svg>` tiene `aria-hidden="true"`, o bien `role="img"` con `aria-label` no vacío;
+  - el `<iframe>` tiene un `title` no vacío.
+
+  (CA-05.4)
+- **CA-4** — Dados los enlaces `a[href^="https://wa.me/"]`, cuando se leen, entonces:
+  - hay exactamente 2, uno en `#inicio` y otro en `#reservar`;
+  - el `aria-label` de cada uno empieza por su texto visible (`textContent` sin espacios sobrantes,
+    `Reservar mesa por WhatsApp`), contiene `WhatsApp` y termina en `(se abre en una pestaña nueva)`;
+  - su `<svg>` tiene `aria-hidden="true"`.
+
+  (CA-05.4, CA-04.1)
+- **CA-5** — Dados todos los elementos enfocables del documento (`a[href]`, `button`, `input`, `select`,
+  `textarea`, `[tabindex]:not([tabindex="-1"])`) **salvo el `<iframe>`**, cuando se inspeccionan,
+  entonces cada uno tiene un nombre accesible no vacío (`aria-label` o `textContent` sin espacios
+  sobrantes) y al menos una de las clases `skip-link`, `brand`, `nav-link` o `btn`, que son las que
+  CA-6 garantiza a 44 px. Un enlace nuevo sin esas clases hace fallar la prueba (CA-05.2).
+
+### Zona táctil y foco en CSS (pruebas que leen los `.css` sin comentarios)
+- **CA-6** — Dados `src/styles/header.css` y `src/styles/buttons.css`, cuando se leen las reglas de
+  selector exacto `.skip-link`, `.brand` y `.nav-link` (`header.css`) y `.btn` (`buttons.css`),
+  entonces:
+  - cada una declara `min-height` con valor `var(--tap-min)`, `var(--header-height)` o
+    `var(--space-7)`, todos de 44 px o más;
+  - `.nav-link` y `.btn` declaran además `min-width: var(--tap-min)` (decisión 2).
+
+  (CA-05.2)
+- **CA-7** — Dados todos los archivos `src/styles/*.css`, cuando se buscan anulaciones del contorno
+  (`outline: none`, `outline: 0`, `outline-style: none`, `outline-width: 0`), entonces solo aparecen
+  en la regla de selector exacto `main:focus` (D-08). Así ninguna regla esconde el anillo de foco.
+
+### División de `main.css` (pruebas en un nuevo `src/styles/split.test.ts` y `src/styles/buttons.test.ts`)
+- **CA-8** — Dados `main.css`, `header.css`, `buttons.css`, `hero.css`, `reserve.css`, `footer.css`,
+  `menu.css`, `location.css` y `tokens.css` en `src/styles/`, cuando se leen, entonces existen todos y
+  ninguno pasa de **200 líneas** (contando comentarios y líneas en blanco). Ninguno salvo `tokens.css`
+  contiene literales de color (`#` hexadecimal, `rgb(`, `rgba(`, `hsl(`, `hsla(`).
+- **CA-9** — Dada la tabla de la decisión 1, cuando se parsean los archivos (separando las listas de
+  selectores por comas y teniendo en cuenta el `@media` que envuelve cada regla), entonces cada selector
+  de la tabla aparece en su archivo y contexto, y **no** aparece con ese mismo selector exacto y en ese
+  mismo contexto en ningún otro archivo de `src/styles/`. `.location__place .btn--secondary` cuenta
+  como un selector distinto de `.btn--secondary`.
+- **CA-10** — Dado `buttons.css`, cuando se lee, entonces contiene un bloque
+  `@media (prefers-reduced-motion: reduce)` con `.btn:active { transform: none; }` y está **después**
+  de la regla base `.btn:active` con `translateY(1px)`. El bloque `reduce` de `main.css` ya no contiene
+  ningún selector con `.btn`.
+- **CA-11** — Dado `src/main.ts`, cuando se lee, entonces importa, cada una **exactamente una vez** y en
+  este orden, `./styles/tokens.css`, `./styles/main.css`, `./styles/header.css`, `./styles/buttons.css`,
+  `./styles/hero.css`, `./styles/reserve.css`, `./styles/footer.css`, `./styles/menu.css` y
+  `./styles/location.css`. En el diff de `main.ts` solo hay líneas `import "./styles/…";` añadidas: no
+  cambia `mount()` ni ninguna otra línea (lo comprueba el revisor con `git diff main -- src/main.ts`).
+- **CA-12** — Dados `buttons.css` y `location.css` (pruebas en `src/styles/buttons.test.ts`), cuando se
+  leen, entonces:
+  - **(a)** en `buttons.css`, `.btn--secondary` tiene `background: transparent` (o `background-color`),
+    `color: var(--color-primary)`, un borde con `var(--color-primary)` y `width: 100%`;
+    `.btn--secondary:hover` usa `var(--color-surface)`; dentro de `@media (min-width: 768px)`,
+    `.btn--secondary` tiene `width: auto`;
+  - **(b)** `location.css` ya no tiene ninguna regla de selector exacto `.btn--secondary` ni
+    `.btn--secondary:hover`, y tiene `.location__place .btn--secondary` con
+    `margin-top: var(--space-4)`.
+
+  Las aserciones de (a) son las del antiguo CA-19 (f) de T-20261115-003, más las de ancho.
+- **CA-13** — Dadas las pruebas existentes, cuando se ejecuta `npm run test`, entonces pasan todas. Las
+  **únicas** modificaciones permitidas en archivos de prueba existentes son:
+  - **(a)** en `src/styles/styles.test.ts`, el caso `"makes the header sticky at the top"` lee
+    `header.css` en vez de `main.css`, con las mismas aserciones;
+  - **(b)** el `describe` `"CA-19 (f): .btn--secondary (outline button)"` sale de
+    `src/styles/location.test.ts` y pasa a `src/styles/buttons.test.ts` (CA-12 a).
+
+  Ningún otro caso se borra ni cambia: el resto de `styles.test.ts` sigue leyendo `main.css`, y
+  `main.test.ts`, `project.test.ts`, `page.test.ts`, `src/sections/*.test.ts`, `src/lib/*.test.ts` y
+  `business.test.ts` quedan intactos.
+
+### `src/sections/location.ts` (nuevo `src/sections/location.guards.test.ts`)
+Archivo aparte porque `vi.mock("../lib/maps")` se aplica a todo el archivo y no debe afectar a
+`location.test.ts`. Usa `vi.fn()` con `mockReturnValue` por caso (o `vi.hoisted`).
+
+- **CA-14** — Dado `buildMapEmbedUrl` simulado para que devuelva `javascript:alert(1)`,
+  `http://www.openstreetmap.org/export/embed.html?bbox=0` o
+  `https://www.openstreetmap.org.example.com/export/embed.html?bbox=0` (y `buildDirectionsUrl` con una
+  URL válida), cuando se llama a `renderLocation`, entonces lanza un `Error` cuyo mensaje contiene
+  `https://www.openstreetmap.org/export/embed.html?`.
+- **CA-15** — Dado `buildDirectionsUrl` simulado para que devuelva `javascript:alert(1)`,
+  `http://www.google.com/maps/search/?api=1` o `https://www.google.com.example.com/maps/search/?api=1`
+  (y `buildMapEmbedUrl` con una URL válida), cuando se llama a `renderLocation`, entonces lanza un
+  `Error` cuyo mensaje contiene `https://www.google.com/maps/search/?`.
+- **CA-16** — Dados ambos simulados con URLs válidas que empiezan por los prefijos exactos (p. ej.
+  `https://www.openstreetmap.org/export/embed.html?prueba=1` y
+  `https://www.google.com/maps/search/?prueba=1`), cuando se llama a `renderLocation`, entonces no lanza
+  y el `src` del iframe y el `href` de "Cómo llegar" son exactamente esos valores. Esto demuestra que
+  la guardia no rechaza URLs legítimas.
+- **CA-17** — Dado el código fuente de `location.ts`, cuando una prueba lo lee, entonces no contiene
+  `Leaflet` y sí `MapLibre`. En el diff de `location.ts` respecto a `main` solo cambian líneas de
+  comentario: el valor de `MAP_SANDBOX`, los prefijos y el código quedan idénticos. Lo comprueba el
+  revisor con `git diff main -- src/sections/location.ts`, y CA-9 de T-20261115-003 sigue pasando.
+
+### Comprobación manual (jsdom no pinta: se documenta en `build-rondaN.md`, con capturas en `capturas-rondaN/`)
+- **CA-18** — Dado `npm run build && npm run preview` a **375×667** (DevTools, emulación de
+  dispositivo), cuando se recorre la página de arriba abajo y se salta a cada ancla (`#inicio`,
+  `#menu`, `#horario`, `#reservar` y el pie), entonces:
+  - **(a)** `document.documentElement.scrollWidth <= 375` en cada punto (se anota el valor);
+  - **(b)** no se ve texto cortado ni solapado en la cabecera de dos filas, la portada, las tarjetas
+    del menú, la tabla de horario, la dirección, los botones ni el pie (una captura por sección);
+  - **(c)** el ancla deja el `<h2>` visible bajo la cabecera sticky.
+
+  (CA-05.1)
+- **CA-19** — Dado el mismo entorno a 375 px, cuando se ejecuta en la consola un fragmento que recorre
+  `document.querySelectorAll('a[href], button')` y anota `getBoundingClientRect()` de cada uno (con
+  `.skip-link` medido **con el foco puesto**), entonces todos miden al menos 44×44 px. Se pega la
+  tabla en `build-rondaN.md`. Los controles internos del iframe de OSM se anotan aparte, con su medida,
+  como la excepción de la decisión 3. No cuentan como fallo del CA (CA-05.2).
+- **CA-20** — Dado el mismo entorno, cuando se recorre la página solo con Tab y Mayús+Tab, entonces:
+  - el orden es salto → marca → Menú → Horario y ubicación → Reservar → botón de WhatsApp de la
+    portada → (mapa) → Cómo llegar → botón de WhatsApp de Reservar;
+  - cada elemento muestra el anillo azul visible, sin quedar tapado por la cabecera sticky ni
+    recortado;
+  - "Saltar al contenido" aparece al recibir el foco y lo mueve a `main`;
+  - el foco entra y sale del mapa sin quedar atrapado.
+
+  Se adjuntan capturas de al menos el salto, un `.nav-link` y un `.btn`.
+- **CA-21** — Dadas capturas de **antes** (rama `main`) y **después** (esta rama) a 375 px y a 1024 px de
+  cada sección y del pie, en estado normal y con hover/foco en un botón de WhatsApp y en "Cómo llegar",
+  cuando se comparan, entonces no hay diferencias visuales. La división es un movimiento de reglas; el
+  `min-width` de la decisión 2 no cambia nada visible porque todos esos elementos ya miden más de
+  44 px. Cualquier diferencia se explica en `build-rondaN.md` o se corrige.
+- **CA-22** — **Lighthouse móvil (CA-05.3). Es una comprobación manual, no un CA automatizable en
+  `npm run` (D-03), y no forma parte de las puertas.**
+  - **Entorno**: en la carpeta de trabajo, `npm run build` y luego `npm run preview` (por defecto en
+    `http://localhost:4173/`).
+  - **Cómo se lanza** (decisión 4), una de dos opciones:
+    - **(A)** CLI, desde un directorio **fuera** de la carpeta de trabajo (p. ej.,
+      `tareas/T-20261115-004/`):
+      `npx --yes lighthouse@12 http://localhost:4173/ --only-categories=performance,accessibility --output=html --output=json --output-path=./lighthouse/rondaN-K --chrome-flags="--headless=new"`.
+      Sin `--preset`, Lighthouse usa la configuración móvil por defecto. `npx` no toca `package.json`
+      ni `package-lock.json` (CA-23 lo comprueba).
+    - **(B)** Panel Lighthouse de Chrome DevTools: Navigation, Mobile, categorías Performance y
+      Accessibility. Se guardan el HTML y el JSON del informe.
+  - **Criterio**: **3 ejecuciones** (`K` = 1, 2, 3), y la **mediana** de rendimiento y la de
+    accesibilidad son de 90 o más.
+  - **Qué se guarda**:
+    - en `tareas/T-20261115-004/lighthouse/`, los 3 informes como
+      `rondaN-K.report.html` y `rondaN-K.report.json`;
+    - en `build-rondaN.md`, las puntuaciones de cada ejecución y su mediana, la versión exacta de
+      Lighthouse y de Chrome, la opción usada (A o B) y si en los informes aparecen peticiones a
+      `openstreetmap.org` (la carga diferida puede adelantarse; ver D-10).
+  - **Si no se puede ejecutar** (sin Chrome o sin red para `npx`): se anota en `build-rondaN.md` y el
+    CA queda **pendiente para el humano**. Nunca se inventan ni se estiman puntuaciones.
+  - **Si alguna mediana baja de 90**: se anotan las auditorías que fallan y su ahorro estimado. Solo se
+    corrige dentro de los archivos del plan y sin cambiar decisiones. Si el arreglo exige algo más
+    (fachada "clic para cargar" del mapa, prerender de D-04, tocar `index.html`, el iframe o las
+    fuentes), el constructor se detiene y la tarea vuelve a spec.
+
+### Puertas
+- **CA-23** — Dada la carpeta de trabajo, cuando se ejecuta
+  `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261115-004` desde la raíz de la
+  fábrica, entonces `lint`, `typecheck`, `test` y `build` salen `ok` (ninguna `omitida`). En el diff
+  respecto a `main` no cambian:
+  - configuración: `package.json`, `package-lock.json`, `vite.config.ts`, `tsconfig.json`,
+    `eslint.config.js`;
+  - marcado y datos: `index.html`, `src/data/business.ts`;
+  - lógica: `src/lib/*.ts`, `src/sections/hero.ts`, `src/sections/reserve.ts`, `src/sections/menu.ts`;
+  - estilos: `src/styles/tokens.css`, `src/styles/menu.css`.
+
+## Plan
+1. **TDD — accesibilidad de la página**: escribir `src/a11y.test.ts` (CA-1 a CA-5). Lo previsible es que
+   pase sin cambiar código. Si alguno falla, se arregla el origen y se anota en `build-ronda1.md`. Si el
+   arreglo toca un archivo que no está en este plan, el constructor se detiene y la tarea vuelve a spec.
+2. **TDD — división de CSS**: escribir `src/styles/split.test.ts` (CA-6 a CA-10) y
+   `src/styles/buttons.test.ts` (CA-12, con el `describe` movido de `location.test.ts`). Ajustar el único
+   caso de `styles.test.ts` (CA-13 a). Después:
+   - crear `header.css`, `buttons.css`, `hero.css`, `reserve.css` y `footer.css` **moviendo** las
+     reglas de `main.css` sin reescribirlas;
+   - copiar a cada archivo nuevo un comentario de cabecera como el de `main.css`;
+   - mover `.btn--secondary` de `location.css` a `buttons.css` y dejar en `location.css` la regla
+     `.location__place .btn--secondary { margin-top: var(--space-4); }`;
+   - mover la anulación de `.btn:active` con movimiento reducido a `buttons.css`;
+   - añadir `min-width: var(--tap-min)` a `.nav-link` y a `.btn`.
+3. **`main.ts`**: añadir las cinco importaciones en el orden de CA-11 y nada más.
+4. **TDD — guardias de `location.ts`**: escribir `src/sections/location.guards.test.ts` (CA-14 a
+   CA-17). Corregir solo el comentario de la línea 24 de `location.ts`, p. ej.: "OSM's embed runs
+   MapLibre GL (WebGL + blob: worker) and needs scripts; the iframe is cross-origin, so
+   allow-same-origin cannot reach this page."
+5. Ejecutar `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261115-004` hasta que
+   pasen las cuatro puertas (CA-23).
+6. Comprobación manual CA-18 a CA-21 sobre `npm run preview` (las capturas de "antes" de CA-21, desde
+   un build de `main`) y documentarla en `build-ronda1.md`.
+7. Lighthouse (CA-22) y guardar los informes en `tareas/T-20261115-004/lighthouse/`.
+
+**Archivos que cambian**:
+- `src/main.ts` (solo importaciones);
+- `src/sections/location.ts` (solo un comentario);
+- `src/styles/main.css`, `src/styles/location.css`;
+- `src/styles/styles.test.ts` (un caso), `src/styles/location.test.ts` (sale un `describe`).
+
+**Nuevos**:
+- estilos: `src/styles/header.css`, `buttons.css`, `hero.css`, `reserve.css`, `footer.css`;
+- pruebas: `src/styles/split.test.ts`, `src/styles/buttons.test.ts`, `src/a11y.test.ts`,
+  `src/sections/location.guards.test.ts`.
+
+**Rastro** (fuera del código): `tareas/T-20261115-004/lighthouse/*` y
+`tareas/T-20261115-004/capturas-ronda1/*`.
+
+## Comprobaciones humanas en el cierre (no son CA del constructor)
+- Probar en un **teléfono real** que "Reservar mesa por WhatsApp" abre WhatsApp con el número y el
+  mensaje, y que "Cómo llegar" abre la app de mapas. Venía pendiente de T-20261115-001 y
+  T-20261115-003, y un agente no puede hacerlo.
+- Confirmar o rechazar la excepción de la decisión 3 (hueco nuevo en `huecos.md`).
+- Aprobar el cierre: el riesgo es ALTO (ver abajo).
+
+## Fuera de alcance
+- Cambiar el iframe de OSM: `sandbox`, `referrerpolicy`, proveedor, fachada "clic para cargar" o mapa
+  estático. Requiere decisión humana (D-05, D-10). La fachada solo se replantea si CA-22 baja de 90.
+- Recentrar el marcador a 768 px: exige cambiar el `d` del bbox de D-10 en `src/lib/maps.ts`. Queda como
+  hueco para el humano y en CA-21 solo se observa.
+- Cargar Google Fonts o autoalojar fuentes (hueco abierto). Si se hace, hay que repetir Lighthouse.
+- Favicon, `meta description` y las categorías Best Practices y SEO de Lighthouse: no son criterio de
+  `brain/spec.md`.
+- Indicador de sección activa en la navegación ("subrayado de 3 px", `diseno.md`): requiere JS de
+  scroll y no lo pide HU-05.
+- Luna decorativa de los `<h2>` y del pie (`diseno.md`): es decoración, no accesibilidad ni pulido
+  móvil, y añadiría marcado a `index.html` (zona sensible).
+- Datos reales del negocio (D-00), pasar a ESLint 10 (D-07), Content-Security-Policy, modo oscuro.
+- Dependencias nuevas: Lighthouse se usa con `npx` o DevTools, nunca como `devDependency`, y no se
+  añade Playwright ni axe (D-03).
+
+## Riesgos / zonas sensibles que toca
+- **Riesgo ALTO**: toca `src/main.ts` (importaciones) y `src/sections/location.ts` (un comentario),
+  ambos en `brain/zonas-sensibles.txt`. No se tocan `index.html`, `business.ts`, `whatsapp.ts`,
+  `hero.ts`, `reserve.ts` ni `maps.ts`. Requiere aprobación humana en el cierre.
+- **Cascada al dividir CSS**: cambiar el orden de las reglas puede alterar el resultado, aunque las
+  declaraciones sean idénticas. Puntos concretos:
+  - `.btn:active` frente al movimiento reducido (CA-10);
+  - `.site-footer :focus-visible` debe seguir pintándose en dorado sobre el pie;
+  - `.btn--whatsapp` y `.btn--secondary` deben conservar su ancho a 375 y a 768 px.
+
+  CA-9 comprueba que no se pierde ni se duplica ningún selector, y CA-21 que no hay cambios visuales.
+- **Una importación olvidada** en `main.ts` deja una parte de la página sin estilos sin que falle
+  ninguna prueba de DOM. CA-11 fija la lista y el orden.
+- **Pruebas existentes modificadas**: solo las dos de CA-13, y sin rebajar ninguna aserción. El revisor
+  de código debe confirmarlo en el diff.
+- **`vi.mock` filtrado**: si las pruebas de guardias se escriben en `location.test.ts`, el mock
+  rompería CA-6 a CA-13 de T-20261115-003. Por eso van en un archivo aparte.
+- **Lighthouse es variable**: depende de la máquina, de la CPU y de si el iframe de OSM llega a
+  cargarse. La mediana de 3 ejecuciones y las versiones anotadas lo hacen reproducible. Las
+  puntuaciones locales sobre `vite preview`, sin compresión ni CDN, no garantizan las de producción;
+  se repite al publicar.
+- **`npx lighthouse` descarga código de npm** a la caché de `npx`, no al proyecto. Se lanza fuera de
+  la carpeta de trabajo para que no aparezca nada en el diff (CA-23).
+- **Excepción de 44 px en el mapa**: aceptarla es decisión humana (decisión 3 y hueco). Si el humano la
+  rechaza, la solución cambia D-05 o D-10 y sería una tarea nueva.
+- **Privacidad**: sin cambios. No se añaden recursos de terceros. La CLI de Lighthouse solo audita
+  `localhost`.
+
+
+ exited 1 in 4070ms:
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 1
++ git diff main...HEAD
++ ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$gitCandidates = @('"'C:\\Program Files\\Git\\cmd\\git.exe', 'C:\\Program Files\\Git\\bin\\git.exe', 'C:\\Users\\FRANC\\AppData\\Local\\Programs\\Git\\cmd\\git.exe'); foreach ("'$gitCandidate in $gitCandidates) { if (Test-Path -LiteralPath $gitCandidate) { & $gitCandidate diff main...HEAD; break } }' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-004
+ succeeded in 1538ms:
+codex
+{"nivel":"ALTO","motivo":"El cálculo determinista ya indica ALTO por cambios en zonas sensibles (src/main.ts y src/sections/location.ts) y un diff de 1143 líneas."}
+tokens used
+35.734
+{"nivel":"ALTO","motivo":"El cálculo determinista ya indica ALTO por cambios en zonas sensibles (src/main.ts y src/sections/location.ts) y un diff de 1143 líneas."}

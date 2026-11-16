@@ -1,0 +1,12 @@
+{"ts":"2026-11-15T02:54:12.898Z","estacion":"entrada","resultado":"CREADA","nota":"bandeja/004-seccion-menu.md"}
+{"ts":"2026-11-15T02:57:53.587Z","estacion":"spec-writer","resultado":"OK","nota":"claude opus · 15 CA"}
+{"ts":"2026-11-15T03:06:28.065Z","estacion":"constructor","resultado":"OK","nota":"claude opus · commits 755cff8, 56807a6 · 101 pruebas"}
+{"ts":"2026-11-15T03:08:10.559Z","estacion":"revisor-codigo","resultado":"OK","nota":"claude sonnet"}
+{"ts":"2026-11-15T03:08:11.988Z","estacion":"revisor-ui","resultado":"OK","nota":"codex gpt-6-astra · 90s"}
+{"ts":"2026-11-15T03:08:30.242Z","estacion":"revisor-ux","resultado":"OK","nota":"codex gpt-6.1-sol · 109s"}
+{"ts":"2026-11-15T03:09:22.030Z","estacion":"revisor-seguridad","resultado":"OK","nota":"codex gpt-6.1-sol · 161s"}
+{"ts":"2026-11-15T03:10:43.990Z","estacion":"aprobador","resultado":"APROBADO","nota":"claude opus · ronda 1"}
+{"ts":"2026-11-15T03:10:44.411Z","estacion":"riesgo-codigo","resultado":"ALTO","nota":"zona sensible del proyecto (src/main.ts): src/main.ts | cambio grande: 437 líneas (> 300)"}
+{"ts":"2026-11-15T03:11:23.950Z","estacion":"clasificador-riesgo","resultado":"ALTO","nota":"codex gpt-6.1-sol · 39s"}
+{"ts":"2026-11-15T03:11:24.044Z","estacion":"cierre","resultado":"ESPERANDO_HUMANO","nota":"zona sensible del proyecto (src/main.ts): src/main.ts | cambio grande: 437 líneas (> 300) | El cálculo determinista ya indica ALTO y el cambio modifica src/main.ts, zona sensible cuyo fallo puede impedir el montaje de la página y los botones de reserva."}
+{"ts":"2026-11-15T03:16:43.639Z","estacion":"cierre","resultado":"INTEGRADA","nota":"aprobada por humano"}

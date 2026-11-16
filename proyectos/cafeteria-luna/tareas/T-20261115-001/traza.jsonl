@@ -1,0 +1,12 @@
+{"ts":"2026-11-15T02:22:03.984Z","estacion":"entrada","resultado":"CREADA","nota":"bandeja/003-portada-navegacion-y-reservar.md"}
+{"ts":"2026-11-15T02:27:07.877Z","estacion":"spec-writer","resultado":"OK","nota":"claude opus · 17 CA"}
+{"ts":"2026-11-15T02:39:23.738Z","estacion":"constructor","resultado":"OK","nota":"claude opus · commit 3ae0362 · 71 pruebas"}
+{"ts":"2026-11-15T02:41:28.883Z","estacion":"revisor-ui","resultado":"OK","nota":"codex gpt-6-astra · 112s"}
+{"ts":"2026-11-15T02:41:32.252Z","estacion":"revisor-codigo","resultado":"OK","nota":"claude sonnet"}
+{"ts":"2026-11-15T02:42:10.081Z","estacion":"revisor-ux","resultado":"OK","nota":"codex gpt-6.1-sol · 153s"}
+{"ts":"2026-11-15T02:42:17.157Z","estacion":"revisor-seguridad","resultado":"OK","nota":"codex gpt-6.1-sol · 161s"}
+{"ts":"2026-11-15T02:43:43.373Z","estacion":"aprobador","resultado":"APROBADO","nota":"claude opus · ronda 1"}
+{"ts":"2026-11-15T02:43:43.768Z","estacion":"riesgo-codigo","resultado":"ALTO","nota":"zona sensible del proyecto (src/sections/hero.ts): src/sections/hero.ts | zona sensible del proyecto (src/sections/reserve.ts): src/sections/reserve.ts | zona sensible del proyecto (index.html): index.html | zona sensible del proyecto (src/main.ts): src/main.ts | cambio grande: 1026 líneas (> 300)"}
+{"ts":"2026-11-15T02:44:34.228Z","estacion":"clasificador-riesgo","resultado":"ALTO","nota":"codex gpt-6.1-sol · 50s"}
+{"ts":"2026-11-15T02:44:43.256Z","estacion":"cierre","resultado":"ESPERANDO_HUMANO","nota":"zona sensible del proyecto (src/sections/hero.ts): src/sections/hero.ts | zona sensible del proyecto (src/sections/reserve.ts): src/sections/reserve.ts | zona sensible del proyecto (index.html): index.html | zona sensible del proyecto (src/main.ts): src/main.ts | cambio grande: 1026 líneas (> 300) | riesgo-codigo.json ya indica ALTO por cambios en el montaje de la página y los botones de reserva, zonas sensibles que requieren aprobación humana."}
+{"ts":"2026-11-15T02:53:35.592Z","estacion":"cierre","resultado":"INTEGRADA","nota":"aprobada por humano"}

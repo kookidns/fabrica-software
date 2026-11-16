@@ -1,0 +1,13 @@
+{
+  "id": "T-20261115-003",
+  "proyecto": "cafeteria-luna",
+  "tipo": "tarea",
+  "origen": "bandeja/005-seccion-horario-y-ubicacion.md",
+  "creada": "2026-11-15T03:18:00.138Z",
+  "rama": "fabrica/T-20261115-003",
+  "base": "main",
+  "trabajo": "proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003",
+  "estacion": "cierre",
+  "resultado": "INTEGRADA",
+  "actualizada": "2026-11-15T06:13:13.613Z"
+}

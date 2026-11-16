@@ -1,0 +1,18 @@
+{
+  "nivel": "ALTO",
+  "motivos": [
+    "zona sensible del proyecto (src/main.ts): src/main.ts",
+    "cambio grande: 863 líneas (> 300)"
+  ],
+  "archivos": [
+    "src/lib/maps.test.ts",
+    "src/lib/maps.ts",
+    "src/main.test.ts",
+    "src/main.ts",
+    "src/sections/location.test.ts",
+    "src/sections/location.ts",
+    "src/styles/location.css",
+    "src/styles/location.test.ts"
+  ],
+  "lineas": 863
+}

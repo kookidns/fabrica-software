@@ -1,0 +1,21 @@
+{"ts":"2026-11-15T06:16:13.225Z","estacion":"entrada","resultado":"CREADA","nota":"bandeja/006-pulido-movil-y-accesibilidad.md"}
+{"ts":"2026-11-15T06:16:39.705Z","estacion":"spec-writer","resultado":"EN_CURSO","nota":"Claude opus (subagente)"}
+{"ts":"2026-11-15T06:23:35.430Z","estacion":"spec-writer","resultado":"OK","nota":"23 CA (17 auto, 5 manuales, 1 puertas); 2 huecos"}
+{"ts":"2026-11-15T06:23:35.498Z","estacion":"constructor","resultado":"EN_CURSO","nota":"Claude opus (subagente), ronda 1"}
+{"ts":"2026-11-15T06:45:57.339Z","estacion":"constructor","resultado":"OK","nota":"26de4a8; 274 pruebas; puertas ok; Lighthouse 100/100"}
+{"ts":"2026-11-15T06:48:56.539Z","estacion":"revisor-codigo","resultado":"OK","nota":"Claude sonnet; 3 BAJO; CA-18..22 no verificados por él (contexto limpio)"}
+{"ts":"2026-11-15T06:49:23.388Z","estacion":"revisor-ui","resultado":"CAMBIOS","nota":"codex gpt-6-astra · 191s"}
+{"ts":"2026-11-15T06:49:47.984Z","estacion":"revisor-seguridad","resultado":"OK","nota":"codex gpt-6.1-sol · 217s"}
+{"ts":"2026-11-15T06:50:08.662Z","estacion":"revisor-ux","resultado":"CAMBIOS","nota":"codex gpt-6.1-sol · 237s"}
+{"ts":"2026-11-15T07:04:24.140Z","estacion":"evidencia","resultado":"OK","nota":"evidencia-ronda1/ (3 vistas, 16 pasos de Tab, comparación con main, Lighthouse)"}
+{"ts":"2026-11-15T07:06:20.044Z","estacion":"evidencia","resultado":"OK","nota":"evidencia-ronda1/ (3 vistas, 16 pasos de Tab, comparación con main, Lighthouse)"}
+{"ts":"2026-11-15T07:06:32.332Z","estacion":"revisores-codex","resultado":"REPETIR","nota":"UX y UI pidieron CAMBIOS solo por no poder verificar (sin navegador en el sandbox de Codex). Se crea la estación evidencia.mjs y se repiten UX y UI; informes originales guardados como *-sin-evidencia.md"}
+{"ts":"2026-11-15T07:08:11.147Z","estacion":"revisor-ui","resultado":"OK","nota":"codex gpt-6-astra · 88s"}
+{"ts":"2026-11-15T07:08:27.622Z","estacion":"revisor-ux","resultado":"OK","nota":"codex gpt-6.1-sol · 104s"}
+{"ts":"2026-11-15T07:08:55.923Z","estacion":"revisores-codex","resultado":"OK","nota":"seguridad OK (sol); UX OK y UI OK con evidencia de la fábrica (sol/astra)"}
+{"ts":"2026-11-15T07:08:55.993Z","estacion":"aprobador","resultado":"EN_CURSO","nota":"Claude opus (subagente)"}
+{"ts":"2026-11-15T07:11:50.409Z","estacion":"aprobador","resultado":"APROBADO","nota":"ronda 1; anillo de .brand como MEDIO pendiente"}
+{"ts":"2026-11-15T07:11:50.767Z","estacion":"riesgo-codigo","resultado":"ALTO","nota":"zona sensible del proyecto (src/main.ts): src/main.ts | zona sensible del proyecto (src/sections/location.ts): src/sections/location.ts | cambio grande: 1143 líneas (> 300)"}
+{"ts":"2026-11-15T07:12:37.921Z","estacion":"clasificador-riesgo","resultado":"ALTO","nota":"codex gpt-6.1-sol · 39s"}
+{"ts":"2026-11-15T07:12:38.048Z","estacion":"cierre","resultado":"ESPERANDO_HUMANO","nota":"zona sensible del proyecto (src/main.ts): src/main.ts | zona sensible del proyecto (src/sections/location.ts): src/sections/location.ts | cambio grande: 1143 líneas (> 300) | El cálculo determinista ya indica ALTO por cambios en zonas sensibles (src/main.ts y src/sections/location.ts) y un diff de 1143 líneas."}
+{"ts":"2026-11-15T07:43:34.744Z","estacion":"cierre","resultado":"INTEGRADA","nota":"aprobada por humano"}

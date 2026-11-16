@@ -1,0 +1,4 @@
+{
+  "nivel": "ALTO",
+  "motivo": "riesgo-codigo.json ya clasifica el cambio como ALTO por dependencias, configuración de build y archivos sensibles de arranque."
+}

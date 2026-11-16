@@ -1,0 +1,13 @@
+{
+  "id": "T-20261115-005",
+  "proyecto": "cafeteria-luna",
+  "tipo": "tarea",
+  "origen": "bandeja/007-anillo-foco-marca.md",
+  "creada": "2026-11-15T07:46:36.357Z",
+  "rama": "fabrica/T-20261115-005",
+  "base": "main",
+  "trabajo": "proyectos\\cafeteria-luna\\.worktrees\\T-20261115-005",
+  "estacion": "cierre",
+  "resultado": "INTEGRADA",
+  "actualizada": "2026-11-15T08:19:05.061Z"
+}

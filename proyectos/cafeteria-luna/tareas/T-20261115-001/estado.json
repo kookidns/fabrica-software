@@ -1,0 +1,13 @@
+{
+  "id": "T-20261115-001",
+  "proyecto": "cafeteria-luna",
+  "tipo": "tarea",
+  "origen": "bandeja/003-portada-navegacion-y-reservar.md",
+  "creada": "2026-11-15T02:22:03.983Z",
+  "rama": "fabrica/T-20261115-001",
+  "base": "main",
+  "trabajo": "proyectos\\cafeteria-luna\\.worktrees\\T-20261115-001",
+  "estacion": "cierre",
+  "resultado": "INTEGRADA",
+  "actualizada": "2026-11-15T02:53:35.592Z"
+}

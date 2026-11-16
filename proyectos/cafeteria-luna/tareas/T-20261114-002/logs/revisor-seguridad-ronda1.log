@@ -1,0 +1,1797 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones\revisor-seguridad-ronda1.md -m gpt-6.1-sol -c model_reasoning_effort="high" -s workspace-write -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **revisor de seguridad**. No escribiste este código. Busca cómo podría romperse o abusarse.
+
+## Qué miras
+Obtén el cambio con `git -C <carpeta de trabajo> diff main...HEAD` (y `--stat`). Revisa:
+- Secretos o claves en el código, `.env` versionado, credenciales en logs.
+- Inyección (SQL, HTML/XSS, comandos), validación de entradas en formularios y APIs.
+- Autenticación y autorización: ¿alguien puede ver o cambiar lo que no debe? Reglas RLS si hay Supabase.
+- Dependencias nuevas: ¿son conocidas y necesarias? (`npm audit --omit=dev` si hay package.json).
+- Datos personales: qué se recoge, dónde se guarda, si se expone.
+- Enlaces externos sin `rel="noopener"`, CORS abierto, cabeceras inseguras.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: seguridad
+VEREDICTO: OK | CAMBIOS
+Hallazgos (de más a menos grave):
+1. [CRÍTICO|ALTO|MEDIO|BAJO] archivo:línea — problema — cómo se explota — qué se espera
+```
+Sin hallazgos → `VEREDICTO: OK` y "Sin hallazgos". No inventes problemas para parecer útil.
+Bash/PowerShell solo para leer y ejecutar comprobaciones; nunca para modificar archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261114-002 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261114-002): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 01a1dafc-bfd0-7733-9eee-6c81f8f152ad
+--------
+user
+Eres el **revisor de seguridad**. No escribiste este código. Busca cómo podría romperse o abusarse.
+
+## Qué miras
+Obtén el cambio con `git -C <carpeta de trabajo> diff main...HEAD` (y `--stat`). Revisa:
+- Secretos o claves en el código, `.env` versionado, credenciales en logs.
+- Inyección (SQL, HTML/XSS, comandos), validación de entradas en formularios y APIs.
+- Autenticación y autorización: ¿alguien puede ver o cambiar lo que no debe? Reglas RLS si hay Supabase.
+- Dependencias nuevas: ¿son conocidas y necesarias? (`npm audit --omit=dev` si hay package.json).
+- Datos personales: qué se recoge, dónde se guarda, si se expone.
+- Enlaces externos sin `rel="noopener"`, CORS abierto, cabeceras inseguras.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: seguridad
+VEREDICTO: OK | CAMBIOS
+Hallazgos (de más a menos grave):
+1. [CRÍTICO|ALTO|MEDIO|BAJO] archivo:línea — problema — cómo se explota — qué se espera
+```
+Sin hallazgos → `VEREDICTO: OK` y "Sin hallazgos". No inventes problemas para parecer útil.
+Bash/PowerShell solo para leer y ejecutar comprobaciones; nunca para modificar archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261114-002 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261114-002): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Leeré las reglas de la fábrica y el contexto de la tarea; después revisaré el diff y ejecutaré las comprobaciones de seguridad aplicables, sin modificar archivos.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\CLAUDE.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 3453ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+entrada â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\.claude\\agents' -Name; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\index.md'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261114-002\\spec.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 3470ms:
+analista.md
+aprobador.md
+arquitecto.md
+clasificador-riesgo.md
+constructor.md
+disenador.md
+revisor-codigo.md
+revisor-seguridad.md
+revisor-ui.md
+revisor-ux.md
+spec-writer.md
+# Brain — índice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | Léelo cuando… |
+|---|---|---|
+| `vision.md` | Problema, público, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar código |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por qué (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavía NO sabe | te falte información |
+| `log.md` | Historial de tareas cerradas | quieras saber qué se hizo |
+
+## Cómo se mantiene
+- Decisión nueva → entrada en `decisiones.md` (con fecha y tarea que la originó).
+- Duda que nadie resolvió → `huecos.md`. No inventes la respuesta.
+- Tarea cerrada → entrada en `log.md`.
+# T-20261114-002 · Archivo de datos del negocio y enlace de reserva por WhatsApp
+Tipo: tarea      Toca interfaz: no (solo datos y una función pura; ningún botón ni sección se pinta en esta tarea)
+
+Cubre de `brain/spec.md`: CA-04.2, CA-04.3, CA-04.4 (en la parte que depende de la URL; el botón que la
+usa llega con las secciones portada/reservar).
+
+## Contexto (qué dice el brain que importa aquí)
+- **D-00**: los datos reales no se conocen (todos están en `huecos.md`). Se usan datos **ficticios
+  claramente marcados** en un **único archivo de datos**: precios en MXN, horario y dirección de
+  ejemplo, WhatsApp `+52 000 000 0000`. El sitio no se publica hasta resolver los huecos.
+- **arquitectura.md → Datos**: `src/data/business.ts` exporta la constante tipada `business` con
+  `name`, `slogan`, `locale` (`es-MX`), `currency` (`MXN`), `menu` (`drinks[]`, `desserts[]` de
+  `{ name, price }`), `hours` (7 entradas lunes→domingo, `{ day, open, close } | { day, closed: true }`),
+  `address` (texto completo), `coordinates` (`{ lat, lng }`), `whatsapp`
+  (`{ number: "520000000000", message }`). Comentario de cabecera que diga que los valores son
+  ficticios. **Ningún otro módulo contiene datos del negocio.**
+- **D-01**: TypeScript tipa el archivo de datos para que un campo mal escrito falle en `typecheck`.
+- **D-05 / arquitectura → Integraciones**: enlace `https://wa.me/<número solo dígitos>?text=<mensaje
+  con encodeURIComponent>`; sirve para la app móvil y para WhatsApp Web/página de WhatsApp en
+  escritorio. Sin claves ni `.env`.
+- **D-06**: los precios se guardan como **número** (el formateo con `Intl.NumberFormat` es de
+  `src/lib/formatPrice.ts`, otra tarea).
+- **arquitectura.md → Estructura**: `src/lib/` = funciones puras, sin DOM. Pruebas junto al código
+  (`*.test.ts`). Nombres de código en inglés; textos visibles (nombres de día, productos, mensaje)
+  en español, con tuteo y tono cercano (`vision.md`).
+- **D-07**: TypeScript estricto (`strict`, `noUnusedLocals`, `noUnusedParameters`,
+  `verbatimModuleSyntax` → los tipos se importan con `import type`).
+- **Estado del código** (worktree con lo integrado de T-20261114-001): solo `src/main.ts` (imports de
+  estilos), `src/styles/*.css` vacíos y `src/project.test.ts`. No existen `src/data/` ni `src/lib/`:
+  nada que reutilizar ni duplicar.
+
+## Objetivo
+Crear `src/data/business.ts` (único archivo de datos, tipado, con todos los valores ficticios marcados
+según D-00) y `src/lib/whatsapp.ts` (función pura que construye la URL `wa.me` de reserva), con
+pruebas que garanticen que el número queda limpio, el mensaje se codifica y decodifica sin pérdida y
+pide fecha, hora y nº de personas.
+
+## Criterios de aceptación
+### Datos (`src/data/business.ts`, pruebas en `src/data/business.test.ts`)
+- **CA-1** — Dado `src/data/business.ts`, cuando una prueba lee su código fuente, entonces empieza con
+  un comentario de cabecera que contiene la palabra `ficticio`/`ficticios` (sin distinguir mayúsculas)
+  y la referencia `D-00`, indicando que todos los valores son de ejemplo y deben sustituirse por los
+  reales.
+- **CA-2** — Dado `business`, cuando una prueba lo importa, entonces `name` es `"Cafetería Luna"`,
+  `slogan` es una cadena no vacía, `locale` es `"es-MX"` y `currency` es `"MXN"`.
+- **CA-3** — Dado `business.menu`, cuando una prueba lo recorre, entonces `drinks` y `desserts` tienen
+  al menos 3 productos cada uno, y cada producto tiene `name` no vacío y `price` numérico, finito y
+  mayor que 0.
+- **CA-4** — Dado `business.hours`, cuando una prueba lo recorre, entonces tiene exactamente 7
+  entradas cuyos `day` son, en este orden, `Lunes`, `Martes`, `Miércoles`, `Jueves`, `Viernes`,
+  `Sábado`, `Domingo`; al menos una entrada tiene `closed: true` (y no tiene `open`/`close`); y cada
+  día abierto tiene `open` y `close` con formato `HH:MM` de 24 h y `open` < `close`.
+- **CA-5** — Dado `business`, cuando una prueba lo lee, entonces `address` es una cadena no vacía y
+  `coordinates.lat` ∈ [-90, 90] y `coordinates.lng` ∈ [-180, 180] (números finitos).
+- **CA-6** — Dado `business.whatsapp`, cuando una prueba lo lee, entonces `number` es exactamente
+  `"520000000000"` (solo dígitos: el `+52 000 000 0000` de D-00) y `message` es una cadena no vacía en
+  español que menciona **fecha**, **hora** y **personas** (comprobación con expresiones regulares sin
+  distinguir mayúsculas: `/\bfecha\b/i`, `/\bhora\b/i`, `/\bpersonas\b/i`).
+- **CA-7** — Dado el tipo exportado del archivo de datos (p. ej. `Business`), cuando se ejecuta
+  `npm run typecheck`, entonces `business` está anotado con ese tipo (no `any` ni inferido sin tipo) y
+  el horario es una unión discriminada: una entrada no puede tener a la vez `closed: true` y
+  `open`/`close`.
+
+### Enlace (`src/lib/whatsapp.ts`, pruebas en `src/lib/whatsapp.test.ts`)
+- **CA-8** — Dado `buildWhatsAppUrl(number, message)` (exportada, pura, sin DOM ni efectos), cuando se
+  llama con `"+52 000 000 0000"` (o con `"(52) 000-000-0000"`), entonces la URL empieza por
+  `https://wa.me/520000000000?text=`: el número queda **solo con dígitos** (se eliminan `+`, espacios,
+  guiones y paréntesis).
+- **CA-9** — Dado un mensaje con espacios, tildes, `ñ`, `¿?`, `&`, `#`, `/`, `=` y saltos de línea,
+  cuando se construye la URL, entonces el valor tras `?text=` es exactamente
+  `encodeURIComponent(message)` (espacios como `%20`, no `+`), y tanto
+  `decodeURIComponent(<valor>)` como `new URL(url).searchParams.get("text")` devuelven el mensaje
+  original idéntico (legible, sin pérdida).
+- **CA-10** — Dada la URL construida, cuando se analiza con `new URL(...)`, entonces `protocol` es
+  `https:`, `hostname` es `wa.me`, `pathname` es `/<dígitos>` y el único parámetro es `text`
+  (formato válido para app móvil y WhatsApp Web, CA-04.2/CA-04.4).
+- **CA-11** — Dado un número sin ningún dígito (p. ej. `""` o `"+ -"`), cuando se llama a
+  `buildWhatsAppUrl`, entonces lanza un `Error` (no devuelve una URL `https://wa.me/?text=…` rota).
+- **CA-12** — Dados los datos reales del archivo, cuando se llama a
+  `buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message)`, entonces la URL es
+  `https://wa.me/520000000000?text=…` y el texto decodificado menciona fecha, hora y personas
+  (CA-04.3).
+- **CA-13** — Dado el código fuente de `src/lib/whatsapp.ts`, cuando una prueba lo lee, entonces no
+  contiene el número (`520000000000`/`000 000 0000`) ni el mensaje: los datos solo viven en
+  `business.ts` (D-00).
+
+### Puertas
+- **CA-14** — Dada la carpeta de trabajo, cuando se ejecuta `node scripts/verificar.mjs
+  proyectos/cafeteria-luna/.worktrees/T-20261114-002` desde la raíz de la fábrica, entonces `lint`,
+  `typecheck`, `test` y `build` salen `ok` (ninguna `omitida`) y las pruebas existentes de
+  `src/project.test.ts` siguen pasando sin modificarse.
+
+## Plan
+1. **TDD — enlace**: crear `src/lib/whatsapp.test.ts` con CA-8 a CA-11 y CA-13 (fallan: el módulo no
+   existe).
+2. Crear `src/lib/whatsapp.ts`: `export function buildWhatsAppUrl(number: string, message: string):
+   string` → `number.replace(/\D/g, "")`, `Error` si queda vacío, devuelve
+   `` `https://wa.me/${digits}?text=${encodeURIComponent(message)}` ``. Sin importar `business`.
+3. **TDD — datos**: crear `src/data/business.test.ts` con CA-1 a CA-6 (CA-1 lee el fuente con
+   `node:fs` resolviendo la ruta con `import.meta.url`, como `project.test.ts`) y añadir CA-12 a
+   `whatsapp.test.ts` importando `business`.
+4. Crear `src/data/business.ts`: comentario de cabecera (ficticios, D-00, "sustituir solo este
+   archivo"); tipos exportados `MenuItem`, `DayHours` (unión `OpenDay | ClosedDay`, con
+   `closed?: never`/`open?: never` para que sea excluyente), `Business`; constante
+   `export const business: Business = { … }` con valores de ejemplo: nombre, eslogan, `es-MX`/`MXN`,
+   ≥3 bebidas y ≥3 postres con precio numérico en MXN, 7 días (al menos uno cerrado, p. ej. lunes),
+   dirección y coordenadas de ejemplo, `whatsapp: { number: "520000000000", message }` con un mensaje
+   en tuteo que pide fecha, hora y nº de personas.
+5. Ejecutar `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261114-002` hasta que
+   las cuatro puertas pasen (CA-14).
+
+Archivos nuevos: `src/data/business.ts`, `src/data/business.test.ts`, `src/lib/whatsapp.ts`,
+`src/lib/whatsapp.test.ts`. No debe cambiar ningún otro archivo.
+
+## Fuera de alcance
+- Botones "Reservar mesa por WhatsApp", secciones (`src/sections/*`), cambios en `index.html` o
+  `src/main.ts` (CA-04.1, atributos `target`/`rel`/`aria-label`: tareas de portada y reservar).
+- `src/lib/formatPrice.ts` (D-06) y `src/lib/maps.ts` (URLs de mapa y "Cómo llegar").
+- Datos reales del negocio: siguen abiertos en `huecos.md` (eslogan, menú, moneda, horario, dirección,
+  número de WhatsApp, texto exacto del mensaje, coordenadas). No se inventan como si fueran reales.
+- Aviso de "datos de ejemplo" en el pie (lo pinta la tarea del pie a partir de D-00).
+- Alérgenos/opciones del menú, festivos, redes sociales (huecos abiertos).
+- Dependencias nuevas (no hacen falta: `encodeURIComponent` y `URL` son nativos).
+
+## Riesgos / zonas sensibles que toca
+- **Riesgo ALTO** (`zonas-sensibles.txt` y `arquitectura.md`): crea `src/data/business.ts` y
+  `src/lib/whatsapp.ts`. Un número o mensaje erróneo rompe el objetivo principal (reservas) y un
+  precio/horario/dirección erróneos engañan al cliente → requiere **aprobación humana** en el cierre.
+- Codificación: usar `encodeURIComponent` sobre el mensaje completo (no `encodeURI`, no
+  `URLSearchParams`, que codifica espacios como `+`); no codificar dos veces.
+- Limpieza del número: quitar el `+` y todo lo que no sea dígito; `wa.me` no admite `+`, espacios ni
+  guiones, y un `0` inicial de larga distancia no se añade.
+- Datos ficticios con apariencia real: deben ser obviamente de ejemplo (número `000 000 0000`,
+  comentario de cabecera) para que no se publique por error (D-00).
+- TypeScript estricto: usar `import type` para los tipos (`verbatimModuleSyntax`); no relajar
+  `tsconfig.json` ni reglas de ESLint para pasar las puertas.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "git -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' status --short; git -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' diff main...HEAD --stat; git -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' diff main...HEAD; rg --files -g AGENTS.md -g package.json -g '*lock*' -g '.env*' -g '*config*' 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\.claude\\agents\\revisor-seguridad.md'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\decisiones.md'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\arquitectura.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 2524ms:
+---
+name: revisor-seguridad
+description: Revisor 1 de 4. Revisa con contexto limpio la seguridad del cambio de una tarea. Solo dictamina; nunca edita código.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: opus
+---
+
+Eres el **revisor de seguridad**. No escribiste este código. Busca cómo podría romperse o abusarse.
+
+## Qué miras
+Obtén el cambio con `git -C <carpeta de trabajo> diff main...HEAD` (y `--stat`). Revisa:
+- Secretos o claves en el código, `.env` versionado, credenciales en logs.
+- Inyección (SQL, HTML/XSS, comandos), validación de entradas en formularios y APIs.
+- Autenticación y autorización: ¿alguien puede ver o cambiar lo que no debe? Reglas RLS si hay Supabase.
+- Dependencias nuevas: ¿son conocidas y necesarias? (`npm audit --omit=dev` si hay package.json).
+- Datos personales: qué se recoge, dónde se guarda, si se expone.
+- Enlaces externos sin `rel="noopener"`, CORS abierto, cabeceras inseguras.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: seguridad
+VEREDICTO: OK | CAMBIOS
+Hallazgos (de más a menos grave):
+1. [CRÍTICO|ALTO|MEDIO|BAJO] archivo:línea — problema — cómo se explota — qué se espera
+```
+Sin hallazgos → `VEREDICTO: OK` y "Sin hallazgos". No inventes problemas para parecer útil.
+Bash/PowerShell solo para leer y ejecutar comprobaciones; nunca para modificar archivos.
+# Decisiones
+
+Lo que está aquí ya se decidió. No se rediscute sin una decisión humana nueva.
+
+<!--
+## D-01 · <título> (AAAA-MM-DD · origen: T-xxxx)
+- Contexto:
+- Decisión:
+- Alternativas descartadas:
+- Consecuencias:
+-->
+
+## D-00 · Datos de negocio de ejemplo para la demo (2026-11-14 · origen: humano)
+- Contexto: los datos reales del negocio están en huecos.md y aún no se conocen.
+- Decisión: mientras tanto se usan datos ficticios claramente marcados (precios en MXN, horario y dirección de ejemplo, WhatsApp +52 000 000 0000). Se guardan en un único archivo de datos para sustituirlos fácilmente.
+- Consecuencias: el sitio no se publica hasta resolver los huecos que bloquean la publicación.
+
+## D-01 · Stack: Vite + TypeScript sin framework (2026-11-14 · origen: arquitecto)
+- Contexto: landing de una sola página, sin backend ni estado. `estandares/stack.md` indica para
+  sitios de una página "HTML + CSS + JS sin framework", y a la vez exige las puertas `lint`,
+  `typecheck`, `test` y `build` vía `npm run` en todo proyecto con `package.json`.
+- Decisión: **Vite** como servidor de desarrollo y build estático, con **TypeScript vanilla** (sin
+  framework de UI). Es lo mínimo que mantiene la regla "sin framework" y da las cuatro puertas.
+  TypeScript tipa el archivo de datos (D-00): al sustituir los datos ficticios por los reales, un
+  campo mal escrito falla en `typecheck` en vez de en producción.
+- Alternativas descartadas: HTML/CSS/JS sin `package.json` (`verificar.mjs` no ejecutaría ninguna
+  puerta y no habría TDD); Astro + Tailwind (más configuración y conceptos para una sola página);
+  Vite + React (framework innecesario: no hay interactividad); JS sin TypeScript (se perdería la
+  puerta `typecheck` y la validación del archivo de datos).
+- Consecuencias: el estándar de estilo "un componente por archivo en `PascalCase.tsx`" no aplica;
+  cada sección es un módulo `camelCase.ts` en `src/sections/` que devuelve un `HTMLElement`.
+
+## D-02 · Estilos con CSS plano y custom properties, sin Tailwind (2026-11-14 · origen: arquitecto)
+- Contexto: pocos estilos, una sola página y el objetivo de Lighthouse ≥ 90.
+- Decisión: CSS plano, mobile-first. Los tokens de `diseno.md` se declaran como custom properties en
+  `src/styles/tokens.css` y el resto de CSS solo usa `var(--…)`.
+- Alternativas descartadas: Tailwind CSS (dependencia y configuración extra para muy poco CSS).
+- Consecuencias: el **diseñador** entrega los tokens como bloque `:root { --… }` listo para copiar en
+  lugar del bloque `theme.extend` de Tailwind.
+
+## D-03 · Puertas de calidad (2026-11-14 · origen: arquitecto)
+- Decisión: `lint` = ESLint 9 (flat config) + typescript-eslint; `typecheck` = `tsc --noEmit`;
+  `test` = `vitest run` con entorno **jsdom**; `build` = `vite build`. Pruebas junto al código
+  (`*.test.ts`).
+- Alternativas descartadas: happy-dom (menos fiel para pruebas de accesibilidad); Playwright en las
+  puertas (pesado para esta fase; Lighthouse y el ancho de 375 px se verifican en la tarea 006).
+- Consecuencias: CA-05.3 (Lighthouse) no es automatizable en `npm run` y se verifica manualmente
+  sobre `npm run preview`, dejando el informe en el rastro de la tarea.
+
+## D-04 · Renderizado: esqueleto estático + datos pintados en cliente (2026-11-14 · origen: arquitecto)
+- Contexto: D-00 exige que todos los datos del negocio vivan en un único archivo.
+- Decisión: `index.html` contiene la estructura estática (landmarks, navegación, encabezados de
+  sección, textos fijos). `src/main.ts` lee `src/data/business.ts` y monta el contenido de cada
+  sección con funciones `datos → HTMLElement` que usan `textContent`/`setAttribute` (nunca
+  `innerHTML` con datos).
+- Alternativas descartadas: datos copiados en el HTML (rompe D-00); prerender en build con un plugin
+  de Vite (más complejo; queda como plan B si Lighthouse móvil baja de 90).
+- Consecuencias: sin JavaScript la página muestra la estructura pero no los datos; aceptable para el
+  público objetivo (móvil moderno).
+
+## D-05 · Integraciones sin claves: WhatsApp, OpenStreetMap y Google Maps URLs (2026-11-14 · origen: arquitecto)
+- Decisión: reserva con enlace `https://wa.me/<dígitos>?text=<mensaje codificado>`; mapa con iframe
+  de OpenStreetMap con marcador y `loading="lazy"`; "Cómo llegar" con
+  `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`.
+- Alternativas descartadas: iframe de Google Maps (más pesado y con cookies de terceros); API de
+  WhatsApp Business (innecesaria: no hay reservas propias, ver spec "No entra"); URI `geo:` (no
+  funciona en iOS ni escritorio).
+- Consecuencias: no hay secretos ni `.env`. Las coordenadas también son datos del negocio y van en
+  `business.ts` (hueco añadido en `huecos.md`).
+
+## D-06 · Formato de precio (2026-11-14 · origen: arquitecto, deriva de D-00)
+- Decisión: los precios se guardan como número y se formatean en un único sitio
+  (`src/lib/formatPrice.ts`) con `Intl.NumberFormat(business.locale, { style: "currency",
+  currency: business.currency })`; hoy `es-MX` / `MXN`.
+- Consecuencias: si el hueco de moneda se resuelve con otra moneda, solo cambian `locale` y
+  `currency` en `business.ts`.
+
+## D-07 · Versiones y TypeScript estricto (2026-11-14 · origen: T-20261114-001)
+- Decisión: vite 7 + vitest 3 + typescript 5 + eslint 9 (por compatibilidad con typescript-eslint 8), versiones fijadas en package-lock.json; instalar con `npm ci`. tsconfig añade noUnusedLocals, noUnusedParameters, noFallthroughCasesInSwitch, verbatimModuleSyntax e isolatedModules sobre `strict`.
+- Pendiente de decisión humana: pasar a ESLint 10 (npm avisa que la 9 ya no tiene soporte).
+# Arquitectura
+
+Landing de una sola página, estática, sin backend. Ver decisiones D-01 a D-06.
+
+## Stack
+- **Vite** (servidor de desarrollo + build estático a `dist/`) con **TypeScript** "vanilla": sin
+  framework de UI (D-01).
+- **CSS plano** con custom properties (tokens de `diseno.md`); sin Tailwind (D-02).
+- **Calidad** (D-03): ESLint 9 (flat config) + typescript-eslint · `tsc --noEmit` · Vitest + jsdom.
+- Sin dependencias de producción: todo lo instalado es `devDependencies`.
+- Node LTS actual; versiones fijadas en `package-lock.json`.
+
+## Estructura de `app/`
+```
+app/
+├── index.html              # Esqueleto semántico estático (lang="es"): header+nav, <main> con las
+│                           # secciones (id + <h2>), contenedores vacíos para los datos, footer.
+├── package.json            # scripts: dev, lint, typecheck, test, build, preview
+├── package-lock.json
+├── tsconfig.json
+├── vite.config.ts          # build + bloque `test` de Vitest (environment: jsdom)
+├── eslint.config.js
+├── public/                 # favicon e imágenes estáticas (si las hay)
+└── src/
+    ├── main.ts             # Punto de entrada: importa estilos y monta cada sección en su contenedor
+    ├── data/
+    │   └── business.ts     # ÚNICO archivo de datos del negocio (D-00), tipado y marcado como ficticio
+    ├── lib/                # Funciones puras, sin DOM
+    │   ├── formatPrice.ts  # número → texto con moneda (Intl.NumberFormat)
+    │   ├── whatsapp.ts     # número + mensaje → URL wa.me
+    │   └── maps.ts         # coordenadas → URL de "Cómo llegar" y URL del mapa embebido
+    ├── sections/           # Una función por sección: datos → HTMLElement (DOM API)
+    │   ├── hero.ts         # Portada: nombre, eslogan, botón WhatsApp
+    │   ├── menu.ts         # Menú: Bebidas y Postres
+    │   ├── location.ts     # Horario y ubicación: tabla de horario, dirección, mapa, "Cómo llegar"
+    │   └── reserve.ts      # Reservar: texto + botón WhatsApp
+    └── styles/
+        ├── tokens.css      # Tokens de diseno.md como custom properties en :root
+        └── main.css        # Estilos base, layout mobile-first, componentes
+```
+- Pruebas **junto al código**: `src/**/<modulo>.test.ts`. Las pruebas de estructura de la página
+  leen `index.html` y lo cargan en jsdom.
+- Nombres de código en inglés; textos visibles en español (estándar de estilo).
+- Archivos de más de ~200 líneas se dividen.
+
+## Rutas / páginas
+Una sola ruta: `/` (`index.html`). Navegación interna por anclas, en este orden:
+
+| Ancla | Sección | Contenido |
+|---|---|---|
+| `#inicio` | Portada | Nombre "Cafetería Luna", eslogan, botón "Reservar mesa por WhatsApp" |
+| `#menu` | Menú | Grupos "Bebidas" y "Postres"; producto = nombre + precio |
+| `#horario` | Horario y ubicación | Horario lunes→domingo (incl. cierres), dirección, mapa, "Cómo llegar" |
+| `#reservar` | Reservar | Texto breve + botón "Reservar mesa por WhatsApp" |
+| — | Pie | Nombre, dirección corta, aviso de datos de ejemplo mientras rija D-00 |
+
+La cabecera con la navegación (Menú · Horario y ubicación · Reservar) es **fija/sticky**, de modo
+que es accesible desde cualquier punto de la página (CA-01.3).
+
+## Datos e integraciones
+### Datos (`src/data/business.ts`)
+Constante tipada `business` con: `name`, `slogan`, `locale` (`es-MX`), `currency` (`MXN`),
+`menu` (`drinks[]`, `desserts[]` de `{ name, price }`), `hours` (7 entradas lunes→domingo,
+`{ day, open, close } | { day, closed: true }`), `address` (texto completo), `coordinates`
+(`{ lat, lng }`), `whatsapp` (`{ number: "520000000000", message }`).
+- Mientras rija D-00 los valores son **ficticios** y el archivo lo dice en un comentario de cabecera.
+- Sustituir los datos reales = editar solo este archivo. Ningún otro módulo contiene datos del negocio.
+
+### Integraciones (todas sin claves ni `.env`)
+| Integración | Cómo | CA |
+|---|---|---|
+| WhatsApp | Enlace `https://wa.me/<número solo dígitos>?text=<mensaje con encodeURIComponent>`. Abre la app en móvil y WhatsApp Web/página de WhatsApp en escritorio. | CA-04.2–04.4 |
+| Mapa | `<iframe>` de OpenStreetMap (`export/embed.html` con `bbox` y `marker`), `loading="lazy"`, con `title` accesible. | CA-03.3 |
+| Cómo llegar | Enlace `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`: abre la app de mapas en móvil o la web en escritorio. | CA-03.4 |
+
+### Reglas de implementación
+- Los datos se insertan en el DOM **solo** con `textContent` / `setAttribute`; prohibido `innerHTML`
+  con datos.
+- Enlaces externos: `target="_blank"` + `rel="noopener noreferrer"` y un nombre accesible que indique
+  el propósito (p. ej., `aria-label` del botón de WhatsApp).
+- No se recogen datos personales; sin formularios, cookies propias ni analítica (hueco abierto).
+- Rendimiento (Lighthouse móvil ≥ 90): sin librerías de UI, mapa diferido (`loading="lazy"`), imágenes
+  con `width`/`height` y formatos modernos, fuentes con `font-display: swap` y como mucho 2 familias.
+
+## Zonas sensibles (riesgo ALTO: requieren aprobación humana)
+Además de lo que ya detecta `scripts/riesgo.mjs` (dependencias, configuración de build):
+- `src/data/business.ts` — un número o un mensaje de WhatsApp erróneo rompe el objetivo principal de
+  negocio (reservas) sin que falle ninguna prueba; un precio, horario o dirección erróneos engañan al
+  cliente. Cualquier cambio exige revisión humana.
+- `src/lib/whatsapp.ts` y los botones de reserva (`src/sections/hero.ts`, `src/sections/reserve.ts`) —
+  es el embudo de conversión: si la URL se construye mal, no entra ninguna reserva.
+- `index.html` y `src/main.ts` — si el esqueleto o el montaje fallan, la página queda en blanco.
+- `package.json`, `package-lock.json`, `vite.config.ts`, `tsconfig.json`, `eslint.config.js` —
+  dependencias y build (ya cubiertos por el script).
+- Cualquier recurso de terceros nuevo (iframes, scripts, fuentes externas) — afecta a privacidad y
+  rendimiento.
+
+## Cómo ejecutar
+- Instalar: `npm install` (dentro de `app/` o del worktree)
+- Desarrollo: `npm run dev`
+- Previsualizar el build: `npm run build && npm run preview`
+- Puertas: `node scripts/verificar.mjs <carpeta>` (desde la raíz de la fábrica) → `lint`, `typecheck`,
+  `test`, `build`
+- Lighthouse (CA-05.3, manual): auditoría móvil sobre `npm run preview`.
+
+## Hosting
+Estático (`dist/`) en Vercel o Netlify, **solo cuando el humano lo pida** y con los huecos de
+contenido resueltos (D-00). Dominio: pendiente (`huecos.md`).
+
+ exited 1 in 5678ms:
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 1
++ git -C 'C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c19 ...
++ ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 197
++ ... cafeteria-luna\.worktrees\T-20261114-002' status --short; git -C 'C:\ ...
++                                                               ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 402
++ ... -luna\.worktrees\T-20261114-002' diff main...HEAD --stat; git -C 'C:\ ...
++                                                               ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+rg : El término 'rg' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 600
++ ... afeteria-luna\.worktrees\T-20261114-002' diff main...HEAD; rg --files ...
++                                                                ~~
+    + CategoryInfo          : ObjectNotFound: (rg:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$bins = @('"'C:\\Program Files\\Git\\cmd\\git.exe','C:\\Program Files\\Git\\bin\\git.exe','C:\\Program Files\\nodejs\\npm.cmd','C:\\Program Files\\nodejs\\node.exe'); "'$bins | ForEach-Object { [pscustomobject]@{Path=$_; Exists=(Test-Path -LiteralPath $_)} }; Get-ChildItem -LiteralPath '"'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' -Force | Select-Object Mode,Name; Get-Command node,npm,git,rg -ErrorAction SilentlyContinue | Select-Object Name,Source; Get-Content -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002\\.git'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 5855ms:
+
+Path                             Exists
+----                             ------
+C:\Program Files\Git\cmd\git.exe  False
+C:\Program Files\Git\bin\git.exe  False
+C:\Program Files\nodejs\npm.cmd    True
+C:\Program Files\nodejs\node.exe   True
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+gitdir: C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/app/.git/worktrees/T-20261114-002
+
+
+
+codex
+El alcance previsto se limita a datos ficticios y una función que genera enlaces de WhatsApp. Git no está en el PATH de esta sesión; localizaré el ejecutable para revisar el diff solicitado.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local' -Directory -Force | Select-Object -ExpandProperty Name; Get-ChildItem -LiteralPath 'C:\\Program Files' -Directory | Select-Object -ExpandProperty Name; Get-ChildItem -LiteralPath 'C:\\Users\\FRANC' -Force -Directory | Select-Object -ExpandProperty Name; Get-ChildItem -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' -Force | Select-Object -ExpandProperty Name" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002\\package.json'; Get-ChildItem -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002\\src' -Recurse -File | Select-Object -ExpandProperty FullName; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002\\src\\data\\business.ts'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002\\src\\lib\\whatsapp.ts'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 1574ms:
+.IdentityService
+4A Games
+Activision
+Adobe
+AdvinstAnalytics
+ai.artcraft.app
+Android
+Archivos temporales de Internet
+Arma 3
+Arma 3 Launcher
+Backup
+Battle.net
+Battlestate Games
+BattlEye
+BethesdaNet
+bifrost
+BitTorrentHelper
+Blender Foundation
+Blizzard Entertainment
+Bohemia_Interactive
+BraveSoftware
+cache
+CEF
+CipSoft GmbH
+Claude
+Claude-3p
+claude-cli-nodejs
+Claude-Data
+cloud-code
+CMakeTools
+Comms
+ConnectedDevicesPlatform
+copilot
+CrashDumps
+CrashReportClient
+csdevkit
+D3DSCache
+Datos de programa
+DBG
+Diagnostics
+Discord
+Eclipse
+Eclipse Installer
+EffectCraft
+electron
+ElevatedDiagnostics
+Epic Games
+EpicGamesLauncher
+FalloutNV
+FalloutNV_Epic
+GameAnalytics
+GeoGebra_Calculator
+GitHub CLI
+github-copilot
+GitHubDesktop
+Golden Software
+Google
+google-vscode-extension
+Historial
+HoYoverse
+INetHistory
+JetBrains
+kotlin
+Lenovo
+LenovoServiceBridge
+main.kts.compiled.cache
+Melvor Idle
+Microsoft
+Mozilla
+NavegadorSeguroCENEVAL
+NEO
+NetBeans
+node-gyp
+Notepad
+Nox
+NoxSrv
+npm-cache
+NuGet
+NVIDIA
+NVIDIA Corporation
+nwjs
+OneDrive
+OpenAI
+Opera Software
+osu!
+Package Cache
+PackageAware
+Packages
+pip
+PlaceholderTileLogoFolder
+Programs
+Publishers
+pypa
+R
+Riot Games
+Roblox
+RStudio
+Rufus
+Sandbox Interactive GmbH
+SceneBuilder
+Shivers
+SolidDocuments
+speech
+SquirrelTemp
+Steam
+StudioMCP
+TangoGameworks
+Temp
+TFT
+Tibia
+Toaa
+ToastNotificationManagerCompat
+TslGame
+Ubisoft Game Launcher
+UnrealEngine
+UnrealEngineLauncher
+User Data
+VALORANT
+VirtualStore
+visualboyadvance-m
+Vivox
+Voice.ai
+WELLBIA
+Wondershare
+ACD64FREE
+Adobe
+Android
+AntiCheatExpert
+Apache NetBeans
+Application Verifier
+BellSoft
+Common Files
+dotnet
+Epic Games
+epson
+Google
+IIS
+Intel
+Internet Explorer
+Java
+JetBrains
+Lenovo
+Microsoft
+Microsoft GameInput
+Microsoft Office
+Microsoft Office 15
+Microsoft OneDrive
+Microsoft SQL Server
+Microsoft SQL Server Management Studio 22
+Microsoft Update Health Tools
+Microsoft Visual Studio
+Microsoft Visual Studio 10.0
+Microsoft.NET
+ModifiableWindowsApps
+MSBuild
+nodejs
+PokeMMO
+R
+Reference Assemblies
+Riot Vanguard
+RStudio
+SnapGene Viewer
+TAP-Windows
+VB
+Windows Defender
+Windows Mail
+Windows Media Player
+Windows NT
+Windows Photo Viewer
+WindowsPowerShell
+WinRAR
+WSL
+XboxService
+Get-ChildItem : Acceso denegado a la ruta de acceso 'C:\Users\FRANC'.
+En línea: 2 Carácter: 210
++ ... perty Name; Get-ChildItem -LiteralPath 'C:\Users\FRANC' -Force -Direc ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\FRANC:String) [Get-ChildItem], UnauthorizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+dist
+node_modules
+src
+.git
+.gitignore
+eslint.config.js
+index.html
+package-lock.json
+package.json
+README.md
+tsconfig.json
+vite.config.ts
+
+ succeeded in 2513ms:
+{
+  "name": "cafeteria-luna",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^24.19.2",
+    "eslint": "^9.39.5",
+    "globals": "^17.14.0",
+    "jsdom": "^31.0.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.2",
+    "vite": "^7.3.8",
+    "vitest": "^3.2.7"
+  }
+}
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002\src\main.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002\src\project.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002\src\data\business.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002\src\data\business.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002\src\lib\whatsapp.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002\src\lib\whatsapp.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002\src\styles\main.css
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002\src\styles\tokens.css
+/*
+ * DATOS FICTICIOS (decisión D-00 del brain).
+ * Todos los valores de este archivo son de ejemplo: menú y precios en MXN, horario, dirección,
+ * coordenadas y WhatsApp (+52 000 000 0000). Deben sustituirse por los reales antes de publicar
+ * (ver brain/huecos.md). Para cambiarlos, edita solo este archivo: ningún otro módulo contiene
+ * datos del negocio.
+ */
+
+export interface MenuItem {
+  name: string;
+  /** Price as a number in `currency`; formatting lives in src/lib/formatPrice.ts (D-06). */
+  price: number;
+}
+
+export interface OpenDay {
+  day: string;
+  /** "HH:MM", 24 h. */
+  open: string;
+  /** "HH:MM", 24 h, later than `open`. */
+  close: string;
+  closed?: never;
+}
+
+export interface ClosedDay {
+  day: string;
+  closed: true;
+  open?: never;
+  close?: never;
+}
+
+export type DayHours = OpenDay | ClosedDay;
+
+export interface Business {
+  name: string;
+  slogan: string;
+  locale: string;
+  currency: string;
+  menu: {
+    drinks: MenuItem[];
+    desserts: MenuItem[];
+  };
+  /** Seven entries, Monday to Sunday. */
+  hours: DayHours[];
+  address: string;
+  coordinates: { lat: number; lng: number };
+  /** `number`: digits only, country code included. */
+  whatsapp: { number: string; message: string };
+}
+
+export const business: Business = {
+  name: "Cafetería Luna",
+  slogan: "Tu rincón tranquilo para un buen café",
+  locale: "es-MX",
+  currency: "MXN",
+  menu: {
+    drinks: [
+      { name: "Café americano", price: 45 },
+      { name: "Capuchino", price: 55 },
+      { name: "Latte", price: 60 },
+      { name: "Chocolate caliente", price: 50 },
+    ],
+    desserts: [
+      { name: "Pastel de chocolate", price: 75 },
+      { name: "Cheesecake de frutos rojos", price: 80 },
+      { name: "Pan de elote", price: 45 },
+    ],
+  },
+  hours: [
+    { day: "Lunes", closed: true },
+    { day: "Martes", open: "08:00", close: "20:00" },
+    { day: "Miércoles", open: "08:00", close: "20:00" },
+    { day: "Jueves", open: "08:00", close: "20:00" },
+    { day: "Viernes", open: "08:00", close: "21:00" },
+    { day: "Sábado", open: "09:00", close: "21:00" },
+    { day: "Domingo", open: "09:00", close: "15:00" },
+  ],
+  address: "Calle Ejemplo 123, Col. Centro, 00000 Ciudad de México, CDMX, México",
+  coordinates: { lat: 19.4326, lng: -99.1332 },
+  whatsapp: {
+    number: "520000000000",
+    message:
+      "¡Hola, Cafetería Luna! Quiero reservar una mesa. ¿Me ayudas?\nFecha: \nHora: \nNúmero de personas: ",
+  },
+};
+/**
+ * Builds the WhatsApp "click to chat" link (D-05): https://wa.me/<digits>?text=<message>.
+ * Works for the mobile app and for WhatsApp Web on desktop.
+ * Pure function: the number and message come from src/data/business.ts, never from here.
+ */
+export function buildWhatsAppUrl(number: string, message: string): string {
+  // wa.me only accepts digits: drop "+", spaces, dashes, parentheses and anything else.
+  const digits = number.replace(/\D/g, "");
+  if (digits === "") {
+    throw new Error("WhatsApp number must contain at least one digit");
+  }
+  // encodeURIComponent (not URLSearchParams) so spaces become %20 instead of "+".
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+}
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\GitHubDesktop' -Filter git.exe -Recurse -File -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName; Get-ChildItem -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Programs' -Directory | Select-Object -ExpandProperty Name" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ exited 1 in 2459ms:
+Get-ChildItem : Acceso denegado a la ruta de acceso 'C:\Users\FRANC\AppData\Local\Programs'.
+En línea: 2 Carácter: 176
++ ... y FullName; Get-ChildItem -LiteralPath 'C:\Users\FRANC\AppData\Local\ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\FRANC\AppData\Local\Programs:String) [Get-ChildItem], Unauth 
+   orizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$env:PATH; Get-ChildItem -LiteralPath '"'C:\\Users\\FRANC\\AppData\\Local\\GitHubDesktop' -Force -ErrorAction Continue | Select-Object -ExpandProperty Name; Get-ChildItem -LiteralPath 'C:\\Program Files (x86)' -Directory | Select-Object -ExpandProperty Name; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\scripts\\agente-codex.mjs' -TotalCount 160" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 2517ms:
+C:\Users\FRANC\.codex\tmp\arg0-windows\codex-arg0JDRC0y;C:\Program Files\BellSoft\LibericaJDK-26-Full\bin\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\nodejs\;C:\Program Files (x86)\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\180\Tools\Binn\;C:\Program Files\Microsoft SQL Server\170\DTS\Binn\;C:\Users\FRANC\.cargo\bin;C:\Users\FRANC\AppData\Local\Programs\Python\Launcher\;C:\Users\FRANC\AppData\Local\Microsoft\WindowsApps;C:\Users\FRANC\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\FRANC\.dotnet\tools;C:\ProgramData\FRANC\GitHubDesktop\bin;C:\Users\FRANC\AppData\Roaming\npm;C:\Users\FRANC\AppData\Local\Programs\Microsoft VS Code\bin\copilot-shim;C:\Users\FRANC\AppData\Local\Microsoft\WinGet\Links;C:\Users\FRANC\AppData\Local\Programs\MinGit\cmd;C:\Users\FRANC\AppData\Local\Programs\Python\Python314;C:\Program Files\nodejs
+Get-ChildItem : Acceso denegado a la ruta de acceso 'C:\Users\FRANC\AppData\Local\GitHubDesktop'.
+En línea: 2 Carácter: 12
++ $env:PATH; Get-ChildItem -LiteralPath 'C:\Users\FRANC\AppData\Local\G ...
++            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\FRANC\...l\GitHubDesktop:String) [Get-ChildItem], Unauthoriz 
+   edAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+Adobe
+AGEIA Technologies
+AOE URL Helper
+Application Verifier
+Battle.net
+BraveSoftware
+Common Files
+dotnet
+EasyAntiCheat_EOS
+Epic Games
+epson
+EPSON Software
+Google
+IIS
+Internet Explorer
+KONAMI
+Lenovo
+Microsoft
+Microsoft SDKs
+Microsoft SQL Server
+Microsoft Visual Studio
+Microsoft XNA
+Microsoft.NET
+MSBuild
+Nox
+Nuget
+NVIDIA Corporation
+Razer
+Reference Assemblies
+StarCraft
+Steam
+Teams Installer
+Ubisoft
+VB
+VideoLAN
+Windows Defender
+Windows Kits
+Windows Mail
+Windows Media Player
+Windows NT
+Windows Photo Viewer
+WindowsPowerShell
+#!/usr/bin/env node
+// Puente a Codex (OpenAI): ejecuta una estación de la fábrica con `codex exec`, usando la MISMA
+// definición de rol que los subagentes de Claude (.claude/agents/<rol>.md).
+//
+// Uso:
+//   node scripts/agente-codex.mjs --comprobar
+//   node scripts/agente-codex.mjs <rol> <proyecto> <ID> [--ronda N] [--extra "texto"]
+//   node scripts/agente-codex.mjs revisores <proyecto> <ID> [--ronda N]
+//       → lanza EN PARALELO todos los revisores que tengan motor "codex" en fabrica.config.json
+//
+// Guarda la entrega en tareas/<ID>/, el registro completo en tareas/<ID>/logs/ y deja traza.
+import { spawn, spawnSync } from 'node:child_process';
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync, createWriteStream } from 'node:fs';
+import { join } from 'node:path';
+import { RAIZ, escribirJSON, fallar, git, leerJSON, registrar, rutasTarea } from './lib.mjs';
+
+const CONFIG = leerJSON(join(RAIZ, 'fabrica.config.json'), {});
+const REVISORES = ['revisor-seguridad', 'revisor-ux', 'revisor-ui', 'revisor-codigo'];
+
+// Cómo trabaja cada rol cuando corre en Codex: dónde puede escribir y dónde se guarda su entrega.
+const PERFILES = {
+  'spec-writer':         { escribe: 'tarea',      salida: (t) => join(t, 'spec-writer-respuesta.md') },
+  'constructor':         { escribe: 'worktree',   salida: (t, n) => join(t, `build-ronda${n}.md`) },
+  'revisor-seguridad':   { escribe: 'revisiones', salida: (t, n) => join(t, 'revisiones', `revisor-seguridad-ronda${n}.md`) },
+  'revisor-ux':          { escribe: 'revisiones', salida: (t, n) => join(t, 'revisiones', `revisor-ux-ronda${n}.md`) },
+  'revisor-ui':          { escribe: 'revisiones', salida: (t, n) => join(t, 'revisiones', `revisor-ui-ronda${n}.md`) },
+  'revisor-codigo':      { escribe: 'revisiones', salida: (t, n) => join(t, 'revisiones', `revisor-codigo-ronda${n}.md`) },
+  'aprobador':           { escribe: 'nada',       salida: (t, n) => join(t, `aprobacion-ronda${n}.md`) },
+  'clasificador-riesgo': { escribe: 'nada',       salida: (t) => join(t, 'riesgo-agente.json'), json: true },
+};
+
+// ---------- localizar Codex ----------
+function encontrarCodex() {
+  if (process.env.CODEX_BIN && existsSync(process.env.CODEX_BIN)) return process.env.CODEX_BIN;
+  const cfg = CONFIG.codex?.ejecutable;
+  if (cfg && cfg !== 'auto') return existsSync(cfg) ? cfg : null;
+  const w = spawnSync(process.platform === 'win32' ? 'where' : 'which', ['codex'], { encoding: 'utf8' });
+  if (w.status === 0) {
+    const rutas = w.stdout.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
+    const exe = rutas.find((r) => /\.exe$/i.test(r)) ?? rutas.find((r) => !/\.(cmd|ps1)$/i.test(r));
+    if (exe) return exe;
+  }
+  // App de escritorio de Codex en Windows: %LOCALAPPDATA%\OpenAI\Codex\bin\<hash>\codex.exe
+  const base = join(process.env.LOCALAPPDATA ?? '', 'OpenAI', 'Codex', 'bin');
+  if (existsSync(base)) {
+    const candidatos = readdirSync(base)
+      .map((d) => join(base, d, 'codex.exe'))
+      .filter((f) => existsSync(f))
+      .sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs);
+    if (candidatos[0]) return candidatos[0];
+  }
+  return null;
+}
+
+function comprobar() {
+  const exe = encontrarCodex();
+  if (!exe) fallar('No encuentro Codex. Instala la app o el CLI (npm i -g @openai/codex), o pon su ruta en fabrica.config.json > codex.ejecutable.');
+  const v = spawnSync(exe, ['--version'], { encoding: 'utf8' });
+  const l = spawnSync(exe, ['login', 'status'], { encoding: 'utf8' });
+  console.log(`Codex:  ${exe}\nVersión: ${(v.stdout || v.stderr).trim()}\nSesión:  ${(l.stdout || l.stderr).trim()}\n`);
+  console.log('Reparto de estaciones (fabrica.config.json):');
+  for (const [rol, e] of Object.entries(CONFIG.estaciones ?? {})) {
+    const modelo = e.motor === 'codex' ? ` · ${e.modelo ?? CONFIG.codex?.modelo_por_defecto ?? 'por defecto'}` : '';
+    console.log(`  ${rol.padEnd(20)} ${e.motor}${modelo}`);
+  }
+  if (l.status !== 0) process.exit(1);
+}
+
+// ---------- construir el prompt ----------
+function cuerpoDelRol(rol) {
+  const ruta = join(RAIZ, '.claude', 'agents', `${rol}.md`);
+  if (!existsSync(ruta)) fallar(`No existe la definición del rol: ${ruta}`);
+  return readFileSync(ruta, 'utf8').replace(/^---[\s\S]*?---\s*/, '').trim();
+}
+
+function construirPrompt(rol, perfil, r, estado, trabajo, ronda, extra) {
+  const notas = {
+    worktree: `- Solo puedes escribir dentro de la carpeta de trabajo. **No hagas commit**: la fábrica lo hace al terminar.`,
+    revisiones: `- Solo puedes escribir en ${join(r.tarea, 'revisiones')} (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.`,
+    tarea: `- Escribe tus archivos dentro de ${r.tarea}.`,
+    nada: `- No escribas archivos. Tu entrega es tu último mensaje.`,
+  }[perfil.escribe];
+  return `${cuerpoDelRol(rol)}
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: ${RAIZ}
+- Proyecto: ${estado.proyecto} → ${r.dir}
+- Brain: ${r.brain} (empieza por index.md)
+- Tarea: ${estado.id} → ${r.tarea}
+- Spec de la tarea: ${join(r.tarea, 'spec.md')}
+- Carpeta de trabajo (worktree, rama ${estado.rama ?? 'sin rama'}): ${trabajo}
+- Rama base: ${estado.base ?? 'main'} (donde las instrucciones dicen "main", usa esta)
+- Ronda: ${ronda}
+${extra ? `- Indicaciones adicionales: ${extra}\n` : ''}
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+${notas}
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.`;
+}
+
+// ---------- ejecutar una estación ----------
+function huella(trabajo) {
+  if (!existsSync(join(trabajo, '.git'))) return null;
+  return `${git(['rev-parse', 'HEAD'], trabajo).out}\n${git(['status', '--porcelain'], trabajo).out}`;
+}
+
+function ejecutar(rol, proyecto, id, ronda, extra) {
+  const perfil = PERFILES[rol];
+  if (!perfil) fallar(`Rol desconocido para Codex: ${rol}. Roles: ${Object.keys(PERFILES).join(', ')}`);
+  const exe = encontrarCodex();
+  if (!exe) fallar('No encuentro Codex (ejecuta: node scripts/agente-codex.mjs --comprobar)');
+
+  const r = rutasTarea(proyecto, id);
+  const estado = leerJSON(r.estado, {});
+  const trabajo = join(RAIZ, estado.trabajo ?? '');
+  const estacion = CONFIG.estaciones?.[rol] ?? {};
+  const modelo = estacion.modelo ?? CONFIG.codex?.modelo_por_defecto ?? null;
+  const salida = perfil.salida(r.tarea, ronda);
+  const dirLogs = join(r.tarea, 'logs');
+  mkdirSync(dirLogs, { recursive: true });
+  mkdirSync(join(r.tarea, 'revisiones'), { recursive: true });
+
+  const args = ['exec', '--color', 'never', '-o', salida];
+  if (modelo) args.push('-m', modelo);
+  if (estacion.esfuerzo) args.push('-c', `model_reasoning_effort="${estacion.esfuerzo}"`);
+  if (perfil.escribe === 'worktree') {
+    args.push('-s', 'workspace-write', '-C', trabajo, '-c', 'sandbox_workspace_write.network_access=true');
+  } else if (perfil.escribe === 'revisiones') {
+    args.push('-s', 'workspace-write', '-C', join(r.tarea, 'revisiones'), '--skip-git-repo-check');
+  } else if (perfil.escribe === 'tarea') {
+    args.push('-s', 'workspace-write', '-C', r.tarea, '--skip-git-repo-check');
+  } else {
+    args.push('-s', 'read-only', '-C', r.tarea, '--skip-git-repo-check');
+  }
+  args.push('-'); // el prompt va por stdin
+
+  const prompt = construirPrompt(rol, perfil, r, estado, trabajo, ronda, extra);
+  const antes = perfil.escribe === 'worktree' ? null : huella(trabajo);
+  const log = createWriteStream(join(dirLogs, `${rol}-ronda${ronda}.log`));
+  log.write(`$ ${exe} ${args.join(' ')}\n\n===== PROMPT =====\n${prompt}\n\n===== SALIDA =====\n`);
+  const inicio = Date.now();
+  console.log(`▶ ${rol} → Codex ${modelo ?? '(modelo por defecto)'}`);
+
+  return new Promise((resolver) => {
+    const hijo = spawn(exe, args, { cwd: RAIZ, windowsHide: true });
+    const limite = setTimeout(() => hijo.kill(), (CONFIG.codex?.timeout_minutos ?? 25) * 60_000);
+    hijo.stdout.pipe(log, { end: false });
+    hijo.stderr.pipe(log, { end: false });
+    hijo.stdin.end(prompt);
+    hijo.on('close', (codigo) => {
+      clearTimeout(limite);
+      log.end();
+      const seg = Math.round((Date.now() - inicio) / 1000);
+      const nota = `codex ${modelo ?? 'default'} · ${seg}s`;
+
+      if (codigo !== 0 || !existsSync(salida)) {
+        registrar(r, rol, 'ERROR', `${nota} · código ${codigo} (ver logs/${rol}-ronda${ronda}.log)`);
+        if (perfil.json) escribirJSON(salida, { nivel: 'ALTO', motivo: `el clasificador Codex falló (código ${codigo}); por seguridad, ALTO` });
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -LiteralPath 'C:\\ProgramData\\FRANC\\GitHubDesktop' -Filter git.exe -Recurse -File -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName; & 'C:\\Users\\FRANC\\AppData\\Local\\Programs\\MinGit\\cmd\\git.exe' --version" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:\\Program Files\\nodejs\\npm.cmd' audit --omit=dev --ignore-scripts --no-fund --logs-max=0 --fetch-retries=0 --fetch-timeout=15000" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002\\src\\lib\\whatsapp.test.ts'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002\\src\\data\\business.test.ts'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 3162ms:
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { describe, expect, it } from "vitest";
+import { business } from "../data/business";
+import { buildWhatsAppUrl } from "./whatsapp";
+
+// Plain strings, not the global URL: under jsdom it is jsdom's class, which node:url rejects.
+const libDir = dirname(fileURLToPath(import.meta.url));
+
+const textParam = (url: string): string => url.slice(url.indexOf("?text=") + "?text=".length);
+
+describe("CA-8: number is reduced to digits only", () => {
+  it.each(["+52 000 000 0000", "(52) 000-000-0000"])("cleans %j", (number) => {
+    expect(buildWhatsAppUrl(number, "Hola").startsWith("https://wa.me/520000000000?text=")).toBe(true);
+  });
+});
+
+describe("CA-9: message is encoded with encodeURIComponent and decodes losslessly", () => {
+  const message = "¡Hola! ¿Tienen mesa mañana?\nSomos 4 & #luna / café = rico";
+
+  it("uses exactly encodeURIComponent(message) after ?text=", () => {
+    const value = textParam(buildWhatsAppUrl("520000000000", message));
+    expect(value).toBe(encodeURIComponent(message));
+    expect(value).toContain("%20");
+    expect(value).not.toContain("+");
+  });
+
+  it("decodes back to the identical message", () => {
+    const url = buildWhatsAppUrl("520000000000", message);
+    expect(decodeURIComponent(textParam(url))).toBe(message);
+    expect(new URL(url).searchParams.get("text")).toBe(message);
+  });
+});
+
+describe("CA-10: URL format valid for mobile app and WhatsApp Web", () => {
+  it("is https://wa.me/<digits> with text as the only parameter", () => {
+    const parsed = new URL(buildWhatsAppUrl("+52 000 000 0000", "Hola"));
+    expect(parsed.protocol).toBe("https:");
+    expect(parsed.hostname).toBe("wa.me");
+    expect(parsed.pathname).toMatch(/^\/\d+$/);
+    expect(parsed.pathname).toBe("/520000000000");
+    expect([...parsed.searchParams.keys()]).toEqual(["text"]);
+  });
+});
+
+describe("CA-11: number without digits", () => {
+  it.each(["", "+ -", "()"])("throws an Error for %j", (number) => {
+    expect(() => buildWhatsAppUrl(number, "Hola")).toThrow(Error);
+  });
+});
+
+describe("CA-12: link built from the real data file", () => {
+  it("points to the business number and asks for date, time and party size", () => {
+    const url = buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message);
+    expect(url.startsWith("https://wa.me/520000000000?text=")).toBe(true);
+    const text = decodeURIComponent(textParam(url));
+    expect(text).toBe(business.whatsapp.message);
+    expect(text).toMatch(/\bfecha\b/i);
+    expect(text).toMatch(/\bhora\b/i);
+    expect(text).toMatch(/\bpersonas\b/i);
+  });
+});
+
+describe("CA-13: whatsapp.ts holds no business data", () => {
+  it("does not contain the number or the message", () => {
+    const source = readFileSync(resolve(libDir, "whatsapp.ts"), "utf8");
+    expect(source).not.toMatch(/520000000000/);
+    expect(source).not.toMatch(/000 000 0000/);
+    expect(source).not.toMatch(/\bfecha\b|\bpersonas\b/i);
+    expect(source, "must not import the data file").not.toMatch(/import[^;]*["'][^"']*data\/business/);
+  });
+});
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { describe, expect, expectTypeOf, it } from "vitest";
+import { business } from "./business";
+import type { Business, DayHours } from "./business";
+
+// Plain strings, not the global URL: under jsdom it is jsdom's class, which node:url rejects.
+const dataDir = dirname(fileURLToPath(import.meta.url));
+const readSource = (): string => readFileSync(resolve(dataDir, "business.ts"), "utf8");
+
+const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
+
+describe("CA-1: header comment marks the data as fictitious", () => {
+  it("starts with a comment mentioning ficticio(s) and D-00", () => {
+    const header = /^\s*(\/\*[\s\S]*?\*\/|(?:\/\/[^\n]*\n)+)/.exec(readSource())?.[1];
+    expect(header, "leading comment").toBeDefined();
+    expect(header).toMatch(/ficticios?/i);
+    expect(header).toContain("D-00");
+  });
+});
+
+describe("CA-2: identity, locale and currency", () => {
+  it("has the agreed name, a slogan, es-MX and MXN", () => {
+    expect(business.name).toBe("Cafetería Luna");
+    expect(typeof business.slogan).toBe("string");
+    expect(business.slogan.trim()).not.toBe("");
+    expect(business.locale).toBe("es-MX");
+    expect(business.currency).toBe("MXN");
+  });
+});
+
+describe("CA-3: menu", () => {
+  it.each(["drinks", "desserts"] as const)("%s has at least 3 valid products", (group) => {
+    const items = business.menu[group];
+    expect(items.length).toBeGreaterThanOrEqual(3);
+    for (const item of items) {
+      expect(item.name.trim(), `name in ${group}`).not.toBe("");
+      expect(typeof item.price, `price of ${item.name}`).toBe("number");
+      expect(Number.isFinite(item.price), `price of ${item.name}`).toBe(true);
+      expect(item.price, `price of ${item.name}`).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe("CA-4: opening hours", () => {
+  it("has 7 entries Monday to Sunday in order", () => {
+    expect(business.hours.map((entry) => entry.day)).toEqual([
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+      "Domingo",
+    ]);
+  });
+
+  it("has at least one closed day without open/close", () => {
+    const closed = business.hours.filter((entry) => entry.closed === true);
+    expect(closed.length).toBeGreaterThanOrEqual(1);
+    for (const entry of closed) {
+      expect(entry).not.toHaveProperty("open");
+      expect(entry).not.toHaveProperty("close");
+    }
+  });
+
+  it("every open day has HH:MM 24 h times with open < close", () => {
+    for (const entry of business.hours) {
+      if (entry.closed) continue;
+      expect(entry.open, `${entry.day} open`).toMatch(TIME);
+      expect(entry.close, `${entry.day} close`).toMatch(TIME);
+      expect(entry.open < entry.close, `${entry.day}: ${entry.open} < ${entry.close}`).toBe(true);
+    }
+  });
+});
+
+describe("CA-5: address and coordinates", () => {
+  it("has a non-empty address and valid finite coordinates", () => {
+    expect(business.address.trim()).not.toBe("");
+    const { lat, lng } = business.coordinates;
+    expect(Number.isFinite(lat)).toBe(true);
+    expect(Number.isFinite(lng)).toBe(true);
+    expect(lat).toBeGreaterThanOrEqual(-90);
+    expect(lat).toBeLessThanOrEqual(90);
+    expect(lng).toBeGreaterThanOrEqual(-180);
+    expect(lng).toBeLessThanOrEqual(180);
+  });
+});
+
+describe("CA-6: WhatsApp data", () => {
+  it("uses the D-00 example number as digits only", () => {
+    expect(business.whatsapp.number).toBe("520000000000");
+  });
+
+  it("has a Spanish message asking for date, time and party size", () => {
+    const { message } = business.whatsapp;
+    expect(message.trim()).not.toBe("");
+    expect(message).toMatch(/\bfecha\b/i);
+    expect(message).toMatch(/\bhora\b/i);
+    expect(message).toMatch(/\bpersonas\b/i);
+  });
+});
+
+describe("CA-7: business is typed with the exported Business type", () => {
+  it("is annotated as Business in the source", () => {
+    expect(readSource()).toMatch(/export const business:\s*Business\s*=/);
+  });
+
+  it("has exactly the Business type (checked by npm run typecheck)", () => {
+    expectTypeOf(business).toEqualTypeOf<Business>();
+    expectTypeOf(business).not.toBeAny();
+  });
+
+  it("models hours as an exclusive union (checked by npm run typecheck)", () => {
+    const invalid: DayHours[] = [
+      // @ts-expect-error a closed day cannot have opening times
+      { day: "Lunes", closed: true, open: "08:00", close: "20:00" },
+      // @ts-expect-error an open day cannot be marked as closed
+      { day: "Martes", open: "08:00", close: "20:00", closed: true },
+      // @ts-expect-error an open day needs both open and close
+      { day: "Miércoles", open: "08:00" },
+    ];
+    expect(invalid).toHaveLength(3);
+  });
+});
+
+ exited 1 in 3873ms:
+C:\ProgramData\FRANC\GitHubDesktop\app-3.5.12\resources\app\git\cmd\git.exe
+C:\ProgramData\FRANC\GitHubDesktop\app-3.5.12\resources\app\git\mingw64\bin\git.exe
+Error al ejecutar el programa 'git.exe': Acceso denegadoEn línea: 2 Carácter: 168
++ ... y FullName; & 'C:\Users\FRANC\AppData\Local\Programs\MinGit\cmd\git.e ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+En línea: 2 Carácter: 168
++ ... y FullName; & 'C:\Users\FRANC\AppData\Local\Programs\MinGit\cmd\git.e ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ResourceUnavailable: (:) [], ApplicationFailedException
+    + FullyQualifiedErrorId : NativeCommandFailed
+ 
+
+ succeeded in 4819ms:
+found 0 vulnerabilities
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' status --short; & 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' diff main...HEAD --stat; & 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' diff main...HEAD; & 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' ls-files" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 1307ms:
+ src/data/business.test.ts | 126 ++++++++++++++++++++++++++++++++++++++++++++++
+ src/data/business.ts      |  84 +++++++++++++++++++++++++++++++
+ src/lib/whatsapp.test.ts  |  73 +++++++++++++++++++++++++++
+ src/lib/whatsapp.ts       |  14 ++++++
+ 4 files changed, 297 insertions(+)
+diff --git a/src/data/business.test.ts b/src/data/business.test.ts
+new file mode 100644
+index 0000000..7f31629
+--- /dev/null
++++ b/src/data/business.test.ts
+@@ -0,0 +1,126 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, expectTypeOf, it } from "vitest";
++import { business } from "./business";
++import type { Business, DayHours } from "./business";
++
++// Plain strings, not the global URL: under jsdom it is jsdom's class, which node:url rejects.
++const dataDir = dirname(fileURLToPath(import.meta.url));
++const readSource = (): string => readFileSync(resolve(dataDir, "business.ts"), "utf8");
++
++const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
++
++describe("CA-1: header comment marks the data as fictitious", () => {
++  it("starts with a comment mentioning ficticio(s) and D-00", () => {
++    const header = /^\s*(\/\*[\s\S]*?\*\/|(?:\/\/[^\n]*\n)+)/.exec(readSource())?.[1];
++    expect(header, "leading comment").toBeDefined();
++    expect(header).toMatch(/ficticios?/i);
++    expect(header).toContain("D-00");
++  });
++});
++
++describe("CA-2: identity, locale and currency", () => {
++  it("has the agreed name, a slogan, es-MX and MXN", () => {
++    expect(business.name).toBe("Cafetería Luna");
++    expect(typeof business.slogan).toBe("string");
++    expect(business.slogan.trim()).not.toBe("");
++    expect(business.locale).toBe("es-MX");
++    expect(business.currency).toBe("MXN");
++  });
++});
++
++describe("CA-3: menu", () => {
++  it.each(["drinks", "desserts"] as const)("%s has at least 3 valid products", (group) => {
++    const items = business.menu[group];
++    expect(items.length).toBeGreaterThanOrEqual(3);
++    for (const item of items) {
++      expect(item.name.trim(), `name in ${group}`).not.toBe("");
++      expect(typeof item.price, `price of ${item.name}`).toBe("number");
++      expect(Number.isFinite(item.price), `price of ${item.name}`).toBe(true);
++      expect(item.price, `price of ${item.name}`).toBeGreaterThan(0);
++    }
++  });
++});
++
++describe("CA-4: opening hours", () => {
++  it("has 7 entries Monday to Sunday in order", () => {
++    expect(business.hours.map((entry) => entry.day)).toEqual([
++      "Lunes",
++      "Martes",
++      "Miércoles",
++      "Jueves",
++      "Viernes",
++      "Sábado",
++      "Domingo",
++    ]);
++  });
++
++  it("has at least one closed day without open/close", () => {
++    const closed = business.hours.filter((entry) => entry.closed === true);
++    expect(closed.length).toBeGreaterThanOrEqual(1);
++    for (const entry of closed) {
++      expect(entry).not.toHaveProperty("open");
++      expect(entry).not.toHaveProperty("close");
++    }
++  });
++
++  it("every open day has HH:MM 24 h times with open < close", () => {
++    for (const entry of business.hours) {
++      if (entry.closed) continue;
++      expect(entry.open, `${entry.day} open`).toMatch(TIME);
++      expect(entry.close, `${entry.day} close`).toMatch(TIME);
++      expect(entry.open < entry.close, `${entry.day}: ${entry.open} < ${entry.close}`).toBe(true);
++    }
++  });
++});
++
++describe("CA-5: address and coordinates", () => {
++  it("has a non-empty address and valid finite coordinates", () => {
++    expect(business.address.trim()).not.toBe("");
++    const { lat, lng } = business.coordinates;
++    expect(Number.isFinite(lat)).toBe(true);
++    expect(Number.isFinite(lng)).toBe(true);
++    expect(lat).toBeGreaterThanOrEqual(-90);
++    expect(lat).toBeLessThanOrEqual(90);
++    expect(lng).toBeGreaterThanOrEqual(-180);
++    expect(lng).toBeLessThanOrEqual(180);
++  });
++});
++
++describe("CA-6: WhatsApp data", () => {
++  it("uses the D-00 example number as digits only", () => {
++    expect(business.whatsapp.number).toBe("520000000000");
++  });
++
++  it("has a Spanish message asking for date, time and party size", () => {
++    const { message } = business.whatsapp;
++    expect(message.trim()).not.toBe("");
++    expect(message).toMatch(/\bfecha\b/i);
++    expect(message).toMatch(/\bhora\b/i);
++    expect(message).toMatch(/\bpersonas\b/i);
++  });
++});
++
++describe("CA-7: business is typed with the exported Business type", () => {
++  it("is annotated as Business in the source", () => {
++    expect(readSource()).toMatch(/export const business:\s*Business\s*=/);
++  });
++
++  it("has exactly the Business type (checked by npm run typecheck)", () => {
++    expectTypeOf(business).toEqualTypeOf<Business>();
++    expectTypeOf(business).not.toBeAny();
++  });
++
++  it("models hours as an exclusive union (checked by npm run typecheck)", () => {
++    const invalid: DayHours[] = [
++      // @ts-expect-error a closed day cannot have opening times
++      { day: "Lunes", closed: true, open: "08:00", close: "20:00" },
++      // @ts-expect-error an open day cannot be marked as closed
++      { day: "Martes", open: "08:00", close: "20:00", closed: true },
++      // @ts-expect-error an open day needs both open and close
++      { day: "Miércoles", open: "08:00" },
++    ];
++    expect(invalid).toHaveLength(3);
++  });
++});
+diff --git a/src/data/business.ts b/src/data/business.ts
+new file mode 100644
+index 0000000..ba83ba1
+--- /dev/null
++++ b/src/data/business.ts
+@@ -0,0 +1,84 @@
++/*
++ * DATOS FICTICIOS (decisión D-00 del brain).
++ * Todos los valores de este archivo son de ejemplo: menú y precios en MXN, horario, dirección,
++ * coordenadas y WhatsApp (+52 000 000 0000). Deben sustituirse por los reales antes de publicar
++ * (ver brain/huecos.md). Para cambiarlos, edita solo este archivo: ningún otro módulo contiene
++ * datos del negocio.
++ */
++
++export interface MenuItem {
++  name: string;
++  /** Price as a number in `currency`; formatting lives in src/lib/formatPrice.ts (D-06). */
++  price: number;
++}
++
++export interface OpenDay {
++  day: string;
++  /** "HH:MM", 24 h. */
++  open: string;
++  /** "HH:MM", 24 h, later than `open`. */
++  close: string;
++  closed?: never;
++}
++
++export interface ClosedDay {
++  day: string;
++  closed: true;
++  open?: never;
++  close?: never;
++}
++
++export type DayHours = OpenDay | ClosedDay;
++
++export interface Business {
++  name: string;
++  slogan: string;
++  locale: string;
++  currency: string;
++  menu: {
++    drinks: MenuItem[];
++    desserts: MenuItem[];
++  };
++  /** Seven entries, Monday to Sunday. */
++  hours: DayHours[];
++  address: string;
++  coordinates: { lat: number; lng: number };
++  /** `number`: digits only, country code included. */
++  whatsapp: { number: string; message: string };
++}
++
++export const business: Business = {
++  name: "Cafetería Luna",
++  slogan: "Tu rincón tranquilo para un buen café",
++  locale: "es-MX",
++  currency: "MXN",
++  menu: {
++    drinks: [
++      { name: "Café americano", price: 45 },
++      { name: "Capuchino", price: 55 },
++      { name: "Latte", price: 60 },
++      { name: "Chocolate caliente", price: 50 },
++    ],
++    desserts: [
++      { name: "Pastel de chocolate", price: 75 },
++      { name: "Cheesecake de frutos rojos", price: 80 },
++      { name: "Pan de elote", price: 45 },
++    ],
++  },
++  hours: [
++    { day: "Lunes", closed: true },
++    { day: "Martes", open: "08:00", close: "20:00" },
++    { day: "Miércoles", open: "08:00", close: "20:00" },
++    { day: "Jueves", open: "08:00", close: "20:00" },
++    { day: "Viernes", open: "08:00", close: "21:00" },
++    { day: "Sábado", open: "09:00", close: "21:00" },
++    { day: "Domingo", open: "09:00", close: "15:00" },
++  ],
++  address: "Calle Ejemplo 123, Col. Centro, 00000 Ciudad de México, CDMX, México",
++  coordinates: { lat: 19.4326, lng: -99.1332 },
++  whatsapp: {
++    number: "520000000000",
++    message:
++      "¡Hola, Cafetería Luna! Quiero reservar una mesa. ¿Me ayudas?\nFecha: \nHora: \nNúmero de personas: ",
++  },
++};
+diff --git a/src/lib/whatsapp.test.ts b/src/lib/whatsapp.test.ts
+new file mode 100644
+index 0000000..48e768c
+--- /dev/null
++++ b/src/lib/whatsapp.test.ts
+@@ -0,0 +1,73 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++import { business } from "../data/business";
++import { buildWhatsAppUrl } from "./whatsapp";
++
++// Plain strings, not the global URL: under jsdom it is jsdom's class, which node:url rejects.
++const libDir = dirname(fileURLToPath(import.meta.url));
++
++const textParam = (url: string): string => url.slice(url.indexOf("?text=") + "?text=".length);
++
++describe("CA-8: number is reduced to digits only", () => {
++  it.each(["+52 000 000 0000", "(52) 000-000-0000"])("cleans %j", (number) => {
++    expect(buildWhatsAppUrl(number, "Hola").startsWith("https://wa.me/520000000000?text=")).toBe(true);
++  });
++});
++
++describe("CA-9: message is encoded with encodeURIComponent and decodes losslessly", () => {
++  const message = "¡Hola! ¿Tienen mesa mañana?\nSomos 4 & #luna / café = rico";
++
++  it("uses exactly encodeURIComponent(message) after ?text=", () => {
++    const value = textParam(buildWhatsAppUrl("520000000000", message));
++    expect(value).toBe(encodeURIComponent(message));
++    expect(value).toContain("%20");
++    expect(value).not.toContain("+");
++  });
++
++  it("decodes back to the identical message", () => {
++    const url = buildWhatsAppUrl("520000000000", message);
++    expect(decodeURIComponent(textParam(url))).toBe(message);
++    expect(new URL(url).searchParams.get("text")).toBe(message);
++  });
++});
++
++describe("CA-10: URL format valid for mobile app and WhatsApp Web", () => {
++  it("is https://wa.me/<digits> with text as the only parameter", () => {
++    const parsed = new URL(buildWhatsAppUrl("+52 000 000 0000", "Hola"));
++    expect(parsed.protocol).toBe("https:");
++    expect(parsed.hostname).toBe("wa.me");
++    expect(parsed.pathname).toMatch(/^\/\d+$/);
++    expect(parsed.pathname).toBe("/520000000000");
++    expect([...parsed.searchParams.keys()]).toEqual(["text"]);
++  });
++});
++
++describe("CA-11: number without digits", () => {
++  it.each(["", "+ -", "()"])("throws an Error for %j", (number) => {
++    expect(() => buildWhatsAppUrl(number, "Hola")).toThrow(Error);
++  });
++});
++
++describe("CA-12: link built from the real data file", () => {
++  it("points to the business number and asks for date, time and party size", () => {
++    const url = buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message);
++    expect(url.startsWith("https://wa.me/520000000000?text=")).toBe(true);
++    const text = decodeURIComponent(textParam(url));
++    expect(text).toBe(business.whatsapp.message);
++    expect(text).toMatch(/\bfecha\b/i);
++    expect(text).toMatch(/\bhora\b/i);
++    expect(text).toMatch(/\bpersonas\b/i);
++  });
++});
++
++describe("CA-13: whatsapp.ts holds no business data", () => {
++  it("does not contain the number or the message", () => {
++    const source = readFileSync(resolve(libDir, "whatsapp.ts"), "utf8");
++    expect(source).not.toMatch(/520000000000/);
++    expect(source).not.toMatch(/000 000 0000/);
++    expect(source).not.toMatch(/\bfecha\b|\bpersonas\b/i);
++    expect(source, "must not import the data file").not.toMatch(/import[^;]*["'][^"']*data\/business/);
++  });
++});
+diff --git a/src/lib/whatsapp.ts b/src/lib/whatsapp.ts
+new file mode 100644
+index 0000000..51c7776
+--- /dev/null
++++ b/src/lib/whatsapp.ts
+@@ -0,0 +1,14 @@
++/**
++ * Builds the WhatsApp "click to chat" link (D-05): https://wa.me/<digits>?text=<message>.
++ * Works for the mobile app and for WhatsApp Web on desktop.
++ * Pure function: the number and message come from src/data/business.ts, never from here.
++ */
++export function buildWhatsAppUrl(number: string, message: string): string {
++  // wa.me only accepts digits: drop "+", spaces, dashes, parentheses and anything else.
++  const digits = number.replace(/\D/g, "");
++  if (digits === "") {
++    throw new Error("WhatsApp number must contain at least one digit");
++  }
++  // encodeURIComponent (not URLSearchParams) so spaces become %20 instead of "+".
++  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
++}
+.gitignore
+README.md
+eslint.config.js
+index.html
+package-lock.json
+package.json
+src/data/business.test.ts
+src/data/business.ts
+src/lib/whatsapp.test.ts
+src/lib/whatsapp.ts
+src/main.ts
+src/project.test.ts
+src/styles/main.css
+src/styles/tokens.css
+tsconfig.json
+vite.config.ts
+
+codex
+El diff añade únicamente los cuatro archivos previstos, sin dependencias ni `.env` versionados. `npm audit --omit=dev` reportó 0 vulnerabilidades. La URL fija el destino en `https://wa.me/` y codifica el mensaje completo; comprobaré además que entradas maliciosas no alteren el dominio ni añadan parámetros.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:\\Program Files\\nodejs\\node.exe' 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002\\node_modules\\typescript\\bin\\tsc' --noEmit" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@'
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
+const ts = require('./node_modules/typescript');
+const source = fs.readFileSync('src/lib/whatsapp.ts', 'utf8');
+const js = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
+const mod = { exports: {} };
+new Function('exports', 'module', js)(mod.exports, mod);
+const build = mod.exports.buildWhatsAppUrl;
+const numbers = ['+52 000 000 0000', '//evil.example/123?x=9', 'javascript:alert(1)', '123@evil.example', '123\\\\evil.example', '123%2f..%2f456'];
+const messages = ['<script>alert(1)</script>', '\\\" onmouseover=\\\"alert(1)', \"' onclick='alert(1)\", '&text=override&redirect=https://evil.example/#fragment', 'Hola ¿mañana?\\n4 personas & café = sí / #mesa'];
+let checked = 0;
+for (const number of numbers) for (const message of messages) {
+  const url = new URL(build(number, message));
+  assert.equal(url.origin, 'https://wa.me');
+  assert.match(url.pathname, /"'^'"\\/[0-9]+"'$/);
+  assert.equal(url.username, '"'');
+  assert.equal(url.password, '');
+  assert.equal(url.hash, '');
+  assert.deepEqual([...url.searchParams.keys()], ['text']);
+  assert.equal(url.searchParams.get('text'), message);
+  checked++;
+}
+for (const number of ['', '+ -', '//evil.example', '\\u0661\\u0662']) assert.throws(() => build(number, 'Hola'));
+console.log(checked + ' hostile-input combinations passed; digitless inputs rejected.');
+'@ | & 'C:\\Program Files\\nodejs\\node.exe' -" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261114-002
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002\\src\\main.ts'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002\\vite.config.ts'; & 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' diff --check main...HEAD; & 'C:\\ProgramData\\FRANC\\GitHubDesktop\\app-3.5.12\\resources\\app\\git\\cmd\\git.exe' -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002' status --short" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261114-002\revisiones
+ succeeded in 2244ms:
+import "./styles/tokens.css";
+import "./styles/main.css";
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    environment: "jsdom",
+  },
+});
+
+ succeeded in 2464ms:
+30 hostile-input combinations passed; digitless inputs rejected.
+
+ succeeded in 2734ms:
+codex
+REVISOR: seguridad
+VEREDICTO: OK
+Sin hallazgos.
+tokens used
+58.352
+REVISOR: seguridad
+VEREDICTO: OK
+Sin hallazgos.

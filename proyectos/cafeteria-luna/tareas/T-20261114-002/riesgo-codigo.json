@@ -1,0 +1,14 @@
+{
+  "nivel": "ALTO",
+  "motivos": [
+    "zona sensible del proyecto (src/data/business.ts): src/data/business.ts",
+    "zona sensible del proyecto (src/lib/whatsapp.ts): src/lib/whatsapp.ts"
+  ],
+  "archivos": [
+    "src/data/business.test.ts",
+    "src/data/business.ts",
+    "src/lib/whatsapp.test.ts",
+    "src/lib/whatsapp.ts"
+  ],
+  "lineas": 297
+}

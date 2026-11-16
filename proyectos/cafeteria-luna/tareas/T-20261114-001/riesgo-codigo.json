@@ -1,0 +1,23 @@
+{
+  "nivel": "ALTO",
+  "motivos": [
+    "dependencias: package-lock.json, package.json",
+    "configuración de build: eslint.config.js, tsconfig.json, vite.config.ts",
+    "zona sensible del proyecto (index.html): index.html",
+    "zona sensible del proyecto (src/main.ts): src/main.ts"
+  ],
+  "archivos": [
+    "README.md",
+    "eslint.config.js",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "src/main.ts",
+    "src/project.test.ts",
+    "src/styles/main.css",
+    "src/styles/tokens.css",
+    "tsconfig.json",
+    "vite.config.ts"
+  ],
+  "lineas": 186
+}

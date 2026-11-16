@@ -1,0 +1,18 @@
+{
+  "nivel": "ALTO",
+  "motivos": [
+    "zona sensible del proyecto (src/main.ts): src/main.ts",
+    "cambio grande: 437 líneas (> 300)"
+  ],
+  "archivos": [
+    "src/lib/formatPrice.test.ts",
+    "src/lib/formatPrice.ts",
+    "src/main.test.ts",
+    "src/main.ts",
+    "src/sections/menu.test.ts",
+    "src/sections/menu.ts",
+    "src/styles/menu.css",
+    "src/styles/styles.test.ts"
+  ],
+  "lineas": 437
+}

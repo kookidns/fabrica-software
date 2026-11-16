@@ -1,0 +1,2224 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones\revisor-ux-ronda1.md -m gpt-6.1-sol -s workspace-write -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **revisor de UX**. Piensas como el usuario descrito en `brain/vision.md`.
+
+Responde solo `REVISOR: ux` / `VEREDICTO: NO_APLICA` únicamente si el cambio no toca interfaz **y**
+no añade ni cambia ningún texto que vaya a leer el usuario (mensajes prellenados, emails, etiquetas,
+errores, contenido de datos que se muestran). Si hay texto visible para el usuario, revísalo aunque la
+spec diga `Toca interfaz: no`.
+
+## Qué miras
+Lee `brain/vision.md`, `brain/spec.md` y `tareas/<ID>/spec.md`. Revisa el cambio
+(`git -C <carpeta de trabajo> diff main...HEAD`):
+- **Flujo**: ¿cuántos pasos necesita el usuario? ¿sobra alguno? ¿el siguiente paso es obvio?
+- **Claridad**: textos, etiquetas y llamadas a la acción entendibles para el avatar, en su idioma y tono.
+- **Estados**: vacío, cargando, error y éxito están cubiertos y dicen qué hacer.
+- **Formularios**: validación con mensajes útiles, no se pierde lo escrito al fallar.
+- **Coherencia con el brain**: ¿cumple lo que el producto promete?
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ux
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea o pantalla — problema para el usuario — propuesta
+```
+Nunca modificas archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-003 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-003): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-003
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a1dd4e-8462-7f50-a405-e81ad44d0077
+--------
+user
+Eres el **revisor de UX**. Piensas como el usuario descrito en `brain/vision.md`.
+
+Responde solo `REVISOR: ux` / `VEREDICTO: NO_APLICA` únicamente si el cambio no toca interfaz **y**
+no añade ni cambia ningún texto que vaya a leer el usuario (mensajes prellenados, emails, etiquetas,
+errores, contenido de datos que se muestran). Si hay texto visible para el usuario, revísalo aunque la
+spec diga `Toca interfaz: no`.
+
+## Qué miras
+Lee `brain/vision.md`, `brain/spec.md` y `tareas/<ID>/spec.md`. Revisa el cambio
+(`git -C <carpeta de trabajo> diff main...HEAD`):
+- **Flujo**: ¿cuántos pasos necesita el usuario? ¿sobra alguno? ¿el siguiente paso es obvio?
+- **Claridad**: textos, etiquetas y llamadas a la acción entendibles para el avatar, en su idioma y tono.
+- **Estados**: vacío, cargando, error y éxito están cubiertos y dicen qué hacer.
+- **Formularios**: validación con mensajes útiles, no se pierde lo escrito al fallar.
+- **Coherencia con el brain**: ¿cumple lo que el producto promete?
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ux
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea o pantalla — problema para el usuario — propuesta
+```
+Nunca modificas archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-003 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-003): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-003
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Leeré las reglas de la fábrica, el contexto del producto y el diff para revisar la experiencia y los textos que verá el usuario.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\CLAUDE.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+ succeeded in 8628ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+entrada â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\.claude\\agents\\revisor-ux.md'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\index.md'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\vision.md'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\spec.md'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261115-003\\spec.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+ succeeded in 8894ms:
+---
+name: revisor-ux
+description: Revisor 2 de 4. Revisa con contexto limpio la experiencia de usuario (flujo, pasos, claridad para el avatar) del cambio de una tarea. Solo dictamina.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: sonnet
+---
+
+Eres el **revisor de UX**. Piensas como el usuario descrito en `brain/vision.md`.
+
+Responde solo `REVISOR: ux` / `VEREDICTO: NO_APLICA` únicamente si el cambio no toca interfaz **y**
+no añade ni cambia ningún texto que vaya a leer el usuario (mensajes prellenados, emails, etiquetas,
+errores, contenido de datos que se muestran). Si hay texto visible para el usuario, revísalo aunque la
+spec diga `Toca interfaz: no`.
+
+## Qué miras
+Lee `brain/vision.md`, `brain/spec.md` y `tareas/<ID>/spec.md`. Revisa el cambio
+(`git -C <carpeta de trabajo> diff main...HEAD`):
+- **Flujo**: ¿cuántos pasos necesita el usuario? ¿sobra alguno? ¿el siguiente paso es obvio?
+- **Claridad**: textos, etiquetas y llamadas a la acción entendibles para el avatar, en su idioma y tono.
+- **Estados**: vacío, cargando, error y éxito están cubiertos y dicen qué hacer.
+- **Formularios**: validación con mensajes útiles, no se pierde lo escrito al fallar.
+- **Coherencia con el brain**: ¿cumple lo que el producto promete?
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ux
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea o pantalla — problema para el usuario — propuesta
+```
+Nunca modificas archivos.
+
+# Brain — índice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | Léelo cuando… |
+|---|---|---|
+| `vision.md` | Problema, público, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar código |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por qué (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavía NO sabe | te falte información |
+| `log.md` | Historial de tareas cerradas | quieras saber qué se hizo |
+
+## Cómo se mantiene
+- Decisión nueva → entrada en `decisiones.md` (con fecha y tarea que la originó).
+- Duda que nadie resolvió → `huecos.md`. No inventes la respuesta.
+- Tarea cerrada → entrada en `log.md`.
+
+# Visión
+
+## Problema
+Cafetería Luna es una cafetería de especialidad pequeña de barrio. Hoy quien la busca desde el
+móvil no tiene un sitio único donde ver qué ofrece, cuánto cuesta, cuándo abre y dónde está, ni
+una forma rápida de reservar mesa. La información se pierde y algunas visitas no ocurren.
+
+## Público objetivo (avatar)
+- **Quién**: gente joven del barrio (aprox. 18–35 años [PENDIENTE confirmar rango]), que busca un
+  café de calidad, un sitio para quedar o para trabajar un rato.
+- **Dispositivo**: entra casi siempre desde el **móvil**, a menudo con prisa o de camino.
+- **Nivel técnico**: usuario habitual de apps; usa WhatsApp y mapas a diario. No quiere
+  formularios ni registros.
+- **Qué necesita**: saber en segundos qué hay, cuánto cuesta, si está abierto, cómo llegar y
+  reservar con un toque.
+
+## Objetivo de negocio
+- Principal: **reservas de mesa por WhatsApp** iniciadas desde la página.
+- Secundario: visitas a la cafetería (clics en "cómo llegar") y conocimiento de la carta.
+- Métrica de éxito: [PENDIENTE] (p. ej., nº de reservas por WhatsApp al mes atribuibles a la web).
+
+## Marca y tono
+- **Nombre**: Cafetería Luna.
+- **Eslogan**: [PENDIENTE].
+- **Personalidad**: cercana, cálida, de barrio, con cuidado por el producto (café de especialidad).
+- **Tono del texto**: tuteo, frases cortas, sin tecnicismos baristas innecesarios.
+- **Idioma**: español (único idioma).
+- **Colores, logo y tipografía**: [PENDIENTE] (no existe material de marca conocido).
+
+## Referencias
+[PENDIENTE] — el humano no ha indicado sitios que le gusten o no.
+
+# Especificación del producto
+
+Estado: APROBADA (2026-11-14, demo de prueba)
+
+## Alcance
+### Entra
+- Una única página (landing) en español, pensada primero para móvil.
+- Portada con nombre y eslogan de la cafetería.
+- Menú con dos categorías: bebidas y postres, cada producto con nombre y precio.
+- Sección de horario y ubicación con dirección y mapa.
+- Botón para reservar mesa que abre una conversación de WhatsApp con la cafetería.
+- Navegación interna entre secciones de la misma página.
+
+### No entra
+- Pedidos o pagos en línea, carrito, delivery.
+- Sistema de reservas propio (calendario, disponibilidad, confirmaciones automáticas).
+- Registro de usuarios, cuentas o área privada.
+- Panel de administración para editar menú/horario (el contenido se cambia en el código).
+- Otros idiomas, blog, galería extensa, programa de fidelización.
+
+## Páginas / pantallas
+| Página | Propósito | Contenido principal |
+|---|---|---|
+| Landing (única) | Informar y convertir en reserva | Secciones: Portada · Menú · Horario y ubicación · Reservar (botón WhatsApp) · Pie |
+
+## Historias de usuario y criterios de aceptación
+
+### HU-01 · Reconocer la cafetería al entrar
+Como vecino joven que entra desde el móvil quiero ver de inmediato el nombre y el eslogan para
+saber que estoy en la web correcta y qué transmite el lugar.
+
+- **CA-01.1** — Dado que abro la página en un móvil de 375 px de ancho, cuando carga, entonces
+  veo el nombre "Cafetería Luna" y el eslogan sin hacer scroll.
+- **CA-01.2** — Dado que estoy en la portada, cuando la miro sin hacer scroll, entonces hay un
+  botón visible de "Reservar mesa" (ver HU-04).
+- **CA-01.3** — Dado cualquier punto de la página, cuando uso la navegación, entonces puedo ir
+  directamente a las secciones Menú, Horario y ubicación, y Reservar.
+
+### HU-02 · Consultar el menú con precios
+Como cliente potencial quiero ver las bebidas y los postres con su precio para decidir qué tomar
+y cuánto me costará antes de ir.
+
+- **CA-02.1** — Dado que estoy en la sección Menú, cuando la recorro, entonces veo dos grupos
+  separados y titulados: "Bebidas" y "Postres".
+- **CA-02.2** — Dado cualquier producto del menú, cuando lo leo, entonces muestra nombre y precio
+  con el símbolo de la moneda local [PENDIENTE moneda].
+- **CA-02.3** — Dado un móvil de 375 px, cuando veo el menú, entonces no hay scroll horizontal y
+  cada nombre aparece en la misma línea visual que su precio o justo encima/debajo, sin ambigüedad.
+- **CA-02.4** — Dado el contenido del menú, cuando se compara con la carta facilitada por el
+  negocio [PENDIENTE], entonces todos los productos y precios coinciden exactamente.
+
+### HU-03 · Saber cuándo abre y dónde está
+Como vecino quiero ver el horario y la ubicación en un mapa para saber si está abierto y cómo
+llegar.
+
+- **CA-03.1** — Dado que estoy en la sección Horario y ubicación, cuando la leo, entonces veo el
+  horario de cada día de la semana, incluidos los días de cierre [PENDIENTE horario].
+- **CA-03.2** — Dado la misma sección, cuando la leo, entonces veo la dirección completa en
+  texto [PENDIENTE dirección].
+- **CA-03.3** — Dado la misma sección, cuando cargo la página, entonces se muestra un mapa con
+  la ubicación de la cafetería marcada.
+- **CA-03.4** — Dado que pulso "Cómo llegar" (o el mapa) desde el móvil, cuando se procesa,
+  entonces se abre la ubicación en la app o web de mapas del dispositivo.
+
+### HU-04 · Reservar mesa por WhatsApp
+Como cliente quiero reservar mesa con un toque por WhatsApp para no tener que llamar ni rellenar
+formularios.
+
+- **CA-04.1** — Dado que estoy en cualquier sección, cuando busco cómo reservar, entonces hay un
+  botón "Reservar mesa por WhatsApp" accesible (en la portada y en la sección Reservar como
+  mínimo).
+- **CA-04.2** — Dado que pulso el botón en un móvil con WhatsApp, cuando se procesa, entonces se
+  abre un chat con el número de la cafetería [PENDIENTE número].
+- **CA-04.3** — Dado que se abre el chat, cuando lo veo, entonces el mensaje viene
+  pre-rellenado con un texto de reserva que pide fecha, hora y nº de personas [PENDIENTE texto
+  exacto].
+- **CA-04.4** — Dado que pulso el botón en un ordenador sin la app, cuando se procesa, entonces
+  se abre WhatsApp Web (o la página de WhatsApp) con el mismo número y mensaje.
+
+### HU-05 · Usar la página cómodamente desde el móvil
+Como usuario móvil quiero que la página cargue rápido y se lea bien para encontrar lo que busco
+sin esfuerzo.
+
+- **CA-05.1** — Dado un móvil de 375 px, cuando recorro toda la página, entonces no hay scroll
+  horizontal ni texto cortado.
+- **CA-05.2** — Dado cualquier botón o enlace, cuando lo mido, entonces su zona táctil es de al
+  menos 44×44 px.
+- **CA-05.3** — Dado una auditoría Lighthouse en modo móvil, cuando se ejecuta, entonces
+  rendimiento ≥ 90 y accesibilidad ≥ 90.
+- **CA-05.4** — Dado un lector de pantalla, cuando recorre la página, entonces cada sección tiene
+  un encabezado, las imágenes informativas tienen texto alternativo y el botón de WhatsApp
+  anuncia su propósito.
+
+## Requisitos no funcionales
+- Responsive desde 375 px; diseño mobile-first.
+- Accesibilidad WCAG AA (contraste, foco visible, navegación por teclado).
+- Lighthouse rendimiento ≥ 90 en móvil.
+- Todo el texto en español.
+- No se recogen datos personales en la web (la reserva ocurre en WhatsApp).
+
+# T-20261115-003 · Sección Horario y ubicación con mapa y "Cómo llegar"
+Tipo: tarea      Toca interfaz: sí      Texto visible para el usuario: sí
+
+Cubre de `brain/spec.md`: CA-03.1, CA-03.2, CA-03.3 y CA-03.4. Los datos (horario, dirección,
+coordenadas) siguen siendo los **ficticios** de `business.ts` (D-00): que coincidan con los reales es un
+hueco abierto y no se resuelve aquí.
+
+## Contexto (qué dice el brain que importa aquí)
+- **D-05**: integraciones sin claves. Mapa = `<iframe>` de **OpenStreetMap** (`export/embed.html` con
+  `bbox` y `marker`) con `loading="lazy"`; "Cómo llegar" =
+  `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`. Descartados explícitamente: iframe de
+  Google Maps (cookies de terceros), URI `geo:`. Las coordenadas son datos del negocio y viven en
+  `business.ts` (`coordinates: { lat, lng }`; hoy `19.4326, -99.1332`).
+- **D-00**: horario, dirección y coordenadas viven **solo** en `src/data/business.ts`. `location.ts` y
+  `maps.ts` los reciben por parámetro; ninguno importa `business` ni copia valores. `business.test.ts`
+  ya garantiza: 7 días lunes→domingo en orden, ≥ 1 cerrado sin `open`/`close`, horas `HH:MM` 24 h con
+  `open < close`, dirección no vacía, coordenadas finitas y en rango.
+- **D-04**: `index.html` ya tiene `section#horario` con `<h2 id="horario-titulo">Horario y
+  ubicación</h2>`; `main.ts` monta el contenido **tras ese `<h2>`** con una función `datos → HTMLElement`
+  que usa solo `createElement`/`textContent`/`setAttribute` (nunca `innerHTML`). **No hace falta tocar
+  `index.html`**: el aviso del pie ya dice que horario y dirección son de ejemplo.
+- **D-09**: `mount()` busca todos los contenedores y **construye todo lo que puede fallar antes de
+  pintar** (o se pinta la página entera o nada); los grupos internos son `<div>` con `<h3>`, sin
+  `<section>` extra; los estilos de cada sección nueva van en su propio archivo importado en `main.ts`
+  después de los anteriores; rejilla de 2 columnas desde 768 px con `repeat(2, minmax(0, 1fr))` y
+  `align-items: start`. `renderMenu` importa su helper puro (`formatPrice`); aquí `renderLocation`
+  importa los helpers puros de `maps.ts` del mismo modo.
+- **D-08**: `main.css` mide 317 líneas (guía ~200) y su división es de la tarea 006: **no se toca
+  `main.css`**; todo lo nuevo, incluida la variante de botón de contorno, va en `src/styles/location.css`.
+- **arquitectura.md → Reglas**: enlaces externos con `target="_blank"` + `rel="noopener noreferrer"` y
+  nombre accesible que indique el propósito (mismo patrón que el botón de WhatsApp en `reserve.ts`:
+  `aria-label` = texto visible + " (se abre en una pestaña nueva)", WCAG 2.5.3). Sin cookies propias ni
+  analítica. Mapa diferido para Lighthouse móvil ≥ 90.
+- **arquitectura.md → Zonas sensibles**: "Cualquier recurso de terceros nuevo (iframes, scripts, fuentes
+  externas)" es zona sensible por privacidad y rendimiento. Esta tarea añade el **primer recurso de
+  terceros** del sitio (el iframe de OSM).
+- **diseno.md**: botón `secondary` (contorno) = fondo transparente, texto y borde `--color-primary`,
+  hover fondo `--color-surface`, para "Cómo llegar". Tarjeta (`surface-raised`, borde `border`,
+  `radius-md`, `space-5`, `shadow-sm`) para el bloque de horario. `--color-error` = "cerrado" (nunca
+  como único indicador: siempre con el texto "Cerrado"). Desde 768 px, 2 columnas (horario | mapa).
+  Mapa con `width: 100%`, relación **4:3 en móvil y 16:9 desde 768 px**, `loading="lazy"` y `title`
+  accesible. Sin scroll horizontal a 375 px (`min-width: 0`, `overflow-wrap: anywhere`).
+- **Contrastes** (los nuevos, calculados con la fórmula de `diseno.md`): "Cerrado" en `error` #B3261E
+  sobre `surface-raised` #FFFFFF = **6.54:1** (AA). Botón de contorno: texto `primary` sobre `bg`
+  7.70:1 y, en hover, sobre `surface` 6.95:1 (filas 9 y 10). `#horario` es la 3.ª sección (impar), así
+  que su fondo es `--color-bg`.
+- **Estado del código (main = worktree)**: no existen `src/lib/maps.ts`, `src/sections/location.ts` ni
+  `src/styles/location.css`. `main.ts` importa `tokens.css`, `main.css`, `menu.css` y monta portada,
+  menú y Reservar. Existe `.btn` en `main.css` (48 px de alto, pill, foco global); no existe
+  `.btn--secondary`.
+
+## Decisiones de esta spec (a registrar en `decisiones.md` al cerrar, si el aprobador las acepta)
+1. **Construcción de URLs** (en `src/lib/maps.ts`, funciones puras sin DOM):
+   - Cada coordenada se serializa con `toFixed(6)` (≈ 0,1 m de precisión): sin notación exponencial
+     (`1e-7`) ni ruido de coma flotante (`19.427599999999998`).
+   - `buildMapEmbedUrl(lat, lng)` →
+     `https://www.openstreetmap.org/export/embed.html?bbox=<lng−d>,<lat−d>,<lng+d>,<lat+d>&layer=mapnik&marker=<lat>,<lng>`
+     con `d = 0.005` grados (≈ 1 km de lado: nivel de calle). Orden del `bbox` de OSM:
+     oeste, sur, este, norte (`minLng,minLat,maxLng,maxLat`); el `marker` va `lat,lng`.
+   - `buildDirectionsUrl(lat, lng)` → `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`.
+   - Se pueden construir con `URL`/`URLSearchParams` (que codifica la coma como `%2C`) o con plantilla;
+     las pruebas **parsean la URL** y comparan los parámetros decodificados, no la cadena literal.
+   - Coordenada no finita o fuera de rango (lat ∉ [−90, 90], lng ∉ [−180, 180]) → `throw new Error`
+     (fallo visible, como `formatPrice`; `mount()` lo detecta antes de pintar, D-09).
+2. **Atributos del iframe** (fijos, sin excepciones):
+   - `title="Mapa con la ubicación de la cafetería"` (sin el nombre del negocio, que es dato de D-00).
+   - `loading="lazy"`.
+   - `referrerpolicy="strict-origin-when-cross-origin"`: OSM solo recibe el origen del sitio, nunca ruta
+     ni query. No se usa `no-referrer` porque la política de uso de OpenStreetMap exige un Referer
+     válido y quitarlo arriesga que el mapa no cargue; para una landing de una sola página el origen no
+     revela nada adicional.
+   - `sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`: el mapa
+     de OSM es Leaflet (necesita scripts); `allow-same-origin` es seguro aquí porque el iframe es de
+     **otro origen** (openstreetmap.org), así que no puede tocar nuestra página ni salir del sandbox;
+     `allow-popups*` permite que los enlaces de atribución/"ver mapa más grande" de OSM abran una
+     pestaña normal. **Prohibidos**: `allow-top-navigation*` (el mapa no puede llevarse la página),
+     `allow-forms`, `allow-modals`, `allow-downloads`, `allow-pointer-lock`.
+   - **Sin** atributo `allow` (ni geolocalización ni nada), sin `allowfullscreen`, sin `srcdoc`, sin
+     `frameborder` (obsoleto; el borde se quita con CSS).
+   - Si en la comprobación manual el mapa no se pinta con ese `sandbox`, el constructor **no** amplía
+     permisos ni quita el `sandbox` por su cuenta: lo anota en `build-rondaN.md` y la tarea vuelve a
+     spec con `NECESITA_HUMANO`.
+3. **Enlace "Cómo llegar"**: `<a class="btn btn--secondary">` con `href` = `buildDirectionsUrl`,
+   `target="_blank"`, `rel="noopener noreferrer"` y
+   `aria-label="Cómo llegar (se abre en una pestaña nueva)"`. Guardia como en `createReserveButton`:
+   si el `href` no empieza por `https://www.google.com/maps/search/?` → `Error`; idem para el `src` del
+   iframe con `https://www.openstreetmap.org/export/embed.html?` (bloquea `javascript:` y otros
+   esquemas aunque alguien cambie `maps.ts`).
+4. **Marcado del horario**: `<table>` sin `<thead>`, una fila por día con `<th scope="row">` (día) y
+   `<td>` (horas), nombrada con `aria-labelledby` apuntando a su `<h3>` "Horario". Día abierto:
+   `"<open> a <close>"` (p. ej. `08:00 a 20:00`, formato 24 h tal cual está en los datos; se lee bien en
+   voz). Día cerrado: `Cerrado`, con clase propia para el color `--color-error`.
+5. **Variante `.btn--secondary` en `src/styles/location.css`** (único uso hoy; no se agranda
+   `main.css`, D-08). Cuando la tarea 006 divida `main.css`, puede moverse a un archivo de botones.
+6. **Zonas sensibles**: se propone añadir `src/lib/maps.ts` y `src/sections/location.ts` a
+   `brain/zonas-sensibles.txt` (recurso de terceros, según `arquitectura.md`). Esta spec **no** edita
+   ese archivo; lo decide el humano al aprobar el cierre.
+
+## Objetivo
+Que la sección "Horario y ubicación" muestre el horario de los 7 días (con los cierres como "Cerrado"),
+la dirección completa en `<address>`, un mapa de OpenStreetMap con marcador en las coordenadas de
+`business.ts` (diferido, con `title`, `referrerpolicy` y `sandbox` restrictivos) y un botón "Cómo
+llegar" que abre Google Maps en esas coordenadas en una pestaña nueva; en una columna a 375 px sin
+scroll horizontal y en dos columnas (horario | ubicación) desde 768 px.
+
+## Textos visibles (exactos)
+| Dónde | Texto |
+|---|---|
+| `<h3>` del bloque de horario | `Horario` |
+| `<th>` de cada fila | `day` de los datos (no se escribe a mano) |
+| `<td>` de un día abierto | `` `${open} a ${close}` `` de los datos (hoy, p. ej., `08:00 a 20:00`) |
+| `<td>` de un día cerrado | `Cerrado` |
+| `<h3>` del bloque de ubicación | `Dirección` |
+| `<address>` | `address` de los datos |
+| `title` del iframe (lo anuncia el lector de pantalla) | `Mapa con la ubicación de la cafetería` |
+| Enlace | `Cómo llegar` (visible) · `Cómo llegar (se abre en una pestaña nueva)` (`aria-label`) |
+
+El `<h2>` `Horario y ubicación` ya existe en `index.html` y no cambia.
+
+## Criterios de aceptación
+### URLs de mapas (`src/lib/maps.ts`; pruebas en `src/lib/maps.test.ts`)
+- **CA-1** — Dado `buildMapEmbedUrl(19.4326, -99.1332)`, cuando se parsea el resultado con `new URL()`,
+  entonces: protocolo `https:`, host `www.openstreetmap.org`, ruta `/export/embed.html`; `layer` =
+  `mapnik`; `marker` = `19.432600,-99.133200`; `bbox` = `-99.138200,19.427600,-99.128200,19.437600`
+  (oeste, sur, este, norte con `d = 0.005`); y no hay más parámetros que `bbox`, `layer` y `marker`.
+  El marcador queda dentro del `bbox` (CA-03.3).
+- **CA-2** — Dado `buildDirectionsUrl(19.4326, -99.1332)`, cuando se parsea, entonces: protocolo
+  `https:`, host `www.google.com`, ruta `/maps/search/`; `api` = `1`; `query` = `19.432600,-99.133200`;
+  y no hay más parámetros (CA-03.4).
+- **CA-3** — Dadas coordenadas con muchos decimales o diminutas (p. ej. `(0.0000001, -0.0000001)` y
+  `(19.123456789, -99.987654321)`), cuando se construyen ambas URLs, entonces ninguna contiene `e` en
+  los números (notación exponencial) ni espacios, y cada coordenada de `marker`, `bbox` y `query` cumple
+  `/^-?\d+\.\d{6}$/` (p. ej. `19.123457,-99.987654`).
+- **CA-4** — Dado `lat` `NaN`, `Infinity`, `91` o `-91`, o `lng` `NaN`, `181` o `-181`, cuando se llama a
+  cualquiera de las dos funciones, entonces lanza `Error`. Los bordes `(90, 180)` y `(-90, -180)` son
+  válidos.
+- **CA-5** — Dado el código fuente de `maps.ts`, cuando una prueba lo lee, entonces contiene
+  `https://www.openstreetmap.org/export/embed.html` y `https://www.google.com/maps/search/`, no importa
+  `business`, no usa `document` ni `window`, y no contiene las coordenadas de `business.ts`
+  (`19.4326`, `-99.1332`).
+
+### Sección (`src/sections/location.ts`; pruebas en `src/sections/location.test.ts`)
+Datos de prueba propios (no los de `business.ts`), p. ej. 7 días con **dos** cerrados (`Lunes` y
+`Domingo`), una dirección y unas coordenadas distintas de las de `business.ts`.
+- **CA-6** — Dada `renderLocation({ hours, address, coordinates })`, cuando se llama, entonces devuelve
+  un elemento con exactamente dos `<h3>`, en este orden: `Horario` y `Dirección`; ningún `<h1>`, `<h2>`
+  ni `<section>`.
+- **CA-7** — Dado el mismo resultado, cuando se recorre la `<table>`, entonces tiene exactamente **7**
+  filas, **en el orden de los datos**; cada fila tiene un `<th scope="row">` con el texto `day` y un
+  `<td>`: `` `${open} a ${close}` `` si el día abre (p. ej. `08:00 a 20:00`) o exactamente `Cerrado` si
+  `closed: true` (los dos días cerrados de prueba lo muestran; ninguno muestra horas). La tabla tiene
+  `aria-labelledby` igual al `id` del `<h3>` `Horario` (CA-03.1).
+- **CA-8** — Dado el mismo resultado, cuando se busca la dirección, entonces hay exactamente un
+  `<address>` y su `textContent` es exactamente `address` (CA-03.2).
+- **CA-9** — Dado el mismo resultado, cuando se busca el mapa, entonces hay exactamente un `<iframe>` y:
+  `src` === `buildMapEmbedUrl(lat, lng)` de las coordenadas de prueba; `title` ===
+  `Mapa con la ubicación de la cafetería`; `loading` === `lazy`; `referrerpolicy` ===
+  `strict-origin-when-cross-origin`; el atributo `sandbox` (leído con `getAttribute` y separado por
+  espacios) contiene **exactamente** `allow-scripts`, `allow-same-origin`, `allow-popups` y
+  `allow-popups-to-escape-sandbox`, ni uno más; y no tiene los atributos `allow`, `allowfullscreen`,
+  `srcdoc` ni `frameborder` (CA-03.3).
+- **CA-10** — Dado el mismo resultado, cuando se busca el enlace, entonces hay exactamente un `<a>` con
+  texto `Cómo llegar` y: `href` === `buildDirectionsUrl(lat, lng)`; `target` === `_blank`; `rel` ===
+  `noopener noreferrer`; `aria-label` === `Cómo llegar (se abre en una pestaña nueva)` (empieza por el
+  texto visible); clases `btn` y `btn--secondary`; y va **después** del iframe en el orden del documento
+  (`compareDocumentPosition`) (CA-03.4).
+- **CA-11** — Dada una dirección o un `day` que contienen `<img src=x onerror=alert(1)>`, cuando se pinta
+  la sección, entonces el texto aparece literal en `<address>`/`<th>` y no se crea ningún `<img>`.
+- **CA-12** — Dadas coordenadas inválidas (p. ej. `lat: NaN`), cuando se llama a `renderLocation`,
+  entonces lanza `Error` (el error de `maps.ts` se propaga, no se pinta un mapa roto).
+- **CA-13** — Dado el código fuente de `location.ts`, cuando una prueba lo lee, entonces no contiene
+  `innerHTML`, `outerHTML`, `insertAdjacentHTML` ni `srcdoc`; importa de `../lib/maps`; no importa el
+  valor `business` (solo tipos con `import type`); no contiene `business.address`, ninguno de los `day`
+  de `business.hours` ni las coordenadas de `business.ts`; y no construye URLs propias (no contiene
+  `api=1`, `bbox` ni `marker=`: eso vive solo en `maps.ts`).
+
+### Montaje (`src/main.ts`; pruebas nuevas en `src/main.test.ts`)
+- **CA-14** — Dado el `<body>` de `index.html` cargado en jsdom, cuando se ejecuta el montaje, entonces el
+  elemento que sigue al `<h2>` de `#horario` es la sección de ubicación: su tabla tiene una fila por
+  cada entrada de `business.hours` con el `day` y `Cerrado` u `open a close` (hoy `Lunes` → `Cerrado`,
+  `Martes` → `08:00 a 20:00`); su `<address>` es `business.address`; el `src` del iframe es
+  `buildMapEmbedUrl(business.coordinates.lat, business.coordinates.lng)` y el `href` de "Cómo llegar"
+  es `buildDirectionsUrl(...)` con las mismas coordenadas. La página sigue con exactamente un `<h1>`,
+  `#horario` con exactamente un `<h2>`, y exactamente un `<iframe>` en todo el documento.
+- **CA-15** — Dado un documento sin `#horario h2`, cuando se ejecuta `mount(doc)`, entonces lanza un
+  `Error` cuyo mensaje nombra ese selector **y** no se ha pintado nada (ni `<h1>`, ni
+  `a.btn--whatsapp`, ni `<dl>` del menú, ni `<iframe>`).
+- **CA-16** — Dado `business.coordinates.lat` = `NaN` (con `vi.doMock("./data/business")`, como en
+  T-20261115-002 CA-10), cuando se importa `main.ts`, entonces la importación rechaza con `Error` y la
+  página queda sin pintar (ni `<h1>`, ni botón de WhatsApp, ni `<dl>`, ni `<iframe>`): la sección se
+  construye **antes** de pintar (D-09).
+- **CA-17** — Dado `src/main.ts`, cuando se lee, entonces importa `./styles/location.css` **después** de
+  `./styles/menu.css` (que a su vez va después de `./styles/main.css`).
+- **CA-18** — Dadas las pruebas existentes (`src/main.test.ts`, `src/page.test.ts`,
+  `src/project.test.ts`, `src/styles/styles.test.ts`, `src/sections/*.test.ts`,
+  `src/data/business.test.ts`, `src/lib/*.test.ts`), cuando se ejecuta `npm run test`, entonces pasan
+  **sin modificar** ninguna (solo se añaden casos y archivos nuevos).
+
+### Estilos (`src/styles/location.css`; pruebas que leen el archivo sin comentarios)
+- **CA-19** — Dado `src/styles/location.css`, cuando una prueba lo lee, entonces:
+  (a) no contiene literales de color (`#` hexadecimal, `rgb(`, `rgba(`, `hsl(`, `hsla(`);
+  (b) la regla del bloque de horario usa `var(--color-surface-raised)`, `var(--color-border)`,
+  `var(--radius-md)`, `var(--shadow-sm)` y `var(--space-5)`;
+  (c) la regla del texto "Cerrado" usa `var(--color-error)`;
+  (d) la regla de `<address>` tiene `font-style: normal` y `overflow-wrap: anywhere` (o `break-word`);
+  (e) el contenedor del mapa tiene `aspect-ratio: 4 / 3` y la regla del iframe tiene `width: 100%` y
+  `border: 0` (o `none`);
+  (f) `.btn--secondary` tiene `background: transparent` (o `background-color`), `color:
+  var(--color-primary)` y borde con `var(--color-primary)`; `.btn--secondary:hover` usa
+  `var(--color-surface)`;
+  (g) hay un bloque `@media (min-width: 768px)` con: el contenedor de la sección en dos columnas
+  (`repeat(2, minmax(0, 1fr))` o `1fr 1fr`) y `gap: var(--space-6)`, y el contenedor del mapa con
+  `aspect-ratio: 16 / 9`.
+- **CA-20** — Dado el diff de la tarea, cuando se revisa, entonces `src/styles/main.css`,
+  `src/styles/menu.css` y `src/styles/tokens.css` no cambian.
+
+### Comprobación manual (jsdom no pinta ni carga iframes; se deja en `build-rondaN.md`)
+- **CA-21** — Dado `npm run dev` a **375×667** (DevTools), cuando se navega a `#horario`, entonces:
+  (a) se ven, una debajo de otra, la tarjeta "Horario" (7 días, `Lunes` con `Cerrado` en rojo), la
+  dirección completa, el mapa 4:3 con el **marcador** en las coordenadas de ejemplo y el botón de
+  contorno "Cómo llegar"; (b) no hay scroll horizontal (`document.documentElement.scrollWidth <= 375`);
+  (c) la consola no muestra errores de `sandbox` que impidan pintar el mapa (si los hay, ver decisión
+  2: no se amplían permisos); (d) pulsar "Cómo llegar" abre Google Maps en una **pestaña nueva** en
+  esas coordenadas, y el enlace de atribución de OSM dentro del mapa también abre pestaña nueva sin
+  sustituir la página; (e) en la pestaña Network, con la página recién cargada arriba del todo, anotar
+  si la petición a `openstreetmap.org` se difiere hasta acercarse a la sección (lazy); (f) con el
+  teclado, el foco llega a "Cómo llegar" con el anillo visible y el Tab sale del mapa sin quedarse
+  atrapado; (g) a **768 px** o más: horario a la izquierda y dirección + mapa 16:9 + botón a la
+  derecha. El constructor anota cada punto (y capturas si puede) en `build-rondaN.md`.
+
+### Puertas
+- **CA-22** — Dada la carpeta de trabajo, cuando se ejecuta `node scripts/verificar.mjs
+  proyectos/cafeteria-luna/.worktrees/T-20261115-003` desde la raíz de la fábrica, entonces `lint`,
+  `typecheck`, `test` y `build` salen `ok` (ninguna `omitida`).
+
+## Plan
+1. **TDD — URLs**: `src/lib/maps.test.ts` (CA-1 a CA-5). Implementar `src/lib/maps.ts`:
+   `buildMapEmbedUrl(lat: number, lng: number): string` y `buildDirectionsUrl(lat: number, lng:
+   number): string`, con una guarda común de rango/finitud, una función interna de serialización
+   (`toFixed(6)`) y la constante `d = 0.005`. Las pruebas parsean con `new URL()` y leen
+   `searchParams.get(...)`.
+2. **TDD — sección**: `src/sections/location.test.ts` (CA-6 a CA-13). Implementar
+   `src/sections/location.ts`:
+   `renderLocation(location: Pick<Business, "hours" | "address" | "coordinates">): HTMLElement`
+   (tipos con `import type`). Estructura: `div.location` →
+   `div.location__hours` (tarjeta: `h3.location__title#horario-semana-titulo` "Horario" +
+   `table.hours[aria-labelledby]` → `tbody` → `tr` → `th[scope=row]` + `td`, con
+   `span.hours__closed` "Cerrado" en los días cerrados) y
+   `div.location__place` (`h3.location__title` "Dirección" + `address.location__address` +
+   `div.location__map` → `iframe` + `a.btn.btn--secondary` "Cómo llegar"). Atributos del iframe y del
+   enlace según "Decisiones de esta spec" 2 y 3, todos con `setAttribute`; guardias de prefijo antes de
+   asignarlos.
+3. **TDD — montaje**: añadir a `src/main.test.ts` casos nuevos (CA-14 a CA-17) sin tocar los existentes.
+   En `src/main.ts`: `requireElement(doc, "#horario h2")` junto a los demás (antes de pintar);
+   `const location = renderLocation({ hours: business.hours, address: business.address, coordinates:
+   business.coordinates })` junto a la construcción del menú (antes de pintar); `horarioHeading.after(location)`
+   en la fase de pintado; `import "./styles/location.css";` tras el de `menu.css`.
+4. **TDD — estilos**: pruebas de CA-19 (en un `src/styles/location.test.ts` o un `describe` nuevo en
+   `styles.test.ts`). Escribir `src/styles/location.css` mobile-first: `.location` en `display: grid`
+   con `gap: var(--space-5)`; tarjeta de horario según `diseno.md`; `.location__title` con
+   `--text-xl`, peso 600 y `margin-bottom: var(--space-4)` (igual que `.menu__title`); tabla
+   `width: 100%`, `border-collapse: collapse`, `th` a la izquierda con peso normal/500, `td` alineado a
+   la derecha con `white-space: nowrap`, filas con `padding-block: var(--space-3)` y separador
+   decorativo en `--color-border`; `.hours__closed` en `--color-error` y peso 700; `address` con
+   `font-style: normal`, `overflow-wrap: anywhere` y `margin-bottom: var(--space-4)`; `.location__map`
+   con `aspect-ratio: 4 / 3`, `overflow: hidden`, `border-radius: var(--radius-md)` y borde decorativo;
+   iframe `display: block; width: 100%; height: 100%; border: 0`; `.btn--secondary` (transparente,
+   `color` y `border-color` `--color-primary`, hover fondo `--color-surface`, `width: 100%` en móvil,
+   `margin-top: var(--space-4)`); `@media (min-width: 768px)` con `.location { grid-template-columns:
+   repeat(2, minmax(0, 1fr)); gap: var(--space-6); align-items: start; }`, `.location__map {
+   aspect-ratio: 16 / 9; }` y `.btn--secondary { width: auto; }`.
+5. Comprobación manual CA-21 y anotarla en `build-rondaN.md`.
+6. `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261115-003` hasta que las
+   cuatro puertas pasen (CA-22).
+
+Archivos que cambian: `src/main.ts`, `src/main.test.ts` (solo casos añadidos) y, si se eligen ahí las
+pruebas de CSS, `src/styles/styles.test.ts` (solo un `describe` añadido). Nuevos: `src/lib/maps.ts`,
+`src/lib/maps.test.ts`, `src/sections/location.ts`, `src/sections/location.test.ts`,
+`src/styles/location.css` (y opcionalmente `src/styles/location.test.ts`). **No deben cambiar**:
+`index.html`, `src/data/business.ts`, `src/lib/whatsapp.ts`, `src/lib/formatPrice.ts`,
+`src/sections/hero.ts`, `src/sections/reserve.ts`, `src/sections/menu.ts`, `src/styles/main.css`,
+`src/styles/menu.css`, `src/styles/tokens.css`, `package.json`, `package-lock.json`, `vite.config.ts`,
+`tsconfig.json`, `eslint.config.js`.
+
+## Fuera de alcance
+- Horario, dirección y coordenadas **reales** (huecos abiertos, D-00). No se toca `business.ts`.
+- Indicador "Abierto ahora / Cerrado ahora", resaltar el día de hoy, horarios partidos o festivos
+  (hueco existente de festivos).
+- Formato de 12 h (`8:00 a. m.`) o con `Intl.DateTimeFormat`: se muestran las horas tal cual en 24 h.
+- Que tocar el propio mapa abra la app de mapas (CA-03.4 queda cubierto por "Cómo llegar"); enlace
+  extra "Ver mapa más grande" fuera del iframe.
+- Comprobar en un **teléfono real** que "Cómo llegar" abre la app de Google Maps/Apple Maps: queda con
+  la comprobación de wa.me en la tarea 006.
+- Ajustar el `bbox` cerca de los polos o del antimeridiano (no aplica a una cafetería en CDMX).
+- Content-Security-Policy: no existe hoy; si se añade en el futuro deberá permitir
+  `frame-src https://www.openstreetmap.org`.
+- Fachada de "clic para cargar el mapa" (mejor privacidad/rendimiento): solo si Lighthouse móvil baja
+  de 90 en la tarea 006.
+- División de `main.css`, luna decorativa de los `<h2>` y auditoría Lighthouse/44 px de toda la página
+  (tarea 006). Carga de Google Fonts (hueco abierto). Dependencias nuevas (no hacen falta).
+
+## Riesgos / zonas sensibles que toca
+- **Riesgo ALTO**: modifica `src/main.ts` (`zonas-sensibles.txt`) y añade el **primer recurso de
+  terceros** (iframe de openstreetmap.org), que `arquitectura.md` declara zona sensible. Requiere
+  **aprobación humana** en el cierre. Nota: `zonas-sensibles.txt` no lista `maps.ts` ni `location.ts`
+  (ver decisión 6); el riesgo ALTO ya lo dispara `main.ts`.
+- **Privacidad**: al cargar el iframe, el navegador del visitante contacta con openstreetmap.org (IP,
+  user agent, origen del sitio por el `referrerpolicy`). Es lo aceptado en D-05 frente a Google Maps;
+  `loading="lazy"` evita la petición a quien no baja hasta la sección. "Cómo llegar" solo lleva a
+  Google cuando el usuario pulsa.
+- **Seguridad del iframe**: el `sandbox` impide que el mapa navegue la página principal, envíe
+  formularios o abra diálogos; `allow-same-origin` solo es peligroso junto a `allow-scripts` cuando el
+  iframe es del **mismo** origen que la página, y aquí no lo es. Sin atributo `allow`, no puede pedir
+  geolocalización ni cámara. Guardias de prefijo en `src`/`href` (CA-9, CA-10) y nada de `innerHTML`
+  (CA-11, CA-13).
+- **El mapa puede no cargar** por el `sandbox` o el `referrerpolicy` (no se ve en jsdom): por eso CA-21
+  lo comprueba a mano y la decisión 2 prohíbe ampliar permisos sin humano.
+- **Datos engañosos**: un orden de `bbox` invertido o `lat`/`lng` cruzados ponen el marcador en otro
+  sitio (p. ej. en el océano) sin que falle nada visible; CA-1 y CA-2 fijan el orden exacto y CA-14
+  comprueba que las coordenadas vienen de `business.ts`.
+- **Orden de montaje**: `#horario h2` y `renderLocation` deben resolverse **antes** de pintar, o un fallo
+  dejaría la portada y el menú pintados y el resto vacío (CA-15, CA-16).
+- **Rendimiento**: el iframe de OSM carga Leaflet y teselas; `loading="lazy"` y la relación de aspecto
+  fija (sin salto de maquetación) lo mitigan. Lighthouse se mide en la tarea 006.
+- **Layout a 375 px**: dirección larga o tabla sin `min-width: 0` en la rejilla pueden desbordar; el
+  iframe debe tener `width: 100%` (CA-19, CA-21).
+- **Encabezados**: los `<h3>` van dentro de `#horario` bajo su `<h2>`; no añadir `<h2>`, `<h1>` ni
+  `<section>` (CA-6, CA-14).
+- **Pruebas**: jsdom no carga iframes ni hace red (las pruebas no tocan openstreetmap.org); leer
+  `sandbox`/`referrerpolicy` con `getAttribute`, no con las propiedades DOM (`iframe.sandbox`,
+  `iframe.referrerPolicy`), cuyo soporte en jsdom es incompleto.
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\decisiones.md'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\diseno.md'; git -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003' diff main...HEAD; Get-ChildItem 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261115-003' -Name" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+codex
+La tarea añade el horario semanal, la dirección y el acceso a mapas. Revisaré que sean fáciles de consultar y que «Cómo llegar» siga disponible si el mapa no carga.
+ succeeded in 28659ms:
+# Decisiones
+
+Lo que está aquí ya se decidió. No se rediscute sin una decisión humana nueva.
+
+<!--
+## D-01 · <título> (AAAA-MM-DD · origen: T-xxxx)
+- Contexto:
+- Decisión:
+- Alternativas descartadas:
+- Consecuencias:
+-->
+
+## D-00 · Datos de negocio de ejemplo para la demo (2026-11-14 · origen: humano)
+- Contexto: los datos reales del negocio están en huecos.md y aún no se conocen.
+- Decisión: mientras tanto se usan datos ficticios claramente marcados (precios en MXN, horario y dirección de ejemplo, WhatsApp +52 000 000 0000). Se guardan en un único archivo de datos para sustituirlos fácilmente.
+- Consecuencias: el sitio no se publica hasta resolver los huecos que bloquean la publicación.
+
+## D-01 · Stack: Vite + TypeScript sin framework (2026-11-14 · origen: arquitecto)
+- Contexto: landing de una sola página, sin backend ni estado. `estandares/stack.md` indica para
+  sitios de una página "HTML + CSS + JS sin framework", y a la vez exige las puertas `lint`,
+  `typecheck`, `test` y `build` vía `npm run` en todo proyecto con `package.json`.
+- Decisión: **Vite** como servidor de desarrollo y build estático, con **TypeScript vanilla** (sin
+  framework de UI). Es lo mínimo que mantiene la regla "sin framework" y da las cuatro puertas.
+  TypeScript tipa el archivo de datos (D-00): al sustituir los datos ficticios por los reales, un
+  campo mal escrito falla en `typecheck` en vez de en producción.
+- Alternativas descartadas: HTML/CSS/JS sin `package.json` (`verificar.mjs` no ejecutaría ninguna
+  puerta y no habría TDD); Astro + Tailwind (más configuración y conceptos para una sola página);
+  Vite + React (framework innecesario: no hay interactividad); JS sin TypeScript (se perdería la
+  puerta `typecheck` y la validación del archivo de datos).
+- Consecuencias: el estándar de estilo "un componente por archivo en `PascalCase.tsx`" no aplica;
+  cada sección es un módulo `camelCase.ts` en `src/sections/` que devuelve un `HTMLElement`.
+
+## D-02 · Estilos con CSS plano y custom properties, sin Tailwind (2026-11-14 · origen: arquitecto)
+- Contexto: pocos estilos, una sola página y el objetivo de Lighthouse ≥ 90.
+- Decisión: CSS plano, mobile-first. Los tokens de `diseno.md` se declaran como custom properties en
+  `src/styles/tokens.css` y el resto de CSS solo usa `var(--…)`.
+- Alternativas descartadas: Tailwind CSS (dependencia y configuración extra para muy poco CSS).
+- Consecuencias: el **diseñador** entrega los tokens como bloque `:root { --… }` listo para copiar en
+  lugar del bloque `theme.extend` de Tailwind.
+
+## D-03 · Puertas de calidad (2026-11-14 · origen: arquitecto)
+- Decisión: `lint` = ESLint 9 (flat config) + typescript-eslint; `typecheck` = `tsc --noEmit`;
+  `test` = `vitest run` con entorno **jsdom**; `build` = `vite build`. Pruebas junto al código
+  (`*.test.ts`).
+- Alternativas descartadas: happy-dom (menos fiel para pruebas de accesibilidad); Playwright en las
+  puertas (pesado para esta fase; Lighthouse y el ancho de 375 px se verifican en la tarea 006).
+- Consecuencias: CA-05.3 (Lighthouse) no es automatizable en `npm run` y se verifica manualmente
+  sobre `npm run preview`, dejando el informe en el rastro de la tarea.
+
+## D-04 · Renderizado: esqueleto estático + datos pintados en cliente (2026-11-14 · origen: arquitecto)
+- Contexto: D-00 exige que todos los datos del negocio vivan en un único archivo.
+- Decisión: `index.html` contiene la estructura estática (landmarks, navegación, encabezados de
+  sección, textos fijos). `src/main.ts` lee `src/data/business.ts` y monta el contenido de cada
+  sección con funciones `datos → HTMLElement` que usan `textContent`/`setAttribute` (nunca
+  `innerHTML` con datos).
+- Alternativas descartadas: datos copiados en el HTML (rompe D-00); prerender en build con un plugin
+  de Vite (más complejo; queda como plan B si Lighthouse móvil baja de 90).
+- Consecuencias: sin JavaScript la página muestra la estructura pero no los datos; aceptable para el
+  público objetivo (móvil moderno).
+
+## D-05 · Integraciones sin claves: WhatsApp, OpenStreetMap y Google Maps URLs (2026-11-14 · origen: arquitecto)
+- Decisión: reserva con enlace `https://wa.me/<dígitos>?text=<mensaje codificado>`; mapa con iframe
+  de OpenStreetMap con marcador y `loading="lazy"`; "Cómo llegar" con
+  `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`.
+- Alternativas descartadas: iframe de Google Maps (más pesado y con cookies de terceros); API de
+  WhatsApp Business (innecesaria: no hay reservas propias, ver spec "No entra"); URI `geo:` (no
+  funciona en iOS ni escritorio).
+- Consecuencias: no hay secretos ni `.env`. Las coordenadas también son datos del negocio y van en
+  `business.ts` (hueco añadido en `huecos.md`).
+
+## D-06 · Formato de precio (2026-11-14 · origen: arquitecto, deriva de D-00)
+- Decisión: los precios se guardan como número y se formatean en un único sitio
+  (`src/lib/formatPrice.ts`) con `Intl.NumberFormat(business.locale, { style: "currency",
+  currency: business.currency })`; hoy `es-MX` / `MXN`.
+- Consecuencias: si el hueco de moneda se resuelve con otra moneda, solo cambian `locale` y
+  `currency` en `business.ts`.
+
+## D-07 · Versiones y TypeScript estricto (2026-11-14 · origen: T-20261114-001)
+- Decisión: vite 7 + vitest 3 + typescript 5 + eslint 9 (por compatibilidad con typescript-eslint 8), versiones fijadas en package-lock.json; instalar con `npm ci`. tsconfig añade noUnusedLocals, noUnusedParameters, noFallthroughCasesInSwitch, verbatimModuleSyntax e isolatedModules sobre `strict`.
+- Pendiente de decisión humana: pasar a ESLint 10 (npm avisa que la 9 ya no tiene soporte).
+
+## D-08 · Cabecera, foco y botón de WhatsApp (2026-11-15 · origen: T-20261115-001)
+- Decisión: por debajo de 768 px la cabecera sticky ocupa dos filas (marca a `--header-height`,
+  navegación a `--tap-min`); `scroll-margin-top` y la altura de la portada restan
+  `header-height + tap-min` en móvil y solo `header-height` desde 768 px.
+- El hover del botón de WhatsApp lo oscurece ~10 % con
+  `color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text))`; su altura mínima es `var(--space-7)` (48 px).
+- `main#contenido` lleva `tabindex="-1"` sin contorno de foco, para que "Saltar al contenido" mueva
+  el foco sin dibujar un anillo alrededor de toda la página.
+- Pendiente: `main.css` mide 317 líneas (guía ~200); dividirlo en la tarea 006.
+
+## D-09 · Sección Menú y orden de montaje (2026-11-15 · origen: T-20261115-002)
+- Marcado: cada grupo es un `<div>` con `<h3>` y `<dl>`; cada producto, un `<div>` con `<dt>` (nombre)
+  y `<dd>` (precio). Grupos en `<div>`, no `<section>`, para no añadir landmarks.
+- `formatPrice(price, locale, currency)` es pura (implementa D-06) y lanza Error si el precio no es
+  finito o es negativo, en vez de pintar `$NaN`. `renderMenu` la importa; `main.ts` le pasa
+  `business.menu`, `business.locale` y `business.currency`.
+- Los estilos de cada sección nueva van en su propio archivo (`src/styles/menu.css`), importado en
+  `main.ts` después de `main.css`; rejilla de 2 columnas desde 768 px con
+  `repeat(2, minmax(0, 1fr))` y `align-items: start`.
+- `mount()` construye todo lo que puede fallar (URL de reserva, menú, futuras secciones) antes de
+  pintar nada: o se pinta la página entera o no se pinta nada.
+
+## D-10 · Mapa y "Cómo llegar" (2026-11-15 · origen: T-20261115-003, concreta D-05)
+- Las URLs se construyen solo en `src/lib/maps.ts` con `toFixed(6)`; bbox de OSM oeste,sur,este,norte
+  con d = 0.005°; una coordenada inválida lanza Error. Se comprueba el prefijo antes de usar cada URL.
+- iframe: `loading="lazy"`, `referrerpolicy="strict-origin-when-cross-origin"` (OSM pide Referer),
+  `sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`; sin `allow`,
+  `allowfullscreen` ni navegación del documento superior. El embed de OSM hoy usa MapLibre GL
+  (WebGL + worker `blob:`), que necesita `allow-same-origin` (seguro: el iframe es de otro origen).
+  Ampliar permisos requiere decisión humana.
+- Limitación conocida: `loading="lazy"` no garantiza que no se contacte a OSM sin hacer scroll
+  (Chrome precarga a ~1300 px); las teselas sí esperan al scroll.
+- Horario en `<table>` con `th scope="row"`, horas en 24 h ("08:00 a 20:00"), cerrado = "Cerrado".
+- `.btn--secondary` vive en `location.css` hasta que la tarea 006 divida `main.css`.
+
+# Sistema de diseño
+
+Cafetería Luna: cercana, cálida, de barrio, con cuidado por el producto (`vision.md`). Mobile-first
+desde 375 px. CSS plano con custom properties (D-02): el bloque de la sección "Tokens CSS" va tal
+cual en `src/styles/tokens.css`; el resto del CSS solo usa `var(--…)`.
+
+Notas de alcance:
+- **Modo oscuro: no aplica.** La spec no lo pide; se entrega solo el tema claro. Si se pide después,
+  se registra una decisión nueva y se añade un bloque `@media (prefers-color-scheme: dark)`.
+- La marca no tiene colores/logo/tipografía (`vision.md`: PENDIENTE). Esta paleta es propuesta del
+  diseñador y sustituible cambiando solo los valores de `tokens.css`.
+
+## Tokens
+### Colores (HEX)
+| Token | HEX | Uso |
+|---|---|---|
+| `--color-bg` | `#FBF6EE` | Fondo de página (crema) |
+| `--color-surface` | `#F3EADB` | Secciones alternas, cabecera, tarjetas sobre fondo |
+| `--color-surface-raised` | `#FFFFFF` | Tarjetas elevadas, tabla de horario, input |
+| `--color-text` | `#2B1D14` | Texto principal (espresso) |
+| `--color-text-muted` | `#6B5646` | Texto secundario, precios secundarios, leyendas |
+| `--color-primary` | `#7A3E1D` | Primario (canela/terracota): botón principal, enlaces, acentos |
+| `--color-primary-hover` | `#62301A` | Hover/active del primario |
+| `--color-on-primary` | `#FFFFFF` | Texto sobre primario |
+| `--color-secondary` | `#E9C46A` | Secundario (dorado luna): detalles, insignias, luna decorativa |
+| `--color-on-secondary` | `#2B1D14` | Texto sobre secundario |
+| `--color-whatsapp` | `#1E6B45` | Botón "Reservar mesa por WhatsApp" (verde oscuro, evoca WhatsApp con AA) |
+| `--color-on-whatsapp` | `#FFFFFF` | Texto sobre el botón de WhatsApp |
+| `--color-success` | `#2E6B3A` | Éxito / "abierto" |
+| `--color-error` | `#B3261E` | Error / "cerrado" |
+| `--color-border` | `#D9C9B3` | Separadores y bordes decorativos (no portan información; ver nota) |
+| `--color-focus` | `#1F4E8C` | Anillo de foco |
+| `--color-footer-bg` | `#2B1D14` | Fondo del pie |
+| `--color-footer-text` | `#F3EADB` | Texto del pie |
+
+Notas: el borde de input usa `--color-text-muted` (no `--color-border`) para cumplir 3:1 en
+componentes de interfaz (ver ratios).
+
+### Tipografía (Google Fonts, 2 familias, `font-display: swap`)
+- **Títulos: Fraunces** (serif cálida con carácter), pesos 600 y 700.
+- **Cuerpo/UI: DM Sans**, pesos 400, 500 y 700.
+- Carga: `https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap`
+  (con `preconnect`; recurso de terceros: zona sensible según arquitectura, requiere aprobación).
+- Fallbacks: `Georgia, "Times New Roman", serif` y `system-ui, -apple-system, "Segoe UI", sans-serif`.
+
+| Token | Móvil (375 px) | ≥ 768 px | Uso |
+|---|---|---|---|
+| `--text-xs` | 0.8125rem (13) | igual | Pie, leyendas |
+| `--text-sm` | 0.9375rem (15) | igual | Texto secundario |
+| `--text-base` | 1rem (16) | 1.0625rem | Cuerpo |
+| `--text-lg` | 1.125rem (18) | 1.25rem | Nombre/precio de producto, lead |
+| `--text-xl` | 1.5rem (24) | 1.75rem | Títulos de grupo (h3) |
+| `--text-2xl` | 1.875rem (30) | 2.5rem | Títulos de sección (h2) |
+| `--text-3xl` | 2.5rem (40) | 3.75rem | Nombre en portada (h1) |
+
+Interlineado: 1.6 cuerpo, 1.2 títulos. Ancho de línea de lectura ≤ 65ch.
+
+### Espaciado, radios, sombras
+Escala de 4 px: `--space-1` 4 · `--space-2` 8 · `--space-3` 12 · `--space-4` 16 · `--space-5` 24 ·
+`--space-6` 32 · `--space-7` 48 · `--space-8` 72 (px). Gutter lateral móvil: `--space-4` (16 px).
+
+Radios: `--radius-sm` 6 px · `--radius-md` 12 px · `--radius-lg` 20 px · `--radius-pill` 999 px.
+Sombras (tinte marrón, suaves): `--shadow-sm` y `--shadow-md` (ver bloque).
+
+## Tokens CSS (`:root`, listo para copiar en `src/styles/tokens.css`)
+```css
+:root {
+  /* Color */
+  --color-bg: #FBF6EE;
+  --color-surface: #F3EADB;
+  --color-surface-raised: #FFFFFF;
+  --color-text: #2B1D14;
+  --color-text-muted: #6B5646;
+  --color-primary: #7A3E1D;
+  --color-primary-hover: #62301A;
+  --color-on-primary: #FFFFFF;
+  --color-secondary: #E9C46A;
+  --color-on-secondary: #2B1D14;
+  --color-whatsapp: #1E6B45;
+  --color-on-whatsapp: #FFFFFF;
+  --color-success: #2E6B3A;
+  --color-error: #B3261E;
+  --color-border: #D9C9B3;
+  --color-focus: #1F4E8C;
+  --color-footer-bg: #2B1D14;
+  --color-footer-text: #F3EADB;
+
+  /* Tipografía */
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.5rem;
+  --leading-body: 1.6;
+  --leading-heading: 1.2;
+
+  /* Espaciado (escala de 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgb(43 29 20 / 0.08), 0 1px 3px rgb(43 29 20 / 0.06);
+  --shadow-md: 0 4px 12px rgb(43 29 20 / 0.12), 0 2px 4px rgb(43 29 20 / 0.06);
+
+  /* Layout */
+  --container-max: 64rem;      /* 1024 px */
+  --gutter: var(--space-4);
+  --tap-min: 44px;             /* zona táctil mínima (CA-05.2) */
+  --header-height: 56px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --text-base: 1.0625rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.75rem;
+    --text-2xl: 2.5rem;
+    --text-3xl: 3.75rem;
+    --gutter: var(--space-5);
+    --header-height: 64px;
+  }
+}
+```
+
+## Contraste WCAG AA (calculado numéricamente)
+Fórmula WCAG 2.x: luminancia relativa sRGB y ratio (L1+0.05)/(L2+0.05). Umbrales: texto normal
+≥ 4.5:1, texto grande (≥ 24 px, o ≥ 18.66 px en negrita) y componentes de interfaz ≥ 3:1.
+
+| # | Texto / elemento | Fondo | Ratio | Mínimo | Resultado |
+|---|---|---|---|---|---|
+| 1 | `text` #2B1D14 | `bg` #FBF6EE | **15.15:1** | 4.5 | AA/AAA |
+| 2 | `text` #2B1D14 | `surface` #F3EADB | **13.66:1** | 4.5 | AA/AAA |
+| 3 | `text` #2B1D14 | `surface-raised` #FFFFFF | **16.30:1** | 4.5 | AA/AAA |
+| 4 | `text-muted` #6B5646 | `bg` #FBF6EE | **6.41:1** | 4.5 | AA |
+| 5 | `text-muted` #6B5646 | `surface` #F3EADB | **5.78:1** | 4.5 | AA |
+| 6 | `text-muted` #6B5646 | `surface-raised` #FFFFFF | **6.90:1** | 4.5 | AA |
+| 7 | `on-primary` #FFFFFF | `primary` #7A3E1D | **8.29:1** | 4.5 | AA/AAA |
+| 8 | `on-primary` #FFFFFF | `primary-hover` #62301A | **10.73:1** | 4.5 | AA/AAA |
+| 9 | `primary` #7A3E1D (enlaces/texto) | `bg` #FBF6EE | **7.70:1** | 4.5 | AA/AAA |
+| 10 | `primary` #7A3E1D | `surface` #F3EADB | **6.95:1** | 4.5 | AA |
+| 11 | `primary` #7A3E1D | `surface-raised` #FFFFFF | **8.29:1** | 4.5 | AA/AAA |
+| 12 | `on-secondary` #2B1D14 | `secondary` #E9C46A | **9.75:1** | 4.5 | AA/AAA |
+| 13 | `on-whatsapp` #FFFFFF | `whatsapp` #1E6B45 | **6.47:1** | 4.5 | AA |
+| 14 | `whatsapp` #1E6B45 (texto/icono) | `bg` #FBF6EE | **6.02:1** | 4.5 | AA |
+| 15 | `success` #2E6B3A | `bg` #FBF6EE | **5.95:1** | 4.5 | AA |
+| 16 | `success` #2E6B3A | `surface` #F3EADB | **5.37:1** | 4.5 | AA |
+| 17 | `error` #B3261E | `bg` #FBF6EE | **6.08:1** | 4.5 | AA |
+| 18 | `error` #B3261E | `surface` #F3EADB | **5.48:1** | 4.5 | AA |
+| 19 | `footer-text` #F3EADB | `footer-bg` #2B1D14 | **13.66:1** | 4.5 | AA/AAA |
+| 20 | `secondary` #E9C46A (acentos) | `footer-bg` #2B1D14 | **9.75:1** | 3 | AA |
+| 21 | `focus` #1F4E8C (anillo) | `bg` #FBF6EE | **7.72:1** | 3 | AA |
+| 22 | `focus` #1F4E8C (anillo) | `surface` #F3EADB | **6.97:1** | 3 | AA |
+| 23 | borde de input `text-muted` #6B5646 | `bg` #FBF6EE | **6.41:1** | 3 | AA |
+
+Reglas derivadas:
+- **No usar `secondary` (#E9C46A) como texto ni como borde sobre fondos claros**: su contraste con
+  `bg` es insuficiente. Solo como relleno decorativo con `on-secondary`, o sobre `footer-bg`.
+- **No usar `--color-border` (#D9C9B3) como único indicador** de un control o de información; es solo
+  decorativo (separadores). Los bordes de input usan `text-muted`.
+- **El foco nunca se dibuja sobre `primary`**: el contraste foco/primario es 1.0:1 (ilegible). Por eso
+  el anillo es `outline: 3px solid var(--color-focus); outline-offset: 3px;`, que cae sobre el fondo
+  de página/sección (filas 21 y 22) y no sobre el botón.
+- Si en la implementación se coloca texto sobre una foto, añadir velo oscuro y recalcular.
+
+## Componentes base
+Todos: zona táctil ≥ 44×44 px (`--tap-min`), `:focus-visible` con el anillo descrito, transiciones
+≤ 150 ms y desactivadas con `prefers-reduced-motion: reduce`.
+
+### Botón
+Base: `font-family: var(--font-body); font-weight: 700; font-size: var(--text-base); min-height: 48px;
+padding: 0 var(--space-5); border-radius: var(--radius-pill); border: 2px solid transparent;`.
+
+| Variante | Fondo / texto / borde | Uso |
+|---|---|---|
+| `primary` | `primary` / `on-primary` | Acción general |
+| `whatsapp` | `whatsapp` / `on-whatsapp` | **Reservar mesa por WhatsApp** (portada y sección Reservar); con icono de chat a la izquierda (decorativo, `aria-hidden`) |
+| `secondary` (contorno) | transparente / `primary` / borde `primary` | "Cómo llegar" |
+| `ghost` | transparente / `primary` | Enlaces de navegación |
+
+Estados: **hover** = fondo `primary-hover` (whatsapp: oscurecer ~10 %; contorno: fondo `surface`);
+**active** = `translateY(1px)`; **focus-visible** = anillo `focus`; **disabled** = `opacity: .5`,
+`cursor: not-allowed` (el contraste no se exige en deshabilitado, pero no se usa en esta página).
+En móvil el botón principal de portada y de Reservar ocupa el ancho completo del contenedor.
+
+### Tarjeta
+`background: surface-raised; border: 1px solid var(--color-border); border-radius: var(--radius-md);
+padding: var(--space-5); box-shadow: var(--shadow-sm)`.
+Variantes: `plana` (sin sombra, fondo `surface`), `elevada` (`--shadow-md`).
+Uso: grupo de menú (Bebidas / Postres) y bloque de horario. Fila de producto: nombre a la izquierda
+(`--text-lg`, `text`) y precio a la derecha (`--text-lg`, peso 700, `primary`), alineados a la línea
+base con puntos guía opcionales; si el nombre es largo, el precio baja debajo sin romper (CA-02.3).
+Estados: informativa, sin hover (no es interactiva).
+
+### Input
+No hay formularios en esta página (la reserva ocurre en WhatsApp). Se define por coherencia futura:
+`min-height: 48px; padding: 0 var(--space-4); background: surface-raised; border: 2px solid
+var(--color-text-muted); border-radius: var(--radius-sm); font-size: 1rem` (≥ 16 px evita el zoom en
+iOS). Estados: hover = borde `text`; focus-visible = anillo `focus`; error = borde `error` + mensaje
+en `error` con icono; disabled = fondo `surface`, `opacity: .6`. Etiqueta siempre visible encima.
+
+### Cabecera (sticky)
+`position: sticky; top: 0; z-index: 10; height: var(--header-height); background: var(--color-surface);
+border-bottom: 1px solid var(--color-border)`. Contenido: nombre "Cafetería Luna" (Fraunces 700,
+`text`) a la izquierda y navegación (Menú · Horario y ubicación · Reservar) como enlaces `ghost`.
+Móvil: la navegación es una fila horizontal bajo/junto al nombre con `gap: var(--space-2)`, cada
+enlace con 44 px de alto; sin scroll horizontal en 375 px (si no caben, el nombre se acorta a "Luna"
+o la nav pasa a una segunda fila). Enlace de sección activa: subrayado de 3 px en `primary` (no solo
+color). Añadir `scroll-margin-top: var(--header-height)` a las secciones para que el ancla no quede
+tapada. Enlace "Saltar al contenido" visible al recibir foco.
+
+### Pie
+`background: var(--color-footer-bg); color: var(--color-footer-text); padding: var(--space-7)
+var(--gutter)`. Contenido: nombre, dirección corta y aviso de datos de ejemplo (D-00), texto
+`--text-sm`. Enlaces del pie: `footer-text` con subrayado; foco: anillo en `secondary` (9.75:1 sobre
+`footer-bg`). Un pequeño motivo de luna creciente en `secondary` como decoración (`aria-hidden`).
+
+### Sección (patrón)
+Alternar fondos `bg` y `surface` entre secciones; `padding-block: var(--space-7)` (móvil) y
+`var(--space-8)` (≥ 768 px). `h2` en Fraunces `--text-2xl`, color `text`, con una luna creciente
+decorativa en `secondary`.
+
+## Layout y breakpoints
+- Mobile-first: estilos base para 375 px; sin scroll horizontal (`min-width: 0` en hijos flex/grid,
+  `overflow-wrap: anywhere` en textos largos, iframe del mapa con `width: 100%`).
+- Ancho máximo del contenido: `--container-max` (1024 px), centrado, con `padding-inline:
+  var(--gutter)`. Texto corrido ≤ 65ch.
+- Breakpoints (`min-width`): **sm 480 px** · **md 768 px** · **lg 1024 px**.
+- Rejilla: 1 columna en móvil; desde md, Menú en 2 columnas (Bebidas | Postres) con `gap:
+  var(--space-6)`, y Horario y ubicación en 2 columnas (horario | mapa) con `grid-template-columns:
+  1fr 1fr`. Desde lg solo cambia el aire (más `padding`) y el tamaño de h1.
+- Portada: ocupa el alto visible del móvil menos la cabecera (`min-height: calc(100svh -
+  var(--header-height))`) y muestra nombre, eslogan y el botón de WhatsApp sin hacer scroll
+  (CA-01.1, CA-01.2).
+- Mapa: relación 4:3 en móvil, 16:9 desde md; `loading="lazy"` y `title` accesible.
+
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 397
++ ... \demo-completa\proyectos\cafeteria-luna\brain\diseno.md'; git -C 'C:\ ...
++                                                               ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+capturas-ronda1
+logs
+revisiones
+build-ronda1.md
+entrada.md
+estado.json
+spec.md
+traza.jsonl
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "git --no-pager -C 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003' diff main...HEAD -- src/main.ts src/sections/location.ts src/styles/location.css src/lib/maps.ts; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261115-003\\build-ronda1.md'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003\\src\\styles\\main.css'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003\\src\\data\\business.ts'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+ succeeded in 11783ms:
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 1
++ git --no-pager -C 'C:\Users\FRANC\AppData\Local\Temp\claude\41063b14e ...
++ ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+# T-20261115-003 · Build ronda 1 (constructor)
+
+Rama `fabrica/T-20261115-003` · worktree `proyectos/cafeteria-luna/.worktrees/T-20261115-003`
+Commit: **`1b9526a60e51a2fd0509c4c7664c05f792f386c6`** (`1b9526a`), sobre `966e8e0`. Worktree limpio tras el commit.
+
+## Archivos cambiados
+| Archivo | Cambio |
+|---|---|
+| `src/lib/maps.ts` | **Nuevo**. `buildMapEmbedUrl(lat, lng)` y `buildDirectionsUrl(lat, lng)`, puras, con guarda común de finitud/rango, `toFixed(6)` y `d = 0.005`. Construidas con `URLSearchParams` (la coma sale como `%2C`). |
+| `src/lib/maps.test.ts` | **Nuevo**. CA-1 a CA-5 (28 pruebas). |
+| `src/sections/location.ts` | **Nuevo**. `renderLocation({ hours, address, coordinates })` → `div.location` con tarjeta de horario (`<table>` + `th[scope=row]`/`td`, `span.hours__closed`) y bloque de ubicación (`<address>`, `div.location__map > iframe`, `a.btn.btn--secondary`). Guardias de prefijo antes de asignar `src`/`href`. Solo `createElement`/`textContent`/`setAttribute`. |
+| `src/sections/location.test.ts` | **Nuevo**. CA-6 a CA-13 (20 pruebas). |
+| `src/styles/location.css` | **Nuevo**. Mobile-first: tarjeta, tabla, "Cerrado", dirección, mapa 4:3 → 16:9, `.btn--secondary`, 2 columnas desde 768 px. Solo `var(--…)`. |
+| `src/styles/location.test.ts` | **Nuevo**. CA-19 (11 pruebas). Va en archivo propio para no tocar `styles.test.ts`. |
+| `src/main.ts` | `requireElement(doc, "#horario h2")` junto a los demás; `renderLocation(...)` se construye antes de pintar; `locationHeading.after(location)` en la fase de pintado; `import "./styles/location.css"` tras `menu.css`. |
+| `src/main.test.ts` | Solo añadidos: una línea de import (`buildDirectionsUrl`, `buildMapEmbedUrl`) y 4 `describe` nuevos al final (CA-14 a CA-17). 86 inserciones, 0 borrados. |
+
+No cambian: `index.html`, `business.ts`, `whatsapp.ts`, `formatPrice.ts`, `hero.ts`, `reserve.ts`, `menu.ts`, `main.css`, `menu.css`, `tokens.css`, `package*.json`, `vite.config.ts`, `tsconfig.json`, `eslint.config.js`.
+
+## CA → prueba (rojo → verde)
+Rojo comprobado antes de escribir el código de cada bloque; verde tras implementarlo.
+
+| CA | Prueba(s) | Rojo | Verde |
+|---|---|---|---|
+| CA-1 | `src/lib/maps.test.ts` › "CA-1: buildMapEmbedUrl builds the OpenStreetMap embed URL" (host/ruta, `layer`/`marker`/`bbox` exactos, solo 3 parámetros, marcador dentro del `bbox`) | ✔ (módulo `./maps` inexistente: la suite no carga) | ✔ |
+| CA-2 | `maps.test.ts` › "CA-2: buildDirectionsUrl builds the Google Maps search URL" | ✔ (ídem) | ✔ |
+| CA-3 | `maps.test.ts` › "CA-3: coordinates are serialized with exactly six decimals" (`(1e-7, -1e-7)`, `(19.123456789, -99.987654321)`, redondeo a `19.123457,-99.987654`) | ✔ (ídem) | ✔ |
+| CA-4 | `maps.test.ts` › "CA-4: invalid coordinates throw" (7 casos inválidos × 2 funciones + bordes `(90,180)`/`(-90,-180)` válidos) | ✔ (ídem) | ✔ |
+| CA-5 | `maps.test.ts` › "CA-5: maps.ts source" (URLs base, sin `business`, sin coordenadas, sin `document`/`window`) | ✔ (ídem) | ✔ |
+| CA-6 | `src/sections/location.test.ts` › "CA-6: renderLocation returns the Horario and Dirección blocks" | ✔ (módulo `./location` inexistente) | ✔ |
+| CA-7 | `location.test.ts` › "CA-7: the hours table" (7 filas en orden, `th[scope=row]` + `td`, `Lunes`/`Domingo` = `Cerrado`, `aria-labelledby` = id del `<h3>`) | ✔ (ídem) | ✔ |
+| CA-8 | `location.test.ts` › "CA-8: the address" | ✔ (ídem) | ✔ |
+| CA-9 | `location.test.ts` › "CA-9: the OpenStreetMap iframe" (`src`, `title`, `loading`, `referrerpolicy` y `sandbox` vía `getAttribute`; exactamente 4 tokens; sin `allow`/`allowfullscreen`/`srcdoc`/`frameborder`) | ✔ (ídem) | ✔ |
+| CA-10 | `location.test.ts` › "CA-10: the Cómo llegar link" (`href`, `target`, `rel`, `aria-label`, clases, después del iframe con `compareDocumentPosition`) | ✔ (ídem) | ✔ |
+| CA-11 | `location.test.ts` › "CA-11: address and day names are painted as text" | ✔ (ídem) | ✔ |
+| CA-12 | `location.test.ts` › "CA-12: invalid coordinates throw" (`lat: NaN`, `lng: 181`) | ✔ (ídem) | ✔ |
+| CA-13 | `location.test.ts` › "CA-13: location.ts source" (sin APIs de HTML ni `srcdoc`; importa `../lib/maps`; de `data/business` solo `import type`; sin datos del negocio; sin `api=1`/`bbox`/`marker=`) | ✔ (ídem) | ✔ |
+| CA-14 | `src/main.test.ts` › "T-20261115-003 CA-14: mounting fills #horario after its <h2>" | ✔ (fallo de aserción: no había nada tras el `<h2>`) | ✔ |
+| CA-15 | `main.test.ts` › "T-20261115-003 CA-15: a missing #horario h2 fails before painting" | ✔ (no lanzaba) | ✔ |
+| CA-16 | `main.test.ts` › "T-20261115-003 CA-16: invalid coordinates fail before painting" (`vi.doMock` con `lat: NaN`) | ✔ (la importación no rechazaba) | ✔ |
+| CA-17 | `main.test.ts` › "T-20261115-003 CA-17: main.ts imports location.css after menu.css" | ✔ (sin import) | ✔ |
+| CA-18 | Suite completa: las 101 pruebas previas pasan sin modificar ninguna (en `main.test.ts` solo se añadió un import y casos nuevos al final) | n/a | ✔ |
+| CA-19 | `src/styles/location.test.ts` › "CA-19 (a)" … "CA-19 (g)" (11 pruebas) | ✔ 10/11 rojas contra un `location.css` vacío. (a) "sin literales de color" pasaba en vacío por ser negativa; la verifiqué inyectando temporalmente `.x { color: #fff; }` → roja, y lo retiré | ✔ |
+| CA-20 | `git show --stat HEAD`: `main.css`, `menu.css` y `tokens.css` no aparecen en el diff | n/a | ✔ |
+| CA-21 | Comprobación manual (ver abajo) | n/a | ✔ con observaciones |
+| CA-22 | `node scripts/verificar.mjs proyectos\cafeteria-luna\.worktrees\T-20261115-003` | n/a | ✔ |
+
+## Puertas (CA-22)
+```
+✔ lint       ok
+✔ typecheck  ok
+✔ test       ok   (13 archivos, 164 pruebas: 101 previas + 63 nuevas)
+✔ build      ok   (dist/assets/index-*.css 8.31 kB, index-*.js 7.47 kB)
+```
+Nota: `npm ci` avisó de que el `postinstall` de `esbuild` quedó bloqueado por la política `allowScripts`; el build funciona igual (binario de plataforma ya presente). No se tocó nada al respecto.
+
+## CA-21 · Comprobación manual
+**Cómo se hizo**: `vite preview` del build (`npm run build` de las puertas) en `127.0.0.1:4317`, en dos navegadores:
+1. El navegador integrado de la app de escritorio de Claude, a 375×667. El panel estaba oculto durante parte de la prueba, así que algunas capturas no se pudieron hacer ahí.
+2. Chrome local en modo headless, controlado por CDP con un script en el scratchpad: viewport 375×667 móvil y después 768×1024; sesiones adjuntas también al iframe de OSM y a su worker para leer su consola.
+
+Ambos se cerraron al terminar; el servidor de preview se paró y los perfiles temporales de Chrome se borraron.
+Capturas en `tareas/T-20261115-003/capturas-ronda1/`.
+
+| Punto | Resultado |
+|---|---|
+| (a) Contenido a 375 px | ✔ Una columna: tarjeta "Horario" (7 días; `Lunes` → **Cerrado** en rojo, `rgb(179, 38, 30)` = `--color-error`, peso 700), dirección completa, mapa y botón de contorno "Cómo llegar" (343×48 px, texto y borde `--color-primary`, fondo transparente). **El mapa se pinta dentro del iframe con el `sandbox` de la spec**: teselas de `tile.openstreetmap.org/15/…` cargadas y marcador verde sobre el Zócalo (19.4326, −99.1332). El iframe mide 341×255.25 px, es decir 4:3 (`a-375-horario.png`, `a-375-mapa.png`). |
+| (b) Scroll horizontal | ✔ `document.documentElement.scrollWidth` = **375** (en los dos navegadores). |
+| (c) Consola | ✔ Ningún error de `sandbox` ni del mapa, ni en la página, ni en el iframe, ni en el worker de OSM. Único error: `favicon.ico` 404 en la página principal, previo a esta tarea (el proyecto no tiene favicon). El navegador integrado no registró ningún mensaje de consola. **No hizo falta ampliar permisos.** |
+| (d) Pestañas nuevas | ✔ Clic en "Cómo llegar": se abre una pestaña nueva con `https://www.google.com/maps/search/?api=1&query=19.432600%2C-99.133200` y la página sigue en `http://127.0.0.1:4317/`. Clic en un enlace de la barra de atribución del mapa (cayó en "Reportar un problema"): se abre una pestaña nueva con `https://www.openstreetmap.org/fixthemap?lat=19.43260&lon=-99.13320&zoom=15` y la página no se sustituye. No probé uno por uno los otros enlaces de la barra ("© Colaboradores de OpenStreetMap", "Hacer una donación", "Términos"); están en la misma barra y bajo el mismo `sandbox`. |
+| (e) Carga diferida | ⚠ Los dos navegadores dan resultados distintos. **Navegador integrado**: con la página recién cargada arriba del todo (iframe a 2033 px del borde superior), ninguna petición a `openstreetmap.org`; aparece al bajar hasta el mapa. **Chrome headless**: `export/embed.html` se pide al cargar, con el iframe 1366 px por debajo del borde de la pantalla. Es el umbral de distancia de Chrome para `loading="lazy"` en iframes, que depende del tipo de conexión. Las teselas solo se piden al acercarse al mapa. Conclusión: `lazy` funciona, pero no garantiza que quien no baje nunca contacte con OSM. Es relevante para la fachada "clic para cargar" (fuera de alcance; tarea 006). |
+| (f) Teclado | ✔ Orden de Tab desde arriba: saltar al contenido → marca → Menú → Horario y ubicación → Reservar → WhatsApp (portada) → **7 paradas dentro del mapa** (controles y enlaces de OSM) → **Cómo llegar**, con `:focus-visible` y anillo `3px solid rgb(31, 78, 140)` (`--color-focus`) con `outline-offset: 3px` (`f-375-foco-como-llegar.png`). Shift+Tab desde "Cómo llegar" entra en el mapa y sale hacia el botón de WhatsApp; Tab vuelve a atravesarlo y sale a "Cómo llegar": **no hay trampa de foco**. Observación para UX: son 7 paradas de Tab dentro del mapa. |
+| (g) 768 px | ✔ Dos columnas: horario a la izquierda (x = 24, 344 px de ancho) y, a la derecha (x = 400), dirección, mapa 344×194 (16:9) y botón "Cómo llegar" de ancho automático (149 px). `scrollWidth` = 768 (`g-768-horario.png`). Observación: en esta captura el marcador queda visible pero desplazado hacia abajo del centro, cerca de la barra de atribución. A 375 px está centrado. No determiné si es algo del embed de OSM con 16:9 o del momento de la captura headless; queda para el revisor de UI. |
+
+Hallazgo técnico: el embed de OpenStreetMap ya no usa Leaflet, como suponía la spec, sino **MapLibre GL** (un `<canvas class="maplibregl-canvas">` con WebGL y un worker `blob:`). Funciona con `allow-scripts allow-same-origin` (el worker `blob:` necesita el origen propio del iframe). La justificación del `sandbox` en la decisión 2 de la spec sigue valiendo; solo cambia el nombre de la librería.
+
+## Decisiones nuevas
+1. **El embed de OSM es MapLibre GL, no Leaflet**: lo verifiqué en el navegador. El `sandbox` de la spec basta: `allow-scripts` es necesario y `allow-same-origin` permite su worker `blob:`. Propongo corregir "Leaflet" por "MapLibre GL (WebGL + worker)" al registrar la decisión 2 de la spec.
+2. **Pruebas de CSS de la sección en `src/styles/location.test.ts`**, en archivo propio. `styles.test.ts` no se toca y cada sección nueva lleva su prueba de estilos junto a su `.css`.
+3. **`.btn--secondary` solo redefine `border-color`**: hereda `border: 2px solid transparent` de `.btn`, igual que `.btn--whatsapp` hereda la forma. Vive en `location.css` (D-08) hasta que la tarea 006 divida `main.css`.
+4. **`location.ts` exporta `type Location = Pick<Business, "hours" | "address" | "coordinates">`**, el tipo del parámetro de `renderLocation`.
+5. **Las dos URLs se construyen antes de crear ningún elemento**, al principio de `renderPlace`. Unas coordenadas inválidas lanzan sin efectos parciales, en la línea de D-09.
+6. **Borde decorativo de 1 px en `--color-border` alrededor del mapa** (`.location__map`, con `overflow: hidden` y `radius-md`). Es solo decorativo y no porta información (regla de `diseno.md`).
+7. Pendiente para el humano, sin cambios: la propuesta de la spec de añadir `src/lib/maps.ts` y `src/sections/location.ts` a `brain/zonas-sensibles.txt` (decisión 6 de la spec). No edité ese archivo.
+
+/* Estilos base y layout mobile-first; solo usan var(--…) de tokens.css (D-02, brain/diseno.md). */
+
+/* ── Base ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  line-height: var(--leading-heading);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ── Foco: anillo azul que cae sobre el fondo, nunca sobre el primario ── */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* main recibe el foco del enlace de salto; el anillo alrededor de toda la página no aporta. */
+main:focus {
+  outline: none;
+}
+
+/* ── Enlace "Saltar al contenido": oculto hasta recibir foco ── */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-primary);
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+}
+
+.skip-link:not(:focus) {
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Cabecera sticky ──────────────────────────────────── */
+/* Móvil: el nombre ocupa una fila de --header-height y la navegación otra de --tap-min
+   (las tres entradas no caben junto al nombre en 375 px). Desde 768 px, una sola fila. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--space-4);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--header-height);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  line-height: var(--leading-heading);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-nav {
+  flex-basis: 100%;
+  min-width: 0;
+}
+
+.site-nav__list {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0 calc(-1 * var(--space-2));
+  padding: 0;
+  list-style: none;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+/* ── Secciones ────────────────────────────────────────── */
+/* El ancla deja el título bajo la cabecera de dos filas (nombre + navegación). */
+main > section {
+  padding-block: var(--space-7);
+  scroll-margin-top: calc(var(--header-height) + var(--tap-min));
+}
+
+main > section:nth-of-type(even) {
+  background: var(--color-surface);
+}
+
+main > section h2 {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+/* ── Portada ──────────────────────────────────────────── */
+/* Alto visible menos la cabecera: nombre, eslogan y botón sin hacer scroll (CA-01.1, CA-01.2). */
+.hero {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - var(--header-height) - var(--tap-min));
+  min-height: calc(100svh - var(--header-height) - var(--tap-min));
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.hero__title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+}
+
+.hero__slogan {
+  max-width: 65ch;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+/* ── Reservar ─────────────────────────────────────────── */
+.reserve__text {
+  max-width: 65ch;
+  margin-bottom: var(--space-5);
+}
+
+/* ── Botón ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--space-7); /* 48 px (diseno.md) */
+  padding: 0 var(--space-5);
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-base);
+  line-height: var(--leading-heading);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn__icon {
+  flex: none;
+  width: var(--space-5);
+  height: var(--space-5);
+}
+
+/* Móvil: ocupa el ancho del contenedor (diseno.md). */
+.btn--whatsapp {
+  width: 100%;
+  background: var(--color-whatsapp);
+  color: var(--color-on-whatsapp);
+}
+
+/* Hover ~10 % más oscuro, mezclando con un token (sin colores a mano). */
+.btn--whatsapp:hover {
+  background: color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text));
+}
+
+/* ── Pie ──────────────────────────────────────────────── */
+.site-footer {
+  padding-block: var(--space-7);
+  background: var(--color-footer-bg);
+  color: var(--color-footer-text);
+  font-size: var(--text-sm);
+}
+
+.site-footer a {
+  color: var(--color-footer-text);
+  text-decoration: underline;
+}
+
+/* En el pie oscuro el anillo va en dorado (9.75:1 sobre footer-bg). */
+.site-footer :focus-visible {
+  outline-color: var(--color-secondary);
+}
+
+.site-footer__name {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-lg);
+}
+
+.site-footer__notice {
+  max-width: 65ch;
+}
+
+/* ── Desde 768 px ─────────────────────────────────────── */
+@media (min-width: 768px) {
+  .site-header__inner {
+    flex-wrap: nowrap;
+    min-height: var(--header-height);
+  }
+
+  .site-nav {
+    flex-basis: auto;
+  }
+
+  .site-nav__list {
+    margin: 0;
+  }
+
+  main > section {
+    padding-block: var(--space-8);
+    scroll-margin-top: var(--header-height);
+  }
+
+  .hero {
+    min-height: calc(100vh - var(--header-height));
+    min-height: calc(100svh - var(--header-height));
+  }
+
+  .btn--whatsapp {
+    width: auto;
+  }
+}
+
+/* ── Movimiento reducido ──────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .btn:active {
+    transform: none;
+  }
+}
+
+/*
+ * DATOS FICTICIOS (decisión D-00 del brain).
+ * Todos los valores de este archivo son de ejemplo: menú y precios en MXN, horario, dirección,
+ * coordenadas y WhatsApp (+52 000 000 0000). Deben sustituirse por los reales antes de publicar
+ * (ver brain/huecos.md). Para cambiarlos, edita solo este archivo: ningún otro módulo contiene
+ * datos del negocio.
+ */
+
+export interface MenuItem {
+  name: string;
+  /** Price as a number in `currency`; formatting lives in src/lib/formatPrice.ts (D-06). */
+  price: number;
+}
+
+export interface OpenDay {
+  day: string;
+  /** "HH:MM", 24 h. */
+  open: string;
+  /** "HH:MM", 24 h, later than `open`. */
+  close: string;
+  closed?: never;
+}
+
+export interface ClosedDay {
+  day: string;
+  closed: true;
+  open?: never;
+  close?: never;
+}
+
+export type DayHours = OpenDay | ClosedDay;
+
+export interface Business {
+  name: string;
+  slogan: string;
+  locale: string;
+  currency: string;
+  menu: {
+    drinks: MenuItem[];
+    desserts: MenuItem[];
+  };
+  /** Seven entries, Monday to Sunday. */
+  hours: DayHours[];
+  address: string;
+  coordinates: { lat: number; lng: number };
+  /** `number`: digits only, country code included. */
+  whatsapp: { number: string; message: string };
+}
+
+export const business: Business = {
+  name: "Cafetería Luna",
+  slogan: "Tu rincón tranquilo para un buen café",
+  locale: "es-MX",
+  currency: "MXN",
+  menu: {
+    drinks: [
+      { name: "Café americano", price: 45 },
+      { name: "Capuchino", price: 55 },
+      { name: "Latte", price: 60 },
+      { name: "Chocolate caliente", price: 50 },
+    ],
+    desserts: [
+      { name: "Pastel de chocolate", price: 75 },
+      { name: "Cheesecake de frutos rojos", price: 80 },
+      { name: "Pan de elote", price: 45 },
+    ],
+  },
+  hours: [
+    { day: "Lunes", closed: true },
+    { day: "Martes", open: "08:00", close: "20:00" },
+    { day: "Miércoles", open: "08:00", close: "20:00" },
+    { day: "Jueves", open: "08:00", close: "20:00" },
+    { day: "Viernes", open: "08:00", close: "21:00" },
+    { day: "Sábado", open: "09:00", close: "21:00" },
+    { day: "Domingo", open: "09:00", close: "15:00" },
+  ],
+  address: "Calle Ejemplo 123, Col. Centro, 00000 Ciudad de México, CDMX, México",
+  coordinates: { lat: 19.4326, lng: -99.1332 },
+  whatsapp: {
+    number: "520000000000",
+    message:
+      "¡Hola, Cafetería Luna! Quiero reservar una mesa. ¿Me ayudas?\nFecha: \nHora: \nNúmero de personas: ",
+  },
+};
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command Get-Location in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+ succeeded in 5554ms:
+
+Path                                                                                                                   
+----                                                                                                                   
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-compl...
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Item 'C:\\Program Files\\Git\\cmd\\git.exe','C:\\Program Files\\Git\\bin\\git.exe','C:\\Users\\FRANC\\AppData\\Local\\Programs\\Git\\cmd\\git.exe' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003\\src\\sections\\location.ts'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003\\src\\styles\\location.css'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003\\src\\lib\\maps.ts'; Get-ChildItem 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261115-003\\capturas-ronda1' -Name" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+ succeeded in 5550ms:
+import type { Business, DayHours } from "../data/business";
+import { buildDirectionsUrl, buildMapEmbedUrl } from "../lib/maps";
+
+/**
+ * "Horario y ubicación" section: an hours card (table) and the place block (address, OpenStreetMap
+ * iframe and "Cómo llegar" link). Hours, address and coordinates arrive as parameters from
+ * src/data/business.ts via main.ts (D-00); URLs are built only by src/lib/maps.ts (D-05).
+ * Text goes in with textContent and attributes with setAttribute only.
+ */
+
+export type Location = Pick<Business, "hours" | "address" | "coordinates">;
+
+const MAP_URL_PREFIX = "https://www.openstreetmap.org/export/embed.html?";
+const DIRECTIONS_URL_PREFIX = "https://www.google.com/maps/search/?";
+
+const HOURS_TITLE = "Horario";
+const HOURS_TITLE_ID = "horario-semana-titulo";
+const PLACE_TITLE = "Dirección";
+const CLOSED_TEXT = "Cerrado";
+const MAP_TITLE = "Mapa con la ubicación de la cafetería";
+const LINK_TEXT = "Cómo llegar";
+// The accessible name starts with the visible text (WCAG 2.5.3): change both together.
+const LINK_LABEL = `${LINK_TEXT} (se abre en una pestaña nueva)`;
+// Leaflet needs scripts; the iframe is cross-origin, so allow-same-origin cannot reach this page.
+// Never add allow-top-navigation*, allow-forms, allow-modals, allow-downloads or allow-pointer-lock.
+const MAP_SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";
+
+function createTitle(text: string): HTMLHeadingElement {
+  const heading = document.createElement("h3");
+  heading.className = "location__title";
+  heading.textContent = text;
+  return heading;
+}
+
+function renderHoursRow(entry: DayHours): HTMLTableRowElement {
+  const row = document.createElement("tr");
+  const day = document.createElement("th");
+  day.setAttribute("scope", "row");
+  day.textContent = entry.day;
+  const time = document.createElement("td");
+  if (entry.closed) {
+    const closed = document.createElement("span");
+    closed.className = "hours__closed";
+    closed.textContent = CLOSED_TEXT;
+    time.append(closed);
+  } else {
+    time.textContent = `${entry.open} a ${entry.close}`;
+  }
+  row.append(day, time);
+  return row;
+}
+
+function renderHours(hours: DayHours[]): HTMLElement {
+  const card = document.createElement("div");
+  card.className = "location__hours";
+  const heading = createTitle(HOURS_TITLE);
+  heading.id = HOURS_TITLE_ID;
+
+  const table = document.createElement("table");
+  table.className = "hours";
+  table.setAttribute("aria-labelledby", HOURS_TITLE_ID);
+  const body = document.createElement("tbody");
+  body.append(...hours.map(renderHoursRow));
+  table.append(body);
+
+  card.append(heading, table);
+  return card;
+}
+
+function createMap(src: string): HTMLIFrameElement {
+  // Guard: only an OpenStreetMap embed may reach the src (blocks javascript: and other schemes).
+  if (!src.startsWith(MAP_URL_PREFIX)) {
+    throw new Error(`Map URL must start with ${MAP_URL_PREFIX}`);
+  }
+  const iframe = document.createElement("iframe");
+  iframe.setAttribute("src", src);
+  iframe.setAttribute("title", MAP_TITLE);
+  iframe.setAttribute("loading", "lazy");
+  iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+  iframe.setAttribute("sandbox", MAP_SANDBOX);
+  return iframe;
+}
+
+function createDirectionsLink(href: string): HTMLAnchorElement {
+  // Guard: only a Google Maps search may reach the href.
+  if (!href.startsWith(DIRECTIONS_URL_PREFIX)) {
+    throw new Error(`Directions URL must start with ${DIRECTIONS_URL_PREFIX}`);
+  }
+  const link = document.createElement("a");
+  link.className = "btn btn--secondary";
+  link.setAttribute("href", href);
+  link.setAttribute("target", "_blank");
+  link.setAttribute("rel", "noopener noreferrer");
+  link.setAttribute("aria-label", LINK_LABEL);
+  link.textContent = LINK_TEXT;
+  return link;
+}
+
+function renderPlace(address: string, coordinates: Location["coordinates"]): HTMLElement {
+  // Both URLs are built first: invalid coordinates throw before any element exists.
+  const mapUrl = buildMapEmbedUrl(coordinates.lat, coordinates.lng);
+  const directionsUrl = buildDirectionsUrl(coordinates.lat, coordinates.lng);
+
+  const place = document.createElement("div");
+  place.className = "location__place";
+
+  const addressElement = document.createElement("address");
+  addressElement.className = "location__address";
+  addressElement.textContent = address;
+
+  const map = document.createElement("div");
+  map.className = "location__map";
+  map.append(createMap(mapUrl));
+
+  place.append(createTitle(PLACE_TITLE), addressElement, map, createDirectionsLink(directionsUrl));
+  return place;
+}
+
+export function renderLocation(location: Location): HTMLElement {
+  const container = document.createElement("div");
+  container.className = "location";
+  container.append(renderHours(location.hours), renderPlace(location.address, location.coordinates));
+  return container;
+}
+
+/* Sección Horario y ubicación: tarjeta de horario, dirección, mapa y botón "Cómo llegar";
+   solo var(--…) de tokens.css (D-02, brain/diseno.md → Tarjeta, Botón, Layout). */
+
+/* Móvil: una columna, horario arriba y ubicación debajo. */
+.location {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.location__hours,
+.location__place {
+  min-width: 0;
+}
+
+/* Tarjeta informativa, sin hover. */
+.location__hours {
+  padding: var(--space-5);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.location__title {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+/* ── Horario ── */
+.hours {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hours th,
+.hours td {
+  padding-block: var(--space-3);
+  padding-inline: 0;
+  vertical-align: baseline;
+}
+
+/* Separador solo decorativo entre días. */
+.hours tr + tr th,
+.hours tr + tr td {
+  border-top: 1px solid var(--color-border);
+}
+
+.hours tr:first-child th,
+.hours tr:first-child td {
+  padding-top: 0;
+}
+
+.hours tr:last-child th,
+.hours tr:last-child td {
+  padding-bottom: 0;
+}
+
+.hours th {
+  padding-inline-end: var(--space-4);
+  font-weight: 500;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+/* Las horas nunca se parten. */
+.hours td {
+  text-align: end;
+  white-space: nowrap;
+}
+
+/* El color nunca es el único indicador: siempre va con el texto "Cerrado". */
+.hours__closed {
+  font-weight: 700;
+  color: var(--color-error);
+}
+
+/* ── Ubicación ── */
+.location__address {
+  margin-bottom: var(--space-4);
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Relación fija: el mapa diferido no provoca saltos de maquetación. */
+.location__map {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.location__map iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Botón de contorno (diseno.md → Botón secondary); móvil: ancho completo. */
+.btn--secondary {
+  width: 100%;
+  margin-top: var(--space-4);
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn--secondary:hover {
+  background: var(--color-surface);
+}
+
+/* Desde 768 px: horario | dirección + mapa + botón. */
+@media (min-width: 768px) {
+  .location {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .location__map {
+    aspect-ratio: 16 / 9;
+  }
+
+  .btn--secondary {
+    width: auto;
+  }
+}
+
+/**
+ * Map URLs for the "Horario y ubicación" section (D-05). Pure functions: the coordinates come from
+ * src/data/business.ts through the caller, never from here (D-00).
+ */
+
+const OSM_EMBED_URL = "https://www.openstreetmap.org/export/embed.html";
+const DIRECTIONS_URL = "https://www.google.com/maps/search/";
+
+/** Half side of the embedded map's bbox, in degrees (~1 km across: street level). */
+const BBOX_HALF_SIDE = 0.005;
+
+// Fail loudly instead of placing the marker somewhere wrong or building a broken URL.
+function assertCoordinates(lat: number, lng: number): void {
+  if (!Number.isFinite(lat) || lat < -90 || lat > 90) {
+    throw new Error(`Invalid latitude: ${String(lat)}`);
+  }
+  if (!Number.isFinite(lng) || lng < -180 || lng > 180) {
+    throw new Error(`Invalid longitude: ${String(lng)}`);
+  }
+}
+
+// Six decimals (~0.1 m): no exponent notation and no floating-point noise.
+const serialize = (value: number): string => value.toFixed(6);
+
+/** OpenStreetMap embed URL with a marker at (lat, lng); bbox order is west,south,east,north. */
+export function buildMapEmbedUrl(lat: number, lng: number): string {
+  assertCoordinates(lat, lng);
+  const bbox = [lng - BBOX_HALF_SIDE, lat - BBOX_HALF_SIDE, lng + BBOX_HALF_SIDE, lat + BBOX_HALF_SIDE]
+    .map(serialize)
+    .join(",");
+  const params = new URLSearchParams({
+    bbox,
+    layer: "mapnik",
+    marker: `${serialize(lat)},${serialize(lng)}`,
+  });
+  return `${OSM_EMBED_URL}?${params.toString()}`;
+}
+
+/** Google Maps URL that opens the maps app (mobile) or the web (desktop) at (lat, lng). */
+export function buildDirectionsUrl(lat: number, lng: number): string {
+  assertCoordinates(lat, lng);
+  const params = new URLSearchParams({ api: "1", query: `${serialize(lat)},${serialize(lng)}` });
+  return `${DIRECTIONS_URL}?${params.toString()}`;
+}
+
+a-375-horario.png
+a-375-mapa.png
+d-375-mapa-antes-clic-atribucion.png
+f-375-foco-como-llegar.png
+g-768-horario.png
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$paths = @('"'C:\\Program Files','C:\\Program Files (x86)','C:\\Users\\FRANC\\AppData\\Local\\Programs','C:\\Users\\FRANC\\scoop\\apps','C:\\tools','C:\\ProgramData\\chocolatey\\bin'); foreach ("'$p in $paths) { if (Test-Path -LiteralPath $p) { Get-ChildItem -LiteralPath $p -Name | Where-Object { $_ -match '"'git|bash|scoop' } } }; Get-ChildItem Env: | Where-Object Name -match 'PATH'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+ succeeded in 4867ms:
+Get-ChildItem : Acceso denegado a la ruta de acceso 'C:\Users\FRANC\AppData\Local\Programs'.
+En línea: 2 Carácter: 227
++ ... t-Path -LiteralPath $p) { Get-ChildItem -LiteralPath $p -Name | Where ...
++                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\FRANC\AppData\Local\Programs:String) [Get-ChildItem], Unauth 
+   orizedAccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+ 
+
+Name                           Value                                                                                   
+----                           -----                                                                                   
+HOMEPATH                       \Users\FRANC                                                                            
+NoDefaultCurrentDirectoryIn... 1                                                                                       
+PATH                           C:\Users\FRANC\.codex\tmp\arg0-windows\codex-arg0iUvm8z;C:\Program Files\BellSoft\Lib...
+PATHEXT                        .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL                              
+PSModulePath                   C:\Users\FRANC\OneDrive\Documentos\WindowsPowerShell\Modules;C:\Program Files\Windows...
+
+
+
+codex
+Las capturas muestran el horario completo y legible a 375 px, la dirección y el botón «Cómo llegar». El enlace está fuera del iframe, por lo que no depende de que cargue el mapa. Git no está disponible en el entorno; estoy comprobando si puedo acceder al diff antes de cerrar el dictamen.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$env:PATH; Get-Content -Raw '"'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003\\.git'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003\\src\\main.ts'; Get-Content -Encoding UTF8 -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\.worktrees\\T-20261115-003\\index.html'; Get-ChildItem -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261115-003' -Name" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+ succeeded in 5287ms:
+C:\Users\FRANC\.codex\tmp\arg0-windows\codex-arg0iUvm8z;C:\Program Files\BellSoft\LibericaJDK-26-Full\bin\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\nodejs\;C:\Program Files (x86)\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\180\Tools\Binn\;C:\Program Files\Microsoft SQL Server\170\DTS\Binn\;C:\Users\FRANC\.cargo\bin;C:\Users\FRANC\AppData\Local\Programs\Python\Launcher\;C:\Users\FRANC\AppData\Local\Microsoft\WindowsApps;C:\Users\FRANC\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\FRANC\.dotnet\tools;C:\ProgramData\FRANC\GitHubDesktop\bin;C:\Users\FRANC\AppData\Roaming\npm;C:\Users\FRANC\AppData\Local\Programs\Microsoft VS Code\bin\copilot-shim;C:\Users\FRANC\AppData\Local\Microsoft\WinGet\Links;C:\Users\FRANC\AppData\Local\Programs\MinGit\cmd;C:\Users\FRANC\AppData\Local\Programs\Python\Python314;C:\Program Files\nodejs
+gitdir: C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/app/.git/worktrees/T-20261115-003
+
+import "./styles/tokens.css";
+import "./styles/main.css";
+import "./styles/menu.css";
+import "./styles/location.css";
+import { business } from "./data/business";
+import { buildWhatsAppUrl } from "./lib/whatsapp";
+import { renderHero } from "./sections/hero";
+import { renderLocation } from "./sections/location";
+import { renderMenu } from "./sections/menu";
+import { renderReserve } from "./sections/reserve";
+
+function requireElement(doc: Document, selector: string): Element {
+  const element = doc.querySelector(selector);
+  if (!element) {
+    throw new Error(`Mount container not found in index.html: ${selector}`);
+  }
+  return element;
+}
+
+/** Paints the business data into the static skeleton of index.html (D-04). */
+export function mount(doc: Document): void {
+  // Look up every container first so a missing one fails before the page is half painted.
+  const hero = requireElement(doc, "#inicio");
+  const menuHeading = requireElement(doc, "#menu h2");
+  const locationHeading = requireElement(doc, "#horario h2");
+  const reserveHeading = requireElement(doc, "#reservar h2");
+
+  // Built once so both reserve buttons point to exactly the same URL.
+  const reserveUrl = buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message);
+  // Built before painting: an invalid price or coordinate throws here, leaving the page untouched.
+  const menu = renderMenu(business.menu, { locale: business.locale, currency: business.currency });
+  const location = renderLocation({
+    hours: business.hours,
+    address: business.address,
+    coordinates: business.coordinates,
+  });
+
+  hero.append(renderHero({ name: business.name, slogan: business.slogan }, reserveUrl));
+  menuHeading.after(menu);
+  locationHeading.after(location);
+  reserveHeading.after(renderReserve(reserveUrl));
+}
+
+mount(document);
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cafetería Luna</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="skip-link" href="#contenido">Saltar al contenido</a>
+      <div class="site-header__inner container">
+        <a class="brand" href="#inicio">Cafetería Luna</a>
+        <nav class="site-nav" aria-label="Principal">
+          <ul class="site-nav__list">
+            <li><a class="nav-link" href="#menu">Menú</a></li>
+            <li><a class="nav-link" href="#horario">Horario y ubicación</a></li>
+            <li><a class="nav-link" href="#reservar">Reservar</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="contenido" tabindex="-1">
+      <!-- La portada (h1, eslogan y botón) la monta src/sections/hero.ts con los datos de business.ts (D-04). -->
+      <section id="inicio" class="section hero" aria-labelledby="inicio-titulo"></section>
+      <section id="menu" class="section" aria-labelledby="menu-titulo">
+        <div class="container">
+          <h2 id="menu-titulo">Menú</h2>
+        </div>
+      </section>
+      <section id="horario" class="section" aria-labelledby="horario-titulo">
+        <div class="container">
+          <h2 id="horario-titulo">Horario y ubicación</h2>
+        </div>
+      </section>
+      <section id="reservar" class="section" aria-labelledby="reservar-titulo">
+        <div class="container">
+          <h2 id="reservar-titulo">Reservar</h2>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p class="site-footer__name">Cafetería Luna</p>
+        <p class="site-footer__notice">Página de demostración: el eslogan, el menú, los precios, el horario, la dirección y el número de WhatsApp son datos de ejemplo.</p>
+      </div>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+
+capturas-ronda1
+logs
+revisiones
+build-ronda1.md
+entrada.md
+estado.json
+spec.md
+traza.jsonl
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\app\\.git\\refs\\heads\\main'; Get-Content -Raw 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\app\\.git\\worktrees\\T-20261115-003\\HEAD'; Get-ChildItem 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\app\\.git\\objects' -Name; Get-ChildItem 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261115-003\\logs' -Name; node --version" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+ succeeded in 3529ms:
+966e8e048299a6b0dd6578d4824c93b45e2bcdcc
+
+ref: refs/heads/fabrica/T-20261115-003
+
+02
+05
+09
+0b
+0d
+14
+1b
+1f
+21
+22
+24
+27
+2f
+31
+32
+34
+36
+39
+3a
+3c
+44
+46
+47
+48
+4a
+51
+52
+53
+56
+5b
+63
+6b
+6e
+70
+71
+72
+75
+77
+7d
+7e
+7f
+87
+8b
+8d
+90
+93
+96
+9b
+9d
+9f
+a0
+a3
+af
+b2
+b5
+b7
+ba
+bc
+bf
+c6
+ca
+d6
+d8
+dd
+e8
+eb
+ef
+f1
+f5
+f8
+fb
+fd
+info
+pack
+revisor-seguridad-ronda1.log
+revisor-ui-ronda1.log
+revisor-ux-ronda1.log
+v24.16.0
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@'
+const fs=require(\"fs\"), z=require(\"zlib\"), path=require(\"path\");
+const g=\"C:\\\\Users\\\\FRANC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\41063b14ed460bed\\\\c1964097-0211-4b43-884b-4cfaddf58d66\\\\scratchpad\\\\demo-completa\\\\proyectos\\\\cafeteria-luna\\\\app\\\\.git\";
+function obj(h){const b=z.inflateSync(fs.readFileSync(path.join(g,\"objects\",h.slice(0,2),h.slice(2))));return b.subarray(b.indexOf(0)+1)}
+function tree(h,p=\"\",out={}){const b=obj(h);let i=0;while(i<b.length){const sp=b.indexOf(32,i), n=b.indexOf(0,sp),mode=b.subarray(i,sp).toString(),name=b.subarray(sp+1,n).toString(),sha=b.subarray(n+1,n+21).toString(\"hex\");i=n+21;if(mode===\"40000\")tree(sha,p+name+\"/\",out);else out[p+name]=sha;}return out;}
+const base=fs.readFileSync(path.join(g,\"refs/heads/main\"),\"utf8\").trim(),head=fs.readFileSync(path.join(g,\"refs/heads/fabrica/T-20261115-003\"),\"utf8\").trim();
+const bc=obj(base).toString(),hc=obj(head).toString();console.log(\"BASE\",base,\"HEAD\",head,\"HEAD_PARENT\",hc.match(/parent (\\w+)/)?.[1]);
+const a=tree(bc.match(/"'^tree ('"\\w+)/)[1]),b=tree(hc.match(/"'^tree ('"\\w+)/)[1]);for(const f of new Set([...Object.keys(a),...Object.keys(b)])){if(a[f]===b[f])continue;console.log(\"CHANGED\",f,a[f]?\"MODIFIED\":\"ADDED\");if(f===\"src/main.ts\"){console.log(\"BEFORE\\n\"+obj(a[f]).toString());console.log(\"AFTER\\n\"+obj(b[f]).toString());}}
+
+'@ | node" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-003\revisiones
+ succeeded in 4184ms:
+BASE 966e8e048299a6b0dd6578d4824c93b45e2bcdcc HEAD 1b9526a60e51a2fd0509c4c7664c05f792f386c6 HEAD_PARENT 966e8e048299a6b0dd6578d4824c93b45e2bcdcc
+CHANGED src/main.test.ts MODIFIED
+CHANGED src/main.ts MODIFIED
+BEFORE
+import "./styles/tokens.css";
+import "./styles/main.css";
+import "./styles/menu.css";
+import { business } from "./data/business";
+import { buildWhatsAppUrl } from "./lib/whatsapp";
+import { renderHero } from "./sections/hero";
+import { renderMenu } from "./sections/menu";
+import { renderReserve } from "./sections/reserve";
+
+function requireElement(doc: Document, selector: string): Element {
+  const element = doc.querySelector(selector);
+  if (!element) {
+    throw new Error(`Mount container not found in index.html: ${selector}`);
+  }
+  return element;
+}
+
+/** Paints the business data into the static skeleton of index.html (D-04). */
+export function mount(doc: Document): void {
+  // Look up every container first so a missing one fails before the page is half painted.
+  const hero = requireElement(doc, "#inicio");
+  const menuHeading = requireElement(doc, "#menu h2");
+  const reserveHeading = requireElement(doc, "#reservar h2");
+
+  // Built once so both reserve buttons point to exactly the same URL.
+  const reserveUrl = buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message);
+  // Built before painting: an invalid price throws here, leaving the page untouched.
+  const menu = renderMenu(business.menu, { locale: business.locale, currency: business.currency });
+
+  hero.append(renderHero({ name: business.name, slogan: business.slogan }, reserveUrl));
+  menuHeading.after(menu);
+  reserveHeading.after(renderReserve(reserveUrl));
+}
+
+mount(document);
+
+AFTER
+import "./styles/tokens.css";
+import "./styles/main.css";
+import "./styles/menu.css";
+import "./styles/location.css";
+import { business } from "./data/business";
+import { buildWhatsAppUrl } from "./lib/whatsapp";
+import { renderHero } from "./sections/hero";
+import { renderLocation } from "./sections/location";
+import { renderMenu } from "./sections/menu";
+import { renderReserve } from "./sections/reserve";
+
+function requireElement(doc: Document, selector: string): Element {
+  const element = doc.querySelector(selector);
+  if (!element) {
+    throw new Error(`Mount container not found in index.html: ${selector}`);
+  }
+  return element;
+}
+
+/** Paints the business data into the static skeleton of index.html (D-04). */
+export function mount(doc: Document): void {
+  // Look up every container first so a missing one fails before the page is half painted.
+  const hero = requireElement(doc, "#inicio");
+  const menuHeading = requireElement(doc, "#menu h2");
+  const locationHeading = requireElement(doc, "#horario h2");
+  const reserveHeading = requireElement(doc, "#reservar h2");
+
+  // Built once so both reserve buttons point to exactly the same URL.
+  const reserveUrl = buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message);
+  // Built before painting: an invalid price or coordinate throws here, leaving the page untouched.
+  const menu = renderMenu(business.menu, { locale: business.locale, currency: business.currency });
+  const location = renderLocation({
+    hours: business.hours,
+    address: business.address,
+    coordinates: business.coordinates,
+  });
+
+  hero.append(renderHero({ name: business.name, slogan: business.slogan }, reserveUrl));
+  menuHeading.after(menu);
+  locationHeading.after(location);
+  reserveHeading.after(renderReserve(reserveUrl));
+}
+
+mount(document);
+
+CHANGED src/lib/maps.test.ts ADDED
+CHANGED src/lib/maps.ts ADDED
+CHANGED src/sections/location.test.ts ADDED
+CHANGED src/sections/location.ts ADDED
+CHANGED src/styles/location.css ADDED
+CHANGED src/styles/location.test.ts ADDED
+
+codex
+REVISOR: ux
+VEREDICTO: OK
+Hallazgos:
+Sin hallazgos. Horario y dirección legibles en móvil, textos claros y «Cómo llegar» disponible aunque el mapa no cargue. Las capturas y la comprobación manual documentada respaldan el flujo y la navegación por teclado.
+tokens used
+46.164
+REVISOR: ux
+VEREDICTO: OK
+Hallazgos:
+Sin hallazgos. Horario y dirección legibles en móvil, textos claros y «Cómo llegar» disponible aunque el mapa no cargue. Las capturas y la comprobación manual documentada respaldan el flujo y la navegación por teclado.

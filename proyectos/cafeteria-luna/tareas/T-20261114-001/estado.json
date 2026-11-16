@@ -1,0 +1,13 @@
+{
+  "id": "T-20261114-001",
+  "proyecto": "cafeteria-luna",
+  "tipo": "tarea",
+  "origen": "bandeja/001-inicializar-proyecto.md",
+  "creada": "2026-11-14T16:11:43.404Z",
+  "rama": "fabrica/T-20261114-001",
+  "base": "main",
+  "trabajo": "proyectos\\cafeteria-luna\\.worktrees\\T-20261114-001",
+  "estacion": "cierre",
+  "resultado": "INTEGRADA",
+  "actualizada": "2026-11-14T16:44:18.467Z"
+}

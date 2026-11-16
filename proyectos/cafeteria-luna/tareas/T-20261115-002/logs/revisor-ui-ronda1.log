@@ -1,0 +1,1567 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\revisiones\revisor-ui-ronda1.md -m gpt-6-astra -s workspace-write -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\revisiones --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **revisor de UI**. Juzgas lo que se ve.
+
+Si la spec dice `Toca interfaz: no`, responde solo `REVISOR: ui` / `VEREDICTO: NO_APLICA`.
+
+## Mira la interfaz de verdad (si puedes)
+1. Comprueba si hay Playwright: `npx --no-install playwright --version`.
+2. Si lo hay: en la carpeta de trabajo ejecuta el build y sirve el resultado (p. ej. `npm run preview`
+   en segundo plano), y toma capturas a 375×812 y 1280×800 con
+   `npx playwright screenshot --viewport-size=375,812 <url> tareas/<ID>/revisiones/ui-movil.png`
+   (y otra de escritorio). Ábrelas con Read para verlas. Detén el servidor al acabar.
+3. Si no hay Playwright, revisa el código de la interfaz y dilo en tu informe.
+
+## Qué miras
+- **Tokens**: colores, tipografías, espaciados y radios salen de `brain/diseno.md`. Nada escrito a mano.
+- **Responsive**: sin scroll horizontal en 375 px, jerarquía clara en escritorio.
+- **Accesibilidad**: contraste AA, `alt` en imágenes, foco visible, HTML semántico, tamaños táctiles ≥ 44 px.
+- **Consistencia**: los componentes se parecen a los ya existentes en `app/`.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ui
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Capturas: rutas | "no disponibles: motivo"
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea — problema — qué se espera
+```
+Nunca modificas el código de la app.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-002 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-002): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-002
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\revisiones
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a1dd2b-dc8d-7ff3-ac92-10d4f93fa8c6
+--------
+user
+Eres el **revisor de UI**. Juzgas lo que se ve.
+
+Si la spec dice `Toca interfaz: no`, responde solo `REVISOR: ui` / `VEREDICTO: NO_APLICA`.
+
+## Mira la interfaz de verdad (si puedes)
+1. Comprueba si hay Playwright: `npx --no-install playwright --version`.
+2. Si lo hay: en la carpeta de trabajo ejecuta el build y sirve el resultado (p. ej. `npm run preview`
+   en segundo plano), y toma capturas a 375×812 y 1280×800 con
+   `npx playwright screenshot --viewport-size=375,812 <url> tareas/<ID>/revisiones/ui-movil.png`
+   (y otra de escritorio). Ábrelas con Read para verlas. Detén el servidor al acabar.
+3. Si no hay Playwright, revisa el código de la interfaz y dilo en tu informe.
+
+## Qué miras
+- **Tokens**: colores, tipografías, espaciados y radios salen de `brain/diseno.md`. Nada escrito a mano.
+- **Responsive**: sin scroll horizontal en 375 px, jerarquía clara en escritorio.
+- **Accesibilidad**: contraste AA, `alt` en imágenes, foco visible, HTML semántico, tamaños táctiles ≥ 44 px.
+- **Consistencia**: los componentes se parecen a los ya existentes en `app/`.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ui
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Capturas: rutas | "no disponibles: motivo"
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea — problema — qué se espera
+```
+Nunca modificas el código de la app.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-002 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-002): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-002
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Leeré las instrucciones y la spec para determinar si corresponde revisar la interfaz.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\CLAUDE.md'; Get-Content -LiteralPath '..\\spec.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\revisiones
+ succeeded in 3447ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+entrada â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+# T-20261115-002 Â· SecciÃ³n MenÃº con bebidas y postres
+Tipo: tarea      Toca interfaz: sÃ­      Texto visible para el usuario: sÃ­
+
+Cubre de `brain/spec.md`: CA-02.1, CA-02.2 y CA-02.3. **CA-02.4 queda pendiente** (la carta real del
+negocio es un hueco de `huecos.md`; mientras rija D-00 se usan los productos ficticios de `business.ts`).
+
+## Contexto (quÃ© dice el brain que importa aquÃ­)
+- **D-06**: los precios se guardan como nÃºmero y se formatean en **un Ãºnico sitio**,
+  `src/lib/formatPrice.ts`, con `Intl.NumberFormat(locale, { style: "currency", currency })` usando
+  `business.locale` / `business.currency` (hoy `es-MX` / `MXN`). Si la moneda cambia, solo cambian esos
+  dos campos de `business.ts`: por eso `formatPrice.ts` no puede llevar `es-MX` ni `MXN` escritos.
+  Con `es-MX`/`MXN`, `Intl` produce `$45.00` (dos decimales: es lo que fija D-06; mostrar `$45` sin
+  decimales exigirÃ­a una decisiÃ³n nueva, ver el hueco existente "Â¿En quÃ© moneda y formatoâ€¦?").
+- **D-00**: productos y precios viven **solo** en `src/data/business.ts` (ficticios). `menu.ts` los
+  recibe por parÃ¡metro; no importa `business` ni copia nombres o precios. `business.test.ts` ya
+  garantiza â‰¥ 3 productos por grupo, nombre no vacÃ­o y precio finito > 0.
+- **D-04**: `index.html` ya tiene `section#menu` con su `<h2 id="menu-titulo">MenÃº</h2>` estÃ¡tico;
+  `src/main.ts` monta el contenido tras ese `<h2>` con una funciÃ³n `datos â†’ HTMLElement` que usa solo
+  `textContent`/`setAttribute` (nunca `innerHTML`). **No hace falta tocar `index.html`.**
+- **D-01**: la secciÃ³n es un mÃ³dulo `camelCase.ts` en `src/sections/` (`menu.ts`, ya previsto en
+  `arquitectura.md`); `lib/` contiene funciones puras sin DOM.
+- **D-02 / estilo-codigo.md**: CSS plano mobile-first, solo `var(--â€¦)`; nada de colores ni tamaÃ±os a
+  mano.
+- **D-03**: Vitest + jsdom; jsdom no pinta, asÃ­ que el "sin scroll horizontal a 375 px" y la fila
+  nombre+precio se comprueban a mano y quedan en `build-rondaN.md`.
+- **D-08** (pendiente): `main.css` ya mide 317 lÃ­neas (guÃ­a ~200, `arquitectura.md`: "Archivos de mÃ¡s
+  de ~200 lÃ­neas se dividen"). Para no agrandar esa deuda, los estilos del menÃº van en un archivo nuevo
+  `src/styles/menu.css` (ver "Decisiones de esta spec"); la divisiÃ³n de `main.css` sigue en la tarea 006.
+- **diseno.md â†’ Tarjeta**: cada grupo (Bebidas / Postres) es una tarjeta: `background:
+  var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  padding: var(--space-5); box-shadow: var(--shadow-sm)`; informativa, sin hover. Fila de producto:
+  nombre a la izquierda (`--text-lg`, `--color-text`) y precio a la derecha (`--text-lg`, peso 700,
+  `--color-primary`), alineados a la lÃ­nea base; si el nombre es largo, no se separa de su precio
+  (CA-02.3). TÃ­tulos de grupo `h3` en `--text-xl`. **Rejilla**: 1 columna en mÃ³vil; desde 768 px, 2
+  columnas (Bebidas | Postres) con `gap: var(--space-6)`. Contrastes ya calculados: precio `primary`
+  sobre `surface-raised` 8.29:1, nombre `text` sobre `surface-raised` 16.30:1.
+- **Estado del cÃ³digo (main = worktree)**: no existen `src/lib/formatPrice.ts` ni
+  `src/sections/menu.ts`. `main.ts` monta portada y Reservar con `requireElement` (busca todos los
+  contenedores antes de pintar). `#menu` es la 2.Âª secciÃ³n, asÃ­ que su fondo es `--color-surface`
+  (`main > section:nth-of-type(even)`).
+
+## Decisiones de esta spec (a registrar en `decisiones.md` al cerrar, si el aprobador las acepta)
+1. **Marcado**: lista de definiciÃ³n. Cada grupo es un `<div>` con un `<h3>` y un `<dl>`; cada producto
+   es un `<div>` hijo del `<dl>` con exactamente un `<dt>` (nombre) y un `<dd>` (precio). El `<div>`
+   envolvente es HTML vÃ¡lido dentro de `<dl>` y permite maquetar nombre y precio en la misma fila. Los
+   grupos son `<div>` y no `<section>`, para no crear landmarks extra.
+2. **Firma**: `formatPrice(price, locale, currency)` es pura y recibe `locale`/`currency` por
+   parÃ¡metro; `renderMenu(menu, { locale, currency })` importa `formatPrice`; `main.ts` le pasa
+   `business.menu`, `business.locale` y `business.currency`.
+3. **Precio invÃ¡lido**: `formatPrice` lanza `Error` si el precio no es un nÃºmero finito â‰¥ 0 (fallo
+   visible en vez de pintar `$NaN`).
+4. **Estilos del menÃº en `src/styles/menu.css`**, importado en `main.ts` justo despuÃ©s de `main.css`.
+
+## Objetivo
+Que la secciÃ³n MenÃº muestre dos tarjetas tituladas "Bebidas" y "Postres" con cada producto de
+`business.ts` como nombre + precio formateado en la moneda local, legible en una fila a 375 px sin
+scroll horizontal, y en dos columnas desde 768 px.
+
+## Textos visibles (exactos)
+| DÃ³nde | Texto |
+|---|---|
+| `<h3>` del primer grupo | `Bebidas` |
+| `<h3>` del segundo grupo | `Postres` |
+| Nombre de cada producto (`<dt>`) | `item.name` de los datos (no se escribe a mano) |
+| Precio de cada producto (`<dd>`) | `formatPrice(item.price, locale, currency)` (hoy, p. ej., `$45.00`) |
+
+El `<h2>` `MenÃº` ya existe en `index.html` y no cambia. El aviso del pie ya dice que el menÃº y los
+precios son de ejemplo.
+
+## Criterios de aceptaciÃ³n
+### Formato de precio (`src/lib/formatPrice.ts`; pruebas en `src/lib/formatPrice.test.ts`)
+- **CA-1** â€” Dado `formatPrice(price, locale, currency)`, cuando se llama con `(45, "es-MX", "MXN")`,
+  entonces devuelve exactamente lo mismo que
+  `new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" }).format(45)` y ese texto
+  contiene el sÃ­mbolo `$` y `45` (CA-02.2). Con `(1250.5, "es-MX", "MXN")` devuelve el mismo resultado
+  que `Intl` para esos datos (separador de miles y decimales los decide `Intl`, no cÃ³digo propio).
+- **CA-2** â€” Dado otro `locale`/`currency` (p. ej. `("es-ES", "EUR")`), cuando se formatea `45`,
+  entonces el resultado coincide con `Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" })`
+  y contiene `â‚¬` (prueba de que la moneda sale de los parÃ¡metros, D-06).
+- **CA-3** â€” Dado un precio `NaN`, `Infinity` o negativo, cuando se llama a `formatPrice`, entonces lanza
+  un `Error`. `0` es vÃ¡lido.
+- **CA-4** â€” Dado el cÃ³digo fuente de `formatPrice.ts`, cuando una prueba lo lee, entonces contiene
+  `Intl.NumberFormat` y `style: "currency"` (o `'currency'`), no contiene los literales `es-MX` ni `MXN`,
+  no importa `business` y no usa el DOM (`document`, `window`).
+
+### SecciÃ³n MenÃº (`src/sections/menu.ts`; pruebas en `src/sections/menu.test.ts`)
+- **CA-5** â€” Dada `renderMenu(menu, { locale, currency })` con datos de prueba (p. ej. 2 bebidas y 3
+  postres), cuando se llama, entonces devuelve un elemento con exactamente **dos** grupos, en este
+  orden: el primero con un `<h3>` de texto exacto `Bebidas` y el segundo con un `<h3>` `Postres`; cada
+  grupo contiene un `<dl>` (CA-02.1).
+- **CA-6** â€” Dado el mismo resultado, cuando se recorre cada `<dl>`, entonces sus hijos son solo
+  `<div>`, uno por producto y **en el mismo orden** que los datos; cada `<div>` tiene exactamente un
+  `<dt>` cuyo texto es `item.name` y un `<dd>` cuyo texto es `formatPrice(item.price, locale, currency)`
+  (CA-02.2). El nÃºmero de `<dt>` del grupo Bebidas es igual a `menu.drinks.length` y el de Postres a
+  `menu.desserts.length`.
+- **CA-7** â€” Dado un nombre de producto que contiene HTML (p. ej. `<img src=x onerror=alert(1)>`), cuando
+  se pinta el menÃº, entonces aparece como texto literal en el `<dt>` y no se crea ningÃºn `<img>`.
+- **CA-8** â€” Dado el cÃ³digo fuente de `menu.ts`, cuando una prueba lo lee, entonces no contiene
+  `innerHTML`, `outerHTML`, `insertAdjacentHTML` ni `Intl.NumberFormat` (el formato vive solo en
+  `formatPrice.ts`), importa `formatPrice` de `../lib/formatPrice`, no importa `business` y no contiene
+  ningÃºn nombre de producto de `business.menu` (D-00).
+
+### Montaje (`src/main.ts`; pruebas nuevas en `src/main.test.ts`)
+- **CA-9** â€” Dado el `<body>` de `index.html` cargado en jsdom, cuando se ejecuta el montaje, entonces el
+  elemento que sigue al `<h2>` de `#menu` es el menÃº: contiene los `<h3>` `Bebidas` y `Postres`, tantos
+  `<dt>` como `business.menu.drinks.length + business.menu.desserts.length`, y cada producto de
+  `business.menu` aparece con su nombre y con
+  `formatPrice(item.price, business.locale, business.currency)` como precio (hoy, por ejemplo,
+  `CafÃ© americano` â†’ `$45.00`). La pÃ¡gina sigue teniendo exactamente un `<h1>` y `#menu` sigue teniendo
+  exactamente un `<h2>`.
+- **CA-10** â€” Dado un documento sin `#menu h2`, cuando se ejecuta `mount(doc)`, entonces lanza un `Error`
+  cuyo mensaje nombra ese selector **y** no se ha pintado nada (ni la portada ni el botÃ³n de reserva:
+  los contenedores se buscan todos antes de pintar).
+- **CA-11** â€” Dadas las pruebas existentes de `src/main.test.ts` (CA-10, CA-11, CA-12 de
+  T-20261115-001), `src/page.test.ts`, `src/project.test.ts`, `src/styles/styles.test.ts`,
+  `src/sections/*.test.ts`, `src/data/business.test.ts` y `src/lib/whatsapp.test.ts`, cuando se ejecuta
+  `npm run test`, entonces pasan **sin modificar** ninguna de ellas (solo se aÃ±aden casos nuevos).
+
+### Estilos (`src/styles/menu.css`; pruebas que leen el archivo, sin comentarios)
+- **CA-12** â€” Dado `src/main.ts`, cuando se lee, entonces importa `./styles/menu.css` despuÃ©s de
+  `./styles/main.css`; y `src/styles/main.css` no cambia en esta tarea.
+- **CA-13** â€” Dado `src/styles/menu.css`, cuando una prueba lo lee, entonces: no contiene literales de
+  color (`#` hexadecimal, `rgb(`, `rgba(`, `hsl(`, `hsla(`); la regla del grupo usa
+  `var(--color-surface-raised)`, `var(--color-border)`, `var(--radius-md)`, `var(--shadow-sm)` y
+  `var(--space-5)`; la regla del precio (`dd` del menÃº) tiene `white-space: nowrap`, `font-weight: 700`
+  y `var(--color-primary)`; la regla del nombre (`dt` del menÃº) tiene `min-width: 0` y permite partir
+  la lÃ­nea (`overflow-wrap: anywhere` o `break-word`); y hay un bloque `@media (min-width: 768px)` con
+  una regla de la lista de grupos que define dos columnas (`grid-template-columns` con dos pistas, p. ej.
+  `1fr 1fr` o `repeat(2, â€¦)`) y `gap: var(--space-6)`.
+
+### ComprobaciÃ³n manual (jsdom no pinta; se deja en `build-rondaN.md`)
+- **CA-14** â€” Dado `npm run dev` a **375Ã—667** (DevTools), cuando se navega a `#menu`, entonces: (a) se
+  ven las tarjetas `Bebidas` y `Postres` una debajo de otra, cada producto con su precio en la misma
+  fila; (b) no hay scroll horizontal (`document.documentElement.scrollWidth <= 375`); (c) editando **en
+  DevTools** (no en `business.ts`) el texto de un `<dt>` a un nombre largo, p. ej. `Cheesecake de frutos
+  rojos con salsa de maracuyÃ¡ y crumble de nuez`, el nombre pasa a varias lÃ­neas, el precio no se parte
+  ni se separa de Ã©l y sigue sin haber scroll horizontal (CA-02.3); (d) a **768 px** o mÃ¡s, las dos
+  tarjetas quedan en dos columnas; (e) el precio se lee en canela (`primary`) y en negrita. El
+  constructor anota cada punto (y una captura si puede) en `build-rondaN.md`.
+
+### Puertas
+- **CA-15** â€” Dada la carpeta de trabajo, cuando se ejecuta `node scripts/verificar.mjs
+  proyectos/cafeteria-luna/.worktrees/T-20261115-002` desde la raÃ­z de la fÃ¡brica, entonces `lint`,
+  `typecheck`, `test` y `build` salen `ok` (ninguna `omitida`).
+
+## Plan
+1. **TDD â€” formato**: `src/lib/formatPrice.test.ts` (CA-1 a CA-4). Implementar
+   `src/lib/formatPrice.ts`: `formatPrice(price: number, locale: string, currency: string): string`,
+   con la guarda de CA-3 y `Intl.NumberFormat(locale, { style: "currency", currency })`.
+2. **TDD â€” secciÃ³n**: `src/sections/menu.test.ts` (CA-5 a CA-8). Implementar `src/sections/menu.ts`:
+   `renderMenu(menu: Business["menu"], money: { locale: string; currency: string }): HTMLElement`
+   (tipos con `import type`, que no importa el valor `business`). Un contenedor (p. ej.
+   `div.menu`) con dos `div.menu__group` â†’ `h3.menu__title` + `dl.menu__list` â†’ `div.menu__item` â†’
+   `dt.menu__name` + `dd.menu__price`. Una funciÃ³n auxiliar para un grupo evita duplicar cÃ³digo.
+3. **TDD â€” montaje**: aÃ±adir a `src/main.test.ts` casos nuevos (CA-9, CA-10) sin tocar los existentes.
+   En `src/main.ts`: `requireElement(doc, "#menu h2")` junto a los otros (antes de pintar), y
+   `menuHeading.after(renderMenu(business.menu, { locale: business.locale, currency: business.currency }))`;
+   aÃ±adir `import "./styles/menu.css";` tras el de `main.css`.
+4. **TDD â€” estilos**: pruebas de CA-12 y CA-13 (en `src/styles/styles.test.ts` como `describe` nuevo o en
+   un `src/styles/menu.test.ts`). Escribir `src/styles/menu.css` mobile-first: lista de grupos en
+   `display: grid` con `gap: var(--space-5)` (1 columna); tarjeta segÃºn `diseno.md`; `h3` con
+   `--text-xl` y `margin-bottom: var(--space-4)`; `dl` sin margen; cada `div.menu__item` con
+   `display: grid; grid-template-columns: 1fr auto; align-items: baseline; column-gap: var(--space-4)`
+   y separaciÃ³n vertical con tokens (separador opcional en `--color-border`, solo decorativo); `dt` con
+   `--text-lg`, `--color-text`, `min-width: 0`, `overflow-wrap: anywhere`; `dd` con `margin: 0`,
+   `--text-lg`, peso 700, `--color-primary`, `white-space: nowrap`, `text-align: end`; y
+   `@media (min-width: 768px)` con `grid-template-columns: 1fr 1fr; gap: var(--space-6)`.
+5. ComprobaciÃ³n manual CA-14 y anotarla en `build-rondaN.md`.
+6. `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261115-002` hasta que las cuatro
+   puertas pasen (CA-15).
+
+Archivos que cambian: `src/main.ts`, `src/main.test.ts` (solo casos aÃ±adidos) y, si se eligen ahÃ­ las
+pruebas de CSS, `src/styles/styles.test.ts` (solo un `describe` aÃ±adido). Nuevos:
+`src/lib/formatPrice.ts`, `src/lib/formatPrice.test.ts`, `src/sections/menu.ts`,
+`src/sections/menu.test.ts`, `src/styles/menu.css`. **No deben cambiar**: `index.html`,
+`src/data/business.ts`, `src/lib/whatsapp.ts`, `src/sections/hero.ts`, `src/sections/reserve.ts`,
+`src/styles/main.css`, `src/styles/tokens.css`, `package.json`, `package-lock.json`, `vite.config.ts`,
+`tsconfig.json`, `eslint.config.js`.
+
+## Fuera de alcance
+- **CA-02.4** (productos y precios reales): depende de la carta del negocio (`huecos.md`, D-00). No se
+  toca `business.ts`.
+- Cambiar el formato a precios sin decimales (`$45`) o a otra moneda: D-06 fija la llamada a `Intl`;
+  cualquier cambio necesita decisiÃ³n humana (hueco existente de moneda y formato).
+- AlÃ©rgenos, etiquetas (vegano, sin gluten), descripciones, fotos de productos o mÃ¡s categorÃ­as
+  (hueco existente de alÃ©rgenos; `spec.md` solo pide bebidas y postres).
+- Puntos guÃ­a entre nombre y precio (opcionales en `diseno.md`) y la luna decorativa en los `<h2>`:
+  pulido posterior (tarea 006).
+- SecciÃ³n Horario y ubicaciÃ³n (tarea 005), divisiÃ³n de `main.css` y auditorÃ­a Lighthouse/44 px de toda
+  la pÃ¡gina (tarea 006).
+- Carga de Google Fonts (hueco abierto en T-20261115-001): se siguen usando las pilas de los tokens.
+- Dependencias nuevas (no hacen falta).
+
+## Riesgos / zonas sensibles que toca
+- **Riesgo ALTO** (`zonas-sensibles.txt`): modifica `src/main.ts`; si el montaje falla, la pÃ¡gina queda
+  en blanco o a medias (incluidos los botones de reserva, que se montan en el mismo `mount`). CA-10 y
+  CA-11 lo cubren; requiere **aprobaciÃ³n humana** en el cierre. `formatPrice.ts`, `menu.ts` y
+  `menu.css` no son zonas sensibles.
+- Orden de montaje: `#menu h2` debe buscarse **antes** de pintar nada, como los demÃ¡s contenedores; si
+  se busca despuÃ©s, un fallo dejarÃ­a la portada pintada y el resto vacÃ­o (CA-10).
+- Datos engaÃ±osos: un precio mal formateado engaÃ±a al cliente. El formato sale siempre de `Intl` con
+  los datos de `business.ts` (CA-1, CA-2, CA-9) y un precio invÃ¡lido falla en vez de pintarse (CA-3).
+- XSS: nombres solo con `textContent` (CA-7, CA-8).
+- Pruebas frÃ¡giles por ICU: comparar con la salida de `Intl.NumberFormat` en lugar de cadenas fijas
+  (salvo `$`/`â‚¬` y los dÃ­gitos); `Intl` puede usar espacios no separables en otros locales (p. ej.
+  `45,00 â‚¬`).
+- Layout a 375 px: `dt` sin `min-width: 0` o `dd` sin `nowrap` provocan desbordes o precios partidos;
+  solo se ve en el navegador (CA-13 fija las reglas, CA-14 lo comprueba).
+- Encabezados: los `<h3>` van dentro de `#menu` bajo su `<h2>`, sin saltar niveles; no aÃ±adir otro
+  `<h2>` ni `<h1>` (CA-9).
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding utf8 '..\\..\\..\\..\\..\\.claude\\agents\\revisor-ui.md'; Get-Content -Encoding utf8 '..\\..\\..\\brain\\index.md'; Get-Content -Encoding utf8 '..\\..\\..\\brain\\diseno.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\revisiones
+ succeeded in 4171ms:
+---
+name: revisor-ui
+description: Revisor 3 de 4. Revisa con contexto limpio la interfaz visual (tokens, responsive, accesibilidad), con capturas si es posible. Solo dictamina.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: sonnet
+---
+
+Eres el **revisor de UI**. Juzgas lo que se ve.
+
+Si la spec dice `Toca interfaz: no`, responde solo `REVISOR: ui` / `VEREDICTO: NO_APLICA`.
+
+## Mira la interfaz de verdad (si puedes)
+1. Comprueba si hay Playwright: `npx --no-install playwright --version`.
+2. Si lo hay: en la carpeta de trabajo ejecuta el build y sirve el resultado (p. ej. `npm run preview`
+   en segundo plano), y toma capturas a 375×812 y 1280×800 con
+   `npx playwright screenshot --viewport-size=375,812 <url> tareas/<ID>/revisiones/ui-movil.png`
+   (y otra de escritorio). Ábrelas con Read para verlas. Detén el servidor al acabar.
+3. Si no hay Playwright, revisa el código de la interfaz y dilo en tu informe.
+
+## Qué miras
+- **Tokens**: colores, tipografías, espaciados y radios salen de `brain/diseno.md`. Nada escrito a mano.
+- **Responsive**: sin scroll horizontal en 375 px, jerarquía clara en escritorio.
+- **Accesibilidad**: contraste AA, `alt` en imágenes, foco visible, HTML semántico, tamaños táctiles ≥ 44 px.
+- **Consistencia**: los componentes se parecen a los ya existentes en `app/`.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ui
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+Capturas: rutas | "no disponibles: motivo"
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea — problema — qué se espera
+```
+Nunca modificas el código de la app.
+# Brain — índice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | Léelo cuando… |
+|---|---|---|
+| `vision.md` | Problema, público, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar código |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por qué (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavía NO sabe | te falte información |
+| `log.md` | Historial de tareas cerradas | quieras saber qué se hizo |
+
+## Cómo se mantiene
+- Decisión nueva → entrada en `decisiones.md` (con fecha y tarea que la originó).
+- Duda que nadie resolvió → `huecos.md`. No inventes la respuesta.
+- Tarea cerrada → entrada en `log.md`.
+# Sistema de diseño
+
+Cafetería Luna: cercana, cálida, de barrio, con cuidado por el producto (`vision.md`). Mobile-first
+desde 375 px. CSS plano con custom properties (D-02): el bloque de la sección "Tokens CSS" va tal
+cual en `src/styles/tokens.css`; el resto del CSS solo usa `var(--…)`.
+
+Notas de alcance:
+- **Modo oscuro: no aplica.** La spec no lo pide; se entrega solo el tema claro. Si se pide después,
+  se registra una decisión nueva y se añade un bloque `@media (prefers-color-scheme: dark)`.
+- La marca no tiene colores/logo/tipografía (`vision.md`: PENDIENTE). Esta paleta es propuesta del
+  diseñador y sustituible cambiando solo los valores de `tokens.css`.
+
+## Tokens
+### Colores (HEX)
+| Token | HEX | Uso |
+|---|---|---|
+| `--color-bg` | `#FBF6EE` | Fondo de página (crema) |
+| `--color-surface` | `#F3EADB` | Secciones alternas, cabecera, tarjetas sobre fondo |
+| `--color-surface-raised` | `#FFFFFF` | Tarjetas elevadas, tabla de horario, input |
+| `--color-text` | `#2B1D14` | Texto principal (espresso) |
+| `--color-text-muted` | `#6B5646` | Texto secundario, precios secundarios, leyendas |
+| `--color-primary` | `#7A3E1D` | Primario (canela/terracota): botón principal, enlaces, acentos |
+| `--color-primary-hover` | `#62301A` | Hover/active del primario |
+| `--color-on-primary` | `#FFFFFF` | Texto sobre primario |
+| `--color-secondary` | `#E9C46A` | Secundario (dorado luna): detalles, insignias, luna decorativa |
+| `--color-on-secondary` | `#2B1D14` | Texto sobre secundario |
+| `--color-whatsapp` | `#1E6B45` | Botón "Reservar mesa por WhatsApp" (verde oscuro, evoca WhatsApp con AA) |
+| `--color-on-whatsapp` | `#FFFFFF` | Texto sobre el botón de WhatsApp |
+| `--color-success` | `#2E6B3A` | Éxito / "abierto" |
+| `--color-error` | `#B3261E` | Error / "cerrado" |
+| `--color-border` | `#D9C9B3` | Separadores y bordes decorativos (no portan información; ver nota) |
+| `--color-focus` | `#1F4E8C` | Anillo de foco |
+| `--color-footer-bg` | `#2B1D14` | Fondo del pie |
+| `--color-footer-text` | `#F3EADB` | Texto del pie |
+
+Notas: el borde de input usa `--color-text-muted` (no `--color-border`) para cumplir 3:1 en
+componentes de interfaz (ver ratios).
+
+### Tipografía (Google Fonts, 2 familias, `font-display: swap`)
+- **Títulos: Fraunces** (serif cálida con carácter), pesos 600 y 700.
+- **Cuerpo/UI: DM Sans**, pesos 400, 500 y 700.
+- Carga: `https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap`
+  (con `preconnect`; recurso de terceros: zona sensible según arquitectura, requiere aprobación).
+- Fallbacks: `Georgia, "Times New Roman", serif` y `system-ui, -apple-system, "Segoe UI", sans-serif`.
+
+| Token | Móvil (375 px) | ≥ 768 px | Uso |
+|---|---|---|---|
+| `--text-xs` | 0.8125rem (13) | igual | Pie, leyendas |
+| `--text-sm` | 0.9375rem (15) | igual | Texto secundario |
+| `--text-base` | 1rem (16) | 1.0625rem | Cuerpo |
+| `--text-lg` | 1.125rem (18) | 1.25rem | Nombre/precio de producto, lead |
+| `--text-xl` | 1.5rem (24) | 1.75rem | Títulos de grupo (h3) |
+| `--text-2xl` | 1.875rem (30) | 2.5rem | Títulos de sección (h2) |
+| `--text-3xl` | 2.5rem (40) | 3.75rem | Nombre en portada (h1) |
+
+Interlineado: 1.6 cuerpo, 1.2 títulos. Ancho de línea de lectura ≤ 65ch.
+
+### Espaciado, radios, sombras
+Escala de 4 px: `--space-1` 4 · `--space-2` 8 · `--space-3` 12 · `--space-4` 16 · `--space-5` 24 ·
+`--space-6` 32 · `--space-7` 48 · `--space-8` 72 (px). Gutter lateral móvil: `--space-4` (16 px).
+
+Radios: `--radius-sm` 6 px · `--radius-md` 12 px · `--radius-lg` 20 px · `--radius-pill` 999 px.
+Sombras (tinte marrón, suaves): `--shadow-sm` y `--shadow-md` (ver bloque).
+
+## Tokens CSS (`:root`, listo para copiar en `src/styles/tokens.css`)
+```css
+:root {
+  /* Color */
+  --color-bg: #FBF6EE;
+  --color-surface: #F3EADB;
+  --color-surface-raised: #FFFFFF;
+  --color-text: #2B1D14;
+  --color-text-muted: #6B5646;
+  --color-primary: #7A3E1D;
+  --color-primary-hover: #62301A;
+  --color-on-primary: #FFFFFF;
+  --color-secondary: #E9C46A;
+  --color-on-secondary: #2B1D14;
+  --color-whatsapp: #1E6B45;
+  --color-on-whatsapp: #FFFFFF;
+  --color-success: #2E6B3A;
+  --color-error: #B3261E;
+  --color-border: #D9C9B3;
+  --color-focus: #1F4E8C;
+  --color-footer-bg: #2B1D14;
+  --color-footer-text: #F3EADB;
+
+  /* Tipografía */
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.5rem;
+  --leading-body: 1.6;
+  --leading-heading: 1.2;
+
+  /* Espaciado (escala de 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgb(43 29 20 / 0.08), 0 1px 3px rgb(43 29 20 / 0.06);
+  --shadow-md: 0 4px 12px rgb(43 29 20 / 0.12), 0 2px 4px rgb(43 29 20 / 0.06);
+
+  /* Layout */
+  --container-max: 64rem;      /* 1024 px */
+  --gutter: var(--space-4);
+  --tap-min: 44px;             /* zona táctil mínima (CA-05.2) */
+  --header-height: 56px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --text-base: 1.0625rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.75rem;
+    --text-2xl: 2.5rem;
+    --text-3xl: 3.75rem;
+    --gutter: var(--space-5);
+    --header-height: 64px;
+  }
+}
+```
+
+## Contraste WCAG AA (calculado numéricamente)
+Fórmula WCAG 2.x: luminancia relativa sRGB y ratio (L1+0.05)/(L2+0.05). Umbrales: texto normal
+≥ 4.5:1, texto grande (≥ 24 px, o ≥ 18.66 px en negrita) y componentes de interfaz ≥ 3:1.
+
+| # | Texto / elemento | Fondo | Ratio | Mínimo | Resultado |
+|---|---|---|---|---|---|
+| 1 | `text` #2B1D14 | `bg` #FBF6EE | **15.15:1** | 4.5 | AA/AAA |
+| 2 | `text` #2B1D14 | `surface` #F3EADB | **13.66:1** | 4.5 | AA/AAA |
+| 3 | `text` #2B1D14 | `surface-raised` #FFFFFF | **16.30:1** | 4.5 | AA/AAA |
+| 4 | `text-muted` #6B5646 | `bg` #FBF6EE | **6.41:1** | 4.5 | AA |
+| 5 | `text-muted` #6B5646 | `surface` #F3EADB | **5.78:1** | 4.5 | AA |
+| 6 | `text-muted` #6B5646 | `surface-raised` #FFFFFF | **6.90:1** | 4.5 | AA |
+| 7 | `on-primary` #FFFFFF | `primary` #7A3E1D | **8.29:1** | 4.5 | AA/AAA |
+| 8 | `on-primary` #FFFFFF | `primary-hover` #62301A | **10.73:1** | 4.5 | AA/AAA |
+| 9 | `primary` #7A3E1D (enlaces/texto) | `bg` #FBF6EE | **7.70:1** | 4.5 | AA/AAA |
+| 10 | `primary` #7A3E1D | `surface` #F3EADB | **6.95:1** | 4.5 | AA |
+| 11 | `primary` #7A3E1D | `surface-raised` #FFFFFF | **8.29:1** | 4.5 | AA/AAA |
+| 12 | `on-secondary` #2B1D14 | `secondary` #E9C46A | **9.75:1** | 4.5 | AA/AAA |
+| 13 | `on-whatsapp` #FFFFFF | `whatsapp` #1E6B45 | **6.47:1** | 4.5 | AA |
+| 14 | `whatsapp` #1E6B45 (texto/icono) | `bg` #FBF6EE | **6.02:1** | 4.5 | AA |
+| 15 | `success` #2E6B3A | `bg` #FBF6EE | **5.95:1** | 4.5 | AA |
+| 16 | `success` #2E6B3A | `surface` #F3EADB | **5.37:1** | 4.5 | AA |
+| 17 | `error` #B3261E | `bg` #FBF6EE | **6.08:1** | 4.5 | AA |
+| 18 | `error` #B3261E | `surface` #F3EADB | **5.48:1** | 4.5 | AA |
+| 19 | `footer-text` #F3EADB | `footer-bg` #2B1D14 | **13.66:1** | 4.5 | AA/AAA |
+| 20 | `secondary` #E9C46A (acentos) | `footer-bg` #2B1D14 | **9.75:1** | 3 | AA |
+| 21 | `focus` #1F4E8C (anillo) | `bg` #FBF6EE | **7.72:1** | 3 | AA |
+| 22 | `focus` #1F4E8C (anillo) | `surface` #F3EADB | **6.97:1** | 3 | AA |
+| 23 | borde de input `text-muted` #6B5646 | `bg` #FBF6EE | **6.41:1** | 3 | AA |
+
+Reglas derivadas:
+- **No usar `secondary` (#E9C46A) como texto ni como borde sobre fondos claros**: su contraste con
+  `bg` es insuficiente. Solo como relleno decorativo con `on-secondary`, o sobre `footer-bg`.
+- **No usar `--color-border` (#D9C9B3) como único indicador** de un control o de información; es solo
+  decorativo (separadores). Los bordes de input usan `text-muted`.
+- **El foco nunca se dibuja sobre `primary`**: el contraste foco/primario es 1.0:1 (ilegible). Por eso
+  el anillo es `outline: 3px solid var(--color-focus); outline-offset: 3px;`, que cae sobre el fondo
+  de página/sección (filas 21 y 22) y no sobre el botón.
+- Si en la implementación se coloca texto sobre una foto, añadir velo oscuro y recalcular.
+
+## Componentes base
+Todos: zona táctil ≥ 44×44 px (`--tap-min`), `:focus-visible` con el anillo descrito, transiciones
+≤ 150 ms y desactivadas con `prefers-reduced-motion: reduce`.
+
+### Botón
+Base: `font-family: var(--font-body); font-weight: 700; font-size: var(--text-base); min-height: 48px;
+padding: 0 var(--space-5); border-radius: var(--radius-pill); border: 2px solid transparent;`.
+
+| Variante | Fondo / texto / borde | Uso |
+|---|---|---|
+| `primary` | `primary` / `on-primary` | Acción general |
+| `whatsapp` | `whatsapp` / `on-whatsapp` | **Reservar mesa por WhatsApp** (portada y sección Reservar); con icono de chat a la izquierda (decorativo, `aria-hidden`) |
+| `secondary` (contorno) | transparente / `primary` / borde `primary` | "Cómo llegar" |
+| `ghost` | transparente / `primary` | Enlaces de navegación |
+
+Estados: **hover** = fondo `primary-hover` (whatsapp: oscurecer ~10 %; contorno: fondo `surface`);
+**active** = `translateY(1px)`; **focus-visible** = anillo `focus`; **disabled** = `opacity: .5`,
+`cursor: not-allowed` (el contraste no se exige en deshabilitado, pero no se usa en esta página).
+En móvil el botón principal de portada y de Reservar ocupa el ancho completo del contenedor.
+
+### Tarjeta
+`background: surface-raised; border: 1px solid var(--color-border); border-radius: var(--radius-md);
+padding: var(--space-5); box-shadow: var(--shadow-sm)`.
+Variantes: `plana` (sin sombra, fondo `surface`), `elevada` (`--shadow-md`).
+Uso: grupo de menú (Bebidas / Postres) y bloque de horario. Fila de producto: nombre a la izquierda
+(`--text-lg`, `text`) y precio a la derecha (`--text-lg`, peso 700, `primary`), alineados a la línea
+base con puntos guía opcionales; si el nombre es largo, el precio baja debajo sin romper (CA-02.3).
+Estados: informativa, sin hover (no es interactiva).
+
+### Input
+No hay formularios en esta página (la reserva ocurre en WhatsApp). Se define por coherencia futura:
+`min-height: 48px; padding: 0 var(--space-4); background: surface-raised; border: 2px solid
+var(--color-text-muted); border-radius: var(--radius-sm); font-size: 1rem` (≥ 16 px evita el zoom en
+iOS). Estados: hover = borde `text`; focus-visible = anillo `focus`; error = borde `error` + mensaje
+en `error` con icono; disabled = fondo `surface`, `opacity: .6`. Etiqueta siempre visible encima.
+
+### Cabecera (sticky)
+`position: sticky; top: 0; z-index: 10; height: var(--header-height); background: var(--color-surface);
+border-bottom: 1px solid var(--color-border)`. Contenido: nombre "Cafetería Luna" (Fraunces 700,
+`text`) a la izquierda y navegación (Menú · Horario y ubicación · Reservar) como enlaces `ghost`.
+Móvil: la navegación es una fila horizontal bajo/junto al nombre con `gap: var(--space-2)`, cada
+enlace con 44 px de alto; sin scroll horizontal en 375 px (si no caben, el nombre se acorta a "Luna"
+o la nav pasa a una segunda fila). Enlace de sección activa: subrayado de 3 px en `primary` (no solo
+color). Añadir `scroll-margin-top: var(--header-height)` a las secciones para que el ancla no quede
+tapada. Enlace "Saltar al contenido" visible al recibir foco.
+
+### Pie
+`background: var(--color-footer-bg); color: var(--color-footer-text); padding: var(--space-7)
+var(--gutter)`. Contenido: nombre, dirección corta y aviso de datos de ejemplo (D-00), texto
+`--text-sm`. Enlaces del pie: `footer-text` con subrayado; foco: anillo en `secondary` (9.75:1 sobre
+`footer-bg`). Un pequeño motivo de luna creciente en `secondary` como decoración (`aria-hidden`).
+
+### Sección (patrón)
+Alternar fondos `bg` y `surface` entre secciones; `padding-block: var(--space-7)` (móvil) y
+`var(--space-8)` (≥ 768 px). `h2` en Fraunces `--text-2xl`, color `text`, con una luna creciente
+decorativa en `secondary`.
+
+## Layout y breakpoints
+- Mobile-first: estilos base para 375 px; sin scroll horizontal (`min-width: 0` en hijos flex/grid,
+  `overflow-wrap: anywhere` en textos largos, iframe del mapa con `width: 100%`).
+- Ancho máximo del contenido: `--container-max` (1024 px), centrado, con `padding-inline:
+  var(--gutter)`. Texto corrido ≤ 65ch.
+- Breakpoints (`min-width`): **sm 480 px** · **md 768 px** · **lg 1024 px**.
+- Rejilla: 1 columna en móvil; desde md, Menú en 2 columnas (Bebidas | Postres) con `gap:
+  var(--space-6)`, y Horario y ubicación en 2 columnas (horario | mapa) con `grid-template-columns:
+  1fr 1fr`. Desde lg solo cambia el aire (más `padding`) y el tamaño de h1.
+- Portada: ocupa el alto visible del móvil menos la cabecera (`min-height: calc(100svh -
+  var(--header-height))`) y muestra nombre, eslogan y el botón de WhatsApp sin hacer scroll
+  (CA-01.1, CA-01.2).
+- Mapa: relación 4:3 en móvil, 16:9 desde md; `loading="lazy"` y `title` accesible.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'npx --no-install playwright --version' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-002
+ exited 1 in 4127ms:
+node:internal/modules/cjs/loader:1503
+  throw err;
+  ^
+
+Error: Cannot find module 'C:\Users\FRANC\AppData\Roaming\npm\node_modules\npm\bin\npx-cli.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1500:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1116:12)
+    at Module._load (node:internal/modules/cjs/loader:1285:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v24.16.0
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding utf8 '..\\..\\..\\brain\\vision.md'; Get-Content -Encoding utf8 '..\\..\\..\\brain\\decisiones.md'; Get-ChildItem '..\\..\\..\\.worktrees\\T-20261115-002\\node_modules\\.bin\\*playwright*'; Get-Content -Encoding utf8 '..\\..\\..\\.worktrees\\T-20261115-002\\src\\styles\\menu.css'; Get-Content -Encoding utf8 '..\\..\\..\\.worktrees\\T-20261115-002\\src\\sections\\menu.ts'; Get-Content -Encoding utf8 '..\\..\\..\\.worktrees\\T-20261115-002\\src\\main.ts'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\revisiones
+ succeeded in 3308ms:
+# Visión
+
+## Problema
+Cafetería Luna es una cafetería de especialidad pequeña de barrio. Hoy quien la busca desde el
+móvil no tiene un sitio único donde ver qué ofrece, cuánto cuesta, cuándo abre y dónde está, ni
+una forma rápida de reservar mesa. La información se pierde y algunas visitas no ocurren.
+
+## Público objetivo (avatar)
+- **Quién**: gente joven del barrio (aprox. 18–35 años [PENDIENTE confirmar rango]), que busca un
+  café de calidad, un sitio para quedar o para trabajar un rato.
+- **Dispositivo**: entra casi siempre desde el **móvil**, a menudo con prisa o de camino.
+- **Nivel técnico**: usuario habitual de apps; usa WhatsApp y mapas a diario. No quiere
+  formularios ni registros.
+- **Qué necesita**: saber en segundos qué hay, cuánto cuesta, si está abierto, cómo llegar y
+  reservar con un toque.
+
+## Objetivo de negocio
+- Principal: **reservas de mesa por WhatsApp** iniciadas desde la página.
+- Secundario: visitas a la cafetería (clics en "cómo llegar") y conocimiento de la carta.
+- Métrica de éxito: [PENDIENTE] (p. ej., nº de reservas por WhatsApp al mes atribuibles a la web).
+
+## Marca y tono
+- **Nombre**: Cafetería Luna.
+- **Eslogan**: [PENDIENTE].
+- **Personalidad**: cercana, cálida, de barrio, con cuidado por el producto (café de especialidad).
+- **Tono del texto**: tuteo, frases cortas, sin tecnicismos baristas innecesarios.
+- **Idioma**: español (único idioma).
+- **Colores, logo y tipografía**: [PENDIENTE] (no existe material de marca conocido).
+
+## Referencias
+[PENDIENTE] — el humano no ha indicado sitios que le gusten o no.
+# Decisiones
+
+Lo que está aquí ya se decidió. No se rediscute sin una decisión humana nueva.
+
+<!--
+## D-01 · <título> (AAAA-MM-DD · origen: T-xxxx)
+- Contexto:
+- Decisión:
+- Alternativas descartadas:
+- Consecuencias:
+-->
+
+## D-00 · Datos de negocio de ejemplo para la demo (2026-11-14 · origen: humano)
+- Contexto: los datos reales del negocio están en huecos.md y aún no se conocen.
+- Decisión: mientras tanto se usan datos ficticios claramente marcados (precios en MXN, horario y dirección de ejemplo, WhatsApp +52 000 000 0000). Se guardan en un único archivo de datos para sustituirlos fácilmente.
+- Consecuencias: el sitio no se publica hasta resolver los huecos que bloquean la publicación.
+
+## D-01 · Stack: Vite + TypeScript sin framework (2026-11-14 · origen: arquitecto)
+- Contexto: landing de una sola página, sin backend ni estado. `estandares/stack.md` indica para
+  sitios de una página "HTML + CSS + JS sin framework", y a la vez exige las puertas `lint`,
+  `typecheck`, `test` y `build` vía `npm run` en todo proyecto con `package.json`.
+- Decisión: **Vite** como servidor de desarrollo y build estático, con **TypeScript vanilla** (sin
+  framework de UI). Es lo mínimo que mantiene la regla "sin framework" y da las cuatro puertas.
+  TypeScript tipa el archivo de datos (D-00): al sustituir los datos ficticios por los reales, un
+  campo mal escrito falla en `typecheck` en vez de en producción.
+- Alternativas descartadas: HTML/CSS/JS sin `package.json` (`verificar.mjs` no ejecutaría ninguna
+  puerta y no habría TDD); Astro + Tailwind (más configuración y conceptos para una sola página);
+  Vite + React (framework innecesario: no hay interactividad); JS sin TypeScript (se perdería la
+  puerta `typecheck` y la validación del archivo de datos).
+- Consecuencias: el estándar de estilo "un componente por archivo en `PascalCase.tsx`" no aplica;
+  cada sección es un módulo `camelCase.ts` en `src/sections/` que devuelve un `HTMLElement`.
+
+## D-02 · Estilos con CSS plano y custom properties, sin Tailwind (2026-11-14 · origen: arquitecto)
+- Contexto: pocos estilos, una sola página y el objetivo de Lighthouse ≥ 90.
+- Decisión: CSS plano, mobile-first. Los tokens de `diseno.md` se declaran como custom properties en
+  `src/styles/tokens.css` y el resto de CSS solo usa `var(--…)`.
+- Alternativas descartadas: Tailwind CSS (dependencia y configuración extra para muy poco CSS).
+- Consecuencias: el **diseñador** entrega los tokens como bloque `:root { --… }` listo para copiar en
+  lugar del bloque `theme.extend` de Tailwind.
+
+## D-03 · Puertas de calidad (2026-11-14 · origen: arquitecto)
+- Decisión: `lint` = ESLint 9 (flat config) + typescript-eslint; `typecheck` = `tsc --noEmit`;
+  `test` = `vitest run` con entorno **jsdom**; `build` = `vite build`. Pruebas junto al código
+  (`*.test.ts`).
+- Alternativas descartadas: happy-dom (menos fiel para pruebas de accesibilidad); Playwright en las
+  puertas (pesado para esta fase; Lighthouse y el ancho de 375 px se verifican en la tarea 006).
+- Consecuencias: CA-05.3 (Lighthouse) no es automatizable en `npm run` y se verifica manualmente
+  sobre `npm run preview`, dejando el informe en el rastro de la tarea.
+
+## D-04 · Renderizado: esqueleto estático + datos pintados en cliente (2026-11-14 · origen: arquitecto)
+- Contexto: D-00 exige que todos los datos del negocio vivan en un único archivo.
+- Decisión: `index.html` contiene la estructura estática (landmarks, navegación, encabezados de
+  sección, textos fijos). `src/main.ts` lee `src/data/business.ts` y monta el contenido de cada
+  sección con funciones `datos → HTMLElement` que usan `textContent`/`setAttribute` (nunca
+  `innerHTML` con datos).
+- Alternativas descartadas: datos copiados en el HTML (rompe D-00); prerender en build con un plugin
+  de Vite (más complejo; queda como plan B si Lighthouse móvil baja de 90).
+- Consecuencias: sin JavaScript la página muestra la estructura pero no los datos; aceptable para el
+  público objetivo (móvil moderno).
+
+## D-05 · Integraciones sin claves: WhatsApp, OpenStreetMap y Google Maps URLs (2026-11-14 · origen: arquitecto)
+- Decisión: reserva con enlace `https://wa.me/<dígitos>?text=<mensaje codificado>`; mapa con iframe
+  de OpenStreetMap con marcador y `loading="lazy"`; "Cómo llegar" con
+  `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`.
+- Alternativas descartadas: iframe de Google Maps (más pesado y con cookies de terceros); API de
+  WhatsApp Business (innecesaria: no hay reservas propias, ver spec "No entra"); URI `geo:` (no
+  funciona en iOS ni escritorio).
+- Consecuencias: no hay secretos ni `.env`. Las coordenadas también son datos del negocio y van en
+  `business.ts` (hueco añadido en `huecos.md`).
+
+## D-06 · Formato de precio (2026-11-14 · origen: arquitecto, deriva de D-00)
+- Decisión: los precios se guardan como número y se formatean en un único sitio
+  (`src/lib/formatPrice.ts`) con `Intl.NumberFormat(business.locale, { style: "currency",
+  currency: business.currency })`; hoy `es-MX` / `MXN`.
+- Consecuencias: si el hueco de moneda se resuelve con otra moneda, solo cambian `locale` y
+  `currency` en `business.ts`.
+
+## D-07 · Versiones y TypeScript estricto (2026-11-14 · origen: T-20261114-001)
+- Decisión: vite 7 + vitest 3 + typescript 5 + eslint 9 (por compatibilidad con typescript-eslint 8), versiones fijadas en package-lock.json; instalar con `npm ci`. tsconfig añade noUnusedLocals, noUnusedParameters, noFallthroughCasesInSwitch, verbatimModuleSyntax e isolatedModules sobre `strict`.
+- Pendiente de decisión humana: pasar a ESLint 10 (npm avisa que la 9 ya no tiene soporte).
+
+## D-08 · Cabecera, foco y botón de WhatsApp (2026-11-15 · origen: T-20261115-001)
+- Decisión: por debajo de 768 px la cabecera sticky ocupa dos filas (marca a `--header-height`,
+  navegación a `--tap-min`); `scroll-margin-top` y la altura de la portada restan
+  `header-height + tap-min` en móvil y solo `header-height` desde 768 px.
+- El hover del botón de WhatsApp lo oscurece ~10 % con
+  `color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text))`; su altura mínima es `var(--space-7)` (48 px).
+- `main#contenido` lleva `tabindex="-1"` sin contorno de foco, para que "Saltar al contenido" mueva
+  el foco sin dibujar un anillo alrededor de toda la página.
+- Pendiente: `main.css` mide 317 líneas (guía ~200); dividirlo en la tarea 006.
+
+## D-09 · Sección Menú y orden de montaje (2026-11-15 · origen: T-20261115-002)
+- Marcado: cada grupo es un `<div>` con `<h3>` y `<dl>`; cada producto, un `<div>` con `<dt>` (nombre)
+  y `<dd>` (precio). Grupos en `<div>`, no `<section>`, para no añadir landmarks.
+- `formatPrice(price, locale, currency)` es pura (implementa D-06) y lanza Error si el precio no es
+  finito o es negativo, en vez de pintar `$NaN`. `renderMenu` la importa; `main.ts` le pasa
+  `business.menu`, `business.locale` y `business.currency`.
+- Los estilos de cada sección nueva van en su propio archivo (`src/styles/menu.css`), importado en
+  `main.ts` después de `main.css`; rejilla de 2 columnas desde 768 px con
+  `repeat(2, minmax(0, 1fr))` y `align-items: start`.
+- `mount()` construye todo lo que puede fallar (URL de reserva, menú, futuras secciones) antes de
+  pintar nada: o se pinta la página entera o no se pinta nada.
+/* Sección Menú: tarjetas Bebidas / Postres; solo var(--…) de tokens.css (D-02, brain/diseno.md → Tarjeta). */
+
+/* Móvil: una columna, una tarjeta debajo de otra. */
+.menu {
+  display: grid;
+  gap: var(--space-5);
+}
+
+/* Tarjeta informativa, sin hover. */
+.menu__group {
+  min-width: 0;
+  padding: var(--space-5);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.menu__title {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.menu__list {
+  margin: 0;
+}
+
+/* Nombre a la izquierda y precio a la derecha, en la misma fila y alineados a la línea base. */
+.menu__item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  column-gap: var(--space-4);
+  padding-block: var(--space-3);
+}
+
+/* Separador solo decorativo entre productos. */
+.menu__item + .menu__item {
+  border-top: 1px solid var(--color-border);
+}
+
+.menu__item:first-child {
+  padding-top: 0;
+}
+
+.menu__item:last-child {
+  padding-bottom: 0;
+}
+
+/* Un nombre largo pasa a varias líneas sin empujar el precio fuera (CA-02.3). */
+.menu__name {
+  min-width: 0;
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+/* El precio nunca se parte. */
+.menu__price {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+  white-space: nowrap;
+  text-align: end;
+}
+
+/* Desde 768 px: Bebidas | Postres en dos columnas. */
+@media (min-width: 768px) {
+  .menu {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+    align-items: start;
+  }
+}
+import type { Business, MenuItem } from "../data/business";
+import { formatPrice } from "../lib/formatPrice";
+
+/**
+ * "Menú" section: one card per group (Bebidas, Postres), each a <dl> of name + price rows.
+ * Products, locale and currency arrive as parameters from src/data/business.ts via main.ts (D-00);
+ * prices are formatted only by formatPrice (D-06). Text goes in with textContent only.
+ */
+
+export interface Money {
+  locale: string;
+  currency: string;
+}
+
+function renderGroup(title: string, items: MenuItem[], money: Money): HTMLElement {
+  const group = document.createElement("div");
+  group.className = "menu__group";
+
+  const heading = document.createElement("h3");
+  heading.className = "menu__title";
+  heading.textContent = title;
+
+  const list = document.createElement("dl");
+  list.className = "menu__list";
+  for (const item of items) {
+    const row = document.createElement("div");
+    row.className = "menu__item";
+    const name = document.createElement("dt");
+    name.className = "menu__name";
+    name.textContent = item.name;
+    const price = document.createElement("dd");
+    price.className = "menu__price";
+    price.textContent = formatPrice(item.price, money.locale, money.currency);
+    row.append(name, price);
+    list.append(row);
+  }
+
+  group.append(heading, list);
+  return group;
+}
+
+export function renderMenu(menu: Business["menu"], money: Money): HTMLElement {
+  const container = document.createElement("div");
+  container.className = "menu";
+  container.append(renderGroup("Bebidas", menu.drinks, money), renderGroup("Postres", menu.desserts, money));
+  return container;
+}
+import "./styles/tokens.css";
+import "./styles/main.css";
+import "./styles/menu.css";
+import { business } from "./data/business";
+import { buildWhatsAppUrl } from "./lib/whatsapp";
+import { renderHero } from "./sections/hero";
+import { renderMenu } from "./sections/menu";
+import { renderReserve } from "./sections/reserve";
+
+function requireElement(doc: Document, selector: string): Element {
+  const element = doc.querySelector(selector);
+  if (!element) {
+    throw new Error(`Mount container not found in index.html: ${selector}`);
+  }
+  return element;
+}
+
+/** Paints the business data into the static skeleton of index.html (D-04). */
+export function mount(doc: Document): void {
+  // Look up every container first so a missing one fails before the page is half painted.
+  const hero = requireElement(doc, "#inicio");
+  const menuHeading = requireElement(doc, "#menu h2");
+  const reserveHeading = requireElement(doc, "#reservar h2");
+
+  // Built once so both reserve buttons point to exactly the same URL.
+  const reserveUrl = buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message);
+  // Built before painting: an invalid price throws here, leaving the page untouched.
+  const menu = renderMenu(business.menu, { locale: business.locale, currency: business.currency });
+
+  hero.append(renderHero({ name: business.name, slogan: business.slogan }, reserveUrl));
+  menuHeading.after(menu);
+  reserveHeading.after(renderReserve(reserveUrl));
+}
+
+mount(document);
+
+codex
+La comprobación de Playwright falló porque `npx` apunta a un archivo inexistente; tampoco hay un ejecutable local de Playwright. Continuaré con la revisión del código y dejaré explícito que el comportamiento visual no se pudo verificar en navegador.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'git diff main -- src/main.ts src/styles/main.css src/styles/tokens.css index.html; Get-Content -Encoding utf8 src/styles/main.css; Get-Content -Encoding utf8 index.html; Get-Content -Encoding utf8 src/data/business.ts; Get-Content -Encoding utf8 src/styles/tokens.css' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-002
+ succeeded in 5171ms:
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 1
++ git diff main -- src/main.ts src/styles/main.css src/styles/tokens.cs ...
++ ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+/* Estilos base y layout mobile-first; solo usan var(--…) de tokens.css (D-02, brain/diseno.md). */
+
+/* ── Base ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  line-height: var(--leading-heading);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ── Foco: anillo azul que cae sobre el fondo, nunca sobre el primario ── */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* main recibe el foco del enlace de salto; el anillo alrededor de toda la página no aporta. */
+main:focus {
+  outline: none;
+}
+
+/* ── Enlace "Saltar al contenido": oculto hasta recibir foco ── */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-primary);
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+}
+
+.skip-link:not(:focus) {
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Cabecera sticky ──────────────────────────────────── */
+/* Móvil: el nombre ocupa una fila de --header-height y la navegación otra de --tap-min
+   (las tres entradas no caben junto al nombre en 375 px). Desde 768 px, una sola fila. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--space-4);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--header-height);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  line-height: var(--leading-heading);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-nav {
+  flex-basis: 100%;
+  min-width: 0;
+}
+
+.site-nav__list {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0 calc(-1 * var(--space-2));
+  padding: 0;
+  list-style: none;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+/* ── Secciones ────────────────────────────────────────── */
+/* El ancla deja el título bajo la cabecera de dos filas (nombre + navegación). */
+main > section {
+  padding-block: var(--space-7);
+  scroll-margin-top: calc(var(--header-height) + var(--tap-min));
+}
+
+main > section:nth-of-type(even) {
+  background: var(--color-surface);
+}
+
+main > section h2 {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+/* ── Portada ──────────────────────────────────────────── */
+/* Alto visible menos la cabecera: nombre, eslogan y botón sin hacer scroll (CA-01.1, CA-01.2). */
+.hero {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - var(--header-height) - var(--tap-min));
+  min-height: calc(100svh - var(--header-height) - var(--tap-min));
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.hero__title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+}
+
+.hero__slogan {
+  max-width: 65ch;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+/* ── Reservar ─────────────────────────────────────────── */
+.reserve__text {
+  max-width: 65ch;
+  margin-bottom: var(--space-5);
+}
+
+/* ── Botón ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--space-7); /* 48 px (diseno.md) */
+  padding: 0 var(--space-5);
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-base);
+  line-height: var(--leading-heading);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn__icon {
+  flex: none;
+  width: var(--space-5);
+  height: var(--space-5);
+}
+
+/* Móvil: ocupa el ancho del contenedor (diseno.md). */
+.btn--whatsapp {
+  width: 100%;
+  background: var(--color-whatsapp);
+  color: var(--color-on-whatsapp);
+}
+
+/* Hover ~10 % más oscuro, mezclando con un token (sin colores a mano). */
+.btn--whatsapp:hover {
+  background: color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text));
+}
+
+/* ── Pie ──────────────────────────────────────────────── */
+.site-footer {
+  padding-block: var(--space-7);
+  background: var(--color-footer-bg);
+  color: var(--color-footer-text);
+  font-size: var(--text-sm);
+}
+
+.site-footer a {
+  color: var(--color-footer-text);
+  text-decoration: underline;
+}
+
+/* En el pie oscuro el anillo va en dorado (9.75:1 sobre footer-bg). */
+.site-footer :focus-visible {
+  outline-color: var(--color-secondary);
+}
+
+.site-footer__name {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-lg);
+}
+
+.site-footer__notice {
+  max-width: 65ch;
+}
+
+/* ── Desde 768 px ─────────────────────────────────────── */
+@media (min-width: 768px) {
+  .site-header__inner {
+    flex-wrap: nowrap;
+    min-height: var(--header-height);
+  }
+
+  .site-nav {
+    flex-basis: auto;
+  }
+
+  .site-nav__list {
+    margin: 0;
+  }
+
+  main > section {
+    padding-block: var(--space-8);
+    scroll-margin-top: var(--header-height);
+  }
+
+  .hero {
+    min-height: calc(100vh - var(--header-height));
+    min-height: calc(100svh - var(--header-height));
+  }
+
+  .btn--whatsapp {
+    width: auto;
+  }
+}
+
+/* ── Movimiento reducido ──────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .btn:active {
+    transform: none;
+  }
+}
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cafetería Luna</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="skip-link" href="#contenido">Saltar al contenido</a>
+      <div class="site-header__inner container">
+        <a class="brand" href="#inicio">Cafetería Luna</a>
+        <nav class="site-nav" aria-label="Principal">
+          <ul class="site-nav__list">
+            <li><a class="nav-link" href="#menu">Menú</a></li>
+            <li><a class="nav-link" href="#horario">Horario y ubicación</a></li>
+            <li><a class="nav-link" href="#reservar">Reservar</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="contenido" tabindex="-1">
+      <!-- La portada (h1, eslogan y botón) la monta src/sections/hero.ts con los datos de business.ts (D-04). -->
+      <section id="inicio" class="section hero" aria-labelledby="inicio-titulo"></section>
+      <section id="menu" class="section" aria-labelledby="menu-titulo">
+        <div class="container">
+          <h2 id="menu-titulo">Menú</h2>
+        </div>
+      </section>
+      <section id="horario" class="section" aria-labelledby="horario-titulo">
+        <div class="container">
+          <h2 id="horario-titulo">Horario y ubicación</h2>
+        </div>
+      </section>
+      <section id="reservar" class="section" aria-labelledby="reservar-titulo">
+        <div class="container">
+          <h2 id="reservar-titulo">Reservar</h2>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p class="site-footer__name">Cafetería Luna</p>
+        <p class="site-footer__notice">Página de demostración: el eslogan, el menú, los precios, el horario, la dirección y el número de WhatsApp son datos de ejemplo.</p>
+      </div>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+/*
+ * DATOS FICTICIOS (decisión D-00 del brain).
+ * Todos los valores de este archivo son de ejemplo: menú y precios en MXN, horario, dirección,
+ * coordenadas y WhatsApp (+52 000 000 0000). Deben sustituirse por los reales antes de publicar
+ * (ver brain/huecos.md). Para cambiarlos, edita solo este archivo: ningún otro módulo contiene
+ * datos del negocio.
+ */
+
+export interface MenuItem {
+  name: string;
+  /** Price as a number in `currency`; formatting lives in src/lib/formatPrice.ts (D-06). */
+  price: number;
+}
+
+export interface OpenDay {
+  day: string;
+  /** "HH:MM", 24 h. */
+  open: string;
+  /** "HH:MM", 24 h, later than `open`. */
+  close: string;
+  closed?: never;
+}
+
+export interface ClosedDay {
+  day: string;
+  closed: true;
+  open?: never;
+  close?: never;
+}
+
+export type DayHours = OpenDay | ClosedDay;
+
+export interface Business {
+  name: string;
+  slogan: string;
+  locale: string;
+  currency: string;
+  menu: {
+    drinks: MenuItem[];
+    desserts: MenuItem[];
+  };
+  /** Seven entries, Monday to Sunday. */
+  hours: DayHours[];
+  address: string;
+  coordinates: { lat: number; lng: number };
+  /** `number`: digits only, country code included. */
+  whatsapp: { number: string; message: string };
+}
+
+export const business: Business = {
+  name: "Cafetería Luna",
+  slogan: "Tu rincón tranquilo para un buen café",
+  locale: "es-MX",
+  currency: "MXN",
+  menu: {
+    drinks: [
+      { name: "Café americano", price: 45 },
+      { name: "Capuchino", price: 55 },
+      { name: "Latte", price: 60 },
+      { name: "Chocolate caliente", price: 50 },
+    ],
+    desserts: [
+      { name: "Pastel de chocolate", price: 75 },
+      { name: "Cheesecake de frutos rojos", price: 80 },
+      { name: "Pan de elote", price: 45 },
+    ],
+  },
+  hours: [
+    { day: "Lunes", closed: true },
+    { day: "Martes", open: "08:00", close: "20:00" },
+    { day: "Miércoles", open: "08:00", close: "20:00" },
+    { day: "Jueves", open: "08:00", close: "20:00" },
+    { day: "Viernes", open: "08:00", close: "21:00" },
+    { day: "Sábado", open: "09:00", close: "21:00" },
+    { day: "Domingo", open: "09:00", close: "15:00" },
+  ],
+  address: "Calle Ejemplo 123, Col. Centro, 00000 Ciudad de México, CDMX, México",
+  coordinates: { lat: 19.4326, lng: -99.1332 },
+  whatsapp: {
+    number: "520000000000",
+    message:
+      "¡Hola, Cafetería Luna! Quiero reservar una mesa. ¿Me ayudas?\nFecha: \nHora: \nNúmero de personas: ",
+  },
+};
+/* Custom properties de brain/diseno.md (D-02), copiadas tal cual del bloque "Tokens CSS". */
+:root {
+  /* Color */
+  --color-bg: #FBF6EE;
+  --color-surface: #F3EADB;
+  --color-surface-raised: #FFFFFF;
+  --color-text: #2B1D14;
+  --color-text-muted: #6B5646;
+  --color-primary: #7A3E1D;
+  --color-primary-hover: #62301A;
+  --color-on-primary: #FFFFFF;
+  --color-secondary: #E9C46A;
+  --color-on-secondary: #2B1D14;
+  --color-whatsapp: #1E6B45;
+  --color-on-whatsapp: #FFFFFF;
+  --color-success: #2E6B3A;
+  --color-error: #B3261E;
+  --color-border: #D9C9B3;
+  --color-focus: #1F4E8C;
+  --color-footer-bg: #2B1D14;
+  --color-footer-text: #F3EADB;
+
+  /* Tipografía */
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.5rem;
+  --leading-body: 1.6;
+  --leading-heading: 1.2;
+
+  /* Espaciado (escala de 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgb(43 29 20 / 0.08), 0 1px 3px rgb(43 29 20 / 0.06);
+  --shadow-md: 0 4px 12px rgb(43 29 20 / 0.12), 0 2px 4px rgb(43 29 20 / 0.06);
+
+  /* Layout */
+  --container-max: 64rem;      /* 1024 px */
+  --gutter: var(--space-4);
+  --tap-min: 44px;             /* zona táctil mínima (CA-05.2) */
+  --header-height: 56px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --text-base: 1.0625rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.75rem;
+    --text-2xl: 2.5rem;
+    --text-3xl: 3.75rem;
+    --gutter: var(--space-5);
+    --header-height: 64px;
+  }
+}
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$projectPath = (Resolve-Path '"'..\\..\\..').Path; foreach ("'$relativeFile in @('"'src\\styles\\main.css','src\\styles\\tokens.css','index.html')) { "'$baseHash = (Get-FileHash -LiteralPath (Join-Path $projectPath "app'"\\"'$relativeFile")).Hash; $taskHash = (Get-FileHash -LiteralPath (Join-Path $projectPath ".worktrees'"\\T-20261115-002\\"'$relativeFile")).Hash; [PSCustomObject]@{Archivo=$relativeFile;IgualEnApp=($baseHash -eq $taskHash)} }' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-002\revisiones
+ succeeded in 2852ms:
+
+Archivo               IgualEnApp
+-------               ----------
+src\styles\main.css         True
+src\styles\tokens.css       True
+index.html                  True
+
+
+
+codex
+REVISOR: ui
+VEREDICTO: OK
+Capturas: no disponibles: `npx --no-install playwright --version` falla por ausencia de `npx-cli.js`; tampoco hay ejecutable local de Playwright.
+Hallazgos:
+Sin defectos detectados en la revisión estática. El menú respeta tokens, contraste AA, marcado semántico y estilos existentes en `app/`. Define una columna móvil y dos desde 768 px, con nombres ajustables y precios indivisibles. No incorpora imágenes ni controles interactivos.
+
+La ausencia de scroll horizontal y el resultado visual a 375×812 y 1280×800 quedan sin verificar en navegador.
+tokens used
+35.654
+REVISOR: ui
+VEREDICTO: OK
+Capturas: no disponibles: `npx --no-install playwright --version` falla por ausencia de `npx-cli.js`; tampoco hay ejecutable local de Playwright.
+Hallazgos:
+Sin defectos detectados en la revisión estática. El menú respeta tokens, contraste AA, marcado semántico y estilos existentes en `app/`. Define una columna móvil y dos desde 768 px, con nombres ajustables y precios indivisibles. No incorpora imágenes ni controles interactivos.
+
+La ausencia de scroll horizontal y el resultado visual a 375×812 y 1280×800 quedan sin verificar en navegador.

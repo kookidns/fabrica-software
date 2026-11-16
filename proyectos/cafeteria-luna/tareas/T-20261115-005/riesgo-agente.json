@@ -1,0 +1,4 @@
+{
+  "nivel": "ALTO",
+  "motivo": "El cálculo determinista indica BAJO, pero el acceso denegado a Git impidió verificar el diff completo; ante la duda, corresponde ALTO."
+}

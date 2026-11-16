@@ -1,0 +1,3546 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\revisiones\revisor-ux-ronda1.md -m gpt-6.1-sol -s workspace-write -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\revisiones --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **revisor de UX**. Piensas como el usuario descrito en `brain/vision.md`.
+
+Responde solo `REVISOR: ux` / `VEREDICTO: NO_APLICA` únicamente si el cambio no toca interfaz **y**
+no añade ni cambia ningún texto que vaya a leer el usuario (mensajes prellenados, emails, etiquetas,
+errores, contenido de datos que se muestran). Si hay texto visible para el usuario, revísalo aunque la
+spec diga `Toca interfaz: no`.
+
+## Qué miras
+Lee `brain/vision.md`, `brain/spec.md` y `tareas/<ID>/spec.md`. Revisa el cambio
+(`git -C <carpeta de trabajo> diff main...HEAD`):
+- **Flujo**: ¿cuántos pasos necesita el usuario? ¿sobra alguno? ¿el siguiente paso es obvio?
+- **Claridad**: textos, etiquetas y llamadas a la acción entendibles para el avatar, en su idioma y tono.
+- **Estados**: vacío, cargando, error y éxito están cubiertos y dicen qué hacer.
+- **Formularios**: validación con mensajes útiles, no se pierde lo escrito al fallar.
+- **Coherencia con el brain**: ¿cumple lo que el producto promete?
+
+## Contexto limpio (obligatorio)
+Juzgas solo con: el brain, `tareas/<ID>/spec.md`, el diff y **tus propias comprobaciones**
+(leer el código, ejecutar pruebas o abrir la página tú mismo).
+**No leas** `tareas/<ID>/build-ronda*.md`, `aprobacion-*.md`, `riesgo-*.json`, las revisiones de
+otros revisores ni las capturas o "comprobaciones manuales" del constructor. No cites lo que el
+constructor dice haber verificado como prueba de nada.
+**Sí puedes usar** `tareas/<ID>/evidencia-ronda<N>/` (`resumen.md`, `evidencia.json` y los PNG). La
+genera la estación de código `scripts/evidencia.mjs`, no el constructor: build, Chrome headless,
+capturas a 375/768/1024 px, desbordamiento, tamaños táctiles, recorrido con Tab, consola, comparación
+con main y Lighthouse si se pidió. La evidencia mide y tú juzgas: abre las capturas y saca tus
+conclusiones.
+Si un criterio no lo puedes comprobar ni con tus medios ni con esa evidencia, **no lo pongas como
+hallazgo**. Anótalo en la línea `No verificado por mí:` del informe, con lo que haría falta. No lo
+des por bueno y no pidas CAMBIOS solo por eso: el aprobador y el humano deciden qué hacer con ello.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ux
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+No verificado por mí: — | lista de criterios y qué haría falta
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea o pantalla — problema para el usuario — propuesta
+```
+Nunca modificas archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-004 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-004): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-004
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Contexto limpio: NO leas build-ronda*.md, aprobacion-*.md, riesgo-*.json, otras revisiones ni capturas o comprobaciones del constructor. Juzga solo con el brain, la spec, el diff y lo que compruebes tú; si algo no lo puedes verificar, dilo en la línea "No verificado por mí" (no es un hallazgo). SÍ puedes usar tareas/<ID>/evidencia-ronda<N>/: la genera la estación de código scripts/evidencia.mjs, no el constructor.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\revisiones
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a1de07-9e2a-7602-b0eb-a9fe80ecb98b
+--------
+user
+Eres el **revisor de UX**. Piensas como el usuario descrito en `brain/vision.md`.
+
+Responde solo `REVISOR: ux` / `VEREDICTO: NO_APLICA` únicamente si el cambio no toca interfaz **y**
+no añade ni cambia ningún texto que vaya a leer el usuario (mensajes prellenados, emails, etiquetas,
+errores, contenido de datos que se muestran). Si hay texto visible para el usuario, revísalo aunque la
+spec diga `Toca interfaz: no`.
+
+## Qué miras
+Lee `brain/vision.md`, `brain/spec.md` y `tareas/<ID>/spec.md`. Revisa el cambio
+(`git -C <carpeta de trabajo> diff main...HEAD`):
+- **Flujo**: ¿cuántos pasos necesita el usuario? ¿sobra alguno? ¿el siguiente paso es obvio?
+- **Claridad**: textos, etiquetas y llamadas a la acción entendibles para el avatar, en su idioma y tono.
+- **Estados**: vacío, cargando, error y éxito están cubiertos y dicen qué hacer.
+- **Formularios**: validación con mensajes útiles, no se pierde lo escrito al fallar.
+- **Coherencia con el brain**: ¿cumple lo que el producto promete?
+
+## Contexto limpio (obligatorio)
+Juzgas solo con: el brain, `tareas/<ID>/spec.md`, el diff y **tus propias comprobaciones**
+(leer el código, ejecutar pruebas o abrir la página tú mismo).
+**No leas** `tareas/<ID>/build-ronda*.md`, `aprobacion-*.md`, `riesgo-*.json`, las revisiones de
+otros revisores ni las capturas o "comprobaciones manuales" del constructor. No cites lo que el
+constructor dice haber verificado como prueba de nada.
+**Sí puedes usar** `tareas/<ID>/evidencia-ronda<N>/` (`resumen.md`, `evidencia.json` y los PNG). La
+genera la estación de código `scripts/evidencia.mjs`, no el constructor: build, Chrome headless,
+capturas a 375/768/1024 px, desbordamiento, tamaños táctiles, recorrido con Tab, consola, comparación
+con main y Lighthouse si se pidió. La evidencia mide y tú juzgas: abre las capturas y saca tus
+conclusiones.
+Si un criterio no lo puedes comprobar ni con tus medios ni con esa evidencia, **no lo pongas como
+hallazgo**. Anótalo en la línea `No verificado por mí:` del informe, con lo que haría falta. No lo
+des por bueno y no pidas CAMBIOS solo por eso: el aprobador y el humano deciden qué hacer con ello.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ux
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+No verificado por mí: — | lista de criterios y qué haría falta
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:línea o pantalla — problema para el usuario — propuesta
+```
+Nunca modificas archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-004 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-004): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-004
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Contexto limpio: NO leas build-ronda*.md, aprobacion-*.md, riesgo-*.json, otras revisiones ni capturas o comprobaciones del constructor. Juzga solo con el brain, la spec, el diff y lo que compruebes tú; si algo no lo puedes verificar, dilo en la línea "No verificado por mí" (no es un hallazgo). SÍ puedes usar tareas/<ID>/evidencia-ronda<N>/: la genera la estación de código scripts/evidencia.mjs, no el constructor.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Leeré las instrucciones, el brain y la spec, y revisaré el diff con comprobaciones propias sin modificar archivos.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-Content CLAUDE.md; Get-Content .claude/agents/revisor-ux.md' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+ succeeded in 1802ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+entrada â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+---
+name: revisor-ux
+description: Revisor 2 de 4. Revisa con contexto limpio la experiencia de usuario (flujo, pasos, claridad para el avatar) del cambio de una tarea. Solo dictamina.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: sonnet
+---
+
+Eres el **revisor de UX**. Piensas como el usuario descrito en `brain/vision.md`.
+
+Responde solo `REVISOR: ux` / `VEREDICTO: NO_APLICA` Ãºnicamente si el cambio no toca interfaz **y**
+no aÃ±ade ni cambia ningÃºn texto que vaya a leer el usuario (mensajes prellenados, emails, etiquetas,
+errores, contenido de datos que se muestran). Si hay texto visible para el usuario, revÃ­salo aunque la
+spec diga `Toca interfaz: no`.
+
+## QuÃ© miras
+Lee `brain/vision.md`, `brain/spec.md` y `tareas/<ID>/spec.md`. Revisa el cambio
+(`git -C <carpeta de trabajo> diff main...HEAD`):
+- **Flujo**: Â¿cuÃ¡ntos pasos necesita el usuario? Â¿sobra alguno? Â¿el siguiente paso es obvio?
+- **Claridad**: textos, etiquetas y llamadas a la acciÃ³n entendibles para el avatar, en su idioma y tono.
+- **Estados**: vacÃ­o, cargando, error y Ã©xito estÃ¡n cubiertos y dicen quÃ© hacer.
+- **Formularios**: validaciÃ³n con mensajes Ãºtiles, no se pierde lo escrito al fallar.
+- **Coherencia con el brain**: Â¿cumple lo que el producto promete?
+
+## Contexto limpio (obligatorio)
+Juzgas solo con: el brain, `tareas/<ID>/spec.md`, el diff y **tus propias comprobaciones**
+(leer el cÃ³digo, ejecutar pruebas o abrir la pÃ¡gina tÃº mismo).
+**No leas** `tareas/<ID>/build-ronda*.md`, `aprobacion-*.md`, `riesgo-*.json`, las revisiones de
+otros revisores ni las capturas o "comprobaciones manuales" del constructor. No cites lo que el
+constructor dice haber verificado como prueba de nada.
+**SÃ­ puedes usar** `tareas/<ID>/evidencia-ronda<N>/` (`resumen.md`, `evidencia.json` y los PNG). La
+genera la estaciÃ³n de cÃ³digo `scripts/evidencia.mjs`, no el constructor: build, Chrome headless,
+capturas a 375/768/1024 px, desbordamiento, tamaÃ±os tÃ¡ctiles, recorrido con Tab, consola, comparaciÃ³n
+con main y Lighthouse si se pidiÃ³. La evidencia mide y tÃº juzgas: abre las capturas y saca tus
+conclusiones.
+Si un criterio no lo puedes comprobar ni con tus medios ni con esa evidencia, **no lo pongas como
+hallazgo**. AnÃ³talo en la lÃ­nea `No verificado por mÃ­:` del informe, con lo que harÃ­a falta. No lo
+des por bueno y no pidas CAMBIOS solo por eso: el aprobador y el humano deciden quÃ© hacer con ello.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: ux
+VEREDICTO: OK | CAMBIOS | NO_APLICA
+No verificado por mÃ­: â€” | lista de criterios y quÃ© harÃ­a falta
+Hallazgos:
+1. [ALTO|MEDIO|BAJO] archivo:lÃ­nea o pantalla â€” problema para el usuario â€” propuesta
+```
+Nunca modificas archivos.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-Content -Encoding UTF8 brain/index.md; Get-Content -Encoding UTF8 brain/vision.md; Get-Content -Encoding UTF8 brain/spec.md; Get-Content -Encoding UTF8 tareas/T-20261115-004/spec.md; git -C .worktrees/T-20261115-004 diff main...HEAD' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+ exited 1 in 6830ms:
+# Brain — índice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | Léelo cuando… |
+|---|---|---|
+| `vision.md` | Problema, público, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar código |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por qué (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavía NO sabe | te falte información |
+| `log.md` | Historial de tareas cerradas | quieras saber qué se hizo |
+
+## Cómo se mantiene
+- Decisión nueva → entrada en `decisiones.md` (con fecha y tarea que la originó).
+- Duda que nadie resolvió → `huecos.md`. No inventes la respuesta.
+- Tarea cerrada → entrada en `log.md`.
+# Visión
+
+## Problema
+Cafetería Luna es una cafetería de especialidad pequeña de barrio. Hoy quien la busca desde el
+móvil no tiene un sitio único donde ver qué ofrece, cuánto cuesta, cuándo abre y dónde está, ni
+una forma rápida de reservar mesa. La información se pierde y algunas visitas no ocurren.
+
+## Público objetivo (avatar)
+- **Quién**: gente joven del barrio (aprox. 18–35 años [PENDIENTE confirmar rango]), que busca un
+  café de calidad, un sitio para quedar o para trabajar un rato.
+- **Dispositivo**: entra casi siempre desde el **móvil**, a menudo con prisa o de camino.
+- **Nivel técnico**: usuario habitual de apps; usa WhatsApp y mapas a diario. No quiere
+  formularios ni registros.
+- **Qué necesita**: saber en segundos qué hay, cuánto cuesta, si está abierto, cómo llegar y
+  reservar con un toque.
+
+## Objetivo de negocio
+- Principal: **reservas de mesa por WhatsApp** iniciadas desde la página.
+- Secundario: visitas a la cafetería (clics en "cómo llegar") y conocimiento de la carta.
+- Métrica de éxito: [PENDIENTE] (p. ej., nº de reservas por WhatsApp al mes atribuibles a la web).
+
+## Marca y tono
+- **Nombre**: Cafetería Luna.
+- **Eslogan**: [PENDIENTE].
+- **Personalidad**: cercana, cálida, de barrio, con cuidado por el producto (café de especialidad).
+- **Tono del texto**: tuteo, frases cortas, sin tecnicismos baristas innecesarios.
+- **Idioma**: español (único idioma).
+- **Colores, logo y tipografía**: [PENDIENTE] (no existe material de marca conocido).
+
+## Referencias
+[PENDIENTE] — el humano no ha indicado sitios que le gusten o no.
+# Especificación del producto
+
+Estado: APROBADA (2026-11-14, demo de prueba)
+
+## Alcance
+### Entra
+- Una única página (landing) en español, pensada primero para móvil.
+- Portada con nombre y eslogan de la cafetería.
+- Menú con dos categorías: bebidas y postres, cada producto con nombre y precio.
+- Sección de horario y ubicación con dirección y mapa.
+- Botón para reservar mesa que abre una conversación de WhatsApp con la cafetería.
+- Navegación interna entre secciones de la misma página.
+
+### No entra
+- Pedidos o pagos en línea, carrito, delivery.
+- Sistema de reservas propio (calendario, disponibilidad, confirmaciones automáticas).
+- Registro de usuarios, cuentas o área privada.
+- Panel de administración para editar menú/horario (el contenido se cambia en el código).
+- Otros idiomas, blog, galería extensa, programa de fidelización.
+
+## Páginas / pantallas
+| Página | Propósito | Contenido principal |
+|---|---|---|
+| Landing (única) | Informar y convertir en reserva | Secciones: Portada · Menú · Horario y ubicación · Reservar (botón WhatsApp) · Pie |
+
+## Historias de usuario y criterios de aceptación
+
+### HU-01 · Reconocer la cafetería al entrar
+Como vecino joven que entra desde el móvil quiero ver de inmediato el nombre y el eslogan para
+saber que estoy en la web correcta y qué transmite el lugar.
+
+- **CA-01.1** — Dado que abro la página en un móvil de 375 px de ancho, cuando carga, entonces
+  veo el nombre "Cafetería Luna" y el eslogan sin hacer scroll.
+- **CA-01.2** — Dado que estoy en la portada, cuando la miro sin hacer scroll, entonces hay un
+  botón visible de "Reservar mesa" (ver HU-04).
+- **CA-01.3** — Dado cualquier punto de la página, cuando uso la navegación, entonces puedo ir
+  directamente a las secciones Menú, Horario y ubicación, y Reservar.
+
+### HU-02 · Consultar el menú con precios
+Como cliente potencial quiero ver las bebidas y los postres con su precio para decidir qué tomar
+y cuánto me costará antes de ir.
+
+- **CA-02.1** — Dado que estoy en la sección Menú, cuando la recorro, entonces veo dos grupos
+  separados y titulados: "Bebidas" y "Postres".
+- **CA-02.2** — Dado cualquier producto del menú, cuando lo leo, entonces muestra nombre y precio
+  con el símbolo de la moneda local [PENDIENTE moneda].
+- **CA-02.3** — Dado un móvil de 375 px, cuando veo el menú, entonces no hay scroll horizontal y
+  cada nombre aparece en la misma línea visual que su precio o justo encima/debajo, sin ambigüedad.
+- **CA-02.4** — Dado el contenido del menú, cuando se compara con la carta facilitada por el
+  negocio [PENDIENTE], entonces todos los productos y precios coinciden exactamente.
+
+### HU-03 · Saber cuándo abre y dónde está
+Como vecino quiero ver el horario y la ubicación en un mapa para saber si está abierto y cómo
+llegar.
+
+- **CA-03.1** — Dado que estoy en la sección Horario y ubicación, cuando la leo, entonces veo el
+  horario de cada día de la semana, incluidos los días de cierre [PENDIENTE horario].
+- **CA-03.2** — Dado la misma sección, cuando la leo, entonces veo la dirección completa en
+  texto [PENDIENTE dirección].
+- **CA-03.3** — Dado la misma sección, cuando cargo la página, entonces se muestra un mapa con
+  la ubicación de la cafetería marcada.
+- **CA-03.4** — Dado que pulso "Cómo llegar" (o el mapa) desde el móvil, cuando se procesa,
+  entonces se abre la ubicación en la app o web de mapas del dispositivo.
+
+### HU-04 · Reservar mesa por WhatsApp
+Como cliente quiero reservar mesa con un toque por WhatsApp para no tener que llamar ni rellenar
+formularios.
+
+- **CA-04.1** — Dado que estoy en cualquier sección, cuando busco cómo reservar, entonces hay un
+  botón "Reservar mesa por WhatsApp" accesible (en la portada y en la sección Reservar como
+  mínimo).
+- **CA-04.2** — Dado que pulso el botón en un móvil con WhatsApp, cuando se procesa, entonces se
+  abre un chat con el número de la cafetería [PENDIENTE número].
+- **CA-04.3** — Dado que se abre el chat, cuando lo veo, entonces el mensaje viene
+  pre-rellenado con un texto de reserva que pide fecha, hora y nº de personas [PENDIENTE texto
+  exacto].
+- **CA-04.4** — Dado que pulso el botón en un ordenador sin la app, cuando se procesa, entonces
+  se abre WhatsApp Web (o la página de WhatsApp) con el mismo número y mensaje.
+
+### HU-05 · Usar la página cómodamente desde el móvil
+Como usuario móvil quiero que la página cargue rápido y se lea bien para encontrar lo que busco
+sin esfuerzo.
+
+- **CA-05.1** — Dado un móvil de 375 px, cuando recorro toda la página, entonces no hay scroll
+  horizontal ni texto cortado.
+- **CA-05.2** — Dado cualquier botón o enlace, cuando lo mido, entonces su zona táctil es de al
+  menos 44×44 px.
+- **CA-05.3** — Dado una auditoría Lighthouse en modo móvil, cuando se ejecuta, entonces
+  rendimiento ≥ 90 y accesibilidad ≥ 90.
+- **CA-05.4** — Dado un lector de pantalla, cuando recorre la página, entonces cada sección tiene
+  un encabezado, las imágenes informativas tienen texto alternativo y el botón de WhatsApp
+  anuncia su propósito.
+
+## Requisitos no funcionales
+- Responsive desde 375 px; diseño mobile-first.
+- Accesibilidad WCAG AA (contraste, foco visible, navegación por teclado).
+- Lighthouse rendimiento ≥ 90 en móvil.
+- Todo el texto en español.
+- No se recogen datos personales en la web (la reserva ocurre en WhatsApp).
+# T-20261115-004 · Pulido móvil, accesibilidad y auditoría Lighthouse
+Tipo: tarea      Toca interfaz: sí      Texto visible para el usuario: no
+
+Cubre de `brain/spec.md`: CA-05.1, CA-05.2, CA-05.3 y CA-05.4 (HU-05). También cierra lo que las tareas
+anteriores dejaron para la 006: dividir `main.css` (D-08), mover `.btn--secondary` (D-10), corregir el
+comentario "Leaflet" de `location.ts` y probar sus guardias de prefijo (aprobación de T-20261115-003).
+No cambia ningún texto visible ni ningún dato del negocio.
+
+## Contexto (qué dice el brain que importa aquí)
+- **D-03**: las puertas son `lint`, `typecheck`, `test` (Vitest + jsdom) y `build`. **Lighthouse
+  (CA-05.3) no se puede automatizar en `npm run`**: el constructor lo comprueba a mano sobre
+  `npm run preview` y guarda el informe en el rastro de la tarea. jsdom no calcula el layout, así que
+  los 375 px, los 44×44 px y el foco visible se comprueban con pruebas de estructura y de CSS más una
+  comprobación manual.
+- **D-08**: `main.css` mide 317 líneas y la guía es de unas 200 (`arquitectura.md`: "Archivos de más
+  de ~200 líneas se dividen"). Su división quedó para esta tarea. **D-10**: `.btn--secondary` vive en
+  `location.css` hasta esa división. **D-09**: cada sección tiene su propio archivo de estilos y se
+  importa en `main.ts` después de `main.css`.
+- **D-02 / diseno.md**: CSS plano, solo `var(--…)`. Toda zona táctil mide al menos 44×44 px
+  (`--tap-min: 44px`, que ya existe en `tokens.css` y ya se prueba en `styles.test.ts`). Hay un anillo
+  de foco global `:focus-visible` con `--color-focus`; el único contorno anulado es `main:focus` (D-08).
+  Las transiciones se desactivan con `prefers-reduced-motion: reduce`.
+- **Estado del código (main = worktree)**:
+  - Elementos interactivos de la página: `.skip-link`, `.brand`, tres `.nav-link`, dos
+    `a.btn.btn--whatsapp` (portada y Reservar), `a.btn.btn--secondary` ("Cómo llegar") y el `<iframe>`
+    de OSM. No hay `<img>`. El único `<svg>` es el icono del botón de WhatsApp, con
+    `aria-hidden="true"`. Hoy no hay formularios ni `<button>`.
+  - Alturas: `.skip-link`, `.nav-link` → `min-height: var(--tap-min)`; `.brand` →
+    `var(--header-height)` (56/64 px); `.btn` → `var(--space-7)` (48 px). El ancho depende del texto:
+    ningún selector fija `min-width`. "Menú" (`.nav-link`, 15 px y 8 px de relleno por lado) mide unos
+    50 px, poco margen.
+  - `main.css` mezcla la base global con la cabecera, la portada, Reservar, los botones y el pie.
+    `styles.test.ts` (CA-15 de T-20261114-001) lee `main.css` para buscar la cabecera sticky, el
+    `scroll-margin-top`, el `:focus-visible` y el bloque `prefers-reduced-motion: reduce`.
+    `src/styles/location.test.ts` (CA-19 f de T-20261115-003) busca `.btn--secondary` en
+    `location.css`.
+  - El bloque `prefers-reduced-motion: reduce` de `main.css` anula `.btn:active { transform }`. Si
+    `.btn` pasa a otro archivo importado **después**, su `.btn:active` ganaría la cascada a esa
+    anulación, con la misma especificidad. Hay que mover la anulación junto con el botón.
+  - `src/sections/location.ts:24` dice "Leaflet needs scripts", pero el embed de OSM usa MapLibre GL
+    (D-10). Las guardias de prefijo de `createMap` y `createDirectionsLink` no tienen ninguna prueba que
+    las haga fallar, porque `maps.ts` siempre devuelve URLs válidas.
+- **log.md / aprobación de T-20261115-003**: los controles +/− y la atribución del iframe de OSM miden
+  unos 30 px. Son de otro origen y no se pueden estilar. El aprobador los aceptó como excepción y pidió
+  documentarla en la 006. **D-10**: ampliar los permisos del `sandbox` o cambiar de proveedor
+  requiere una decisión humana. El marcador queda algo por debajo del centro a 768 px: corregirlo
+  obligaría a cambiar el `d` del bbox de D-10.
+- **Huecos que afectan a la medición**: Google Fonts sigue sin aprobarse, así que hoy la página usa
+  las fuentes del sistema. Lighthouse mide esa situación; si más adelante se cargan fuentes externas,
+  habrá que repetir la medición.
+
+## Decisiones de esta spec (a registrar en `decisiones.md` y `diseno.md` al cerrar, si se aceptan)
+1. **División de `main.css`** (resuelve el pendiente de D-08 y el de D-10). Es un movimiento puro de
+   reglas: no cambia ninguna declaración salvo las de la decisión 2.
+
+   | Archivo | Contenido (selectores exactos) |
+   |---|---|
+   | `main.css` (se queda) | `*, *::before, *::after` · `body` · `h1, h2, h3` · `p` · `a` · `.container` · `:focus-visible` · `main:focus` · `main > section` · `main > section:nth-of-type(even)` · `main > section h2` · `@media (min-width: 768px)` → `main > section` · `@media (prefers-reduced-motion: no-preference)` → `html` · `@media (prefers-reduced-motion: reduce)` → `*, *::before, *::after` |
+   | `header.css` (nuevo) | `.skip-link` · `.skip-link:not(:focus)` · `.site-header` · `.site-header__inner` · `.brand` · `.site-nav` · `.site-nav__list` · `.nav-link` · `.nav-link:hover` · `@media (min-width: 768px)` → `.site-header__inner`, `.site-nav`, `.site-nav__list` |
+   | `buttons.css` (nuevo) | `.btn` · `.btn:active` · `.btn__icon` · `.btn--whatsapp` · `.btn--whatsapp:hover` · `.btn--secondary` · `.btn--secondary:hover` · `@media (min-width: 768px)` → `.btn--whatsapp`, `.btn--secondary` · `@media (prefers-reduced-motion: reduce)` → `.btn:active` |
+   | `hero.css` (nuevo) | `.hero` · `.hero__content` · `.hero__title` · `.hero__slogan` · `@media (min-width: 768px)` → `.hero` |
+   | `reserve.css` (nuevo) | `.reserve__text` |
+   | `footer.css` (nuevo) | `.site-footer` · `.site-footer a` · `.site-footer :focus-visible` · `.site-footer__name` · `.site-footer__notice` |
+   | `location.css` (cambia) | Pierde `.btn--secondary`, `.btn--secondary:hover` y su regla de 768 px. El margen superior propio de la sección pasa a `.location__place .btn--secondary { margin-top: var(--space-4); }` |
+
+   Orden de importación en `main.ts`: `tokens.css`, `main.css`, `header.css`, `buttons.css`, `hero.css`,
+   `reserve.css`, `footer.css`, `menu.css`, `location.css`. Los componentes compartidos van antes que
+   las secciones, para que una sección pueda ajustar un componente sin `!important`.
+2. **Zona táctil verificable**: se añade `min-width: var(--tap-min)` a `.nav-link` y a `.btn`. Con eso
+   los 44 px de ancho no dependen de la longitud del texto. No cambia nada visible a 375 px, porque
+   todos ya miden más. `.skip-link` y `.brand` no lo necesitan: su texto ("Saltar al contenido",
+   "Cafetería Luna") siempre es más ancho. Además, `min-width` anularía el `width: 1px` de
+   `.skip-link:not(:focus)`.
+3. **Excepción conocida de CA-05.2 (pendiente de confirmación humana; ver `huecos.md`)**: los controles
+   internos del embed de OpenStreetMap (zoom +/− y enlaces de atribución, unos 30 px) no se pueden
+   llevar a 44×44 px, porque viven en un iframe de otro origen. La acción táctil equivalente es "Cómo
+   llegar" (48 px de alto, ancho completo en móvil). Esta tarea no cambia el iframe, su `sandbox` ni el
+   proveedor (D-05, D-10).
+4. **Procedimiento de Lighthouse (D-03)**: modo móvil, con la configuración por defecto (emulación móvil
+   y estrangulamiento simulado), sobre el build servido con `npm run preview`. Se hacen **3 ejecuciones**
+   y el criterio se aplica a la **mediana** de cada categoría. No se añade ninguna dependencia al
+   proyecto: se usa el panel Lighthouse de Chrome DevTools o la CLI con `npx` lanzada **fuera** de la
+   carpeta de trabajo. Los informes se guardan en `tareas/T-20261115-004/lighthouse/`.
+
+## Objetivo
+Dejar demostrado, con pruebas automáticas donde jsdom lo permite y con comprobación manual e informe
+donde no, que la página cumple HU-05 a 375 px:
+- sin scroll horizontal ni texto cortado;
+- zonas táctiles de al menos 44×44 px en todo lo que es nuestro;
+- foco visible;
+- un encabezado por sección, `alt` en toda imagen y el botón de WhatsApp anunciando su propósito;
+- Lighthouse móvil con rendimiento y accesibilidad de al menos 90.
+
+Además:
+- dividir `main.css` en archivos de menos de 200 líneas sin ningún cambio visual;
+- corregir el comentario de `location.ts` y cubrir sus guardias de prefijo con pruebas.
+
+## Criterios de aceptación
+
+### Accesibilidad de la página montada (nuevo `src/a11y.test.ts`)
+Las pruebas cargan el `<body>` de `index.html` en jsdom e importan `./main`, igual que `loadPage()` en
+`src/main.test.ts` (con `vi.resetModules()` antes de cada importación), y comprueban el documento ya
+montado con los datos reales de `business.ts`.
+
+- **CA-1** — Dada la página montada, cuando se recorre cada `main > section`, entonces:
+  - cada una tiene `aria-labelledby` y apunta a un `<h1>` o `<h2>` **dentro de esa sección**, con texto
+    no vacío;
+  - cada sección contiene exactamente un `<h1>` o `<h2>`;
+  - el documento tiene exactamente un `<h1>`, dentro de `#inicio`.
+
+  (CA-05.4)
+- **CA-2** — Dados todos los `h1`–`h6` del documento en orden, cuando se comparan los niveles, entonces
+  el primero es `h1` y ninguno sube más de un nivel respecto al anterior: no hay saltos como `h2` → `h4`
+  (CA-05.4).
+- **CA-3** — Dada la página montada, cuando se buscan imágenes y gráficos, entonces:
+  - ningún `<img>` carece del atributo `alt`. La comprobación recorre **todos** los `img`, así que
+    hoy pasa sin ninguno y fallará si alguien añade uno sin `alt`;
+  - todo `<svg>` tiene `aria-hidden="true"`, o bien `role="img"` con `aria-label` no vacío;
+  - el `<iframe>` tiene un `title` no vacío.
+
+  (CA-05.4)
+- **CA-4** — Dados los enlaces `a[href^="https://wa.me/"]`, cuando se leen, entonces:
+  - hay exactamente 2, uno en `#inicio` y otro en `#reservar`;
+  - el `aria-label` de cada uno empieza por su texto visible (`textContent` sin espacios sobrantes,
+    `Reservar mesa por WhatsApp`), contiene `WhatsApp` y termina en `(se abre en una pestaña nueva)`;
+  - su `<svg>` tiene `aria-hidden="true"`.
+
+  (CA-05.4, CA-04.1)
+- **CA-5** — Dados todos los elementos enfocables del documento (`a[href]`, `button`, `input`, `select`,
+  `textarea`, `[tabindex]:not([tabindex="-1"])`) **salvo el `<iframe>`**, cuando se inspeccionan,
+  entonces cada uno tiene un nombre accesible no vacío (`aria-label` o `textContent` sin espacios
+  sobrantes) y al menos una de las clases `skip-link`, `brand`, `nav-link` o `btn`, que son las que
+  CA-6 garantiza a 44 px. Un enlace nuevo sin esas clases hace fallar la prueba (CA-05.2).
+
+### Zona táctil y foco en CSS (pruebas que leen los `.css` sin comentarios)
+- **CA-6** — Dados `src/styles/header.css` y `src/styles/buttons.css`, cuando se leen las reglas de
+  selector exacto `.skip-link`, `.brand` y `.nav-link` (`header.css`) y `.btn` (`buttons.css`),
+  entonces:
+  - cada una declara `min-height` con valor `var(--tap-min)`, `var(--header-height)` o
+    `var(--space-7)`, todos de 44 px o más;
+  - `.nav-link` y `.btn` declaran además `min-width: var(--tap-min)` (decisión 2).
+
+  (CA-05.2)
+- **CA-7** — Dados todos los archivos `src/styles/*.css`, cuando se buscan anulaciones del contorno
+  (`outline: none`, `outline: 0`, `outline-style: none`, `outline-width: 0`), entonces solo aparecen
+  en la regla de selector exacto `main:focus` (D-08). Así ninguna regla esconde el anillo de foco.
+
+### División de `main.css` (pruebas en un nuevo `src/styles/split.test.ts` y `src/styles/buttons.test.ts`)
+- **CA-8** — Dados `main.css`, `header.css`, `buttons.css`, `hero.css`, `reserve.css`, `footer.css`,
+  `menu.css`, `location.css` y `tokens.css` en `src/styles/`, cuando se leen, entonces existen todos y
+  ninguno pasa de **200 líneas** (contando comentarios y líneas en blanco). Ninguno salvo `tokens.css`
+  contiene literales de color (`#` hexadecimal, `rgb(`, `rgba(`, `hsl(`, `hsla(`).
+- **CA-9** — Dada la tabla de la decisión 1, cuando se parsean los archivos (separando las listas de
+  selectores por comas y teniendo en cuenta el `@media` que envuelve cada regla), entonces cada selector
+  de la tabla aparece en su archivo y contexto, y **no** aparece con ese mismo selector exacto y en ese
+  mismo contexto en ningún otro archivo de `src/styles/`. `.location__place .btn--secondary` cuenta
+  como un selector distinto de `.btn--secondary`.
+- **CA-10** — Dado `buttons.css`, cuando se lee, entonces contiene un bloque
+  `@media (prefers-reduced-motion: reduce)` con `.btn:active { transform: none; }` y está **después**
+  de la regla base `.btn:active` con `translateY(1px)`. El bloque `reduce` de `main.css` ya no contiene
+  ningún selector con `.btn`.
+- **CA-11** — Dado `src/main.ts`, cuando se lee, entonces importa, cada una **exactamente una vez** y en
+  este orden, `./styles/tokens.css`, `./styles/main.css`, `./styles/header.css`, `./styles/buttons.css`,
+  `./styles/hero.css`, `./styles/reserve.css`, `./styles/footer.css`, `./styles/menu.css` y
+  `./styles/location.css`. En el diff de `main.ts` solo hay líneas `import "./styles/…";` añadidas: no
+  cambia `mount()` ni ninguna otra línea (lo comprueba el revisor con `git diff main -- src/main.ts`).
+- **CA-12** — Dados `buttons.css` y `location.css` (pruebas en `src/styles/buttons.test.ts`), cuando se
+  leen, entonces:
+  - **(a)** en `buttons.css`, `.btn--secondary` tiene `background: transparent` (o `background-color`),
+    `color: var(--color-primary)`, un borde con `var(--color-primary)` y `width: 100%`;
+    `.btn--secondary:hover` usa `var(--color-surface)`; dentro de `@media (min-width: 768px)`,
+    `.btn--secondary` tiene `width: auto`;
+  - **(b)** `location.css` ya no tiene ninguna regla de selector exacto `.btn--secondary` ni
+    `.btn--secondary:hover`, y tiene `.location__place .btn--secondary` con
+    `margin-top: var(--space-4)`.
+
+  Las aserciones de (a) son las del antiguo CA-19 (f) de T-20261115-003, más las de ancho.
+- **CA-13** — Dadas las pruebas existentes, cuando se ejecuta `npm run test`, entonces pasan todas. Las
+  **únicas** modificaciones permitidas en archivos de prueba existentes son:
+  - **(a)** en `src/styles/styles.test.ts`, el caso `"makes the header sticky at the top"` lee
+    `header.css` en vez de `main.css`, con las mismas aserciones;
+  - **(b)** el `describe` `"CA-19 (f): .btn--secondary (outline button)"` sale de
+    `src/styles/location.test.ts` y pasa a `src/styles/buttons.test.ts` (CA-12 a).
+
+  Ningún otro caso se borra ni cambia: el resto de `styles.test.ts` sigue leyendo `main.css`, y
+  `main.test.ts`, `project.test.ts`, `page.test.ts`, `src/sections/*.test.ts`, `src/lib/*.test.ts` y
+  `business.test.ts` quedan intactos.
+
+### `src/sections/location.ts` (nuevo `src/sections/location.guards.test.ts`)
+Archivo aparte porque `vi.mock("../lib/maps")` se aplica a todo el archivo y no debe afectar a
+`location.test.ts`. Usa `vi.fn()` con `mockReturnValue` por caso (o `vi.hoisted`).
+
+- **CA-14** — Dado `buildMapEmbedUrl` simulado para que devuelva `javascript:alert(1)`,
+  `http://www.openstreetmap.org/export/embed.html?bbox=0` o
+  `https://www.openstreetmap.org.example.com/export/embed.html?bbox=0` (y `buildDirectionsUrl` con una
+  URL válida), cuando se llama a `renderLocation`, entonces lanza un `Error` cuyo mensaje contiene
+  `https://www.openstreetmap.org/export/embed.html?`.
+- **CA-15** — Dado `buildDirectionsUrl` simulado para que devuelva `javascript:alert(1)`,
+  `http://www.google.com/maps/search/?api=1` o `https://www.google.com.example.com/maps/search/?api=1`
+  (y `buildMapEmbedUrl` con una URL válida), cuando se llama a `renderLocation`, entonces lanza un
+  `Error` cuyo mensaje contiene `https://www.google.com/maps/search/?`.
+- **CA-16** — Dados ambos simulados con URLs válidas que empiezan por los prefijos exactos (p. ej.
+  `https://www.openstreetmap.org/export/embed.html?prueba=1` y
+  `https://www.google.com/maps/search/?prueba=1`), cuando se llama a `renderLocation`, entonces no lanza
+  y el `src` del iframe y el `href` de "Cómo llegar" son exactamente esos valores. Esto demuestra que
+  la guardia no rechaza URLs legítimas.
+- **CA-17** — Dado el código fuente de `location.ts`, cuando una prueba lo lee, entonces no contiene
+  `Leaflet` y sí `MapLibre`. En el diff de `location.ts` respecto a `main` solo cambian líneas de
+  comentario: el valor de `MAP_SANDBOX`, los prefijos y el código quedan idénticos. Lo comprueba el
+  revisor con `git diff main -- src/sections/location.ts`, y CA-9 de T-20261115-003 sigue pasando.
+
+### Comprobación manual (jsdom no pinta: se documenta en `build-rondaN.md`, con capturas en `capturas-rondaN/`)
+- **CA-18** — Dado `npm run build && npm run preview` a **375×667** (DevTools, emulación de
+  dispositivo), cuando se recorre la página de arriba abajo y se salta a cada ancla (`#inicio`,
+  `#menu`, `#horario`, `#reservar` y el pie), entonces:
+  - **(a)** `document.documentElement.scrollWidth <= 375` en cada punto (se anota el valor);
+  - **(b)** no se ve texto cortado ni solapado en la cabecera de dos filas, la portada, las tarjetas
+    del menú, la tabla de horario, la dirección, los botones ni el pie (una captura por sección);
+  - **(c)** el ancla deja el `<h2>` visible bajo la cabecera sticky.
+
+  (CA-05.1)
+- **CA-19** — Dado el mismo entorno a 375 px, cuando se ejecuta en la consola un fragmento que recorre
+  `document.querySelectorAll('a[href], button')` y anota `getBoundingClientRect()` de cada uno (con
+  `.skip-link` medido **con el foco puesto**), entonces todos miden al menos 44×44 px. Se pega la
+  tabla en `build-rondaN.md`. Los controles internos del iframe de OSM se anotan aparte, con su medida,
+  como la excepción de la decisión 3. No cuentan como fallo del CA (CA-05.2).
+- **CA-20** — Dado el mismo entorno, cuando se recorre la página solo con Tab y Mayús+Tab, entonces:
+  - el orden es salto → marca → Menú → Horario y ubicación → Reservar → botón de WhatsApp de la
+    portada → (mapa) → Cómo llegar → botón de WhatsApp de Reservar;
+  - cada elemento muestra el anillo azul visible, sin quedar tapado por la cabecera sticky ni
+    recortado;
+  - "Saltar al contenido" aparece al recibir el foco y lo mueve a `main`;
+  - el foco entra y sale del mapa sin quedar atrapado.
+
+  Se adjuntan capturas de al menos el salto, un `.nav-link` y un `.btn`.
+- **CA-21** — Dadas capturas de **antes** (rama `main`) y **después** (esta rama) a 375 px y a 1024 px de
+  cada sección y del pie, en estado normal y con hover/foco en un botón de WhatsApp y en "Cómo llegar",
+  cuando se comparan, entonces no hay diferencias visuales. La división es un movimiento de reglas; el
+  `min-width` de la decisión 2 no cambia nada visible porque todos esos elementos ya miden más de
+  44 px. Cualquier diferencia se explica en `build-rondaN.md` o se corrige.
+- **CA-22** — **Lighthouse móvil (CA-05.3). Es una comprobación manual, no un CA automatizable en
+  `npm run` (D-03), y no forma parte de las puertas.**
+  - **Entorno**: en la carpeta de trabajo, `npm run build` y luego `npm run preview` (por defecto en
+    `http://localhost:4173/`).
+  - **Cómo se lanza** (decisión 4), una de dos opciones:
+    - **(A)** CLI, desde un directorio **fuera** de la carpeta de trabajo (p. ej.,
+      `tareas/T-20261115-004/`):
+      `npx --yes lighthouse@12 http://localhost:4173/ --only-categories=performance,accessibility --output=html --output=json --output-path=./lighthouse/rondaN-K --chrome-flags="--headless=new"`.
+      Sin `--preset`, Lighthouse usa la configuración móvil por defecto. `npx` no toca `package.json`
+      ni `package-lock.json` (CA-23 lo comprueba).
+    - **(B)** Panel Lighthouse de Chrome DevTools: Navigation, Mobile, categorías Performance y
+      Accessibility. Se guardan el HTML y el JSON del informe.
+  - **Criterio**: **3 ejecuciones** (`K` = 1, 2, 3), y la **mediana** de rendimiento y la de
+    accesibilidad son de 90 o más.
+  - **Qué se guarda**:
+    - en `tareas/T-20261115-004/lighthouse/`, los 3 informes como
+      `rondaN-K.report.html` y `rondaN-K.report.json`;
+    - en `build-rondaN.md`, las puntuaciones de cada ejecución y su mediana, la versión exacta de
+      Lighthouse y de Chrome, la opción usada (A o B) y si en los informes aparecen peticiones a
+      `openstreetmap.org` (la carga diferida puede adelantarse; ver D-10).
+  - **Si no se puede ejecutar** (sin Chrome o sin red para `npx`): se anota en `build-rondaN.md` y el
+    CA queda **pendiente para el humano**. Nunca se inventan ni se estiman puntuaciones.
+  - **Si alguna mediana baja de 90**: se anotan las auditorías que fallan y su ahorro estimado. Solo se
+    corrige dentro de los archivos del plan y sin cambiar decisiones. Si el arreglo exige algo más
+    (fachada "clic para cargar" del mapa, prerender de D-04, tocar `index.html`, el iframe o las
+    fuentes), el constructor se detiene y la tarea vuelve a spec.
+
+### Puertas
+- **CA-23** — Dada la carpeta de trabajo, cuando se ejecuta
+  `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261115-004` desde la raíz de la
+  fábrica, entonces `lint`, `typecheck`, `test` y `build` salen `ok` (ninguna `omitida`). En el diff
+  respecto a `main` no cambian:
+  - configuración: `package.json`, `package-lock.json`, `vite.config.ts`, `tsconfig.json`,
+    `eslint.config.js`;
+  - marcado y datos: `index.html`, `src/data/business.ts`;
+  - lógica: `src/lib/*.ts`, `src/sections/hero.ts`, `src/sections/reserve.ts`, `src/sections/menu.ts`;
+  - estilos: `src/styles/tokens.css`, `src/styles/menu.css`.
+
+## Plan
+1. **TDD — accesibilidad de la página**: escribir `src/a11y.test.ts` (CA-1 a CA-5). Lo previsible es que
+   pase sin cambiar código. Si alguno falla, se arregla el origen y se anota en `build-ronda1.md`. Si el
+   arreglo toca un archivo que no está en este plan, el constructor se detiene y la tarea vuelve a spec.
+2. **TDD — división de CSS**: escribir `src/styles/split.test.ts` (CA-6 a CA-10) y
+   `src/styles/buttons.test.ts` (CA-12, con el `describe` movido de `location.test.ts`). Ajustar el único
+   caso de `styles.test.ts` (CA-13 a). Después:
+   - crear `header.css`, `buttons.css`, `hero.css`, `reserve.css` y `footer.css` **moviendo** las
+     reglas de `main.css` sin reescribirlas;
+   - copiar a cada archivo nuevo un comentario de cabecera como el de `main.css`;
+   - mover `.btn--secondary` de `location.css` a `buttons.css` y dejar en `location.css` la regla
+     `.location__place .btn--secondary { margin-top: var(--space-4); }`;
+   - mover la anulación de `.btn:active` con movimiento reducido a `buttons.css`;
+   - añadir `min-width: var(--tap-min)` a `.nav-link` y a `.btn`.
+3. **`main.ts`**: añadir las cinco importaciones en el orden de CA-11 y nada más.
+4. **TDD — guardias de `location.ts`**: escribir `src/sections/location.guards.test.ts` (CA-14 a
+   CA-17). Corregir solo el comentario de la línea 24 de `location.ts`, p. ej.: "OSM's embed runs
+   MapLibre GL (WebGL + blob: worker) and needs scripts; the iframe is cross-origin, so
+   allow-same-origin cannot reach this page."
+5. Ejecutar `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261115-004` hasta que
+   pasen las cuatro puertas (CA-23).
+6. Comprobación manual CA-18 a CA-21 sobre `npm run preview` (las capturas de "antes" de CA-21, desde
+   un build de `main`) y documentarla en `build-ronda1.md`.
+7. Lighthouse (CA-22) y guardar los informes en `tareas/T-20261115-004/lighthouse/`.
+
+**Archivos que cambian**:
+- `src/main.ts` (solo importaciones);
+- `src/sections/location.ts` (solo un comentario);
+- `src/styles/main.css`, `src/styles/location.css`;
+- `src/styles/styles.test.ts` (un caso), `src/styles/location.test.ts` (sale un `describe`).
+
+**Nuevos**:
+- estilos: `src/styles/header.css`, `buttons.css`, `hero.css`, `reserve.css`, `footer.css`;
+- pruebas: `src/styles/split.test.ts`, `src/styles/buttons.test.ts`, `src/a11y.test.ts`,
+  `src/sections/location.guards.test.ts`.
+
+**Rastro** (fuera del código): `tareas/T-20261115-004/lighthouse/*` y
+`tareas/T-20261115-004/capturas-ronda1/*`.
+
+## Comprobaciones humanas en el cierre (no son CA del constructor)
+- Probar en un **teléfono real** que "Reservar mesa por WhatsApp" abre WhatsApp con el número y el
+  mensaje, y que "Cómo llegar" abre la app de mapas. Venía pendiente de T-20261115-001 y
+  T-20261115-003, y un agente no puede hacerlo.
+- Confirmar o rechazar la excepción de la decisión 3 (hueco nuevo en `huecos.md`).
+- Aprobar el cierre: el riesgo es ALTO (ver abajo).
+
+## Fuera de alcance
+- Cambiar el iframe de OSM: `sandbox`, `referrerpolicy`, proveedor, fachada "clic para cargar" o mapa
+  estático. Requiere decisión humana (D-05, D-10). La fachada solo se replantea si CA-22 baja de 90.
+- Recentrar el marcador a 768 px: exige cambiar el `d` del bbox de D-10 en `src/lib/maps.ts`. Queda como
+  hueco para el humano y en CA-21 solo se observa.
+- Cargar Google Fonts o autoalojar fuentes (hueco abierto). Si se hace, hay que repetir Lighthouse.
+- Favicon, `meta description` y las categorías Best Practices y SEO de Lighthouse: no son criterio de
+  `brain/spec.md`.
+- Indicador de sección activa en la navegación ("subrayado de 3 px", `diseno.md`): requiere JS de
+  scroll y no lo pide HU-05.
+- Luna decorativa de los `<h2>` y del pie (`diseno.md`): es decoración, no accesibilidad ni pulido
+  móvil, y añadiría marcado a `index.html` (zona sensible).
+- Datos reales del negocio (D-00), pasar a ESLint 10 (D-07), Content-Security-Policy, modo oscuro.
+- Dependencias nuevas: Lighthouse se usa con `npx` o DevTools, nunca como `devDependency`, y no se
+  añade Playwright ni axe (D-03).
+
+## Riesgos / zonas sensibles que toca
+- **Riesgo ALTO**: toca `src/main.ts` (importaciones) y `src/sections/location.ts` (un comentario),
+  ambos en `brain/zonas-sensibles.txt`. No se tocan `index.html`, `business.ts`, `whatsapp.ts`,
+  `hero.ts`, `reserve.ts` ni `maps.ts`. Requiere aprobación humana en el cierre.
+- **Cascada al dividir CSS**: cambiar el orden de las reglas puede alterar el resultado, aunque las
+  declaraciones sean idénticas. Puntos concretos:
+  - `.btn:active` frente al movimiento reducido (CA-10);
+  - `.site-footer :focus-visible` debe seguir pintándose en dorado sobre el pie;
+  - `.btn--whatsapp` y `.btn--secondary` deben conservar su ancho a 375 y a 768 px.
+
+  CA-9 comprueba que no se pierde ni se duplica ningún selector, y CA-21 que no hay cambios visuales.
+- **Una importación olvidada** en `main.ts` deja una parte de la página sin estilos sin que falle
+  ninguna prueba de DOM. CA-11 fija la lista y el orden.
+- **Pruebas existentes modificadas**: solo las dos de CA-13, y sin rebajar ninguna aserción. El revisor
+  de código debe confirmarlo en el diff.
+- **`vi.mock` filtrado**: si las pruebas de guardias se escriben en `location.test.ts`, el mock
+  rompería CA-6 a CA-13 de T-20261115-003. Por eso van en un archivo aparte.
+- **Lighthouse es variable**: depende de la máquina, de la CPU y de si el iframe de OSM llega a
+  cargarse. La mediana de 3 ejecuciones y las versiones anotadas lo hacen reproducible. Las
+  puntuaciones locales sobre `vite preview`, sin compresión ni CDN, no garantizan las de producción;
+  se repite al publicar.
+- **`npx lighthouse` descarga código de npm** a la caché de `npx`, no al proyecto. Se lanza fuera de
+  la carpeta de trabajo para que no aparezca nada en el diff (CA-23).
+- **Excepción de 44 px en el mapa**: aceptarla es decisión humana (decisión 3 y hueco). Si el humano la
+  rechaza, la solución cambia D-05 o D-10 y sería una tarea nueva.
+- **Privacidad**: sin cambios. No se añaden recursos de terceros. La CLI de Lighthouse solo audita
+  `localhost`.
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 188
++ ... Get-Content -Encoding UTF8 tareas/T-20261115-004/spec.md; git -C .wor ...
++                                                               ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 brain/decisiones.md; Get-Content -Encoding UTF8 brain/diseno.md; Get-Item 'C:/Program Files/Git/cmd/git.exe','C:/Program Files/nodejs/node.exe' -ErrorAction SilentlyContinue; Get-ChildItem tareas/T-20261115-004/evidencia-ronda1 -ErrorAction SilentlyContinue; Get-ChildItem .worktrees/T-20261115-004 -Name" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+ succeeded in 2181ms:
+# Decisiones
+
+Lo que está aquí ya se decidió. No se rediscute sin una decisión humana nueva.
+
+<!--
+## D-01 · <título> (AAAA-MM-DD · origen: T-xxxx)
+- Contexto:
+- Decisión:
+- Alternativas descartadas:
+- Consecuencias:
+-->
+
+## D-00 · Datos de negocio de ejemplo para la demo (2026-11-14 · origen: humano)
+- Contexto: los datos reales del negocio están en huecos.md y aún no se conocen.
+- Decisión: mientras tanto se usan datos ficticios claramente marcados (precios en MXN, horario y dirección de ejemplo, WhatsApp +52 000 000 0000). Se guardan en un único archivo de datos para sustituirlos fácilmente.
+- Consecuencias: el sitio no se publica hasta resolver los huecos que bloquean la publicación.
+
+## D-01 · Stack: Vite + TypeScript sin framework (2026-11-14 · origen: arquitecto)
+- Contexto: landing de una sola página, sin backend ni estado. `estandares/stack.md` indica para
+  sitios de una página "HTML + CSS + JS sin framework", y a la vez exige las puertas `lint`,
+  `typecheck`, `test` y `build` vía `npm run` en todo proyecto con `package.json`.
+- Decisión: **Vite** como servidor de desarrollo y build estático, con **TypeScript vanilla** (sin
+  framework de UI). Es lo mínimo que mantiene la regla "sin framework" y da las cuatro puertas.
+  TypeScript tipa el archivo de datos (D-00): al sustituir los datos ficticios por los reales, un
+  campo mal escrito falla en `typecheck` en vez de en producción.
+- Alternativas descartadas: HTML/CSS/JS sin `package.json` (`verificar.mjs` no ejecutaría ninguna
+  puerta y no habría TDD); Astro + Tailwind (más configuración y conceptos para una sola página);
+  Vite + React (framework innecesario: no hay interactividad); JS sin TypeScript (se perdería la
+  puerta `typecheck` y la validación del archivo de datos).
+- Consecuencias: el estándar de estilo "un componente por archivo en `PascalCase.tsx`" no aplica;
+  cada sección es un módulo `camelCase.ts` en `src/sections/` que devuelve un `HTMLElement`.
+
+## D-02 · Estilos con CSS plano y custom properties, sin Tailwind (2026-11-14 · origen: arquitecto)
+- Contexto: pocos estilos, una sola página y el objetivo de Lighthouse ≥ 90.
+- Decisión: CSS plano, mobile-first. Los tokens de `diseno.md` se declaran como custom properties en
+  `src/styles/tokens.css` y el resto de CSS solo usa `var(--…)`.
+- Alternativas descartadas: Tailwind CSS (dependencia y configuración extra para muy poco CSS).
+- Consecuencias: el **diseñador** entrega los tokens como bloque `:root { --… }` listo para copiar en
+  lugar del bloque `theme.extend` de Tailwind.
+
+## D-03 · Puertas de calidad (2026-11-14 · origen: arquitecto)
+- Decisión: `lint` = ESLint 9 (flat config) + typescript-eslint; `typecheck` = `tsc --noEmit`;
+  `test` = `vitest run` con entorno **jsdom**; `build` = `vite build`. Pruebas junto al código
+  (`*.test.ts`).
+- Alternativas descartadas: happy-dom (menos fiel para pruebas de accesibilidad); Playwright en las
+  puertas (pesado para esta fase; Lighthouse y el ancho de 375 px se verifican en la tarea 006).
+- Consecuencias: CA-05.3 (Lighthouse) no es automatizable en `npm run` y se verifica manualmente
+  sobre `npm run preview`, dejando el informe en el rastro de la tarea.
+
+## D-04 · Renderizado: esqueleto estático + datos pintados en cliente (2026-11-14 · origen: arquitecto)
+- Contexto: D-00 exige que todos los datos del negocio vivan en un único archivo.
+- Decisión: `index.html` contiene la estructura estática (landmarks, navegación, encabezados de
+  sección, textos fijos). `src/main.ts` lee `src/data/business.ts` y monta el contenido de cada
+  sección con funciones `datos → HTMLElement` que usan `textContent`/`setAttribute` (nunca
+  `innerHTML` con datos).
+- Alternativas descartadas: datos copiados en el HTML (rompe D-00); prerender en build con un plugin
+  de Vite (más complejo; queda como plan B si Lighthouse móvil baja de 90).
+- Consecuencias: sin JavaScript la página muestra la estructura pero no los datos; aceptable para el
+  público objetivo (móvil moderno).
+
+## D-05 · Integraciones sin claves: WhatsApp, OpenStreetMap y Google Maps URLs (2026-11-14 · origen: arquitecto)
+- Decisión: reserva con enlace `https://wa.me/<dígitos>?text=<mensaje codificado>`; mapa con iframe
+  de OpenStreetMap con marcador y `loading="lazy"`; "Cómo llegar" con
+  `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`.
+- Alternativas descartadas: iframe de Google Maps (más pesado y con cookies de terceros); API de
+  WhatsApp Business (innecesaria: no hay reservas propias, ver spec "No entra"); URI `geo:` (no
+  funciona en iOS ni escritorio).
+- Consecuencias: no hay secretos ni `.env`. Las coordenadas también son datos del negocio y van en
+  `business.ts` (hueco añadido en `huecos.md`).
+
+## D-06 · Formato de precio (2026-11-14 · origen: arquitecto, deriva de D-00)
+- Decisión: los precios se guardan como número y se formatean en un único sitio
+  (`src/lib/formatPrice.ts`) con `Intl.NumberFormat(business.locale, { style: "currency",
+  currency: business.currency })`; hoy `es-MX` / `MXN`.
+- Consecuencias: si el hueco de moneda se resuelve con otra moneda, solo cambian `locale` y
+  `currency` en `business.ts`.
+
+## D-07 · Versiones y TypeScript estricto (2026-11-14 · origen: T-20261114-001)
+- Decisión: vite 7 + vitest 3 + typescript 5 + eslint 9 (por compatibilidad con typescript-eslint 8), versiones fijadas en package-lock.json; instalar con `npm ci`. tsconfig añade noUnusedLocals, noUnusedParameters, noFallthroughCasesInSwitch, verbatimModuleSyntax e isolatedModules sobre `strict`.
+- Pendiente de decisión humana: pasar a ESLint 10 (npm avisa que la 9 ya no tiene soporte).
+
+## D-08 · Cabecera, foco y botón de WhatsApp (2026-11-15 · origen: T-20261115-001)
+- Decisión: por debajo de 768 px la cabecera sticky ocupa dos filas (marca a `--header-height`,
+  navegación a `--tap-min`); `scroll-margin-top` y la altura de la portada restan
+  `header-height + tap-min` en móvil y solo `header-height` desde 768 px.
+- El hover del botón de WhatsApp lo oscurece ~10 % con
+  `color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text))`; su altura mínima es `var(--space-7)` (48 px).
+- `main#contenido` lleva `tabindex="-1"` sin contorno de foco, para que "Saltar al contenido" mueva
+  el foco sin dibujar un anillo alrededor de toda la página.
+- Pendiente: `main.css` mide 317 líneas (guía ~200); dividirlo en la tarea 006.
+
+## D-09 · Sección Menú y orden de montaje (2026-11-15 · origen: T-20261115-002)
+- Marcado: cada grupo es un `<div>` con `<h3>` y `<dl>`; cada producto, un `<div>` con `<dt>` (nombre)
+  y `<dd>` (precio). Grupos en `<div>`, no `<section>`, para no añadir landmarks.
+- `formatPrice(price, locale, currency)` es pura (implementa D-06) y lanza Error si el precio no es
+  finito o es negativo, en vez de pintar `$NaN`. `renderMenu` la importa; `main.ts` le pasa
+  `business.menu`, `business.locale` y `business.currency`.
+- Los estilos de cada sección nueva van en su propio archivo (`src/styles/menu.css`), importado en
+  `main.ts` después de `main.css`; rejilla de 2 columnas desde 768 px con
+  `repeat(2, minmax(0, 1fr))` y `align-items: start`.
+- `mount()` construye todo lo que puede fallar (URL de reserva, menú, futuras secciones) antes de
+  pintar nada: o se pinta la página entera o no se pinta nada.
+
+## D-10 · Mapa y "Cómo llegar" (2026-11-15 · origen: T-20261115-003, concreta D-05)
+- Las URLs se construyen solo en `src/lib/maps.ts` con `toFixed(6)`; bbox de OSM oeste,sur,este,norte
+  con d = 0.005°; una coordenada inválida lanza Error. Se comprueba el prefijo antes de usar cada URL.
+- iframe: `loading="lazy"`, `referrerpolicy="strict-origin-when-cross-origin"` (OSM pide Referer),
+  `sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`; sin `allow`,
+  `allowfullscreen` ni navegación del documento superior. El embed de OSM hoy usa MapLibre GL
+  (WebGL + worker `blob:`), que necesita `allow-same-origin` (seguro: el iframe es de otro origen).
+  Ampliar permisos requiere decisión humana.
+- Limitación conocida: `loading="lazy"` no garantiza que no se contacte a OSM sin hacer scroll
+  (Chrome precarga a ~1300 px); las teselas sí esperan al scroll.
+- Horario en `<table>` con `th scope="row"`, horas en 24 h ("08:00 a 20:00"), cerrado = "Cerrado".
+- `.btn--secondary` vive en `location.css` hasta que la tarea 006 divida `main.css`.
+# Sistema de diseño
+
+Cafetería Luna: cercana, cálida, de barrio, con cuidado por el producto (`vision.md`). Mobile-first
+desde 375 px. CSS plano con custom properties (D-02): el bloque de la sección "Tokens CSS" va tal
+cual en `src/styles/tokens.css`; el resto del CSS solo usa `var(--…)`.
+
+Notas de alcance:
+- **Modo oscuro: no aplica.** La spec no lo pide; se entrega solo el tema claro. Si se pide después,
+  se registra una decisión nueva y se añade un bloque `@media (prefers-color-scheme: dark)`.
+- La marca no tiene colores/logo/tipografía (`vision.md`: PENDIENTE). Esta paleta es propuesta del
+  diseñador y sustituible cambiando solo los valores de `tokens.css`.
+
+## Tokens
+### Colores (HEX)
+| Token | HEX | Uso |
+|---|---|---|
+| `--color-bg` | `#FBF6EE` | Fondo de página (crema) |
+| `--color-surface` | `#F3EADB` | Secciones alternas, cabecera, tarjetas sobre fondo |
+| `--color-surface-raised` | `#FFFFFF` | Tarjetas elevadas, tabla de horario, input |
+| `--color-text` | `#2B1D14` | Texto principal (espresso) |
+| `--color-text-muted` | `#6B5646` | Texto secundario, precios secundarios, leyendas |
+| `--color-primary` | `#7A3E1D` | Primario (canela/terracota): botón principal, enlaces, acentos |
+| `--color-primary-hover` | `#62301A` | Hover/active del primario |
+| `--color-on-primary` | `#FFFFFF` | Texto sobre primario |
+| `--color-secondary` | `#E9C46A` | Secundario (dorado luna): detalles, insignias, luna decorativa |
+| `--color-on-secondary` | `#2B1D14` | Texto sobre secundario |
+| `--color-whatsapp` | `#1E6B45` | Botón "Reservar mesa por WhatsApp" (verde oscuro, evoca WhatsApp con AA) |
+| `--color-on-whatsapp` | `#FFFFFF` | Texto sobre el botón de WhatsApp |
+| `--color-success` | `#2E6B3A` | Éxito / "abierto" |
+| `--color-error` | `#B3261E` | Error / "cerrado" |
+| `--color-border` | `#D9C9B3` | Separadores y bordes decorativos (no portan información; ver nota) |
+| `--color-focus` | `#1F4E8C` | Anillo de foco |
+| `--color-footer-bg` | `#2B1D14` | Fondo del pie |
+| `--color-footer-text` | `#F3EADB` | Texto del pie |
+
+Notas: el borde de input usa `--color-text-muted` (no `--color-border`) para cumplir 3:1 en
+componentes de interfaz (ver ratios).
+
+### Tipografía (Google Fonts, 2 familias, `font-display: swap`)
+- **Títulos: Fraunces** (serif cálida con carácter), pesos 600 y 700.
+- **Cuerpo/UI: DM Sans**, pesos 400, 500 y 700.
+- Carga: `https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap`
+  (con `preconnect`; recurso de terceros: zona sensible según arquitectura, requiere aprobación).
+- Fallbacks: `Georgia, "Times New Roman", serif` y `system-ui, -apple-system, "Segoe UI", sans-serif`.
+
+| Token | Móvil (375 px) | ≥ 768 px | Uso |
+|---|---|---|---|
+| `--text-xs` | 0.8125rem (13) | igual | Pie, leyendas |
+| `--text-sm` | 0.9375rem (15) | igual | Texto secundario |
+| `--text-base` | 1rem (16) | 1.0625rem | Cuerpo |
+| `--text-lg` | 1.125rem (18) | 1.25rem | Nombre/precio de producto, lead |
+| `--text-xl` | 1.5rem (24) | 1.75rem | Títulos de grupo (h3) |
+| `--text-2xl` | 1.875rem (30) | 2.5rem | Títulos de sección (h2) |
+| `--text-3xl` | 2.5rem (40) | 3.75rem | Nombre en portada (h1) |
+
+Interlineado: 1.6 cuerpo, 1.2 títulos. Ancho de línea de lectura ≤ 65ch.
+
+### Espaciado, radios, sombras
+Escala de 4 px: `--space-1` 4 · `--space-2` 8 · `--space-3` 12 · `--space-4` 16 · `--space-5` 24 ·
+`--space-6` 32 · `--space-7` 48 · `--space-8` 72 (px). Gutter lateral móvil: `--space-4` (16 px).
+
+Radios: `--radius-sm` 6 px · `--radius-md` 12 px · `--radius-lg` 20 px · `--radius-pill` 999 px.
+Sombras (tinte marrón, suaves): `--shadow-sm` y `--shadow-md` (ver bloque).
+
+## Tokens CSS (`:root`, listo para copiar en `src/styles/tokens.css`)
+```css
+:root {
+  /* Color */
+  --color-bg: #FBF6EE;
+  --color-surface: #F3EADB;
+  --color-surface-raised: #FFFFFF;
+  --color-text: #2B1D14;
+  --color-text-muted: #6B5646;
+  --color-primary: #7A3E1D;
+  --color-primary-hover: #62301A;
+  --color-on-primary: #FFFFFF;
+  --color-secondary: #E9C46A;
+  --color-on-secondary: #2B1D14;
+  --color-whatsapp: #1E6B45;
+  --color-on-whatsapp: #FFFFFF;
+  --color-success: #2E6B3A;
+  --color-error: #B3261E;
+  --color-border: #D9C9B3;
+  --color-focus: #1F4E8C;
+  --color-footer-bg: #2B1D14;
+  --color-footer-text: #F3EADB;
+
+  /* Tipografía */
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.5rem;
+  --leading-body: 1.6;
+  --leading-heading: 1.2;
+
+  /* Espaciado (escala de 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgb(43 29 20 / 0.08), 0 1px 3px rgb(43 29 20 / 0.06);
+  --shadow-md: 0 4px 12px rgb(43 29 20 / 0.12), 0 2px 4px rgb(43 29 20 / 0.06);
+
+  /* Layout */
+  --container-max: 64rem;      /* 1024 px */
+  --gutter: var(--space-4);
+  --tap-min: 44px;             /* zona táctil mínima (CA-05.2) */
+  --header-height: 56px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --text-base: 1.0625rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.75rem;
+    --text-2xl: 2.5rem;
+    --text-3xl: 3.75rem;
+    --gutter: var(--space-5);
+    --header-height: 64px;
+  }
+}
+```
+
+## Contraste WCAG AA (calculado numéricamente)
+Fórmula WCAG 2.x: luminancia relativa sRGB y ratio (L1+0.05)/(L2+0.05). Umbrales: texto normal
+≥ 4.5:1, texto grande (≥ 24 px, o ≥ 18.66 px en negrita) y componentes de interfaz ≥ 3:1.
+
+| # | Texto / elemento | Fondo | Ratio | Mínimo | Resultado |
+|---|---|---|---|---|---|
+| 1 | `text` #2B1D14 | `bg` #FBF6EE | **15.15:1** | 4.5 | AA/AAA |
+| 2 | `text` #2B1D14 | `surface` #F3EADB | **13.66:1** | 4.5 | AA/AAA |
+| 3 | `text` #2B1D14 | `surface-raised` #FFFFFF | **16.30:1** | 4.5 | AA/AAA |
+| 4 | `text-muted` #6B5646 | `bg` #FBF6EE | **6.41:1** | 4.5 | AA |
+| 5 | `text-muted` #6B5646 | `surface` #F3EADB | **5.78:1** | 4.5 | AA |
+| 6 | `text-muted` #6B5646 | `surface-raised` #FFFFFF | **6.90:1** | 4.5 | AA |
+| 7 | `on-primary` #FFFFFF | `primary` #7A3E1D | **8.29:1** | 4.5 | AA/AAA |
+| 8 | `on-primary` #FFFFFF | `primary-hover` #62301A | **10.73:1** | 4.5 | AA/AAA |
+| 9 | `primary` #7A3E1D (enlaces/texto) | `bg` #FBF6EE | **7.70:1** | 4.5 | AA/AAA |
+| 10 | `primary` #7A3E1D | `surface` #F3EADB | **6.95:1** | 4.5 | AA |
+| 11 | `primary` #7A3E1D | `surface-raised` #FFFFFF | **8.29:1** | 4.5 | AA/AAA |
+| 12 | `on-secondary` #2B1D14 | `secondary` #E9C46A | **9.75:1** | 4.5 | AA/AAA |
+| 13 | `on-whatsapp` #FFFFFF | `whatsapp` #1E6B45 | **6.47:1** | 4.5 | AA |
+| 14 | `whatsapp` #1E6B45 (texto/icono) | `bg` #FBF6EE | **6.02:1** | 4.5 | AA |
+| 15 | `success` #2E6B3A | `bg` #FBF6EE | **5.95:1** | 4.5 | AA |
+| 16 | `success` #2E6B3A | `surface` #F3EADB | **5.37:1** | 4.5 | AA |
+| 17 | `error` #B3261E | `bg` #FBF6EE | **6.08:1** | 4.5 | AA |
+| 18 | `error` #B3261E | `surface` #F3EADB | **5.48:1** | 4.5 | AA |
+| 19 | `footer-text` #F3EADB | `footer-bg` #2B1D14 | **13.66:1** | 4.5 | AA/AAA |
+| 20 | `secondary` #E9C46A (acentos) | `footer-bg` #2B1D14 | **9.75:1** | 3 | AA |
+| 21 | `focus` #1F4E8C (anillo) | `bg` #FBF6EE | **7.72:1** | 3 | AA |
+| 22 | `focus` #1F4E8C (anillo) | `surface` #F3EADB | **6.97:1** | 3 | AA |
+| 23 | borde de input `text-muted` #6B5646 | `bg` #FBF6EE | **6.41:1** | 3 | AA |
+
+Reglas derivadas:
+- **No usar `secondary` (#E9C46A) como texto ni como borde sobre fondos claros**: su contraste con
+  `bg` es insuficiente. Solo como relleno decorativo con `on-secondary`, o sobre `footer-bg`.
+- **No usar `--color-border` (#D9C9B3) como único indicador** de un control o de información; es solo
+  decorativo (separadores). Los bordes de input usan `text-muted`.
+- **El foco nunca se dibuja sobre `primary`**: el contraste foco/primario es 1.0:1 (ilegible). Por eso
+  el anillo es `outline: 3px solid var(--color-focus); outline-offset: 3px;`, que cae sobre el fondo
+  de página/sección (filas 21 y 22) y no sobre el botón.
+- Si en la implementación se coloca texto sobre una foto, añadir velo oscuro y recalcular.
+
+## Componentes base
+Todos: zona táctil ≥ 44×44 px (`--tap-min`), `:focus-visible` con el anillo descrito, transiciones
+≤ 150 ms y desactivadas con `prefers-reduced-motion: reduce`.
+
+### Botón
+Base: `font-family: var(--font-body); font-weight: 700; font-size: var(--text-base); min-height: 48px;
+padding: 0 var(--space-5); border-radius: var(--radius-pill); border: 2px solid transparent;`.
+
+| Variante | Fondo / texto / borde | Uso |
+|---|---|---|
+| `primary` | `primary` / `on-primary` | Acción general |
+| `whatsapp` | `whatsapp` / `on-whatsapp` | **Reservar mesa por WhatsApp** (portada y sección Reservar); con icono de chat a la izquierda (decorativo, `aria-hidden`) |
+| `secondary` (contorno) | transparente / `primary` / borde `primary` | "Cómo llegar" |
+| `ghost` | transparente / `primary` | Enlaces de navegación |
+
+Estados: **hover** = fondo `primary-hover` (whatsapp: oscurecer ~10 %; contorno: fondo `surface`);
+**active** = `translateY(1px)`; **focus-visible** = anillo `focus`; **disabled** = `opacity: .5`,
+`cursor: not-allowed` (el contraste no se exige en deshabilitado, pero no se usa en esta página).
+En móvil el botón principal de portada y de Reservar ocupa el ancho completo del contenedor.
+
+### Tarjeta
+`background: surface-raised; border: 1px solid var(--color-border); border-radius: var(--radius-md);
+padding: var(--space-5); box-shadow: var(--shadow-sm)`.
+Variantes: `plana` (sin sombra, fondo `surface`), `elevada` (`--shadow-md`).
+Uso: grupo de menú (Bebidas / Postres) y bloque de horario. Fila de producto: nombre a la izquierda
+(`--text-lg`, `text`) y precio a la derecha (`--text-lg`, peso 700, `primary`), alineados a la línea
+base con puntos guía opcionales; si el nombre es largo, el precio baja debajo sin romper (CA-02.3).
+Estados: informativa, sin hover (no es interactiva).
+
+### Input
+No hay formularios en esta página (la reserva ocurre en WhatsApp). Se define por coherencia futura:
+`min-height: 48px; padding: 0 var(--space-4); background: surface-raised; border: 2px solid
+var(--color-text-muted); border-radius: var(--radius-sm); font-size: 1rem` (≥ 16 px evita el zoom en
+iOS). Estados: hover = borde `text`; focus-visible = anillo `focus`; error = borde `error` + mensaje
+en `error` con icono; disabled = fondo `surface`, `opacity: .6`. Etiqueta siempre visible encima.
+
+### Cabecera (sticky)
+`position: sticky; top: 0; z-index: 10; height: var(--header-height); background: var(--color-surface);
+border-bottom: 1px solid var(--color-border)`. Contenido: nombre "Cafetería Luna" (Fraunces 700,
+`text`) a la izquierda y navegación (Menú · Horario y ubicación · Reservar) como enlaces `ghost`.
+Móvil: la navegación es una fila horizontal bajo/junto al nombre con `gap: var(--space-2)`, cada
+enlace con 44 px de alto; sin scroll horizontal en 375 px (si no caben, el nombre se acorta a "Luna"
+o la nav pasa a una segunda fila). Enlace de sección activa: subrayado de 3 px en `primary` (no solo
+color). Añadir `scroll-margin-top: var(--header-height)` a las secciones para que el ancla no quede
+tapada. Enlace "Saltar al contenido" visible al recibir foco.
+
+### Pie
+`background: var(--color-footer-bg); color: var(--color-footer-text); padding: var(--space-7)
+var(--gutter)`. Contenido: nombre, dirección corta y aviso de datos de ejemplo (D-00), texto
+`--text-sm`. Enlaces del pie: `footer-text` con subrayado; foco: anillo en `secondary` (9.75:1 sobre
+`footer-bg`). Un pequeño motivo de luna creciente en `secondary` como decoración (`aria-hidden`).
+
+### Sección (patrón)
+Alternar fondos `bg` y `surface` entre secciones; `padding-block: var(--space-7)` (móvil) y
+`var(--space-8)` (≥ 768 px). `h2` en Fraunces `--text-2xl`, color `text`, con una luna creciente
+decorativa en `secondary`.
+
+## Layout y breakpoints
+- Mobile-first: estilos base para 375 px; sin scroll horizontal (`min-width: 0` en hijos flex/grid,
+  `overflow-wrap: anywhere` en textos largos, iframe del mapa con `width: 100%`).
+- Ancho máximo del contenido: `--container-max` (1024 px), centrado, con `padding-inline:
+  var(--gutter)`. Texto corrido ≤ 65ch.
+- Breakpoints (`min-width`): **sm 480 px** · **md 768 px** · **lg 1024 px**.
+- Rejilla: 1 columna en móvil; desde md, Menú en 2 columnas (Bebidas | Postres) con `gap:
+  var(--space-6)`, y Horario y ubicación en 2 columnas (horario | mapa) con `grid-template-columns:
+  1fr 1fr`. Desde lg solo cambia el aire (más `padding`) y el tamaño de h1.
+- Portada: ocupa el alto visible del móvil menos la cabecera (`min-height: calc(100svh -
+  var(--header-height))`) y muestra nombre, eslogan y el botón de WhatsApp sin hacer scroll
+  (CA-01.1, CA-01.2).
+- Mapa: relación 4:3 en móvil, 16:9 desde md; `loading="lazy"` y `title` accesible.
+
+
+    Directorio: C:\Program Files\nodejs
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----     21/05/2026  12:44 a. m.       92279112 node.exe                                                             
+
+
+    Directorio: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchp
+    ad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\evidencia-ronda1
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----     15/11/2026  01:06 a. m.                lighthouse                                                           
+-a----     15/11/2026  01:06 a. m.          11521 evidencia.json                                                       
+-a----     15/11/2026  01:05 a. m.         119976 main-1024.png                                                        
+-a----     15/11/2026  01:05 a. m.          93785 main-375.png                                                         
+-a----     15/11/2026  01:05 a. m.         119976 pagina-1024.png                                                      
+-a----     15/11/2026  01:05 a. m.          93785 pagina-375.png                                                       
+-a----     15/11/2026  01:05 a. m.         119559 pagina-768.png                                                       
+-a----     15/11/2026  01:05 a. m.         119976 rama-1024.png                                                        
+-a----     15/11/2026  01:05 a. m.          93785 rama-375.png                                                         
+-a----     15/11/2026  01:06 a. m.           3435 resumen.md                                                           
+-a----     15/11/2026  01:05 a. m.          18701 tab-01.png                                                           
+-a----     15/11/2026  01:05 a. m.          17126 tab-02.png                                                           
+-a----     15/11/2026  01:05 a. m.          17837 tab-03.png                                                           
+-a----     15/11/2026  01:05 a. m.          17847 tab-04.png                                                           
+-a----     15/11/2026  01:05 a. m.          17847 tab-05.png                                                           
+-a----     15/11/2026  01:05 a. m.          18961 tab-06.png                                                           
+-a----     15/11/2026  01:05 a. m.          32174 tab-07.png                                                           
+-a----     15/11/2026  01:05 a. m.         163162 tab-08.png                                                           
+-a----     15/11/2026  01:05 a. m.         163039 tab-09.png                                                           
+-a----     15/11/2026  01:05 a. m.         162067 tab-10.png                                                           
+-a----     15/11/2026  01:05 a. m.         161474 tab-11.png                                                           
+-a----     15/11/2026  01:05 a. m.         162066 tab-12.png                                                           
+-a----     15/11/2026  01:05 a. m.         161736 tab-13.png                                                           
+-a----     15/11/2026  01:05 a. m.         164537 tab-14.png                                                           
+dist
+node_modules
+src
+.gitignore
+eslint.config.js
+index.html
+package-lock.json
+package.json
+README.md
+tsconfig.json
+vite.config.ts
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-Content -Encoding UTF8 tareas/T-20261115-004/evidencia-ronda1/resumen.md; Get-Content -Encoding UTF8 tareas/T-20261115-004/evidencia-ronda1/evidencia.json; Get-Item "$env:LOCALAPPDATA/Programs/Git/cmd/git.exe","C:/Program Files (x86)/Git/cmd/git.exe" -ErrorAction SilentlyContinue; Get-Command git* -All -ErrorAction SilentlyContinue; Get-Content .worktrees/T-20261115-004/.git' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+ succeeded in 3909ms:
+# Evidencia de la fábrica · T-20261115-004 · ronda 1
+
+Generada por `scripts/evidencia.mjs` (estación de código) el 2026-11-15T07:05:04.401Z. No la escribe el constructor.
+
+## 375 px · `pagina-375.png`
+- Desbordamiento horizontal: no
+- Elementos que se salen del ancho: ninguno
+- Texto cortado: ninguno
+- Enfocables: 9; menores de 44×44: ninguno
+- Ocultos hasta recibir foco (su tamaño con foco está en el recorrido con Tab): a.skip-link
+
+## 768 px · `pagina-768.png`
+- Desbordamiento horizontal: no
+- Elementos que se salen del ancho: ninguno
+- Texto cortado: ninguno
+- Enfocables: 9; menores de 44×44: ninguno
+- Ocultos hasta recibir foco (su tamaño con foco está en el recorrido con Tab): a.skip-link
+
+## 1024 px · `pagina-1024.png`
+- Desbordamiento horizontal: no
+- Elementos que se salen del ancho: ninguno
+- Texto cortado: ninguno
+- Enfocables: 9; menores de 44×44: ninguno
+- Ocultos hasta recibir foco (su tamaño con foco está en el recorrido con Tab): a.skip-link
+
+## Recorrido con Tab (375 px) · `tab-NN.png`
+| # | elemento | nombre | tamaño con foco | contorno de foco | visible |
+|---|---|---|---|---|---|
+| 1 | a.skip-link | Saltar al contenido | 173×44 | 3px solid rgb(31, 78, 140) | true |
+| 2 | a.brand | Cafetería Luna | 137×56 | 3px solid rgb(31, 78, 140) | true |
+| 3 | a.nav-link | Menú | 55×44 | 3px solid rgb(31, 78, 140) | true |
+| 4 | a.nav-link | Horario y ubicación | 149×44 | 3px solid rgb(31, 78, 140) | true |
+| 5 | a.nav-link | Reservar | 74×44 | 3px solid rgb(31, 78, 140) | true |
+| 6 | a.btn.btn--whatsapp | Reservar mesa por WhatsApp (se abre en una pestaña nueva) | 343×48 | 3px solid rgb(31, 78, 140) | true |
+| 7 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 8 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 9 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 10 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 11 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 12 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 13 | iframe | Mapa con la ubicación de la cafetería | 341×255 | NINGUNO | true |
+| 14 | a.btn.btn--secondary | Cómo llegar (se abre en una pestaña nueva) | 343×48 | 3px solid rgb(31, 78, 140) | true |
+| 15 | a.btn.btn--whatsapp | Reservar mesa por WhatsApp (se abre en una pestaña nueva) | 343×48 | 3px solid rgb(31, 78, 140) | true |
+| 16 | body |  |  |  |  |
+
+- Primer enfocable: a.skip-link; tras Enter el foco está en: main#contenido; Mayús+Tab después: a.nav-link
+- Nota: cuando el foco está DENTRO de un iframe de otro origen, aquí se ve como el propio iframe y su contorno no se puede medir desde fuera: mira las capturas `tab-NN.png` de esos pasos.
+
+## Consola
+- log: Failed to load resource: the server responded with a status of 404 (Not Found) http://127.0.0.1:62137/favicon.ico
+- log: Failed to load resource: the server responded with a status of 404 (Not Found) http://127.0.0.1:57837/favicon.ico
+
+## Comparación con main (`main-*.png` / `rama-*.png`)
+- Comparación byte a byte de PNG con terceros bloqueados; "false" no dice cuánto cambia, mira las dos capturas.
+- 375 px: idénticas
+- 1024 px: idénticas
+
+## Lighthouse móvil
+- Ejecuciones: 100/100, 100/100, 100/100 · mediana rendimiento 100, accesibilidad 100
+
+{
+  "tarea": "T-20261115-004",
+  "ronda": 1,
+  "generada": "2026-11-15T07:05:04.401Z",
+  "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "vistas": {
+    "375": {
+      "anchoVentana": 375,
+      "scrollWidth": 375,
+      "desbordaHorizontal": false,
+      "fuera": [],
+      "cortado": [],
+      "enfocables": [
+        {
+          "el": "a.skip-link",
+          "nombre": "Saltar al contenido",
+          "w": 1,
+          "h": 1,
+          "ocultoHastaFoco": true,
+          "menor44": false
+        },
+        {
+          "el": "a.brand",
+          "nombre": "Cafetería Luna",
+          "w": 137.1,
+          "h": 56,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Menú",
+          "w": 55.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Horario y ubicación",
+          "w": 149,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Reservar",
+          "w": 74.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 343,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "iframe",
+          "nombre": "Mapa con la ubicación de la cafetería",
+          "w": 341,
+          "h": 255.3,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--secondary",
+          "nombre": "Cómo llegar (se abre en una pestaña nueva)",
+          "w": 343,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 343,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        }
+      ]
+    },
+    "768": {
+      "anchoVentana": 768,
+      "scrollWidth": 768,
+      "desbordaHorizontal": false,
+      "fuera": [],
+      "cortado": [],
+      "enfocables": [
+        {
+          "el": "a.skip-link",
+          "nombre": "Saltar al contenido",
+          "w": 1,
+          "h": 1,
+          "ocultoHastaFoco": true,
+          "menor44": false
+        },
+        {
+          "el": "a.brand",
+          "nombre": "Cafetería Luna",
+          "w": 152.3,
+          "h": 64,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Menú",
+          "w": 55.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Horario y ubicación",
+          "w": 149,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Reservar",
+          "w": 74.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 319.6,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "iframe",
+          "nombre": "Mapa con la ubicación de la cafetería",
+          "w": 342,
+          "h": 191.5,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--secondary",
+          "nombre": "Cómo llegar (se abre en una pestaña nueva)",
+          "w": 149,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 319.6,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        }
+      ]
+    },
+    "1024": {
+      "anchoVentana": 1024,
+      "scrollWidth": 1024,
+      "desbordaHorizontal": false,
+      "fuera": [],
+      "cortado": [],
+      "enfocables": [
+        {
+          "el": "a.skip-link",
+          "nombre": "Saltar al contenido",
+          "w": 1,
+          "h": 1,
+          "ocultoHastaFoco": true,
+          "menor44": false
+        },
+        {
+          "el": "a.brand",
+          "nombre": "Cafetería Luna",
+          "w": 152.3,
+          "h": 64,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Menú",
+          "w": 55.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Horario y ubicación",
+          "w": 149,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.nav-link",
+          "nombre": "Reservar",
+          "w": 74.3,
+          "h": 44,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 319.6,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "iframe",
+          "nombre": "Mapa con la ubicación de la cafetería",
+          "w": 470,
+          "h": 263.5,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--secondary",
+          "nombre": "Cómo llegar (se abre en una pestaña nueva)",
+          "w": 149,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        },
+        {
+          "el": "a.btn.btn--whatsapp",
+          "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+          "w": 319.6,
+          "h": 48,
+          "ocultoHastaFoco": false,
+          "menor44": false
+        }
+      ]
+    }
+  },
+  "tab": {
+    "pasos": [
+      {
+        "paso": 1,
+        "el": "a.skip-link",
+        "nombre": "Saltar al contenido",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 8,
+        "tam": "173×44"
+      },
+      {
+        "paso": 2,
+        "el": "a.brand",
+        "nombre": "Cafetería Luna",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 0,
+        "tam": "137×56"
+      },
+      {
+        "paso": 3,
+        "el": "a.nav-link",
+        "nombre": "Menú",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 56,
+        "tam": "55×44"
+      },
+      {
+        "paso": 4,
+        "el": "a.nav-link",
+        "nombre": "Horario y ubicación",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 56,
+        "tam": "149×44"
+      },
+      {
+        "paso": 5,
+        "el": "a.nav-link",
+        "nombre": "Reservar",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 56,
+        "tam": "74×44"
+      },
+      {
+        "paso": 6,
+        "el": "a.btn.btn--whatsapp",
+        "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 493,
+        "tam": "343×48"
+      },
+      {
+        "paso": 7,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 8,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 9,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 10,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 11,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 12,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 13,
+        "el": "iframe",
+        "nombre": "Mapa con la ubicación de la cafetería",
+        "contorno": "NINGUNO",
+        "visible": true,
+        "top": 278,
+        "tam": "341×255"
+      },
+      {
+        "paso": 14,
+        "el": "a.btn.btn--secondary",
+        "nombre": "Cómo llegar (se abre en una pestaña nueva)",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 550,
+        "tam": "343×48"
+      },
+      {
+        "paso": 15,
+        "el": "a.btn.btn--whatsapp",
+        "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+        "contorno": "3px solid rgb(31, 78, 140)",
+        "visible": true,
+        "top": 511,
+        "tam": "343×48"
+      },
+      {
+        "paso": 16,
+        "el": "body"
+      }
+    ],
+    "primerEnfocable": {
+      "el": "a.skip-link",
+      "nombre": "Saltar al contenido",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true,
+      "top": 8,
+      "tam": "173×44"
+    },
+    "trasEnterEnElPrimero": {
+      "el": "main#contenido",
+      "nombre": "Cafetería LunaTu rincón tranquilo para un buen caféReservar mesa por WhatsApp Me",
+      "contorno": "NINGUNO",
+      "visible": true,
+      "top": 0,
+      "tam": "375×2776"
+    },
+    "mayusTabDespues": {
+      "el": "a.nav-link",
+      "nombre": "Reservar",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true,
+      "top": 56,
+      "tam": "74×44"
+    }
+  },
+  "consola": [
+    "log: Failed to load resource: the server responded with a status of 404 (Not Found) http://127.0.0.1:62137/favicon.ico",
+    "log: Failed to load resource: the server responded with a status of 404 (Not Found) http://127.0.0.1:57837/favicon.ico"
+  ],
+  "comparacion": {
+    "nota": "Comparación byte a byte de PNG con terceros bloqueados; \"false\" no dice cuánto cambia, mira las dos capturas.",
+    "filas": [
+      {
+        "vista": "375",
+        "identicas": true
+      },
+      {
+        "vista": "1024",
+        "identicas": true
+      }
+    ]
+  },
+  "lighthouse": {
+    "ejecuciones": [
+      {
+        "rendimiento": 100,
+        "accesibilidad": 100
+      },
+      {
+        "rendimiento": 100,
+        "accesibilidad": 100
+      },
+      {
+        "rendimiento": 100,
+        "accesibilidad": 100
+      }
+    ],
+    "mediana": {
+      "rendimiento": 100,
+      "accesibilidad": 100
+    }
+  }
+}
+
+CommandType     Name                                               Version    Source                                   
+-----------     ----                                               -------    ------                                   
+Application     github.bat                                         0.0.0.0    C:\ProgramData\FRANC\GitHubDesktop\bin...
+gitdir: C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/app/.git/worktrees/T-20261115-004
+
+
+
+codex
+La evidencia de la estación mide controles propios de al menos 44×44 px y ningún desbordamiento en los tres anchos. Revisaré las capturas y la cascada CSS para comprobar la legibilidad y el foco.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem 'C:/ProgramData/FRANC/GitHubDesktop' -Filter git.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName; Get-ChildItem \""'$env:LOCALAPPDATA/GitHubDesktop" -Filter git.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-004\revisiones
+ exited 1 in 1543ms:
+C:\ProgramData\FRANC\GitHubDesktop\app-3.5.12\resources\app\git\cmd\git.exe
+C:\ProgramData\FRANC\GitHubDesktop\app-3.5.12\resources\app\git\mingw64\bin\git.exe
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:/ProgramData/FRANC/GitHubDesktop/app-3.5.12/resources/app/git/cmd/git.exe' -C .worktrees/T-20261115-004 diff main...HEAD" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+ succeeded in 924ms:
+diff --git a/src/a11y.test.ts b/src/a11y.test.ts
+new file mode 100644
+index 0000000..adaab89
+--- /dev/null
++++ b/src/a11y.test.ts
+@@ -0,0 +1,136 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { beforeEach, describe, expect, it, vi } from "vitest";
++
++// T-20261115-004: accessibility of the mounted page (CA-05.2, CA-05.4), with the real business.ts data.
++
++const srcDir = dirname(fileURLToPath(import.meta.url));
++const indexBody = (): HTMLElement =>
++  new DOMParser().parseFromString(readFileSync(resolve(srcDir, "../index.html"), "utf8"), "text/html").body;
++
++const squash = (value: string | null | undefined): string => (value ?? "").replace(/\s+/g, " ").trim();
++
++// Same approach as loadPage() in main.test.ts: main.ts mounts on import.
++const mountPage = async (): Promise<void> => {
++  document.body.replaceWith(document.importNode(indexBody(), true));
++  await import("./main");
++};
++
++const TAP_CLASSES = ["skip-link", "brand", "nav-link", "btn"];
++const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
++const NEW_TAB_SUFFIX = "(se abre en una pestaña nueva)";
++
++beforeEach(async () => {
++  vi.resetModules();
++  await mountPage();
++});
++
++describe("CA-1: one labelled heading per section", () => {
++  it("labels every main > section with an h1/h2 inside that section", () => {
++    const sections = Array.from(document.querySelectorAll<HTMLElement>("main > section"));
++    expect(sections.length).toBeGreaterThan(0);
++    for (const section of sections) {
++      const id = section.getAttribute("aria-labelledby");
++      expect(id, `aria-labelledby of #${section.id}`).toBeTruthy();
++      const heading = document.getElementById(id ?? "");
++      expect(heading, `#${id}`).not.toBeNull();
++      expect(["H1", "H2"], `#${id} tag`).toContain(heading?.tagName);
++      expect(section.contains(heading), `#${id} inside #${section.id}`).toBe(true);
++      expect(squash(heading?.textContent), `text of #${id}`).not.toBe("");
++    }
++  });
++
++  it("has exactly one h1 or h2 in each section", () => {
++    for (const section of document.querySelectorAll<HTMLElement>("main > section")) {
++      expect(section.querySelectorAll("h1, h2"), `#${section.id}`).toHaveLength(1);
++    }
++  });
++
++  it("has a single h1 in the document, inside #inicio", () => {
++    const h1s = document.querySelectorAll("h1");
++    expect(h1s).toHaveLength(1);
++    expect(h1s[0]?.closest("section")?.id).toBe("inicio");
++  });
++});
++
++describe("CA-2: heading levels", () => {
++  it("starts at h1 and never skips a level going down", () => {
++    const levels = Array.from(document.querySelectorAll("h1, h2, h3, h4, h5, h6"), (h) => Number(h.tagName[1]));
++    expect(levels[0]).toBe(1);
++    levels.forEach((level, index) => {
++      if (index === 0) return;
++      const previous = levels[index - 1] ?? 1;
++      expect(level - previous, `h${previous} → h${level} at position ${index}`).toBeLessThanOrEqual(1);
++    });
++  });
++});
++
++describe("CA-3: images, graphics and the iframe", () => {
++  it("gives every <img> an alt attribute", () => {
++    for (const img of document.querySelectorAll("img")) {
++      expect(img.hasAttribute("alt"), img.outerHTML).toBe(true);
++    }
++  });
++
++  it("hides every <svg> or names it as an image", () => {
++    for (const svg of document.querySelectorAll("svg")) {
++      const hidden = svg.getAttribute("aria-hidden") === "true";
++      const named = svg.getAttribute("role") === "img" && squash(svg.getAttribute("aria-label")) !== "";
++      expect(hidden || named, svg.outerHTML).toBe(true);
++    }
++  });
++
++  it("gives the iframe a non-empty title", () => {
++    const iframes = document.querySelectorAll("iframe");
++    expect(iframes.length).toBeGreaterThan(0);
++    for (const iframe of iframes) {
++      expect(squash(iframe.getAttribute("title"))).not.toBe("");
++    }
++  });
++});
++
++describe("CA-4: WhatsApp buttons announce their purpose", () => {
++  const whatsappLinks = (): HTMLAnchorElement[] =>
++    Array.from(document.querySelectorAll<HTMLAnchorElement>('a[href^="https://wa.me/"]'));
++
++  it("has exactly two, one in #inicio and one in #reservar", () => {
++    expect(whatsappLinks().map((a) => a.closest("section")?.id)).toEqual(["inicio", "reservar"]);
++  });
++
++  it("has an aria-label that starts with the visible text, names WhatsApp and warns of the new tab", () => {
++    for (const link of whatsappLinks()) {
++      const visible = squash(link.textContent);
++      const label = link.getAttribute("aria-label") ?? "";
++      expect(visible).toBe("Reservar mesa por WhatsApp");
++      expect(label.startsWith(visible), label).toBe(true);
++      expect(label).toContain("WhatsApp");
++      expect(label.endsWith(NEW_TAB_SUFFIX), label).toBe(true);
++    }
++  });
++
++  it("hides its icon from assistive technology", () => {
++    for (const link of whatsappLinks()) {
++      const svg = link.querySelector("svg");
++      expect(svg).not.toBeNull();
++      expect(svg?.getAttribute("aria-hidden")).toBe("true");
++    }
++  });
++});
++
++describe("CA-5: every focusable element is named and uses a 44 px class", () => {
++  it("names each focusable element (except the iframe) and gives it skip-link, brand, nav-link or btn", () => {
++    const focusables = Array.from(document.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
++      (element) => element.tagName !== "IFRAME",
++    );
++    expect(focusables.length).toBeGreaterThan(0);
++    for (const element of focusables) {
++      const name = squash(element.getAttribute("aria-label")) || squash(element.textContent);
++      expect(name, element.outerHTML).not.toBe("");
++      expect(
++        TAP_CLASSES.some((cls) => element.classList.contains(cls)),
++        `${element.outerHTML} needs one of ${TAP_CLASSES.join(", ")}`,
++      ).toBe(true);
++    }
++  });
++});
+diff --git a/src/main.ts b/src/main.ts
+index 7d27ba5..f336c25 100644
+--- a/src/main.ts
++++ b/src/main.ts
+@@ -1,5 +1,10 @@
+ import "./styles/tokens.css";
+ import "./styles/main.css";
++import "./styles/header.css";
++import "./styles/buttons.css";
++import "./styles/hero.css";
++import "./styles/reserve.css";
++import "./styles/footer.css";
+ import "./styles/menu.css";
+ import "./styles/location.css";
+ import { business } from "./data/business";
+diff --git a/src/sections/location.guards.test.ts b/src/sections/location.guards.test.ts
+new file mode 100644
+index 0000000..1317c7f
+--- /dev/null
++++ b/src/sections/location.guards.test.ts
+@@ -0,0 +1,85 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { beforeEach, describe, expect, it, vi } from "vitest";
++import type { Business } from "../data/business";
++import { renderLocation } from "./location";
++
++// T-20261115-004: the URL prefix guards of createMap and createDirectionsLink. src/lib/maps.ts always
++// returns valid URLs, so it is mocked here. Separate file: vi.mock applies to the whole file and must
++// not reach location.test.ts.
++const maps = vi.hoisted(() => ({
++  buildMapEmbedUrl: vi.fn<(lat: number, lng: number) => string>(),
++  buildDirectionsUrl: vi.fn<(lat: number, lng: number) => string>(),
++}));
++vi.mock("../lib/maps", () => maps);
++
++const sectionsDir = dirname(fileURLToPath(import.meta.url));
++
++const LOCATION: Pick<Business, "hours" | "address" | "coordinates"> = {
++  hours: [
++    { day: "Lunes", closed: true },
++    { day: "Martes", open: "07:30", close: "19:00" },
++    { day: "Miércoles", open: "07:30", close: "19:00" },
++    { day: "Jueves", open: "07:30", close: "19:00" },
++    { day: "Viernes", open: "07:30", close: "22:15" },
++    { day: "Sábado", open: "10:00", close: "22:15" },
++    { day: "Domingo", closed: true },
++  ],
++  address: "Avenida de Prueba 456, Col. Pruebas, 11111 Guadalajara, Jalisco, México",
++  coordinates: { lat: 20.6597, lng: -103.3496 },
++};
++
++const MAP_PREFIX = "https://www.openstreetmap.org/export/embed.html?";
++const DIRECTIONS_PREFIX = "https://www.google.com/maps/search/?";
++const VALID_MAP = `${MAP_PREFIX}prueba=1`;
++const VALID_DIRECTIONS = `${DIRECTIONS_PREFIX}prueba=1`;
++
++beforeEach(() => {
++  maps.buildMapEmbedUrl.mockReset().mockReturnValue(VALID_MAP);
++  maps.buildDirectionsUrl.mockReset().mockReturnValue(VALID_DIRECTIONS);
++});
++
++describe("CA-14: the map guard rejects anything but the OpenStreetMap embed prefix", () => {
++  it.each([
++    "javascript:alert(1)",
++    "http://www.openstreetmap.org/export/embed.html?bbox=0",
++    "https://www.openstreetmap.org.example.com/export/embed.html?bbox=0",
++  ])("throws for %s", (url) => {
++    maps.buildMapEmbedUrl.mockReturnValue(url);
++    expect(() => renderLocation(LOCATION)).toThrow(Error);
++    expect(() => renderLocation(LOCATION)).toThrow(MAP_PREFIX);
++  });
++});
++
++describe("CA-15: the directions guard rejects anything but the Google Maps search prefix", () => {
++  it.each([
++    "javascript:alert(1)",
++    "http://www.google.com/maps/search/?api=1",
++    "https://www.google.com.example.com/maps/search/?api=1",
++  ])("throws for %s", (url) => {
++    maps.buildDirectionsUrl.mockReturnValue(url);
++    expect(() => renderLocation(LOCATION)).toThrow(Error);
++    expect(() => renderLocation(LOCATION)).toThrow(DIRECTIONS_PREFIX);
++  });
++});
++
++describe("CA-16: the guards let legitimate URLs through untouched", () => {
++  it("uses the exact URLs for the iframe src and the Cómo llegar href", () => {
++    let element: HTMLElement | undefined;
++    expect(() => {
++      element = renderLocation(LOCATION);
++    }).not.toThrow();
++    expect(element?.querySelector("iframe")?.getAttribute("src")).toBe(VALID_MAP);
++    const link = Array.from(element?.querySelectorAll("a") ?? []).find((a) => a.textContent?.trim() === "Cómo llegar");
++    expect(link?.getAttribute("href")).toBe(VALID_DIRECTIONS);
++  });
++});
++
++describe("CA-17: the sandbox comment names MapLibre, not Leaflet", () => {
++  it("does not mention Leaflet and mentions MapLibre", () => {
++    const source = readFileSync(resolve(sectionsDir, "location.ts"), "utf8");
++    expect(source).not.toContain("Leaflet");
++    expect(source).toContain("MapLibre");
++  });
++});
+diff --git a/src/sections/location.ts b/src/sections/location.ts
+index 93701ad..e86f018 100644
+--- a/src/sections/location.ts
++++ b/src/sections/location.ts
+@@ -21,7 +21,8 @@ const MAP_TITLE = "Mapa con la ubicación de la cafetería";
+ const LINK_TEXT = "Cómo llegar";
+ // The accessible name starts with the visible text (WCAG 2.5.3): change both together.
+ const LINK_LABEL = `${LINK_TEXT} (se abre en una pestaña nueva)`;
+-// Leaflet needs scripts; the iframe is cross-origin, so allow-same-origin cannot reach this page.
++// OSM's embed runs MapLibre GL (WebGL + blob: worker) and needs scripts; the iframe is cross-origin,
++// so allow-same-origin cannot reach this page.
+ // Never add allow-top-navigation*, allow-forms, allow-modals, allow-downloads or allow-pointer-lock.
+ const MAP_SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";
+ 
+diff --git a/src/styles/buttons.css b/src/styles/buttons.css
+new file mode 100644
+index 0000000..98f06e0
+--- /dev/null
++++ b/src/styles/buttons.css
+@@ -0,0 +1,78 @@
++/* Botones compartidos (WhatsApp y contorno); solo usan var(--…) de tokens.css
++   (D-02, D-08, D-10, brain/diseno.md → Botón). Se importa antes que las secciones. */
++
++/* ── Botón ────────────────────────────────────────────── */
++/* min-width: los 44 px de ancho no dependen de la longitud del texto (CA-05.2). */
++.btn {
++  display: inline-flex;
++  align-items: center;
++  justify-content: center;
++  gap: var(--space-2);
++  min-height: var(--space-7); /* 48 px (diseno.md) */
++  min-width: var(--tap-min);
++  padding: 0 var(--space-5);
++  border: 2px solid transparent;
++  border-radius: var(--radius-pill);
++  font-family: var(--font-body);
++  font-weight: 700;
++  font-size: var(--text-base);
++  line-height: var(--leading-heading);
++  text-align: center;
++  text-decoration: none;
++  cursor: pointer;
++  transition: background-color 150ms ease, transform 150ms ease;
++}
++
++.btn:active {
++  transform: translateY(1px);
++}
++
++.btn__icon {
++  flex: none;
++  width: var(--space-5);
++  height: var(--space-5);
++}
++
++/* Móvil: ocupa el ancho del contenedor (diseno.md). */
++.btn--whatsapp {
++  width: 100%;
++  background: var(--color-whatsapp);
++  color: var(--color-on-whatsapp);
++}
++
++/* Hover ~10 % más oscuro, mezclando con un token (sin colores a mano). */
++.btn--whatsapp:hover {
++  background: color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text));
++}
++
++/* Botón de contorno (diseno.md → Botón secondary); móvil: ancho completo.
++   El margen propio de cada sección va en el archivo de la sección (location.css). */
++.btn--secondary {
++  width: 100%;
++  background: transparent;
++  color: var(--color-primary);
++  border-color: var(--color-primary);
++}
++
++.btn--secondary:hover {
++  background: var(--color-surface);
++}
++
++/* ── Desde 768 px ─────────────────────────────────────── */
++@media (min-width: 768px) {
++  .btn--whatsapp {
++    width: auto;
++  }
++
++  .btn--secondary {
++    width: auto;
++  }
++}
++
++/* ── Movimiento reducido ──────────────────────────────── */
++/* Va después de .btn:active: con la misma especificidad, gana la última regla. */
++@media (prefers-reduced-motion: reduce) {
++  .btn:active {
++    transform: none;
++  }
++}
+diff --git a/src/styles/buttons.test.ts b/src/styles/buttons.test.ts
+new file mode 100644
+index 0000000..c702eea
+--- /dev/null
++++ b/src/styles/buttons.test.ts
+@@ -0,0 +1,110 @@
++import { existsSync, readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++
++// T-20261115-004 CA-12: .btn--secondary moves from location.css to buttons.css (decision 1, D-10).
++
++const stylesDir = dirname(fileURLToPath(import.meta.url));
++const stripComments = (css: string): string => css.replace(/\/\*[\s\S]*?\*\//g, "");
++const normalize = (value: string): string => value.replace(/\s+/g, " ").trim();
++const readCss = (file: string): string => {
++  const path = resolve(stylesDir, file);
++  return existsSync(path) ? stripComments(readFileSync(path, "utf8")) : "";
++};
++
++interface CssRule {
++  selector: string;
++  body: string;
++}
++
++// Innermost rules only (rules nested in @media come out with their own selector).
++const parseRules = (source: string): CssRule[] =>
++  Array.from(source.matchAll(/([^{}]+)\{([^{}]*)\}/g), (match) => ({
++    selector: normalize(match[1] ?? ""),
++    body: normalize(match[2] ?? ""),
++  }));
++
++// Splits the stylesheet into the top-level part and the bodies of its @-blocks, braces balanced.
++const splitAtBlocks = (source: string): { base: string; blocks: { query: string; body: string }[] } => {
++  let base = "";
++  const blocks: { query: string; body: string }[] = [];
++  let index = 0;
++  while (index < source.length) {
++    const at = source.indexOf("@", index);
++    if (at < 0) {
++      base += source.slice(index);
++      break;
++    }
++    base += source.slice(index, at);
++    const open = source.indexOf("{", at);
++    let depth = 0;
++    let end = open;
++    for (; end < source.length; end += 1) {
++      if (source[end] === "{") depth += 1;
++      if (source[end] === "}") depth -= 1;
++      if (depth === 0) break;
++    }
++    blocks.push({ query: normalize(source.slice(at, open)), body: source.slice(open + 1, end) });
++    index = end + 1;
++  }
++  return { base, blocks };
++};
++
++const stylesheet = (file: string): { base: CssRule[]; md: CssRule[]; all: CssRule[] } => {
++  const css = readCss(file);
++  const { base, blocks } = splitAtBlocks(css);
++  const mdBlock = blocks.find((block) => /^@media \(\s*min-width:\s*768px\s*\)$/.test(block.query));
++  return { base: parseRules(base), md: parseRules(mdBlock?.body ?? ""), all: parseRules(css) };
++};
++
++const buttons = stylesheet("buttons.css");
++const baseRules = buttons.base;
++
++// Rules whose selector list contains one matching `selector` exactly (after splitting on commas).
++const rulesFor = (selector: RegExp, list: CssRule[] = baseRules): CssRule[] =>
++  list.filter((rule) => rule.selector.split(",").some((part) => selector.test(part.trim())));
++const bodyFor = (selector: RegExp, list: CssRule[] = baseRules): string =>
++  rulesFor(selector, list)
++    .map((rule) => rule.body)
++    .join("; ");
++const declaration = (property: string, value: string): RegExp =>
++  new RegExp(`(^|;\\s*)${property}: ${value}(;|$)`);
++
++// Moved unchanged from src/styles/location.test.ts (T-20261115-003 CA-19 f); it now reads buttons.css.
++describe("CA-19 (f): .btn--secondary (outline button)", () => {
++  it("is transparent with primary text and border", () => {
++    const body = bodyFor(/^\.btn--secondary$/);
++    expect(body).toMatch(/(^|;\s*)background(-color)?: transparent(;|$)/);
++    expect(body).toMatch(declaration("color", "var\\(--color-primary\\)"));
++    expect(body).toMatch(/(^|;\s*)border(-color)?: [^;]*var\(--color-primary\)/);
++  });
++
++  it("uses var(--color-surface) on hover", () => {
++    expect(bodyFor(/^\.btn--secondary:hover$/)).toContain("var(--color-surface)");
++  });
++});
++
++describe("CA-12 (a): .btn--secondary width in buttons.css", () => {
++  it("is full width on mobile", () => {
++    expect(bodyFor(/^\.btn--secondary$/)).toMatch(declaration("width", "100%"));
++  });
++
++  it("is auto width from 768 px", () => {
++    expect(bodyFor(/^\.btn--secondary$/, buttons.md)).toMatch(declaration("width", "auto"));
++  });
++});
++
++describe("CA-12 (b): location.css keeps only its own spacing for the button", () => {
++  const location = stylesheet("location.css");
++
++  it("has no rule with the exact selector .btn--secondary or .btn--secondary:hover, in any context", () => {
++    expect(rulesFor(/^\.btn--secondary(:hover)?$/, location.all)).toEqual([]);
++  });
++
++  it("spaces the button inside the place block with margin-top: var(--space-4)", () => {
++    expect(bodyFor(/^\.location__place \.btn--secondary$/, location.base)).toMatch(
++      declaration("margin-top", "var\\(--space-4\\)"),
++    );
++  });
++});
+diff --git a/src/styles/footer.css b/src/styles/footer.css
+new file mode 100644
+index 0000000..daa0402
+--- /dev/null
++++ b/src/styles/footer.css
+@@ -0,0 +1,30 @@
++/* Pie de página; solo usa var(--…) de tokens.css (D-02, brain/diseno.md). */
++
++/* ── Pie ──────────────────────────────────────────────── */
++.site-footer {
++  padding-block: var(--space-7);
++  background: var(--color-footer-bg);
++  color: var(--color-footer-text);
++  font-size: var(--text-sm);
++}
++
++.site-footer a {
++  color: var(--color-footer-text);
++  text-decoration: underline;
++}
++
++/* En el pie oscuro el anillo va en dorado (9.75:1 sobre footer-bg). */
++.site-footer :focus-visible {
++  outline-color: var(--color-secondary);
++}
++
++.site-footer__name {
++  margin-bottom: var(--space-2);
++  font-family: var(--font-heading);
++  font-weight: 700;
++  font-size: var(--text-lg);
++}
++
++.site-footer__notice {
++  max-width: 65ch;
++}
+diff --git a/src/styles/header.css b/src/styles/header.css
+new file mode 100644
+index 0000000..fd15408
+--- /dev/null
++++ b/src/styles/header.css
+@@ -0,0 +1,109 @@
++/* Enlace de salto y cabecera sticky con la navegación; solo usan var(--…) de tokens.css
++   (D-02, D-08, brain/diseno.md). */
++
++/* ── Enlace "Saltar al contenido": oculto hasta recibir foco ── */
++.skip-link {
++  position: absolute;
++  top: var(--space-2);
++  left: var(--space-2);
++  z-index: 20;
++  display: inline-flex;
++  align-items: center;
++  min-height: var(--tap-min);
++  padding-inline: var(--space-4);
++  border-radius: var(--radius-sm);
++  background: var(--color-surface-raised);
++  color: var(--color-primary);
++  font-weight: 700;
++  box-shadow: var(--shadow-md);
++}
++
++.skip-link:not(:focus) {
++  width: 1px;
++  height: 1px;
++  min-height: 0;
++  padding: 0;
++  overflow: hidden;
++  clip-path: inset(50%);
++  white-space: nowrap;
++}
++
++/* ── Cabecera sticky ──────────────────────────────────── */
++/* Móvil: el nombre ocupa una fila de --header-height y la navegación otra de --tap-min
++   (las tres entradas no caben junto al nombre en 375 px). Desde 768 px, una sola fila. */
++.site-header {
++  position: sticky;
++  top: 0;
++  z-index: 10;
++  background: var(--color-surface);
++  border-bottom: 1px solid var(--color-border);
++}
++
++.site-header__inner {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  justify-content: space-between;
++  column-gap: var(--space-4);
++}
++
++.brand {
++  display: inline-flex;
++  align-items: center;
++  min-height: var(--header-height);
++  font-family: var(--font-heading);
++  font-weight: 700;
++  font-size: var(--text-lg);
++  line-height: var(--leading-heading);
++  color: var(--color-text);
++  text-decoration: none;
++}
++
++.site-nav {
++  flex-basis: 100%;
++  min-width: 0;
++}
++
++.site-nav__list {
++  display: flex;
++  gap: var(--space-2);
++  margin: 0 calc(-1 * var(--space-2));
++  padding: 0;
++  list-style: none;
++}
++
++/* min-width: los 44 px de ancho no dependen de la longitud del texto (CA-05.2). */
++.nav-link {
++  display: inline-flex;
++  align-items: center;
++  min-height: var(--tap-min);
++  min-width: var(--tap-min);
++  padding-inline: var(--space-2);
++  border-radius: var(--radius-sm);
++  font-size: var(--text-sm);
++  font-weight: 500;
++  color: var(--color-primary);
++  text-decoration: none;
++  white-space: nowrap;
++}
++
++.nav-link:hover {
++  text-decoration: underline;
++  text-underline-offset: var(--space-1);
++}
++
++/* ── Desde 768 px ─────────────────────────────────────── */
++@media (min-width: 768px) {
++  .site-header__inner {
++    flex-wrap: nowrap;
++    min-height: var(--header-height);
++  }
++
++  .site-nav {
++    flex-basis: auto;
++  }
++
++  .site-nav__list {
++    margin: 0;
++  }
++}
+diff --git a/src/styles/hero.css b/src/styles/hero.css
+new file mode 100644
+index 0000000..fbd19a7
+--- /dev/null
++++ b/src/styles/hero.css
+@@ -0,0 +1,37 @@
++/* Sección Portada; solo usa var(--…) de tokens.css (D-02, D-08, brain/diseno.md). */
++
++/* ── Portada ──────────────────────────────────────────── */
++/* Alto visible menos la cabecera: nombre, eslogan y botón sin hacer scroll (CA-01.1, CA-01.2). */
++.hero {
++  display: flex;
++  align-items: center;
++  min-height: calc(100vh - var(--header-height) - var(--tap-min));
++  min-height: calc(100svh - var(--header-height) - var(--tap-min));
++}
++
++.hero__content {
++  display: flex;
++  flex-direction: column;
++  align-items: flex-start;
++  gap: var(--space-4);
++}
++
++.hero__title {
++  font-size: var(--text-3xl);
++  font-weight: 700;
++}
++
++.hero__slogan {
++  max-width: 65ch;
++  margin-bottom: var(--space-3);
++  font-size: var(--text-lg);
++  color: var(--color-text-muted);
++}
++
++/* ── Desde 768 px ─────────────────────────────────────── */
++@media (min-width: 768px) {
++  .hero {
++    min-height: calc(100vh - var(--header-height));
++    min-height: calc(100svh - var(--header-height));
++  }
++}
+diff --git a/src/styles/location.css b/src/styles/location.css
+index 53315ff..b29dc51 100644
+--- a/src/styles/location.css
++++ b/src/styles/location.css
+@@ -97,17 +97,9 @@
+   border: 0;
+ }
+ 
+-/* Botón de contorno (diseno.md → Botón secondary); móvil: ancho completo. */
+-.btn--secondary {
+-  width: 100%;
++/* "Cómo llegar": el botón de contorno vive en buttons.css; aquí solo su separación del mapa. */
++.location__place .btn--secondary {
+   margin-top: var(--space-4);
+-  background: transparent;
+-  color: var(--color-primary);
+-  border-color: var(--color-primary);
+-}
+-
+-.btn--secondary:hover {
+-  background: var(--color-surface);
+ }
+ 
+ /* Desde 768 px: horario | dirección + mapa + botón. */
+@@ -121,8 +113,4 @@
+   .location__map {
+     aspect-ratio: 16 / 9;
+   }
+-
+-  .btn--secondary {
+-    width: auto;
+-  }
+ }
+diff --git a/src/styles/location.test.ts b/src/styles/location.test.ts
+index 7221897..30ae7e2 100644
+--- a/src/styles/location.test.ts
++++ b/src/styles/location.test.ts
+@@ -102,19 +102,6 @@ describe("CA-19 (e): map", () => {
+   });
+ });
+ 
+-describe("CA-19 (f): .btn--secondary (outline button)", () => {
+-  it("is transparent with primary text and border", () => {
+-    const body = bodyFor(/^\.btn--secondary$/);
+-    expect(body).toMatch(/(^|;\s*)background(-color)?: transparent(;|$)/);
+-    expect(body).toMatch(declaration("color", "var\\(--color-primary\\)"));
+-    expect(body).toMatch(/(^|;\s*)border(-color)?: [^;]*var\(--color-primary\)/);
+-  });
+-
+-  it("uses var(--color-surface) on hover", () => {
+-    expect(bodyFor(/^\.btn--secondary:hover$/)).toContain("var(--color-surface)");
+-  });
+-});
+-
+ describe("CA-19 (g): two columns and 16 / 9 map from 768 px", () => {
+   it("has a @media (min-width: 768px) block", () => {
+     expect(mdBlock, "@media (min-width: 768px)").toBeDefined();
+diff --git a/src/styles/main.css b/src/styles/main.css
+index 0bf4ca9..1477f09 100644
+--- a/src/styles/main.css
++++ b/src/styles/main.css
+@@ -1,4 +1,6 @@
+-/* Estilos base y layout mobile-first; solo usan var(--…) de tokens.css (D-02, brain/diseno.md). */
++/* Estilos base y layout mobile-first; solo usan var(--…) de tokens.css (D-02, brain/diseno.md).
++   Cabecera, botones, portada, Reservar y pie viven en su propio archivo (header.css, buttons.css,
++   hero.css, reserve.css, footer.css), importado en main.ts después de este. */
+ 
+ /* ── Base ─────────────────────────────────────────────── */
+ *,
+@@ -53,95 +55,6 @@ main:focus {
+   outline: none;
+ }
+ 
+-/* ── Enlace "Saltar al contenido": oculto hasta recibir foco ── */
+-.skip-link {
+-  position: absolute;
+-  top: var(--space-2);
+-  left: var(--space-2);
+-  z-index: 20;
+-  display: inline-flex;
+-  align-items: center;
+-  min-height: var(--tap-min);
+-  padding-inline: var(--space-4);
+-  border-radius: var(--radius-sm);
+-  background: var(--color-surface-raised);
+-  color: var(--color-primary);
+-  font-weight: 700;
+-  box-shadow: var(--shadow-md);
+-}
+-
+-.skip-link:not(:focus) {
+-  width: 1px;
+-  height: 1px;
+-  min-height: 0;
+-  padding: 0;
+-  overflow: hidden;
+-  clip-path: inset(50%);
+-  white-space: nowrap;
+-}
+-
+-/* ── Cabecera sticky ──────────────────────────────────── */
+-/* Móvil: el nombre ocupa una fila de --header-height y la navegación otra de --tap-min
+-   (las tres entradas no caben junto al nombre en 375 px). Desde 768 px, una sola fila. */
+-.site-header {
+-  position: sticky;
+-  top: 0;
+-  z-index: 10;
+-  background: var(--color-surface);
+-  border-bottom: 1px solid var(--color-border);
+-}
+-
+-.site-header__inner {
+-  display: flex;
+-  flex-wrap: wrap;
+-  align-items: center;
+-  justify-content: space-between;
+-  column-gap: var(--space-4);
+-}
+-
+-.brand {
+-  display: inline-flex;
+-  align-items: center;
+-  min-height: var(--header-height);
+-  font-family: var(--font-heading);
+-  font-weight: 700;
+-  font-size: var(--text-lg);
+-  line-height: var(--leading-heading);
+-  color: var(--color-text);
+-  text-decoration: none;
+-}
+-
+-.site-nav {
+-  flex-basis: 100%;
+-  min-width: 0;
+-}
+-
+-.site-nav__list {
+-  display: flex;
+-  gap: var(--space-2);
+-  margin: 0 calc(-1 * var(--space-2));
+-  padding: 0;
+-  list-style: none;
+-}
+-
+-.nav-link {
+-  display: inline-flex;
+-  align-items: center;
+-  min-height: var(--tap-min);
+-  padding-inline: var(--space-2);
+-  border-radius: var(--radius-sm);
+-  font-size: var(--text-sm);
+-  font-weight: 500;
+-  color: var(--color-primary);
+-  text-decoration: none;
+-  white-space: nowrap;
+-}
+-
+-.nav-link:hover {
+-  text-decoration: underline;
+-  text-underline-offset: var(--space-1);
+-}
+-
+ /* ── Secciones ────────────────────────────────────────── */
+ /* El ancla deja el título bajo la cabecera de dos filas (nombre + navegación). */
+ main > section {
+@@ -159,142 +72,16 @@ main > section h2 {
+   font-weight: 600;
+ }
+ 
+-/* ── Portada ──────────────────────────────────────────── */
+-/* Alto visible menos la cabecera: nombre, eslogan y botón sin hacer scroll (CA-01.1, CA-01.2). */
+-.hero {
+-  display: flex;
+-  align-items: center;
+-  min-height: calc(100vh - var(--header-height) - var(--tap-min));
+-  min-height: calc(100svh - var(--header-height) - var(--tap-min));
+-}
+-
+-.hero__content {
+-  display: flex;
+-  flex-direction: column;
+-  align-items: flex-start;
+-  gap: var(--space-4);
+-}
+-
+-.hero__title {
+-  font-size: var(--text-3xl);
+-  font-weight: 700;
+-}
+-
+-.hero__slogan {
+-  max-width: 65ch;
+-  margin-bottom: var(--space-3);
+-  font-size: var(--text-lg);
+-  color: var(--color-text-muted);
+-}
+-
+-/* ── Reservar ─────────────────────────────────────────── */
+-.reserve__text {
+-  max-width: 65ch;
+-  margin-bottom: var(--space-5);
+-}
+-
+-/* ── Botón ────────────────────────────────────────────── */
+-.btn {
+-  display: inline-flex;
+-  align-items: center;
+-  justify-content: center;
+-  gap: var(--space-2);
+-  min-height: var(--space-7); /* 48 px (diseno.md) */
+-  padding: 0 var(--space-5);
+-  border: 2px solid transparent;
+-  border-radius: var(--radius-pill);
+-  font-family: var(--font-body);
+-  font-weight: 700;
+-  font-size: var(--text-base);
+-  line-height: var(--leading-heading);
+-  text-align: center;
+-  text-decoration: none;
+-  cursor: pointer;
+-  transition: background-color 150ms ease, transform 150ms ease;
+-}
+-
+-.btn:active {
+-  transform: translateY(1px);
+-}
+-
+-.btn__icon {
+-  flex: none;
+-  width: var(--space-5);
+-  height: var(--space-5);
+-}
+-
+-/* Móvil: ocupa el ancho del contenedor (diseno.md). */
+-.btn--whatsapp {
+-  width: 100%;
+-  background: var(--color-whatsapp);
+-  color: var(--color-on-whatsapp);
+-}
+-
+-/* Hover ~10 % más oscuro, mezclando con un token (sin colores a mano). */
+-.btn--whatsapp:hover {
+-  background: color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text));
+-}
+-
+-/* ── Pie ──────────────────────────────────────────────── */
+-.site-footer {
+-  padding-block: var(--space-7);
+-  background: var(--color-footer-bg);
+-  color: var(--color-footer-text);
+-  font-size: var(--text-sm);
+-}
+-
+-.site-footer a {
+-  color: var(--color-footer-text);
+-  text-decoration: underline;
+-}
+-
+-/* En el pie oscuro el anillo va en dorado (9.75:1 sobre footer-bg). */
+-.site-footer :focus-visible {
+-  outline-color: var(--color-secondary);
+-}
+-
+-.site-footer__name {
+-  margin-bottom: var(--space-2);
+-  font-family: var(--font-heading);
+-  font-weight: 700;
+-  font-size: var(--text-lg);
+-}
+-
+-.site-footer__notice {
+-  max-width: 65ch;
+-}
+-
+ /* ── Desde 768 px ─────────────────────────────────────── */
+ @media (min-width: 768px) {
+-  .site-header__inner {
+-    flex-wrap: nowrap;
+-    min-height: var(--header-height);
+-  }
+-
+-  .site-nav {
+-    flex-basis: auto;
+-  }
+-
+-  .site-nav__list {
+-    margin: 0;
+-  }
+-
+   main > section {
+     padding-block: var(--space-8);
+     scroll-margin-top: var(--header-height);
+   }
+-
+-  .hero {
+-    min-height: calc(100vh - var(--header-height));
+-    min-height: calc(100svh - var(--header-height));
+-  }
+-
+-  .btn--whatsapp {
+-    width: auto;
+-  }
+ }
+ 
+ /* ── Movimiento reducido ──────────────────────────────── */
++/* La anulación de .btn:active vive junto al botón, en buttons.css (CA-10). */
+ @media (prefers-reduced-motion: no-preference) {
+   html {
+     scroll-behavior: smooth;
+@@ -309,8 +96,4 @@ main > section h2 {
+     animation: none !important;
+     scroll-behavior: auto !important;
+   }
+-
+-  .btn:active {
+-    transform: none;
+-  }
+ }
+diff --git a/src/styles/reserve.css b/src/styles/reserve.css
+new file mode 100644
+index 0000000..ed19906
+--- /dev/null
++++ b/src/styles/reserve.css
+@@ -0,0 +1,7 @@
++/* Sección Reservar; solo usa var(--…) de tokens.css (D-02, brain/diseno.md). */
++
++/* ── Reservar ─────────────────────────────────────────── */
++.reserve__text {
++  max-width: 65ch;
++  margin-bottom: var(--space-5);
++}
+diff --git a/src/styles/split.test.ts b/src/styles/split.test.ts
+new file mode 100644
+index 0000000..af52633
+--- /dev/null
++++ b/src/styles/split.test.ts
+@@ -0,0 +1,286 @@
++import { existsSync, readdirSync, readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++
++// T-20261115-004: main.css split (decision 1), tap targets and focus ring (CA-05.2) read from the CSS.
++
++const stylesDir = dirname(fileURLToPath(import.meta.url));
++const stripComments = (css: string): string => css.replace(/\/\*[\s\S]*?\*\//g, "");
++const normalize = (value: string): string => value.replace(/\s+/g, " ").trim();
++const readRaw = (file: string): string => readFileSync(resolve(stylesDir, file), "utf8");
++
++// "@media (min-width: 768px)" whatever the spacing; "" for top-level rules.
++const normalizeQuery = (query: string): string =>
++  normalize(query)
++    .toLowerCase()
++    .replace(/\(\s*/g, "(")
++    .replace(/\s*\)/g, ")")
++    .replace(/\s*:\s*/g, ": ");
++
++interface CssRule {
++  file: string;
++  context: string;
++  selectors: string[];
++  body: string;
++  /** Offset in the comment-free source, to compare the order of two rules. */
++  start: number;
++}
++
++const toRule = (file: string, context: string, prelude: string, body: string, start: number): CssRule => ({
++  file,
++  context,
++  selectors: prelude.split(",").map(normalize).filter(Boolean),
++  body: normalize(body),
++  start,
++});
++
++// Top-level rules and rules one level inside an @-block (all this project uses).
++const parseCss = (file: string): CssRule[] => {
++  const css = stripComments(readRaw(file));
++  const rules: CssRule[] = [];
++  let index = 0;
++  while (index < css.length) {
++    const open = css.indexOf("{", index);
++    if (open < 0) break;
++    const prelude = css.slice(index, open);
++    if (prelude.trim().startsWith("@")) {
++      let depth = 0;
++      let end = open;
++      for (; end < css.length; end += 1) {
++        if (css[end] === "{") depth += 1;
++        if (css[end] === "}") depth -= 1;
++        if (depth === 0) break;
++      }
++      const inner = css.slice(open + 1, end);
++      const context = normalizeQuery(prelude);
++      for (const match of inner.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
++        rules.push(toRule(file, context, match[1] ?? "", match[2] ?? "", open + 1 + (match.index ?? 0)));
++      }
++      index = end + 1;
++    } else {
++      const close = css.indexOf("}", open);
++      rules.push(toRule(file, "", prelude, css.slice(open + 1, close), index));
++      index = close + 1;
++    }
++  }
++  return rules;
++};
++
++const declarations = (body: string): Map<string, string> => {
++  const map = new Map<string, string>();
++  for (const part of body.split(";")) {
++    const colon = part.indexOf(":");
++    if (colon < 0) continue;
++    map.set(part.slice(0, colon).trim(), part.slice(colon + 1).trim());
++  }
++  return map;
++};
++
++const MD = "@media (min-width: 768px)";
++const NO_PREFERENCE = "@media (prefers-reduced-motion: no-preference)";
++const REDUCE = "@media (prefers-reduced-motion: reduce)";
++
++const STYLE_FILES = [
++  "tokens.css",
++  "main.css",
++  "header.css",
++  "buttons.css",
++  "hero.css",
++  "reserve.css",
++  "footer.css",
++  "menu.css",
++  "location.css",
++];
++
++// Decision 1 of the spec: file → context → exact selectors (selector lists split on commas).
++const SPLIT: Record<string, Record<string, string[]>> = {
++  "main.css": {
++    "": [
++      "*",
++      "*::before",
++      "*::after",
++      "body",
++      "h1",
++      "h2",
++      "h3",
++      "p",
++      "a",
++      ".container",
++      ":focus-visible",
++      "main:focus",
++      "main > section",
++      "main > section:nth-of-type(even)",
++      "main > section h2",
++    ],
++    [MD]: ["main > section"],
++    [NO_PREFERENCE]: ["html"],
++    [REDUCE]: ["*", "*::before", "*::after"],
++  },
++  "header.css": {
++    "": [
++      ".skip-link",
++      ".skip-link:not(:focus)",
++      ".site-header",
++      ".site-header__inner",
++      ".brand",
++      ".site-nav",
++      ".site-nav__list",
++      ".nav-link",
++      ".nav-link:hover",
++    ],
++    [MD]: [".site-header__inner", ".site-nav", ".site-nav__list"],
++  },
++  "buttons.css": {
++    "": [".btn", ".btn:active", ".btn__icon", ".btn--whatsapp", ".btn--whatsapp:hover", ".btn--secondary", ".btn--secondary:hover"],
++    [MD]: [".btn--whatsapp", ".btn--secondary"],
++    [REDUCE]: [".btn:active"],
++  },
++  "hero.css": {
++    "": [".hero", ".hero__content", ".hero__title", ".hero__slogan"],
++    [MD]: [".hero"],
++  },
++  "reserve.css": {
++    "": [".reserve__text"],
++  },
++  "footer.css": {
++    "": [".site-footer", ".site-footer a", ".site-footer :focus-visible", ".site-footer__name", ".site-footer__notice"],
++  },
++};
++
++const allCssFiles = readdirSync(stylesDir).filter((file) => file.endsWith(".css"));
++const parsed = new Map(allCssFiles.map((file) => [file, parseCss(file)]));
++const rulesOf = (file: string): CssRule[] => parsed.get(file) ?? [];
++const exactRule = (file: string, selector: string, context = ""): CssRule | undefined =>
++  rulesOf(file).find((rule) => rule.context === context && rule.selectors.length === 1 && rule.selectors[0] === selector);
++
++// Token values in px (1rem = 16px), at the base and from 768 px.
++const tokenPx = (): { base: Map<string, number>; md: Map<string, number> } => {
++  const toPx = (value: string): number => {
++    const match = value.match(/^([\d.]+)(px|rem)$/);
++    if (!match) return Number.NaN;
++    return Number(match[1]) * (match[2] === "rem" ? 16 : 1);
++  };
++  const pick = (rules: CssRule[]): Map<string, number> => {
++    const map = new Map<string, number>();
++    for (const rule of rules) {
++      for (const [name, value] of declarations(rule.body)) map.set(name, toPx(value));
++    }
++    return map;
++  };
++  const tokens = rulesOf("tokens.css").filter((rule) => rule.selectors.includes(":root"));
++  const base = pick(tokens.filter((rule) => rule.context === ""));
++  const md = new Map([...base, ...pick(tokens.filter((rule) => rule.context === MD))]);
++  return { base, md };
++};
++
++describe("CA-6: 44 px tap targets declared in header.css and buttons.css", () => {
++  const { base, md } = tokenPx();
++  const ALLOWED = ["var(--tap-min)", "var(--header-height)", "var(--space-7)"];
++
++  it("resolves every allowed min-height token to 44 px or more, on mobile and from 768 px", () => {
++    for (const token of ["--tap-min", "--header-height", "--space-7"]) {
++      expect(base.get(token), `${token} (base)`).toBeGreaterThanOrEqual(44);
++      expect(md.get(token), `${token} (768 px)`).toBeGreaterThanOrEqual(44);
++    }
++  });
++
++  it.each([
++    ["header.css", ".skip-link"],
++    ["header.css", ".brand"],
++    ["header.css", ".nav-link"],
++    ["buttons.css", ".btn"],
++  ])("%s %s declares min-height with an allowed token", (file, selector) => {
++    const rule = exactRule(file, selector);
++    expect(rule, `${selector} in ${file}`).toBeDefined();
++    expect(ALLOWED).toContain(declarations(rule?.body ?? "").get("min-height"));
++  });
++
++  it.each([
++    ["header.css", ".nav-link"],
++    ["buttons.css", ".btn"],
++  ])("%s %s declares min-width: var(--tap-min)", (file, selector) => {
++    expect(declarations(exactRule(file, selector)?.body ?? "").get("min-width")).toBe("var(--tap-min)");
++  });
++});
++
++describe("CA-7: only main:focus removes the outline", () => {
++  const OUTLINE_OFF = [
++    /(^|;\s*)outline: (none|0)(\s*!important)?(;|$)/,
++    /(^|;\s*)outline-style: none(\s*!important)?(;|$)/,
++    /(^|;\s*)outline-width: 0(\s*!important)?(;|$)/,
++  ];
++
++  it("finds outline removals in main:focus and nowhere else in src/styles/*.css", () => {
++    const offenders = [...parsed.values()]
++      .flat()
++      .filter((rule) => OUTLINE_OFF.some((pattern) => pattern.test(rule.body)))
++      .map((rule) => `${rule.file} ${rule.context} ${rule.selectors.join(", ")}`.replace(/\s+/g, " "));
++    expect(offenders).toEqual(["main.css main:focus"]);
++  });
++});
++
++describe("CA-8: style files exist, stay under 200 lines and keep colors in tokens.css", () => {
++  it.each(STYLE_FILES)("%s exists and has at most 200 lines", (file) => {
++    expect(existsSync(resolve(stylesDir, file)), file).toBe(true);
++    const lines = readRaw(file).replace(/\r?\n$/, "").split(/\r?\n/);
++    expect(lines.length).toBeLessThanOrEqual(200);
++  });
++
++  it.each(STYLE_FILES.filter((file) => file !== "tokens.css"))("%s has no color literals", (file) => {
++    const css = stripComments(readRaw(file));
++    expect(css).not.toMatch(/#[0-9a-f]{3,8}(?![\w-])/i);
++    expect(css).not.toMatch(/\b(rgba?|hsla?)\(/i);
++  });
++});
++
++describe("CA-9: every selector of decision 1 lives in its file and context only", () => {
++  const cases = Object.entries(SPLIT).flatMap(([file, contexts]) =>
++    Object.entries(contexts).flatMap(([context, selectors]) =>
++      selectors.map((selector) => ({ file, context, selector, label: `${file} ${context || "(top level)"} ${selector}` })),
++    ),
++  );
++
++  it.each(cases)("$label", ({ file, context, selector }) => {
++    const owners = [...parsed.values()]
++      .flat()
++      .filter((rule) => rule.context === context && rule.selectors.includes(selector))
++      .map((rule) => rule.file);
++    expect(owners, `${selector} in ${context || "(top level)"}`).toContain(file);
++    expect(new Set(owners), `${selector} must not appear in another file`).toEqual(new Set([file]));
++  });
++
++  it.each(Object.keys(SPLIT))("%s contains only the selectors of decision 1 (a pure move of rules)", (file) => {
++    const expected = new Set(
++      Object.entries(SPLIT[file] ?? {}).flatMap(([context, selectors]) => selectors.map((s) => `${context}|${s}`)),
++    );
++    const actual = new Set(rulesOf(file).flatMap((rule) => rule.selectors.map((s) => `${rule.context}|${s}`)));
++    expect(actual).toEqual(expected);
++  });
++});
++
++describe("CA-10: the reduced-motion override of .btn:active moves with the button", () => {
++  it("buttons.css sets .btn:active { transform: none } in a reduce block after the base translateY(1px)", () => {
++    const baseActive = exactRule("buttons.css", ".btn:active");
++    const reduceActive = exactRule("buttons.css", ".btn:active", REDUCE);
++    expect(declarations(baseActive?.body ?? "").get("transform")).toBe("translateY(1px)");
++    expect(declarations(reduceActive?.body ?? "").get("transform")).toBe("none");
++    expect(reduceActive?.start ?? -1).toBeGreaterThan(baseActive?.start ?? Number.POSITIVE_INFINITY);
++  });
++
++  it("leaves no .btn selector in the reduce block of main.css", () => {
++    const reduceRules = rulesOf("main.css").filter((rule) => rule.context === REDUCE);
++    expect(reduceRules.length).toBeGreaterThan(0);
++    for (const rule of reduceRules) {
++      expect(rule.selectors.join(", ")).not.toMatch(/\.btn/);
++    }
++  });
++});
++
++describe("CA-11: main.ts imports the style files once each, in cascade order", () => {
++  it("imports tokens, main, header, buttons, hero, reserve, footer, menu and location, in that order", () => {
++    const source = readFileSync(resolve(stylesDir, "../main.ts"), "utf8");
++    const imports = Array.from(source.matchAll(/import\s+["'](\.\/styles\/[^"']+)["'];?/g), (match) => match[1]);
++    expect(imports).toEqual(STYLE_FILES.map((file) => `./styles/${file}`));
++  });
++});
+diff --git a/src/styles/styles.test.ts b/src/styles/styles.test.ts
+index 020478e..a533e6f 100644
+--- a/src/styles/styles.test.ts
++++ b/src/styles/styles.test.ts
+@@ -124,7 +124,8 @@ describe("CA-15: main.css only uses tokens and covers the base behaviours", () =
+   });
+ 
+   it("makes the header sticky at the top", () => {
+-    const header = rules.find((rule) => /header/.test(rule.selector) && /position: sticky/.test(rule.body));
++    // T-20261115-004: the header rules moved to header.css (main.css split, decision 1).
++    const header = parseRules(readCss("header.css")).find((rule) => /header/.test(rule.selector) && /position: sticky/.test(rule.body));
+     expect(header, "sticky header rule").toBeDefined();
+     expect(header?.body).toMatch(/(^|;\s*)top: 0(;|$)/);
+   });
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:/ProgramData/FRANC/GitHubDesktop/app-3.5.12/resources/app/git/cmd/git.exe' -C .worktrees/T-20261115-004 diff main...HEAD -- src/styles/header.css src/styles/hero.css src/styles/footer.css src/styles/location.css; Get-Content -Encoding UTF8 .worktrees/T-20261115-004/src/styles/main.css; Get-Content -Encoding UTF8 .worktrees/T-20261115-004/index.html; Get-ChildItem tareas/T-20261115-004/evidencia-ronda1/lighthouse -Name" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+ succeeded in 1399ms:
+diff --git a/src/styles/footer.css b/src/styles/footer.css
+new file mode 100644
+index 0000000..daa0402
+--- /dev/null
++++ b/src/styles/footer.css
+@@ -0,0 +1,30 @@
++/* Pie de página; solo usa var(--…) de tokens.css (D-02, brain/diseno.md). */
++
++/* ── Pie ──────────────────────────────────────────────── */
++.site-footer {
++  padding-block: var(--space-7);
++  background: var(--color-footer-bg);
++  color: var(--color-footer-text);
++  font-size: var(--text-sm);
++}
++
++.site-footer a {
++  color: var(--color-footer-text);
++  text-decoration: underline;
++}
++
++/* En el pie oscuro el anillo va en dorado (9.75:1 sobre footer-bg). */
++.site-footer :focus-visible {
++  outline-color: var(--color-secondary);
++}
++
++.site-footer__name {
++  margin-bottom: var(--space-2);
++  font-family: var(--font-heading);
++  font-weight: 700;
++  font-size: var(--text-lg);
++}
++
++.site-footer__notice {
++  max-width: 65ch;
++}
+diff --git a/src/styles/header.css b/src/styles/header.css
+new file mode 100644
+index 0000000..fd15408
+--- /dev/null
++++ b/src/styles/header.css
+@@ -0,0 +1,109 @@
++/* Enlace de salto y cabecera sticky con la navegación; solo usan var(--…) de tokens.css
++   (D-02, D-08, brain/diseno.md). */
++
++/* ── Enlace "Saltar al contenido": oculto hasta recibir foco ── */
++.skip-link {
++  position: absolute;
++  top: var(--space-2);
++  left: var(--space-2);
++  z-index: 20;
++  display: inline-flex;
++  align-items: center;
++  min-height: var(--tap-min);
++  padding-inline: var(--space-4);
++  border-radius: var(--radius-sm);
++  background: var(--color-surface-raised);
++  color: var(--color-primary);
++  font-weight: 700;
++  box-shadow: var(--shadow-md);
++}
++
++.skip-link:not(:focus) {
++  width: 1px;
++  height: 1px;
++  min-height: 0;
++  padding: 0;
++  overflow: hidden;
++  clip-path: inset(50%);
++  white-space: nowrap;
++}
++
++/* ── Cabecera sticky ──────────────────────────────────── */
++/* Móvil: el nombre ocupa una fila de --header-height y la navegación otra de --tap-min
++   (las tres entradas no caben junto al nombre en 375 px). Desde 768 px, una sola fila. */
++.site-header {
++  position: sticky;
++  top: 0;
++  z-index: 10;
++  background: var(--color-surface);
++  border-bottom: 1px solid var(--color-border);
++}
++
++.site-header__inner {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  justify-content: space-between;
++  column-gap: var(--space-4);
++}
++
++.brand {
++  display: inline-flex;
++  align-items: center;
++  min-height: var(--header-height);
++  font-family: var(--font-heading);
++  font-weight: 700;
++  font-size: var(--text-lg);
++  line-height: var(--leading-heading);
++  color: var(--color-text);
++  text-decoration: none;
++}
++
++.site-nav {
++  flex-basis: 100%;
++  min-width: 0;
++}
++
++.site-nav__list {
++  display: flex;
++  gap: var(--space-2);
++  margin: 0 calc(-1 * var(--space-2));
++  padding: 0;
++  list-style: none;
++}
++
++/* min-width: los 44 px de ancho no dependen de la longitud del texto (CA-05.2). */
++.nav-link {
++  display: inline-flex;
++  align-items: center;
++  min-height: var(--tap-min);
++  min-width: var(--tap-min);
++  padding-inline: var(--space-2);
++  border-radius: var(--radius-sm);
++  font-size: var(--text-sm);
++  font-weight: 500;
++  color: var(--color-primary);
++  text-decoration: none;
++  white-space: nowrap;
++}
++
++.nav-link:hover {
++  text-decoration: underline;
++  text-underline-offset: var(--space-1);
++}
++
++/* ── Desde 768 px ─────────────────────────────────────── */
++@media (min-width: 768px) {
++  .site-header__inner {
++    flex-wrap: nowrap;
++    min-height: var(--header-height);
++  }
++
++  .site-nav {
++    flex-basis: auto;
++  }
++
++  .site-nav__list {
++    margin: 0;
++  }
++}
+diff --git a/src/styles/hero.css b/src/styles/hero.css
+new file mode 100644
+index 0000000..fbd19a7
+--- /dev/null
++++ b/src/styles/hero.css
+@@ -0,0 +1,37 @@
++/* Sección Portada; solo usa var(--…) de tokens.css (D-02, D-08, brain/diseno.md). */
++
++/* ── Portada ──────────────────────────────────────────── */
++/* Alto visible menos la cabecera: nombre, eslogan y botón sin hacer scroll (CA-01.1, CA-01.2). */
++.hero {
++  display: flex;
++  align-items: center;
++  min-height: calc(100vh - var(--header-height) - var(--tap-min));
++  min-height: calc(100svh - var(--header-height) - var(--tap-min));
++}
++
++.hero__content {
++  display: flex;
++  flex-direction: column;
++  align-items: flex-start;
++  gap: var(--space-4);
++}
++
++.hero__title {
++  font-size: var(--text-3xl);
++  font-weight: 700;
++}
++
++.hero__slogan {
++  max-width: 65ch;
++  margin-bottom: var(--space-3);
++  font-size: var(--text-lg);
++  color: var(--color-text-muted);
++}
++
++/* ── Desde 768 px ─────────────────────────────────────── */
++@media (min-width: 768px) {
++  .hero {
++    min-height: calc(100vh - var(--header-height));
++    min-height: calc(100svh - var(--header-height));
++  }
++}
+diff --git a/src/styles/location.css b/src/styles/location.css
+index 53315ff..b29dc51 100644
+--- a/src/styles/location.css
++++ b/src/styles/location.css
+@@ -97,17 +97,9 @@
+   border: 0;
+ }
+ 
+-/* Botón de contorno (diseno.md → Botón secondary); móvil: ancho completo. */
+-.btn--secondary {
+-  width: 100%;
++/* "Cómo llegar": el botón de contorno vive en buttons.css; aquí solo su separación del mapa. */
++.location__place .btn--secondary {
+   margin-top: var(--space-4);
+-  background: transparent;
+-  color: var(--color-primary);
+-  border-color: var(--color-primary);
+-}
+-
+-.btn--secondary:hover {
+-  background: var(--color-surface);
+ }
+ 
+ /* Desde 768 px: horario | dirección + mapa + botón. */
+@@ -121,8 +113,4 @@
+   .location__map {
+     aspect-ratio: 16 / 9;
+   }
+-
+-  .btn--secondary {
+-    width: auto;
+-  }
+ }
+/* Estilos base y layout mobile-first; solo usan var(--…) de tokens.css (D-02, brain/diseno.md).
+   Cabecera, botones, portada, Reservar y pie viven en su propio archivo (header.css, buttons.css,
+   hero.css, reserve.css, footer.css), importado en main.ts después de este. */
+
+/* ── Base ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  line-height: var(--leading-heading);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ── Foco: anillo azul que cae sobre el fondo, nunca sobre el primario ── */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* main recibe el foco del enlace de salto; el anillo alrededor de toda la página no aporta. */
+main:focus {
+  outline: none;
+}
+
+/* ── Secciones ────────────────────────────────────────── */
+/* El ancla deja el título bajo la cabecera de dos filas (nombre + navegación). */
+main > section {
+  padding-block: var(--space-7);
+  scroll-margin-top: calc(var(--header-height) + var(--tap-min));
+}
+
+main > section:nth-of-type(even) {
+  background: var(--color-surface);
+}
+
+main > section h2 {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+/* ── Desde 768 px ─────────────────────────────────────── */
+@media (min-width: 768px) {
+  main > section {
+    padding-block: var(--space-8);
+    scroll-margin-top: var(--header-height);
+  }
+}
+
+/* ── Movimiento reducido ──────────────────────────────── */
+/* La anulación de .btn:active vive junto al botón, en buttons.css (CA-10). */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cafetería Luna</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="skip-link" href="#contenido">Saltar al contenido</a>
+      <div class="site-header__inner container">
+        <a class="brand" href="#inicio">Cafetería Luna</a>
+        <nav class="site-nav" aria-label="Principal">
+          <ul class="site-nav__list">
+            <li><a class="nav-link" href="#menu">Menú</a></li>
+            <li><a class="nav-link" href="#horario">Horario y ubicación</a></li>
+            <li><a class="nav-link" href="#reservar">Reservar</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="contenido" tabindex="-1">
+      <!-- La portada (h1, eslogan y botón) la monta src/sections/hero.ts con los datos de business.ts (D-04). -->
+      <section id="inicio" class="section hero" aria-labelledby="inicio-titulo"></section>
+      <section id="menu" class="section" aria-labelledby="menu-titulo">
+        <div class="container">
+          <h2 id="menu-titulo">Menú</h2>
+        </div>
+      </section>
+      <section id="horario" class="section" aria-labelledby="horario-titulo">
+        <div class="container">
+          <h2 id="horario-titulo">Horario y ubicación</h2>
+        </div>
+      </section>
+      <section id="reservar" class="section" aria-labelledby="reservar-titulo">
+        <div class="container">
+          <h2 id="reservar-titulo">Reservar</h2>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p class="site-footer__name">Cafetería Luna</p>
+        <p class="site-footer__notice">Página de demostración: el eslogan, el menú, los precios, el horario, la dirección y el número de WhatsApp son datos de ejemplo.</p>
+      </div>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+lh-1.json
+lh-2.json
+lh-3.json
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-ChildItem tareas/T-20261115-004/evidencia-ronda1/lighthouse/*.json | ForEach-Object { $report = Get-Content -Raw -Encoding UTF8 $_.FullName | ConvertFrom-Json; [pscustomobject]@{Informe=$_.Name; Version=$report.lighthouseVersion; Formato=$report.configSettings.formFactor; Throttling=$report.configSettings.throttlingMethod; Rendimiento=$report.categories.performance.score; Accesibilidad=$report.categories.accessibility.score} }; & '"'C:/ProgramData/FRANC/GitHubDesktop/app-3.5.12/resources/app/git/cmd/git.exe' -C .worktrees/T-20261115-004 diff main...HEAD --stat; Get-Content -Encoding UTF8 .worktrees/T-20261115-004/src/sections/hero.ts; Get-Content -Encoding UTF8 .worktrees/T-20261115-004/src/sections/reserve.ts" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+ succeeded in 1671ms:
+
+
+Informe       : lh-1.json
+Version       : 12.8.2
+Formato       : mobile
+Throttling    : simulate
+Rendimiento   : 1
+Accesibilidad : 1
+
+Informe       : lh-2.json
+Version       : 12.8.2
+Formato       : mobile
+Throttling    : simulate
+Rendimiento   : 1
+Accesibilidad : 1
+
+Informe       : lh-3.json
+Version       : 12.8.2
+Formato       : mobile
+Throttling    : simulate
+Rendimiento   : 1
+Accesibilidad : 1
+
+ src/a11y.test.ts                     | 136 +++++++++++++++++
+ src/main.ts                          |   5 +
+ src/sections/location.guards.test.ts |  85 +++++++++++
+ src/sections/location.ts             |   3 +-
+ src/styles/buttons.css               |  78 ++++++++++
+ src/styles/buttons.test.ts           | 110 ++++++++++++++
+ src/styles/footer.css                |  30 ++++
+ src/styles/header.css                | 109 +++++++++++++
+ src/styles/hero.css                  |  37 +++++
+ src/styles/location.css              |  16 +-
+ src/styles/location.test.ts          |  13 --
+ src/styles/main.css                  | 225 +--------------------------
+ src/styles/reserve.css               |   7 +
+ src/styles/split.test.ts             | 286 +++++++++++++++++++++++++++++++++++
+ src/styles/styles.test.ts            |   3 +-
+ 15 files changed, 893 insertions(+), 250 deletions(-)
+import { createReserveButton } from "./reserve";
+
+/** Hero data; it comes from src/data/business.ts through main.ts, never imported here (D-00). */
+export interface HeroContent {
+  name: string;
+  slogan: string;
+}
+
+// Must match aria-labelledby of section#inicio in index.html.
+export const HERO_TITLE_ID = "inicio-titulo";
+
+export function renderHero({ name, slogan }: HeroContent, reserveUrl: string): HTMLElement {
+  const content = document.createElement("div");
+  content.className = "hero__content container";
+
+  const title = document.createElement("h1");
+  title.id = HERO_TITLE_ID;
+  title.className = "hero__title";
+  title.textContent = name;
+
+  const tagline = document.createElement("p");
+  tagline.className = "hero__slogan";
+  tagline.textContent = slogan;
+
+  content.append(title, tagline, createReserveButton(reserveUrl));
+  return content;
+}
+/**
+ * "Reservar" section and the WhatsApp reserve button shared with the hero (single place that builds it).
+ * The URL arrives as a parameter, already built by buildWhatsAppUrl (D-00, D-05): never rebuilt here.
+ */
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+const WHATSAPP_URL_PREFIX = "https://wa.me/";
+
+const BUTTON_TEXT = "Reservar mesa por WhatsApp";
+// The accessible name starts with the visible text (WCAG 2.5.3): change both together.
+const BUTTON_LABEL = `${BUTTON_TEXT} (se abre en una pestaña nueva)`;
+const RESERVE_TEXT =
+  "¿Quieres asegurar tu mesa? Escríbenos por WhatsApp con la fecha, la hora y cuántas personas vienen. Te respondemos para confirmarla.";
+
+// Speech bubble outline, drawn with the DOM API (no HTML strings).
+const CHAT_ICON_PATH =
+  "M4 3h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z";
+
+function createChatIcon(): SVGSVGElement {
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("class", "btn__icon");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("focusable", "false");
+  const path = document.createElementNS(SVG_NS, "path");
+  path.setAttribute("d", CHAT_ICON_PATH);
+  path.setAttribute("fill", "currentColor");
+  svg.append(path);
+  return svg;
+}
+
+export function createReserveButton(url: string): HTMLAnchorElement {
+  // Guard: only a wa.me link may reach the href (blocks javascript: and other schemes).
+  if (!url.startsWith(WHATSAPP_URL_PREFIX)) {
+    throw new Error(`Reserve URL must start with ${WHATSAPP_URL_PREFIX}`);
+  }
+  const link = document.createElement("a");
+  link.className = "btn btn--whatsapp";
+  link.setAttribute("href", url);
+  link.setAttribute("target", "_blank");
+  link.setAttribute("rel", "noopener noreferrer");
+  link.setAttribute("aria-label", BUTTON_LABEL);
+  const label = document.createElement("span");
+  label.textContent = BUTTON_TEXT;
+  link.append(createChatIcon(), label);
+  return link;
+}
+
+export function renderReserve(reserveUrl: string): HTMLElement {
+  const body = document.createElement("div");
+  body.className = "reserve";
+  const text = document.createElement("p");
+  text.className = "reserve__text";
+  text.textContent = RESERVE_TEXT;
+  body.append(text, createReserveButton(reserveUrl));
+  return body;
+}
+
+
+
+codex
+REVISOR: ux
+VEREDICTO: OK
+No verificado por mí: CA-18 a 375×667 y saltos a anclas; CA-21 en hover/foco; recorrido completo con Mayús+Tab y lector de pantalla: requieren comprobación interactiva adicional. Apertura de WhatsApp y mapas: requiere teléfono real.
+Hallazgos:
+Ninguno. El diff conserva el flujo y los textos. Las capturas y mediciones de la estación muestran contenido legible, controles propios ≥44×44 px y foco visible. Los tres informes Lighthouse móvil registran 100 en rendimiento y accesibilidad.
+tokens used
+63.632
+REVISOR: ux
+VEREDICTO: OK
+No verificado por mí: CA-18 a 375×667 y saltos a anclas; CA-21 en hover/foco; recorrido completo con Mayús+Tab y lector de pantalla: requieren comprobación interactiva adicional. Apertura de WhatsApp y mapas: requiere teléfono real.
+Hallazgos:
+Ninguno. El diff conserva el flujo y los textos. Las capturas y mediciones de la estación muestran contenido legible, controles propios ≥44×44 px y foco visible. Los tres informes Lighthouse móvil registran 100 en rendimiento y accesibilidad.

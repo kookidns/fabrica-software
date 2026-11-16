@@ -1,0 +1,26 @@
+{
+  "nivel": "ALTO",
+  "motivos": [
+    "zona sensible del proyecto (src/main.ts): src/main.ts",
+    "zona sensible del proyecto (src/sections/location.ts): src/sections/location.ts",
+    "cambio grande: 1143 líneas (> 300)"
+  ],
+  "archivos": [
+    "src/a11y.test.ts",
+    "src/main.ts",
+    "src/sections/location.guards.test.ts",
+    "src/sections/location.ts",
+    "src/styles/buttons.css",
+    "src/styles/buttons.test.ts",
+    "src/styles/footer.css",
+    "src/styles/header.css",
+    "src/styles/hero.css",
+    "src/styles/location.css",
+    "src/styles/location.test.ts",
+    "src/styles/main.css",
+    "src/styles/reserve.css",
+    "src/styles/split.test.ts",
+    "src/styles/styles.test.ts"
+  ],
+  "lineas": 1143
+}

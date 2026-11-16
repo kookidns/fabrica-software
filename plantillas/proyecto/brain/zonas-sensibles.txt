@@ -1,0 +1,7 @@
+# Zonas sensibles propias de este proyecto (las escribe el arquitecto).
+# Una ruta o patrón por línea, relativo a app/. Admite * y **. Acabar en / = carpeta entera.
+# Cualquier cambio que toque estas rutas se marca como riesgo ALTO en scripts/riesgo.mjs.
+# Ejemplos:
+#   src/data/business.ts
+#   src/lib/payments/
+#   src/**/auth*.ts

@@ -1,0 +1,1914 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones\revisor-seguridad-ronda1.md -m gpt-6.1-sol -c model_reasoning_effort="high" -s workspace-write -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **revisor de seguridad**. No escribiste este código. Busca cómo podría romperse o abusarse.
+
+## Qué miras
+Obtén el cambio con `git -C <carpeta de trabajo> diff main...HEAD` (y `--stat`). Revisa:
+- Secretos o claves en el código, `.env` versionado, credenciales en logs.
+- Inyección (SQL, HTML/XSS, comandos), validación de entradas en formularios y APIs.
+- Autenticación y autorización: ¿alguien puede ver o cambiar lo que no debe? Reglas RLS si hay Supabase.
+- Dependencias nuevas: ¿son conocidas y necesarias? (`npm audit --omit=dev` si hay package.json).
+- Datos personales: qué se recoge, dónde se guarda, si se expone.
+- Enlaces externos sin `rel="noopener"`, CORS abierto, cabeceras inseguras.
+
+## Contexto limpio (obligatorio)
+Juzgas solo con: el brain, `tareas/<ID>/spec.md`, el diff y **tus propias comprobaciones**
+(leer el código, ejecutar pruebas o abrir la página tú mismo).
+**No leas** `tareas/<ID>/build-ronda*.md`, `aprobacion-*.md`, `riesgo-*.json`, las revisiones de
+otros revisores ni las capturas o "comprobaciones manuales" del constructor. No cites lo que el
+constructor dice haber verificado como prueba de nada.
+**Sí puedes usar** `tareas/<ID>/evidencia-ronda<N>/` (`resumen.md`, `evidencia.json` y los PNG). La
+genera la estación de código `scripts/evidencia.mjs`, no el constructor: build, Chrome headless,
+capturas a 375/768/1024 px, desbordamiento, tamaños táctiles, recorrido con Tab, consola, comparación
+con main y Lighthouse si se pidió. La evidencia mide y tú juzgas: abre las capturas y saca tus
+conclusiones.
+Si un criterio no lo puedes comprobar ni con tus medios ni con esa evidencia, **no lo pongas como
+hallazgo**. Anótalo en la línea `No verificado por mí:` del informe, con lo que haría falta. No lo
+des por bueno y no pidas CAMBIOS solo por eso: el aprobador y el humano deciden qué hacer con ello.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: seguridad
+VEREDICTO: OK | CAMBIOS
+No verificado por mí: — | lista de criterios y qué haría falta
+Hallazgos (de más a menos grave):
+1. [CRÍTICO|ALTO|MEDIO|BAJO] archivo:línea — problema — cómo se explota — qué se espera
+```
+Sin hallazgos → `VEREDICTO: OK` y "Sin hallazgos". No inventes problemas para parecer útil.
+Bash/PowerShell solo para leer y ejecutar comprobaciones; nunca para modificar archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-005 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-005): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Contexto limpio: NO leas build-ronda*.md, aprobacion-*.md, riesgo-*.json, otras revisiones ni capturas o comprobaciones del constructor. Juzga solo con el brain, la spec, el diff y lo que compruebes tú; si algo no lo puedes verificar, dilo en la línea "No verificado por mí" (no es un hallazgo). SÍ puedes usar tareas/<ID>/evidencia-ronda<N>/: la genera la estación de código scripts/evidencia.mjs, no el constructor.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 01a1de36-718b-76d2-8404-37df5c8c3b81
+--------
+user
+Eres el **revisor de seguridad**. No escribiste este código. Busca cómo podría romperse o abusarse.
+
+## Qué miras
+Obtén el cambio con `git -C <carpeta de trabajo> diff main...HEAD` (y `--stat`). Revisa:
+- Secretos o claves en el código, `.env` versionado, credenciales en logs.
+- Inyección (SQL, HTML/XSS, comandos), validación de entradas en formularios y APIs.
+- Autenticación y autorización: ¿alguien puede ver o cambiar lo que no debe? Reglas RLS si hay Supabase.
+- Dependencias nuevas: ¿son conocidas y necesarias? (`npm audit --omit=dev` si hay package.json).
+- Datos personales: qué se recoge, dónde se guarda, si se expone.
+- Enlaces externos sin `rel="noopener"`, CORS abierto, cabeceras inseguras.
+
+## Contexto limpio (obligatorio)
+Juzgas solo con: el brain, `tareas/<ID>/spec.md`, el diff y **tus propias comprobaciones**
+(leer el código, ejecutar pruebas o abrir la página tú mismo).
+**No leas** `tareas/<ID>/build-ronda*.md`, `aprobacion-*.md`, `riesgo-*.json`, las revisiones de
+otros revisores ni las capturas o "comprobaciones manuales" del constructor. No cites lo que el
+constructor dice haber verificado como prueba de nada.
+**Sí puedes usar** `tareas/<ID>/evidencia-ronda<N>/` (`resumen.md`, `evidencia.json` y los PNG). La
+genera la estación de código `scripts/evidencia.mjs`, no el constructor: build, Chrome headless,
+capturas a 375/768/1024 px, desbordamiento, tamaños táctiles, recorrido con Tab, consola, comparación
+con main y Lighthouse si se pidió. La evidencia mide y tú juzgas: abre las capturas y saca tus
+conclusiones.
+Si un criterio no lo puedes comprobar ni con tus medios ni con esa evidencia, **no lo pongas como
+hallazgo**. Anótalo en la línea `No verificado por mí:` del informe, con lo que haría falta. No lo
+des por bueno y no pidas CAMBIOS solo por eso: el aprobador y el humano deciden qué hacer con ello.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: seguridad
+VEREDICTO: OK | CAMBIOS
+No verificado por mí: — | lista de criterios y qué haría falta
+Hallazgos (de más a menos grave):
+1. [CRÍTICO|ALTO|MEDIO|BAJO] archivo:línea — problema — cómo se explota — qué se espera
+```
+Sin hallazgos → `VEREDICTO: OK` y "Sin hallazgos". No inventes problemas para parecer útil.
+Bash/PowerShell solo para leer y ejecutar comprobaciones; nunca para modificar archivos.
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261115-005 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261115-005): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- Solo puedes escribir en C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones (p. ej. capturas). No modifiques el código ni otros archivos: la fábrica lo comprueba.
+- Contexto limpio: NO leas build-ronda*.md, aprobacion-*.md, riesgo-*.json, otras revisiones ni capturas o comprobaciones del constructor. Juzga solo con el brain, la spec, el diff y lo que compruebes tú; si algo no lo puedes verificar, dilo en la línea "No verificado por mí" (no es un hallazgo). SÍ puedes usar tareas/<ID>/evidencia-ronda<N>/: la genera la estación de código scripts/evidencia.mjs, no el constructor.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Leeré las instrucciones del rol, el brain y la spec; después revisaré el diff y haré comprobaciones propias de seguridad sin modificar archivos.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/CLAUDE.md'; Get-ChildItem -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/.claude/agents' -Name" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 285ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+entrada â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+analista.md
+aprobador.md
+arquitecto.md
+clasificador-riesgo.md
+constructor.md
+disenador.md
+revisor-codigo.md
+revisor-seguridad.md
+revisor-ui.md
+revisor-ux.md
+spec-writer.md
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/.claude/agents/revisor-seguridad.md'; Get-Content -Encoding UTF8 -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/brain/index.md'; Get-Content -Encoding UTF8 -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/tareas/T-20261115-005/spec.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 0ms:
+---
+name: revisor-seguridad
+description: Revisor 1 de 4. Revisa con contexto limpio la seguridad del cambio de una tarea. Solo dictamina; nunca edita código.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: opus
+---
+
+Eres el **revisor de seguridad**. No escribiste este código. Busca cómo podría romperse o abusarse.
+
+## Qué miras
+Obtén el cambio con `git -C <carpeta de trabajo> diff main...HEAD` (y `--stat`). Revisa:
+- Secretos o claves en el código, `.env` versionado, credenciales en logs.
+- Inyección (SQL, HTML/XSS, comandos), validación de entradas en formularios y APIs.
+- Autenticación y autorización: ¿alguien puede ver o cambiar lo que no debe? Reglas RLS si hay Supabase.
+- Dependencias nuevas: ¿son conocidas y necesarias? (`npm audit --omit=dev` si hay package.json).
+- Datos personales: qué se recoge, dónde se guarda, si se expone.
+- Enlaces externos sin `rel="noopener"`, CORS abierto, cabeceras inseguras.
+
+## Contexto limpio (obligatorio)
+Juzgas solo con: el brain, `tareas/<ID>/spec.md`, el diff y **tus propias comprobaciones**
+(leer el código, ejecutar pruebas o abrir la página tú mismo).
+**No leas** `tareas/<ID>/build-ronda*.md`, `aprobacion-*.md`, `riesgo-*.json`, las revisiones de
+otros revisores ni las capturas o "comprobaciones manuales" del constructor. No cites lo que el
+constructor dice haber verificado como prueba de nada.
+**Sí puedes usar** `tareas/<ID>/evidencia-ronda<N>/` (`resumen.md`, `evidencia.json` y los PNG). La
+genera la estación de código `scripts/evidencia.mjs`, no el constructor: build, Chrome headless,
+capturas a 375/768/1024 px, desbordamiento, tamaños táctiles, recorrido con Tab, consola, comparación
+con main y Lighthouse si se pidió. La evidencia mide y tú juzgas: abre las capturas y saca tus
+conclusiones.
+Si un criterio no lo puedes comprobar ni con tus medios ni con esa evidencia, **no lo pongas como
+hallazgo**. Anótalo en la línea `No verificado por mí:` del informe, con lo que haría falta. No lo
+des por bueno y no pidas CAMBIOS solo por eso: el aprobador y el humano deciden qué hacer con ello.
+
+## Formato de respuesta (obligatorio)
+```
+REVISOR: seguridad
+VEREDICTO: OK | CAMBIOS
+No verificado por mí: — | lista de criterios y qué haría falta
+Hallazgos (de más a menos grave):
+1. [CRÍTICO|ALTO|MEDIO|BAJO] archivo:línea — problema — cómo se explota — qué se espera
+```
+Sin hallazgos → `VEREDICTO: OK` y "Sin hallazgos". No inventes problemas para parecer útil.
+Bash/PowerShell solo para leer y ejecutar comprobaciones; nunca para modificar archivos.
+# Brain — índice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | Léelo cuando… |
+|---|---|---|
+| `vision.md` | Problema, público, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar código |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por qué (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavía NO sabe | te falte información |
+| `log.md` | Historial de tareas cerradas | quieras saber qué se hizo |
+
+## Cómo se mantiene
+- Decisión nueva → entrada en `decisiones.md` (con fecha y tarea que la originó).
+- Duda que nadie resolvió → `huecos.md`. No inventes la respuesta.
+- Tarea cerrada → entrada en `log.md`.
+# T-20261115-005 · Anillo de foco de la marca sin recortar
+Tipo: tarea      Toca interfaz: sí      Texto visible para el usuario: no
+
+## Contexto (qué dice el brain que importa aquí)
+- **Origen**: `bandeja/007-anillo-foco-marca.md`. Es un pendiente MEDIO de T-20261115-004 (`log.md`):
+  el anillo de foco de `.brand` sale recortado por arriba. Ya ocurría en main antes de esa tarea.
+  Se ve en `tareas/T-20261115-004/evidencia-ronda1/tab-02.png`: el anillo azul se ve a la izquierda,
+  a la derecha y abajo, pero falta el lado de arriba.
+- **Causa** (código actual del worktree):
+  - `main.css` dibuja todo `:focus-visible` con `outline: 3px solid var(--color-focus); outline-offset: 3px`.
+  - El borde exterior del anillo sobresale 6 px (offset + grosor) fuera de la caja del elemento.
+  - `.brand` (`header.css`) es el primer hijo de `.site-header__inner`, que no tiene padding, dentro de
+    la cabecera sticky (`top: 0`). Su caja empieza en y = 0 a 375, 768 y 1024 px, con la página arriba
+    del todo o con scroll. Por eso el lado de arriba del anillo cae en y = −6…−3, fuera de la ventana.
+  - A la izquierda no se recorta porque `.container` deja un gutter de 16 o 24 px.
+- **`diseno.md`**:
+  - El anillo es `3px solid var(--color-focus)` con offset de 3 px para que caiga sobre el fondo y nunca
+    sobre `primary`.
+  - `.brand` no tiene fondo propio: un anillo hacia dentro cae sobre `--color-surface` de la cabecera
+    (fila 22 de contraste, 6.97:1). Así se mantiene la intención del token.
+- **D-08**: cabecera de dos filas en móvil (marca a `--header-height`, navegación a `--tap-min`);
+  `main:focus` sin contorno. **No se toca.**
+- **D-11**:
+  - Los estilos de la cabecera viven en `header.css`; ningún archivo de estilos pasa de ~200 líneas
+    (hoy tiene 110).
+  - `.brand` conserva `min-height: var(--header-height)`, que vigila el CA-6 de `split.test.ts`.
+- **`split.test.ts` (CA-9)** fija la lista exacta de selectores de `header.css`. Un selector nuevo
+  obliga a actualizar esa lista en la misma tarea.
+- **Zonas sensibles**: este cambio solo necesita `src/styles/header.css` y su prueba. Ninguno de los dos
+  está en `zonas-sensibles.txt`.
+- **Nota de trazabilidad**: la entrada dice `cubre: CA-05.4`, pero en `brain/spec.md` ese CA trata de
+  lectores de pantalla (encabezados, alt y propósito del botón de WhatsApp), no del foco visible. Ningún
+  CA de producto cubre hoy el foco visible. Lo añado como hueco; no bloquea la tarea.
+
+## Objetivo
+Cuando el enlace de la marca ("Cafetería Luna") recibe el foco por teclado, su anillo de foco debe verse
+completo en los cuatro lados a 375, 768 y 1024 px. La página en reposo y en hover debe quedar igual, y
+no debe cambiar el anillo de ningún otro elemento.
+
+## Criterios de aceptación
+Todos los CA visuales se comprueban en el build (`npm run build && npm run preview`, o el servidor que
+levanta `scripts/evidencia.mjs`) con Chrome y estas ventanas: 375×812, 768×1024 y 1024×768. Son las
+mismas `VISTAS` de `evidencia.mjs`.
+
+**Cómo enfocar la marca**: cargar la página y pulsar Tab dos veces (primero "Saltar al contenido",
+después la marca). Antes de medir, comprobar en la consola que
+`document.activeElement === document.querySelector('.brand') && document.activeElement.matches(':focus-visible')`
+devuelve `true`.
+
+**Medida** (pegar en la consola con la marca enfocada):
+```js
+const b = document.querySelector('.brand'), s = getComputedStyle(b), r = b.getBoundingClientRect();
+const off = parseFloat(s.outlineOffset), w = parseFloat(s.outlineWidth);
+const exterior = { top: r.top - off - w, left: r.left - off - w, right: r.right + off + w, bottom: r.bottom + off + w };
+const interior = { top: r.top - off, left: r.left - off, right: r.right + off, bottom: r.bottom + off };
+const rg = document.createRange(); rg.selectNodeContents(b); const t = rg.getBoundingClientRect();
+({ exterior, interior, texto: { top: t.top, left: t.left, right: t.right, bottom: t.bottom },
+   W: document.documentElement.clientWidth, H: innerHeight, anillo: [s.outlineStyle, s.outlineWidth, s.outlineColor] })
+```
+
+- **CA-1 — Anillo completo dentro de la ventana.**
+  - Dado: la marca enfocada con teclado en cada una de las tres ventanas, primero con `scrollY = 0` y
+    después tras desplazarse al final de la página (la cabecera es sticky).
+  - Cuando: se ejecuta la medida.
+  - Entonces se cumplen las cuatro condiciones:
+    - `exterior.top ≥ 0`
+    - `exterior.left ≥ 0`
+    - `exterior.right ≤ W`
+    - `exterior.bottom ≤ H`
+  - Y además `getComputedStyle(...).overflow` es `visible` en `.site-header__inner` y en `.site-header`:
+    ningún ancestro recorta el anillo.
+  - Con el código actual falla: `exterior.top` vale −6.
+- **CA-2 — Mismo anillo, sin tapar el texto.**
+  - Dado: la misma situación del CA-1.
+  - Cuando: se ejecuta la medida.
+  - Entonces:
+    - `anillo` es `["solid", "3px", "rgb(31, 78, 140)"]` (`--color-focus`).
+    - El rectángulo del texto queda dentro del borde interior del anillo: `texto.top ≥ interior.top`,
+      `texto.left ≥ interior.left`, `texto.right ≤ interior.right` y `texto.bottom ≤ interior.bottom`.
+      Así el anillo no se dibuja encima de ninguna letra de "Cafetería Luna".
+- **CA-3 — Reposo idéntico a main.**
+  - Dado: la rama terminada.
+  - Cuando: se ejecuta `node scripts/evidencia.mjs cafeteria-luna T-20261115-005 --ronda N --comparar-main`.
+  - Entonces `resumen.md` dice "idénticas" a 375 px y a 1024 px. Es una comparación byte a byte, sin foco
+    ni hover.
+  - Y a 768 px, que `--comparar-main` no recorre, sin foco y con `scrollY = 0`, estas medidas coinciden
+    con las de main al píxel:
+    - el rectángulo del texto de la marca: `Range.getBoundingClientRect()` de su contenido, como en la
+      medida de arriba;
+    - el `getBoundingClientRect()` de `.site-header`.
+- **CA-4 — Cambio acotado al foco de la marca** (prueba Vitest en `src/styles/split.test.ts`).
+  - Dado: los archivos de `src/styles/`.
+  - Cuando: se ejecuta `npm run test`.
+  - Entonces:
+    - **a)** El primer nivel de `header.css` contiene exactamente los selectores de antes más
+      `.brand:focus-visible`. No hay ningún `:hover` nuevo y las reglas de `@media (min-width: 768px)`
+      no cambian.
+    - **b)** `.brand:focus-visible` declara `outline-offset` con un valor negativo en px cuyo valor
+      absoluto es ≥ 3 (el grosor del anillo global).
+    - **c)** `.brand:focus-visible` no declara `outline`, `outline-color`, `outline-style` ni
+      `outline-width`: el grosor, el estilo y el color siguen saliendo de la regla global.
+    - **d)** En todo `src/styles/*.css`, los únicos selectores con `:focus-visible` son `:focus-visible`
+      (`main.css`, que sigue con `outline: 3px solid var(--color-focus); outline-offset: 3px`),
+      `.site-footer :focus-visible` (`footer.css`) y `.brand:focus-visible` (`header.css`).
+- **CA-5 — Puertas y recorrido con Tab.**
+  - Dado: la rama terminada.
+  - Cuando: se ejecutan `node scripts/verificar.mjs` sobre el worktree y `evidencia.mjs` (CA-3).
+  - Entonces:
+    - `lint`, `typecheck`, `test` y `build` pasan.
+    - Los CA-6, CA-7 y CA-8 de `split.test.ts` siguen en verde: `min-height` de `.brand`, ningún
+      `outline: none` nuevo, `header.css` ≤ 200 líneas y sin literales de color.
+    - En el recorrido con Tab, el paso de `a.brand` informa `contorno` = `3px solid rgb(31, 78, 140)`
+      y `visible: true`.
+    - En `tab-02.png` se ve el anillo por los cuatro lados.
+    - No aparece ningún enfocable nuevo de menos de 44×44 px ni ningún error de consola.
+
+## Plan
+1. **Prueba primero.** En `src/styles/split.test.ts`:
+   - añadir `.brand:focus-visible` a `SPLIT["header.css"][""]`;
+   - añadir un bloque `describe` para el CA-4 (b, c y d) que reutilice `parseCss` y `declarations`.
+   - Debe fallar en rojo antes del cambio de CSS.
+2. **`src/styles/header.css`**: añadir `.brand:focus-visible { outline-offset: -3px; }` (o un valor más
+   negativo) justo después de `.brand`, con un comentario breve. El anillo se dibuja hacia dentro de la
+   caja de la marca, que empieza en y = 0, y cae sobre el fondo de la cabecera.
+3. **Separar el anillo de las letras (CA-2).** `.brand` no tiene padding horizontal, así que un anillo
+   hacia dentro taparía la "C" y la "a" final. Propuesta: dar a `.brand` `padding-inline: var(--space-2)`
+   y `margin-inline: calc(-1 * var(--space-2))`.
+   - Es el mismo patrón que usa ya `.site-nav__list`.
+   - El texto queda en la misma posición y la página en reposo no cambia (CA-3).
+   - Mantener `min-height: var(--header-height)`.
+   - Otra solución vale si cumple CA-1 a CA-3.
+4. Ejecutar `node scripts/verificar.mjs`, después `evidencia.mjs --comparar-main` (CA-3 y CA-5), y la
+   medida manual del CA-1 y el CA-2 a 768 y 1024 px, más la de 375 px con scroll. Dejar los resultados de
+   la medida en el rastro de la tarea.
+5. **Propuesta para el aprobador** (no la escribe el constructor): registrar en `decisiones.md` la
+   excepción de `diseno.md` "en `.brand`, `outline-offset` negativo porque su caja empieza en el borde
+   superior de la ventana".
+
+Archivos previstos: `src/styles/header.css` y `src/styles/split.test.ts`.
+
+## Fuera de alcance
+- Cambiar el anillo global, el del pie o el de cualquier otro enfocable: enlaces de navegación, botones
+  y "Saltar al contenido". Ninguno se ha visto recortado en la evidencia de T-20261115-004.
+- Cambiar la altura o el padding visible de la cabecera, `--header-height`, D-08 o la apariencia en hover.
+- Modificar `scripts/evidencia.mjs`, por ejemplo para detectar contornos recortados o recorrer con Tab a
+  768 y 1024 px. Es una estación de la fábrica, no del proyecto; ya está pendiente en `log.md`.
+- `index.html`, `src/main.ts` y cualquier otra zona sensible.
+
+## Riesgos / zonas sensibles que toca
+- **Zonas sensibles: ninguna.** `header.css` y `split.test.ts` no están en `zonas-sensibles.txt`.
+- **Riesgo visual en reposo**: si se añade padding o margen a `.brand` (paso 3), un redondeo o un cambio
+  de `justify-content` podría mover la marca 1 px. Lo detectan la comparación byte a byte del CA-3 a 375
+  y 1024 px y la medida a 768 px.
+- **Riesgo de contraste**: un anillo hacia dentro cae sobre `--color-surface` (6.97:1, fila 22 de
+  `diseno.md`). Solo dejaría de valer si `.brand` recibiera un fondo `primary`, algo que no está previsto.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "git -C 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005' diff main...HEAD --stat; git -C 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005' diff main...HEAD; git -C 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005' status --short" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ exited 1 in 3152ms:
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 1
++ git -C 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c19 ...
++ ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 206
++ ... -luna/.worktrees/T-20261115-005' diff main...HEAD --stat; git -C 'C:/ ...
++                                                               ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+git : El término 'git' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. 
+Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e 
+inténtelo de nuevo.
+En línea: 2 Carácter: 404
++ ... feteria-luna/.worktrees/T-20261115-005' diff main...HEAD; git -C 'C:/ ...
++                                                               ~~~
+    + CategoryInfo          : ObjectNotFound: (git:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/brain/decisiones.md','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/brain/arquitectura.md','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/brain/vision.md'; Get-Command node,npm,rg -ErrorAction SilentlyContinue | Select-Object Name,Source; @('C:/Program Files/Git/cmd/git.exe','C:/Program Files/Git/bin/git.exe','C:/Program Files/nodejs/node.exe','C:/Program Files/nodejs/npm.cmd') | ForEach-Object { if (Test-Path -LiteralPath "'$_) { $_ } }; Get-ChildItem -LiteralPath '"'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005' -Name" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 6197ms:
+# Decisiones
+
+Lo que está aquí ya se decidió. No se rediscute sin una decisión humana nueva.
+
+<!--
+## D-01 · <título> (AAAA-MM-DD · origen: T-xxxx)
+- Contexto:
+- Decisión:
+- Alternativas descartadas:
+- Consecuencias:
+-->
+
+## D-00 · Datos de negocio de ejemplo para la demo (2026-11-14 · origen: humano)
+- Contexto: los datos reales del negocio están en huecos.md y aún no se conocen.
+- Decisión: mientras tanto se usan datos ficticios claramente marcados (precios en MXN, horario y dirección de ejemplo, WhatsApp +52 000 000 0000). Se guardan en un único archivo de datos para sustituirlos fácilmente.
+- Consecuencias: el sitio no se publica hasta resolver los huecos que bloquean la publicación.
+
+## D-01 · Stack: Vite + TypeScript sin framework (2026-11-14 · origen: arquitecto)
+- Contexto: landing de una sola página, sin backend ni estado. `estandares/stack.md` indica para
+  sitios de una página "HTML + CSS + JS sin framework", y a la vez exige las puertas `lint`,
+  `typecheck`, `test` y `build` vía `npm run` en todo proyecto con `package.json`.
+- Decisión: **Vite** como servidor de desarrollo y build estático, con **TypeScript vanilla** (sin
+  framework de UI). Es lo mínimo que mantiene la regla "sin framework" y da las cuatro puertas.
+  TypeScript tipa el archivo de datos (D-00): al sustituir los datos ficticios por los reales, un
+  campo mal escrito falla en `typecheck` en vez de en producción.
+- Alternativas descartadas: HTML/CSS/JS sin `package.json` (`verificar.mjs` no ejecutaría ninguna
+  puerta y no habría TDD); Astro + Tailwind (más configuración y conceptos para una sola página);
+  Vite + React (framework innecesario: no hay interactividad); JS sin TypeScript (se perdería la
+  puerta `typecheck` y la validación del archivo de datos).
+- Consecuencias: el estándar de estilo "un componente por archivo en `PascalCase.tsx`" no aplica;
+  cada sección es un módulo `camelCase.ts` en `src/sections/` que devuelve un `HTMLElement`.
+
+## D-02 · Estilos con CSS plano y custom properties, sin Tailwind (2026-11-14 · origen: arquitecto)
+- Contexto: pocos estilos, una sola página y el objetivo de Lighthouse ≥ 90.
+- Decisión: CSS plano, mobile-first. Los tokens de `diseno.md` se declaran como custom properties en
+  `src/styles/tokens.css` y el resto de CSS solo usa `var(--…)`.
+- Alternativas descartadas: Tailwind CSS (dependencia y configuración extra para muy poco CSS).
+- Consecuencias: el **diseñador** entrega los tokens como bloque `:root { --… }` listo para copiar en
+  lugar del bloque `theme.extend` de Tailwind.
+
+## D-03 · Puertas de calidad (2026-11-14 · origen: arquitecto)
+- Decisión: `lint` = ESLint 9 (flat config) + typescript-eslint; `typecheck` = `tsc --noEmit`;
+  `test` = `vitest run` con entorno **jsdom**; `build` = `vite build`. Pruebas junto al código
+  (`*.test.ts`).
+- Alternativas descartadas: happy-dom (menos fiel para pruebas de accesibilidad); Playwright en las
+  puertas (pesado para esta fase; Lighthouse y el ancho de 375 px se verifican en la tarea 006).
+- Consecuencias: CA-05.3 (Lighthouse) no es automatizable en `npm run` y se verifica manualmente
+  sobre `npm run preview`, dejando el informe en el rastro de la tarea.
+
+## D-04 · Renderizado: esqueleto estático + datos pintados en cliente (2026-11-14 · origen: arquitecto)
+- Contexto: D-00 exige que todos los datos del negocio vivan en un único archivo.
+- Decisión: `index.html` contiene la estructura estática (landmarks, navegación, encabezados de
+  sección, textos fijos). `src/main.ts` lee `src/data/business.ts` y monta el contenido de cada
+  sección con funciones `datos → HTMLElement` que usan `textContent`/`setAttribute` (nunca
+  `innerHTML` con datos).
+- Alternativas descartadas: datos copiados en el HTML (rompe D-00); prerender en build con un plugin
+  de Vite (más complejo; queda como plan B si Lighthouse móvil baja de 90).
+- Consecuencias: sin JavaScript la página muestra la estructura pero no los datos; aceptable para el
+  público objetivo (móvil moderno).
+
+## D-05 · Integraciones sin claves: WhatsApp, OpenStreetMap y Google Maps URLs (2026-11-14 · origen: arquitecto)
+- Decisión: reserva con enlace `https://wa.me/<dígitos>?text=<mensaje codificado>`; mapa con iframe
+  de OpenStreetMap con marcador y `loading="lazy"`; "Cómo llegar" con
+  `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`.
+- Alternativas descartadas: iframe de Google Maps (más pesado y con cookies de terceros); API de
+  WhatsApp Business (innecesaria: no hay reservas propias, ver spec "No entra"); URI `geo:` (no
+  funciona en iOS ni escritorio).
+- Consecuencias: no hay secretos ni `.env`. Las coordenadas también son datos del negocio y van en
+  `business.ts` (hueco añadido en `huecos.md`).
+
+## D-06 · Formato de precio (2026-11-14 · origen: arquitecto, deriva de D-00)
+- Decisión: los precios se guardan como número y se formatean en un único sitio
+  (`src/lib/formatPrice.ts`) con `Intl.NumberFormat(business.locale, { style: "currency",
+  currency: business.currency })`; hoy `es-MX` / `MXN`.
+- Consecuencias: si el hueco de moneda se resuelve con otra moneda, solo cambian `locale` y
+  `currency` en `business.ts`.
+
+## D-07 · Versiones y TypeScript estricto (2026-11-14 · origen: T-20261114-001)
+- Decisión: vite 7 + vitest 3 + typescript 5 + eslint 9 (por compatibilidad con typescript-eslint 8), versiones fijadas en package-lock.json; instalar con `npm ci`. tsconfig añade noUnusedLocals, noUnusedParameters, noFallthroughCasesInSwitch, verbatimModuleSyntax e isolatedModules sobre `strict`.
+- Pendiente de decisión humana: pasar a ESLint 10 (npm avisa que la 9 ya no tiene soporte).
+
+## D-08 · Cabecera, foco y botón de WhatsApp (2026-11-15 · origen: T-20261115-001)
+- Decisión: por debajo de 768 px la cabecera sticky ocupa dos filas (marca a `--header-height`,
+  navegación a `--tap-min`); `scroll-margin-top` y la altura de la portada restan
+  `header-height + tap-min` en móvil y solo `header-height` desde 768 px.
+- El hover del botón de WhatsApp lo oscurece ~10 % con
+  `color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text))`; su altura mínima es `var(--space-7)` (48 px).
+- `main#contenido` lleva `tabindex="-1"` sin contorno de foco, para que "Saltar al contenido" mueva
+  el foco sin dibujar un anillo alrededor de toda la página.
+- Pendiente: `main.css` mide 317 líneas (guía ~200); dividirlo en la tarea 006.
+
+## D-09 · Sección Menú y orden de montaje (2026-11-15 · origen: T-20261115-002)
+- Marcado: cada grupo es un `<div>` con `<h3>` y `<dl>`; cada producto, un `<div>` con `<dt>` (nombre)
+  y `<dd>` (precio). Grupos en `<div>`, no `<section>`, para no añadir landmarks.
+- `formatPrice(price, locale, currency)` es pura (implementa D-06) y lanza Error si el precio no es
+  finito o es negativo, en vez de pintar `$NaN`. `renderMenu` la importa; `main.ts` le pasa
+  `business.menu`, `business.locale` y `business.currency`.
+- Los estilos de cada sección nueva van en su propio archivo (`src/styles/menu.css`), importado en
+  `main.ts` después de `main.css`; rejilla de 2 columnas desde 768 px con
+  `repeat(2, minmax(0, 1fr))` y `align-items: start`.
+- `mount()` construye todo lo que puede fallar (URL de reserva, menú, futuras secciones) antes de
+  pintar nada: o se pinta la página entera o no se pinta nada.
+
+## D-10 · Mapa y "Cómo llegar" (2026-11-15 · origen: T-20261115-003, concreta D-05)
+- Las URLs se construyen solo en `src/lib/maps.ts` con `toFixed(6)`; bbox de OSM oeste,sur,este,norte
+  con d = 0.005°; una coordenada inválida lanza Error. Se comprueba el prefijo antes de usar cada URL.
+- iframe: `loading="lazy"`, `referrerpolicy="strict-origin-when-cross-origin"` (OSM pide Referer),
+  `sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`; sin `allow`,
+  `allowfullscreen` ni navegación del documento superior. El embed de OSM hoy usa MapLibre GL
+  (WebGL + worker `blob:`), que necesita `allow-same-origin` (seguro: el iframe es de otro origen).
+  Ampliar permisos requiere decisión humana.
+- Limitación conocida: `loading="lazy"` no garantiza que no se contacte a OSM sin hacer scroll
+  (Chrome precarga a ~1300 px); las teselas sí esperan al scroll.
+- Horario en `<table>` con `th scope="row"`, horas en 24 h ("08:00 a 20:00"), cerrado = "Cerrado".
+- `.btn--secondary` vive en `location.css` hasta que la tarea 006 divida `main.css`.
+
+## D-11 · Estilos divididos, zonas táctiles y Lighthouse (2026-11-15 · origen: T-20261115-004, cierra pendientes de D-08 y D-10)
+- `main.css` se divide en `main.css` (base), `header.css`, `buttons.css` (incluye `.btn--secondary`),
+  `hero.css`, `reserve.css` y `footer.css`; `main.ts` los importa en ese orden, antes de `menu.css` y
+  `location.css`. Ningún archivo de estilo pasa de ~200 líneas.
+- `.nav-link` y `.btn` llevan `min-width: var(--tap-min)` además de la altura mínima. Todo elemento
+  enfocable nuevo debe usar una de las clases que vigila `src/a11y.test.ts` (CA-5).
+- Lighthouse móvil: 3 ejecuciones sobre el build y se toma la mediana; umbral ≥ 90 en rendimiento y
+  accesibilidad. Línea base: 100/100 (Lighthouse 12.8.2, Chrome 157, fuentes del sistema). Repetir si
+  se cargan fuentes externas y antes de publicar.
+- Excepción pendiente de decisión humana (huecos.md): los controles internos del mapa de OSM
+  (+/− 29×29 px, atribución 14 px de alto) no llegan a 44 px y no se pueden estilar.
+# Arquitectura
+
+Landing de una sola página, estática, sin backend. Ver decisiones D-01 a D-06.
+
+## Stack
+- **Vite** (servidor de desarrollo + build estático a `dist/`) con **TypeScript** "vanilla": sin
+  framework de UI (D-01).
+- **CSS plano** con custom properties (tokens de `diseno.md`); sin Tailwind (D-02).
+- **Calidad** (D-03): ESLint 9 (flat config) + typescript-eslint · `tsc --noEmit` · Vitest + jsdom.
+- Sin dependencias de producción: todo lo instalado es `devDependencies`.
+- Node LTS actual; versiones fijadas en `package-lock.json`.
+
+## Estructura de `app/`
+```
+app/
+├── index.html              # Esqueleto semántico estático (lang="es"): header+nav, <main> con las
+│                           # secciones (id + <h2>), contenedores vacíos para los datos, footer.
+├── package.json            # scripts: dev, lint, typecheck, test, build, preview
+├── package-lock.json
+├── tsconfig.json
+├── vite.config.ts          # build + bloque `test` de Vitest (environment: jsdom)
+├── eslint.config.js
+├── public/                 # favicon e imágenes estáticas (si las hay)
+└── src/
+    ├── main.ts             # Punto de entrada: importa estilos y monta cada sección en su contenedor
+    ├── data/
+    │   └── business.ts     # ÚNICO archivo de datos del negocio (D-00), tipado y marcado como ficticio
+    ├── lib/                # Funciones puras, sin DOM
+    │   ├── formatPrice.ts  # número → texto con moneda (Intl.NumberFormat)
+    │   ├── whatsapp.ts     # número + mensaje → URL wa.me
+    │   └── maps.ts         # coordenadas → URL de "Cómo llegar" y URL del mapa embebido
+    ├── sections/           # Una función por sección: datos → HTMLElement (DOM API)
+    │   ├── hero.ts         # Portada: nombre, eslogan, botón WhatsApp
+    │   ├── menu.ts         # Menú: Bebidas y Postres
+    │   ├── location.ts     # Horario y ubicación: tabla de horario, dirección, mapa, "Cómo llegar"
+    │   └── reserve.ts      # Reservar: texto + botón WhatsApp
+    └── styles/
+        ├── tokens.css      # Tokens de diseno.md como custom properties en :root
+        └── main.css        # Estilos base, layout mobile-first, componentes
+```
+- Pruebas **junto al código**: `src/**/<modulo>.test.ts`. Las pruebas de estructura de la página
+  leen `index.html` y lo cargan en jsdom.
+- Nombres de código en inglés; textos visibles en español (estándar de estilo).
+- Archivos de más de ~200 líneas se dividen.
+
+## Rutas / páginas
+Una sola ruta: `/` (`index.html`). Navegación interna por anclas, en este orden:
+
+| Ancla | Sección | Contenido |
+|---|---|---|
+| `#inicio` | Portada | Nombre "Cafetería Luna", eslogan, botón "Reservar mesa por WhatsApp" |
+| `#menu` | Menú | Grupos "Bebidas" y "Postres"; producto = nombre + precio |
+| `#horario` | Horario y ubicación | Horario lunes→domingo (incl. cierres), dirección, mapa, "Cómo llegar" |
+| `#reservar` | Reservar | Texto breve + botón "Reservar mesa por WhatsApp" |
+| — | Pie | Nombre, dirección corta, aviso de datos de ejemplo mientras rija D-00 |
+
+La cabecera con la navegación (Menú · Horario y ubicación · Reservar) es **fija/sticky**, de modo
+que es accesible desde cualquier punto de la página (CA-01.3).
+
+## Datos e integraciones
+### Datos (`src/data/business.ts`)
+Constante tipada `business` con: `name`, `slogan`, `locale` (`es-MX`), `currency` (`MXN`),
+`menu` (`drinks[]`, `desserts[]` de `{ name, price }`), `hours` (7 entradas lunes→domingo,
+`{ day, open, close } | { day, closed: true }`), `address` (texto completo), `coordinates`
+(`{ lat, lng }`), `whatsapp` (`{ number: "520000000000", message }`).
+- Mientras rija D-00 los valores son **ficticios** y el archivo lo dice en un comentario de cabecera.
+- Sustituir los datos reales = editar solo este archivo. Ningún otro módulo contiene datos del negocio.
+
+### Integraciones (todas sin claves ni `.env`)
+| Integración | Cómo | CA |
+|---|---|---|
+| WhatsApp | Enlace `https://wa.me/<número solo dígitos>?text=<mensaje con encodeURIComponent>`. Abre la app en móvil y WhatsApp Web/página de WhatsApp en escritorio. | CA-04.2–04.4 |
+| Mapa | `<iframe>` de OpenStreetMap (`export/embed.html` con `bbox` y `marker`), `loading="lazy"`, con `title` accesible. | CA-03.3 |
+| Cómo llegar | Enlace `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`: abre la app de mapas en móvil o la web en escritorio. | CA-03.4 |
+
+### Reglas de implementación
+- Los datos se insertan en el DOM **solo** con `textContent` / `setAttribute`; prohibido `innerHTML`
+  con datos.
+- Enlaces externos: `target="_blank"` + `rel="noopener noreferrer"` y un nombre accesible que indique
+  el propósito (p. ej., `aria-label` del botón de WhatsApp).
+- No se recogen datos personales; sin formularios, cookies propias ni analítica (hueco abierto).
+- Rendimiento (Lighthouse móvil ≥ 90): sin librerías de UI, mapa diferido (`loading="lazy"`), imágenes
+  con `width`/`height` y formatos modernos, fuentes con `font-display: swap` y como mucho 2 familias.
+
+## Zonas sensibles (riesgo ALTO: requieren aprobación humana)
+Además de lo que ya detecta `scripts/riesgo.mjs` (dependencias, configuración de build):
+- `src/data/business.ts` — un número o un mensaje de WhatsApp erróneo rompe el objetivo principal de
+  negocio (reservas) sin que falle ninguna prueba; un precio, horario o dirección erróneos engañan al
+  cliente. Cualquier cambio exige revisión humana.
+- `src/lib/whatsapp.ts` y los botones de reserva (`src/sections/hero.ts`, `src/sections/reserve.ts`) —
+  es el embudo de conversión: si la URL se construye mal, no entra ninguna reserva.
+- `index.html` y `src/main.ts` — si el esqueleto o el montaje fallan, la página queda en blanco.
+- `package.json`, `package-lock.json`, `vite.config.ts`, `tsconfig.json`, `eslint.config.js` —
+  dependencias y build (ya cubiertos por el script).
+- Cualquier recurso de terceros nuevo (iframes, scripts, fuentes externas) — afecta a privacidad y
+  rendimiento.
+
+## Cómo ejecutar
+- Instalar: `npm install` (dentro de `app/` o del worktree)
+- Desarrollo: `npm run dev`
+- Previsualizar el build: `npm run build && npm run preview`
+- Puertas: `node scripts/verificar.mjs <carpeta>` (desde la raíz de la fábrica) → `lint`, `typecheck`,
+  `test`, `build`
+- Lighthouse (CA-05.3, manual): auditoría móvil sobre `npm run preview`.
+
+## Hosting
+Estático (`dist/`) en Vercel o Netlify, **solo cuando el humano lo pida** y con los huecos de
+contenido resueltos (D-00). Dominio: pendiente (`huecos.md`).
+# Visión
+
+## Problema
+Cafetería Luna es una cafetería de especialidad pequeña de barrio. Hoy quien la busca desde el
+móvil no tiene un sitio único donde ver qué ofrece, cuánto cuesta, cuándo abre y dónde está, ni
+una forma rápida de reservar mesa. La información se pierde y algunas visitas no ocurren.
+
+## Público objetivo (avatar)
+- **Quién**: gente joven del barrio (aprox. 18–35 años [PENDIENTE confirmar rango]), que busca un
+  café de calidad, un sitio para quedar o para trabajar un rato.
+- **Dispositivo**: entra casi siempre desde el **móvil**, a menudo con prisa o de camino.
+- **Nivel técnico**: usuario habitual de apps; usa WhatsApp y mapas a diario. No quiere
+  formularios ni registros.
+- **Qué necesita**: saber en segundos qué hay, cuánto cuesta, si está abierto, cómo llegar y
+  reservar con un toque.
+
+## Objetivo de negocio
+- Principal: **reservas de mesa por WhatsApp** iniciadas desde la página.
+- Secundario: visitas a la cafetería (clics en "cómo llegar") y conocimiento de la carta.
+- Métrica de éxito: [PENDIENTE] (p. ej., nº de reservas por WhatsApp al mes atribuibles a la web).
+
+## Marca y tono
+- **Nombre**: Cafetería Luna.
+- **Eslogan**: [PENDIENTE].
+- **Personalidad**: cercana, cálida, de barrio, con cuidado por el producto (café de especialidad).
+- **Tono del texto**: tuteo, frases cortas, sin tecnicismos baristas innecesarios.
+- **Idioma**: español (único idioma).
+- **Colores, logo y tipografía**: [PENDIENTE] (no existe material de marca conocido).
+
+## Referencias
+[PENDIENTE] — el humano no ha indicado sitios que le gusten o no.
+
+Name     Source                          
+----     ------                          
+node.exe C:\Program Files\nodejs\node.exe
+npm.ps1  C:\Program Files\nodejs\npm.ps1 
+C:/Program Files/nodejs/node.exe
+C:/Program Files/nodejs/npm.cmd
+dist
+node_modules
+src
+.gitignore
+eslint.config.js
+index.html
+package-lock.json
+package.json
+README.md
+tsconfig.json
+vite.config.ts
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/package.json','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/vite.config.ts','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/.gitignore'; Get-ChildItem -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/src' -Recurse -File | Select-Object -ExpandProperty FullName" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@('C:/Program Files','C:/Program Files (x86)','C:/Users/FRANC/AppData/Local/Programs','C:/Users/FRANC/.local','C:/Users/FRANC/scoop/apps/git','C:/ProgramData') | ForEach-Object { if (Test-Path -LiteralPath "'$_) { Get-ChildItem -LiteralPath $_ -Filter git.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName } }' in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 413ms:
+{
+  "name": "cafeteria-luna",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^24.19.2",
+    "eslint": "^9.39.5",
+    "globals": "^17.14.0",
+    "jsdom": "^31.0.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.2",
+    "vite": "^7.3.8",
+    "vitest": "^3.2.7"
+  }
+}
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    environment: "jsdom",
+  },
+});
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+coverage/
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\a11y.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\main.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\main.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\page.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\project.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\data\business.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\data\business.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\lib\formatPrice.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\lib\formatPrice.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\lib\maps.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\lib\maps.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\lib\whatsapp.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\lib\whatsapp.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\sections\hero.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\sections\hero.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\sections\location.guards.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\sections\location.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\sections\location.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\sections\menu.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\sections\menu.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\sections\reserve.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\sections\reserve.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\buttons.css
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\buttons.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\footer.css
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\header.css
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\hero.css
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\location.css
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\location.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\main.css
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\menu.css
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\reserve.css
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\split.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\styles.test.ts
+C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005\src\styles\tokens.css
+
+codex
+La spec limita el cambio al foco de la marca y sus pruebas. Git no está en el PATH, pero localicé una instalación; la usaré para comprobar el alcance real del diff y revisar las dependencias.
+ exited 1 in 20326ms:
+C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\cmd\git.exe
+C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\git.exe
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:/Program Files/nodejs/npm.cmd' audit --omit=dev --ignore-scripts --no-fund --loglevel=error" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261115-005
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/Git/cmd/git.exe' -C 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005' diff main...HEAD --stat; & 'C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/Git/cmd/git.exe' -C 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005' diff main...HEAD; & 'C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/Git/cmd/git.exe' -C 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005' status --short; & 'C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/Git/cmd/git.exe' -C 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005' ls-files" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 478ms:
+ src/styles/header.css    | 11 ++++++++
+ src/styles/split.test.ts | 67 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 78 insertions(+)
+diff --git a/src/styles/header.css b/src/styles/header.css
+index fd15408..8852c51 100644
+--- a/src/styles/header.css
++++ b/src/styles/header.css
+@@ -47,10 +47,14 @@
+   column-gap: var(--space-4);
+ }
+ 
++/* padding-inline + margin negativo igual: deja sitio al anillo de foco junto al texto sin mover
++   la marca en reposo (mismo patrón que .site-nav__list). */
+ .brand {
+   display: inline-flex;
+   align-items: center;
+   min-height: var(--header-height);
++  padding-inline: var(--space-2);
++  margin-inline: calc(-1 * var(--space-2));
+   font-family: var(--font-heading);
+   font-weight: 700;
+   font-size: var(--text-lg);
+@@ -59,6 +63,13 @@
+   text-decoration: none;
+ }
+ 
++/* La caja de la marca empieza en y = 0 (cabecera sticky sin padding): con el offset global de
++   +3 px el lado de arriba del anillo quedaba fuera de la ventana. Hacia dentro cae sobre el
++   fondo surface de la cabecera (6.97:1); grosor, estilo y color siguen siendo los globales. */
++.brand:focus-visible {
++  outline-offset: -3px;
++}
++
+ .site-nav {
+   flex-basis: 100%;
+   min-width: 0;
+diff --git a/src/styles/split.test.ts b/src/styles/split.test.ts
+index af52633..9126839 100644
+--- a/src/styles/split.test.ts
++++ b/src/styles/split.test.ts
+@@ -124,6 +124,7 @@ const SPLIT: Record<string, Record<string, string[]>> = {
+       ".site-header",
+       ".site-header__inner",
+       ".brand",
++      ".brand:focus-visible", // T-20261115-005 CA-4 (a)
+       ".site-nav",
+       ".site-nav__list",
+       ".nav-link",
+@@ -277,6 +278,72 @@ describe("CA-10: the reduced-motion override of .btn:active moves with the butto
+   });
+ });
+ 
++// T-20261115-005: the focus ring of .brand is drawn inwards because its box starts at y = 0.
++describe("T-20261115-005 CA-4: change limited to the focus ring of .brand", () => {
++  const PX = /^(-?\d*\.?\d+)px$/;
++  const OUTLINE_LONGHANDS = ["outline", "outline-color", "outline-style", "outline-width"];
++  const brandFocus = (): Map<string, string> => declarations(exactRule("header.css", ".brand:focus-visible")?.body ?? "");
++  const globalRingWidth = (): number => {
++    const outline = declarations(exactRule("main.css", ":focus-visible")?.body ?? "").get("outline") ?? "";
++    return Number(outline.split(" ")[0]?.match(PX)?.[1] ?? Number.NaN);
++  };
++  const offsetPx = (): number => Number(brandFocus().get("outline-offset")?.match(PX)?.[1] ?? Number.NaN);
++
++  it("(a) adds no :hover rule and leaves the @media (min-width: 768px) rules of header.css unchanged", () => {
++    const hovers = rulesOf("header.css").flatMap((rule) => rule.selectors.filter((s) => s.includes(":hover")));
++    expect(hovers).toEqual([".nav-link:hover"]);
++    const md = Object.fromEntries(
++      rulesOf("header.css")
++        .filter((rule) => rule.context === MD)
++        .map((rule) => [rule.selectors.join(", "), Object.fromEntries(declarations(rule.body))]),
++    );
++    expect(md).toEqual({
++      ".site-header__inner": { "flex-wrap": "nowrap", "min-height": "var(--header-height)" },
++      ".site-nav": { "flex-basis": "auto" },
++      ".site-nav__list": { margin: "0" },
++    });
++  });
++
++  it("(b) .brand:focus-visible declares a negative outline-offset in px at least as large as the global ring", () => {
++    expect(exactRule("header.css", ".brand:focus-visible"), ".brand:focus-visible in header.css").toBeDefined();
++    expect(brandFocus().get("outline-offset")).toMatch(PX);
++    expect(globalRingWidth()).toBe(3);
++    expect(offsetPx()).toBeLessThan(0);
++    expect(Math.abs(offsetPx())).toBeGreaterThanOrEqual(globalRingWidth());
++  });
++
++  it("(c) .brand:focus-visible keeps width, style and color from the global ring", () => {
++    expect(exactRule("header.css", ".brand:focus-visible")).toBeDefined();
++    for (const property of OUTLINE_LONGHANDS) {
++      expect(brandFocus().has(property), property).toBe(false);
++    }
++  });
++
++  it("(d) the only :focus-visible selectors in src/styles/*.css are the global, footer and brand ones", () => {
++    const focusSelectors = [...parsed.values()]
++      .flat()
++      .flatMap((rule) => rule.selectors.filter((s) => s.includes(":focus-visible")).map((s) => `${rule.file}|${rule.context}|${s}`));
++    expect(focusSelectors.sort()).toEqual(
++      ["footer.css||.site-footer :focus-visible", "header.css||.brand:focus-visible", "main.css||:focus-visible"].sort(),
++    );
++    const global = declarations(exactRule("main.css", ":focus-visible")?.body ?? "");
++    expect(Object.fromEntries(global)).toEqual({ outline: "3px solid var(--color-focus)", "outline-offset": "3px" });
++  });
++
++  // Supports CA-2 and CA-3: the inward ring needs room beside the text, and the padding is
++  // cancelled by an equal negative margin so the resting layout does not move.
++  it(".brand gains inline padding cancelled by an equal negative margin, wider than the inward ring", () => {
++    const brand = declarations(exactRule("header.css", ".brand")?.body ?? "");
++    expect(brand.get("padding-inline")).toBe("var(--space-2)");
++    expect(brand.get("margin-inline")).toBe("calc(-1 * var(--space-2))");
++    expect(brand.get("min-height")).toBe("var(--header-height)");
++    const { base, md } = tokenPx();
++    for (const tokens of [base, md]) {
++      expect(tokens.get("--space-2")).toBeGreaterThanOrEqual(Math.abs(offsetPx()));
++    }
++  });
++});
++
+ describe("CA-11: main.ts imports the style files once each, in cascade order", () => {
+   it("imports tokens, main, header, buttons, hero, reserve, footer, menu and location, in that order", () => {
+     const source = readFileSync(resolve(stylesDir, "../main.ts"), "utf8");
+.gitignore
+README.md
+eslint.config.js
+index.html
+package-lock.json
+package.json
+src/a11y.test.ts
+src/data/business.test.ts
+src/data/business.ts
+src/lib/formatPrice.test.ts
+src/lib/formatPrice.ts
+src/lib/maps.test.ts
+src/lib/maps.ts
+src/lib/whatsapp.test.ts
+src/lib/whatsapp.ts
+src/main.test.ts
+src/main.ts
+src/page.test.ts
+src/project.test.ts
+src/sections/hero.test.ts
+src/sections/hero.ts
+src/sections/location.guards.test.ts
+src/sections/location.test.ts
+src/sections/location.ts
+src/sections/menu.test.ts
+src/sections/menu.ts
+src/sections/reserve.test.ts
+src/sections/reserve.ts
+src/styles/buttons.css
+src/styles/buttons.test.ts
+src/styles/footer.css
+src/styles/header.css
+src/styles/hero.css
+src/styles/location.css
+src/styles/location.test.ts
+src/styles/main.css
+src/styles/menu.css
+src/styles/reserve.css
+src/styles/split.test.ts
+src/styles/styles.test.ts
+src/styles/tokens.css
+tsconfig.json
+vite.config.ts
+
+ succeeded in 4818ms:
+found 0 vulnerabilities
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/src/styles/header.css','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/src/styles/split.test.ts'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/index.html','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/src/main.ts','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/src/lib/whatsapp.ts','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/src/lib/maps.ts','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/src/sections/hero.ts','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/src/sections/reserve.ts','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/src/sections/location.ts','C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005/src/sections/menu.ts'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "& 'C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/Git/cmd/git.exe' -C 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005' grep -n -I -E 'innerHTML|outerHTML|eval\\(|new Function|document\\.write|localStorage|sessionStorage|fetch\\(|XMLHttpRequest|console\\.|password|secret|api[_-]?key|PRIVATE KEY|supabase|Access-Control-Allow|Content-Security-Policy' HEAD -- src index.html package.json vite.config.ts; & 'C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/Git/cmd/git.exe' -C 'C:/Users/FRANC/AppData/Local/Temp/claude/41063b14ed460bed/c1964097-0211-4b43-884b-4cfaddf58d66/scratchpad/demo-completa/proyectos/cafeteria-luna/.worktrees/T-20261115-005' diff --check main...HEAD" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261115-005\revisiones
+ succeeded in 294ms:
+HEAD:src/a11y.test.ts:72:      expect(img.hasAttribute("alt"), img.outerHTML).toBe(true);
+HEAD:src/a11y.test.ts:80:      expect(hidden || named, svg.outerHTML).toBe(true);
+HEAD:src/a11y.test.ts:129:      expect(name, element.outerHTML).not.toBe("");
+HEAD:src/a11y.test.ts:132:        `${element.outerHTML} needs one of ${TAP_CLASSES.join(", ")}`,
+HEAD:src/main.test.ts:88:  const forbiddenApis = ["innerHTML", "outerHTML", "insertAdjacentHTML"];
+HEAD:src/sections/location.test.ts:170:    for (const api of ["innerHTML", "outerHTML", "insertAdjacentHTML", "srcdoc"]) {
+HEAD:src/sections/menu.test.ts:80:    for (const api of ["innerHTML", "outerHTML", "insertAdjacentHTML", "Intl.NumberFormat"]) {
+
+ succeeded in 492ms:
+/* Enlace de salto y cabecera sticky con la navegación; solo usan var(--…) de tokens.css
+   (D-02, D-08, brain/diseno.md). */
+
+/* ── Enlace "Saltar al contenido": oculto hasta recibir foco ── */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-primary);
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+}
+
+.skip-link:not(:focus) {
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Cabecera sticky ──────────────────────────────────── */
+/* Móvil: el nombre ocupa una fila de --header-height y la navegación otra de --tap-min
+   (las tres entradas no caben junto al nombre en 375 px). Desde 768 px, una sola fila. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--space-4);
+}
+
+/* padding-inline + margin negativo igual: deja sitio al anillo de foco junto al texto sin mover
+   la marca en reposo (mismo patrón que .site-nav__list). */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--header-height);
+  padding-inline: var(--space-2);
+  margin-inline: calc(-1 * var(--space-2));
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  line-height: var(--leading-heading);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* La caja de la marca empieza en y = 0 (cabecera sticky sin padding): con el offset global de
+   +3 px el lado de arriba del anillo quedaba fuera de la ventana. Hacia dentro cae sobre el
+   fondo surface de la cabecera (6.97:1); grosor, estilo y color siguen siendo los globales. */
+.brand:focus-visible {
+  outline-offset: -3px;
+}
+
+.site-nav {
+  flex-basis: 100%;
+  min-width: 0;
+}
+
+.site-nav__list {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0 calc(-1 * var(--space-2));
+  padding: 0;
+  list-style: none;
+}
+
+/* min-width: los 44 px de ancho no dependen de la longitud del texto (CA-05.2). */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+/* ── Desde 768 px ─────────────────────────────────────── */
+@media (min-width: 768px) {
+  .site-header__inner {
+    flex-wrap: nowrap;
+    min-height: var(--header-height);
+  }
+
+  .site-nav {
+    flex-basis: auto;
+  }
+
+  .site-nav__list {
+    margin: 0;
+  }
+}
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { describe, expect, it } from "vitest";
+
+// T-20261115-004: main.css split (decision 1), tap targets and focus ring (CA-05.2) read from the CSS.
+
+const stylesDir = dirname(fileURLToPath(import.meta.url));
+const stripComments = (css: string): string => css.replace(/\/\*[\s\S]*?\*\//g, "");
+const normalize = (value: string): string => value.replace(/\s+/g, " ").trim();
+const readRaw = (file: string): string => readFileSync(resolve(stylesDir, file), "utf8");
+
+// "@media (min-width: 768px)" whatever the spacing; "" for top-level rules.
+const normalizeQuery = (query: string): string =>
+  normalize(query)
+    .toLowerCase()
+    .replace(/\(\s*/g, "(")
+    .replace(/\s*\)/g, ")")
+    .replace(/\s*:\s*/g, ": ");
+
+interface CssRule {
+  file: string;
+  context: string;
+  selectors: string[];
+  body: string;
+  /** Offset in the comment-free source, to compare the order of two rules. */
+  start: number;
+}
+
+const toRule = (file: string, context: string, prelude: string, body: string, start: number): CssRule => ({
+  file,
+  context,
+  selectors: prelude.split(",").map(normalize).filter(Boolean),
+  body: normalize(body),
+  start,
+});
+
+// Top-level rules and rules one level inside an @-block (all this project uses).
+const parseCss = (file: string): CssRule[] => {
+  const css = stripComments(readRaw(file));
+  const rules: CssRule[] = [];
+  let index = 0;
+  while (index < css.length) {
+    const open = css.indexOf("{", index);
+    if (open < 0) break;
+    const prelude = css.slice(index, open);
+    if (prelude.trim().startsWith("@")) {
+      let depth = 0;
+      let end = open;
+      for (; end < css.length; end += 1) {
+        if (css[end] === "{") depth += 1;
+        if (css[end] === "}") depth -= 1;
+        if (depth === 0) break;
+      }
+      const inner = css.slice(open + 1, end);
+      const context = normalizeQuery(prelude);
+      for (const match of inner.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+        rules.push(toRule(file, context, match[1] ?? "", match[2] ?? "", open + 1 + (match.index ?? 0)));
+      }
+      index = end + 1;
+    } else {
+      const close = css.indexOf("}", open);
+      rules.push(toRule(file, "", prelude, css.slice(open + 1, close), index));
+      index = close + 1;
+    }
+  }
+  return rules;
+};
+
+const declarations = (body: string): Map<string, string> => {
+  const map = new Map<string, string>();
+  for (const part of body.split(";")) {
+    const colon = part.indexOf(":");
+    if (colon < 0) continue;
+    map.set(part.slice(0, colon).trim(), part.slice(colon + 1).trim());
+  }
+  return map;
+};
+
+const MD = "@media (min-width: 768px)";
+const NO_PREFERENCE = "@media (prefers-reduced-motion: no-preference)";
+const REDUCE = "@media (prefers-reduced-motion: reduce)";
+
+const STYLE_FILES = [
+  "tokens.css",
+  "main.css",
+  "header.css",
+  "buttons.css",
+  "hero.css",
+  "reserve.css",
+  "footer.css",
+  "menu.css",
+  "location.css",
+];
+
+// Decision 1 of the spec: file → context → exact selectors (selector lists split on commas).
+const SPLIT: Record<string, Record<string, string[]>> = {
+  "main.css": {
+    "": [
+      "*",
+      "*::before",
+      "*::after",
+      "body",
+      "h1",
+      "h2",
+      "h3",
+      "p",
+      "a",
+      ".container",
+      ":focus-visible",
+      "main:focus",
+      "main > section",
+      "main > section:nth-of-type(even)",
+      "main > section h2",
+    ],
+    [MD]: ["main > section"],
+    [NO_PREFERENCE]: ["html"],
+    [REDUCE]: ["*", "*::before", "*::after"],
+  },
+  "header.css": {
+    "": [
+      ".skip-link",
+      ".skip-link:not(:focus)",
+      ".site-header",
+      ".site-header__inner",
+      ".brand",
+      ".brand:focus-visible", // T-20261115-005 CA-4 (a)
+      ".site-nav",
+      ".site-nav__list",
+      ".nav-link",
+      ".nav-link:hover",
+    ],
+    [MD]: [".site-header__inner", ".site-nav", ".site-nav__list"],
+  },
+  "buttons.css": {
+    "": [".btn", ".btn:active", ".btn__icon", ".btn--whatsapp", ".btn--whatsapp:hover", ".btn--secondary", ".btn--secondary:hover"],
+    [MD]: [".btn--whatsapp", ".btn--secondary"],
+    [REDUCE]: [".btn:active"],
+  },
+  "hero.css": {
+    "": [".hero", ".hero__content", ".hero__title", ".hero__slogan"],
+    [MD]: [".hero"],
+  },
+  "reserve.css": {
+    "": [".reserve__text"],
+  },
+  "footer.css": {
+    "": [".site-footer", ".site-footer a", ".site-footer :focus-visible", ".site-footer__name", ".site-footer__notice"],
+  },
+};
+
+const allCssFiles = readdirSync(stylesDir).filter((file) => file.endsWith(".css"));
+const parsed = new Map(allCssFiles.map((file) => [file, parseCss(file)]));
+const rulesOf = (file: string): CssRule[] => parsed.get(file) ?? [];
+const exactRule = (file: string, selector: string, context = ""): CssRule | undefined =>
+  rulesOf(file).find((rule) => rule.context === context && rule.selectors.length === 1 && rule.selectors[0] === selector);
+
+// Token values in px (1rem = 16px), at the base and from 768 px.
+const tokenPx = (): { base: Map<string, number>; md: Map<string, number> } => {
+  const toPx = (value: string): number => {
+    const match = value.match(/^([\d.]+)(px|rem)$/);
+    if (!match) return Number.NaN;
+    return Number(match[1]) * (match[2] === "rem" ? 16 : 1);
+  };
+  const pick = (rules: CssRule[]): Map<string, number> => {
+    const map = new Map<string, number>();
+    for (const rule of rules) {
+      for (const [name, value] of declarations(rule.body)) map.set(name, toPx(value));
+    }
+    return map;
+  };
+  const tokens = rulesOf("tokens.css").filter((rule) => rule.selectors.includes(":root"));
+  const base = pick(tokens.filter((rule) => rule.context === ""));
+  const md = new Map([...base, ...pick(tokens.filter((rule) => rule.context === MD))]);
+  return { base, md };
+};
+
+describe("CA-6: 44 px tap targets declared in header.css and buttons.css", () => {
+  const { base, md } = tokenPx();
+  const ALLOWED = ["var(--tap-min)", "var(--header-height)", "var(--space-7)"];
+
+  it("resolves every allowed min-height token to 44 px or more, on mobile and from 768 px", () => {
+    for (const token of ["--tap-min", "--header-height", "--space-7"]) {
+      expect(base.get(token), `${token} (base)`).toBeGreaterThanOrEqual(44);
+      expect(md.get(token), `${token} (768 px)`).toBeGreaterThanOrEqual(44);
+    }
+  });
+
+  it.each([
+    ["header.css", ".skip-link"],
+    ["header.css", ".brand"],
+    ["header.css", ".nav-link"],
+    ["buttons.css", ".btn"],
+  ])("%s %s declares min-height with an allowed token", (file, selector) => {
+    const rule = exactRule(file, selector);
+    expect(rule, `${selector} in ${file}`).toBeDefined();
+    expect(ALLOWED).toContain(declarations(rule?.body ?? "").get("min-height"));
+  });
+
+  it.each([
+    ["header.css", ".nav-link"],
+    ["buttons.css", ".btn"],
+  ])("%s %s declares min-width: var(--tap-min)", (file, selector) => {
+    expect(declarations(exactRule(file, selector)?.body ?? "").get("min-width")).toBe("var(--tap-min)");
+  });
+});
+
+describe("CA-7: only main:focus removes the outline", () => {
+  const OUTLINE_OFF = [
+    /(^|;\s*)outline: (none|0)(\s*!important)?(;|$)/,
+    /(^|;\s*)outline-style: none(\s*!important)?(;|$)/,
+    /(^|;\s*)outline-width: 0(\s*!important)?(;|$)/,
+  ];
+
+  it("finds outline removals in main:focus and nowhere else in src/styles/*.css", () => {
+    const offenders = [...parsed.values()]
+      .flat()
+      .filter((rule) => OUTLINE_OFF.some((pattern) => pattern.test(rule.body)))
+      .map((rule) => `${rule.file} ${rule.context} ${rule.selectors.join(", ")}`.replace(/\s+/g, " "));
+    expect(offenders).toEqual(["main.css main:focus"]);
+  });
+});
+
+describe("CA-8: style files exist, stay under 200 lines and keep colors in tokens.css", () => {
+  it.each(STYLE_FILES)("%s exists and has at most 200 lines", (file) => {
+    expect(existsSync(resolve(stylesDir, file)), file).toBe(true);
+    const lines = readRaw(file).replace(/\r?\n$/, "").split(/\r?\n/);
+    expect(lines.length).toBeLessThanOrEqual(200);
+  });
+
+  it.each(STYLE_FILES.filter((file) => file !== "tokens.css"))("%s has no color literals", (file) => {
+    const css = stripComments(readRaw(file));
+    expect(css).not.toMatch(/#[0-9a-f]{3,8}(?![\w-])/i);
+    expect(css).not.toMatch(/\b(rgba?|hsla?)\(/i);
+  });
+});
+
+describe("CA-9: every selector of decision 1 lives in its file and context only", () => {
+  const cases = Object.entries(SPLIT).flatMap(([file, contexts]) =>
+    Object.entries(contexts).flatMap(([context, selectors]) =>
+      selectors.map((selector) => ({ file, context, selector, label: `${file} ${context || "(top level)"} ${selector}` })),
+    ),
+  );
+
+  it.each(cases)("$label", ({ file, context, selector }) => {
+    const owners = [...parsed.values()]
+      .flat()
+      .filter((rule) => rule.context === context && rule.selectors.includes(selector))
+      .map((rule) => rule.file);
+    expect(owners, `${selector} in ${context || "(top level)"}`).toContain(file);
+    expect(new Set(owners), `${selector} must not appear in another file`).toEqual(new Set([file]));
+  });
+
+  it.each(Object.keys(SPLIT))("%s contains only the selectors of decision 1 (a pure move of rules)", (file) => {
+    const expected = new Set(
+      Object.entries(SPLIT[file] ?? {}).flatMap(([context, selectors]) => selectors.map((s) => `${context}|${s}`)),
+    );
+    const actual = new Set(rulesOf(file).flatMap((rule) => rule.selectors.map((s) => `${rule.context}|${s}`)));
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe("CA-10: the reduced-motion override of .btn:active moves with the button", () => {
+  it("buttons.css sets .btn:active { transform: none } in a reduce block after the base translateY(1px)", () => {
+    const baseActive = exactRule("buttons.css", ".btn:active");
+    const reduceActive = exactRule("buttons.css", ".btn:active", REDUCE);
+    expect(declarations(baseActive?.body ?? "").get("transform")).toBe("translateY(1px)");
+    expect(declarations(reduceActive?.body ?? "").get("transform")).toBe("none");
+    expect(reduceActive?.start ?? -1).toBeGreaterThan(baseActive?.start ?? Number.POSITIVE_INFINITY);
+  });
+
+  it("leaves no .btn selector in the reduce block of main.css", () => {
+    const reduceRules = rulesOf("main.css").filter((rule) => rule.context === REDUCE);
+    expect(reduceRules.length).toBeGreaterThan(0);
+    for (const rule of reduceRules) {
+      expect(rule.selectors.join(", ")).not.toMatch(/\.btn/);
+    }
+  });
+});
+
+// T-20261115-005: the focus ring of .brand is drawn inwards because its box starts at y = 0.
+describe("T-20261115-005 CA-4: change limited to the focus ring of .brand", () => {
+  const PX = /^(-?\d*\.?\d+)px$/;
+  const OUTLINE_LONGHANDS = ["outline", "outline-color", "outline-style", "outline-width"];
+  const brandFocus = (): Map<string, string> => declarations(exactRule("header.css", ".brand:focus-visible")?.body ?? "");
+  const globalRingWidth = (): number => {
+    const outline = declarations(exactRule("main.css", ":focus-visible")?.body ?? "").get("outline") ?? "";
+    return Number(outline.split(" ")[0]?.match(PX)?.[1] ?? Number.NaN);
+  };
+  const offsetPx = (): number => Number(brandFocus().get("outline-offset")?.match(PX)?.[1] ?? Number.NaN);
+
+  it("(a) adds no :hover rule and leaves the @media (min-width: 768px) rules of header.css unchanged", () => {
+    const hovers = rulesOf("header.css").flatMap((rule) => rule.selectors.filter((s) => s.includes(":hover")));
+    expect(hovers).toEqual([".nav-link:hover"]);
+    const md = Object.fromEntries(
+      rulesOf("header.css")
+        .filter((rule) => rule.context === MD)
+        .map((rule) => [rule.selectors.join(", "), Object.fromEntries(declarations(rule.body))]),
+    );
+    expect(md).toEqual({
+      ".site-header__inner": { "flex-wrap": "nowrap", "min-height": "var(--header-height)" },
+      ".site-nav": { "flex-basis": "auto" },
+      ".site-nav__list": { margin: "0" },
+    });
+  });
+
+  it("(b) .brand:focus-visible declares a negative outline-offset in px at least as large as the global ring", () => {
+    expect(exactRule("header.css", ".brand:focus-visible"), ".brand:focus-visible in header.css").toBeDefined();
+    expect(brandFocus().get("outline-offset")).toMatch(PX);
+    expect(globalRingWidth()).toBe(3);
+    expect(offsetPx()).toBeLessThan(0);
+    expect(Math.abs(offsetPx())).toBeGreaterThanOrEqual(globalRingWidth());
+  });
+
+  it("(c) .brand:focus-visible keeps width, style and color from the global ring", () => {
+    expect(exactRule("header.css", ".brand:focus-visible")).toBeDefined();
+    for (const property of OUTLINE_LONGHANDS) {
+      expect(brandFocus().has(property), property).toBe(false);
+    }
+  });
+
+  it("(d) the only :focus-visible selectors in src/styles/*.css are the global, footer and brand ones", () => {
+    const focusSelectors = [...parsed.values()]
+      .flat()
+      .flatMap((rule) => rule.selectors.filter((s) => s.includes(":focus-visible")).map((s) => `${rule.file}|${rule.context}|${s}`));
+    expect(focusSelectors.sort()).toEqual(
+      ["footer.css||.site-footer :focus-visible", "header.css||.brand:focus-visible", "main.css||:focus-visible"].sort(),
+    );
+    const global = declarations(exactRule("main.css", ":focus-visible")?.body ?? "");
+    expect(Object.fromEntries(global)).toEqual({ outline: "3px solid var(--color-focus)", "outline-offset": "3px" });
+  });
+
+  // Supports CA-2 and CA-3: the inward ring needs room beside the text, and the padding is
+  // cancelled by an equal negative margin so the resting layout does not move.
+  it(".brand gains inline padding cancelled by an equal negative margin, wider than the inward ring", () => {
+    const brand = declarations(exactRule("header.css", ".brand")?.body ?? "");
+    expect(brand.get("padding-inline")).toBe("var(--space-2)");
+    expect(brand.get("margin-inline")).toBe("calc(-1 * var(--space-2))");
+    expect(brand.get("min-height")).toBe("var(--header-height)");
+    const { base, md } = tokenPx();
+    for (const tokens of [base, md]) {
+      expect(tokens.get("--space-2")).toBeGreaterThanOrEqual(Math.abs(offsetPx()));
+    }
+  });
+});
+
+describe("CA-11: main.ts imports the style files once each, in cascade order", () => {
+  it("imports tokens, main, header, buttons, hero, reserve, footer, menu and location, in that order", () => {
+    const source = readFileSync(resolve(stylesDir, "../main.ts"), "utf8");
+    const imports = Array.from(source.matchAll(/import\s+["'](\.\/styles\/[^"']+)["'];?/g), (match) => match[1]);
+    expect(imports).toEqual(STYLE_FILES.map((file) => `./styles/${file}`));
+  });
+});
+
+ succeeded in 462ms:
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cafetería Luna</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="skip-link" href="#contenido">Saltar al contenido</a>
+      <div class="site-header__inner container">
+        <a class="brand" href="#inicio">Cafetería Luna</a>
+        <nav class="site-nav" aria-label="Principal">
+          <ul class="site-nav__list">
+            <li><a class="nav-link" href="#menu">Menú</a></li>
+            <li><a class="nav-link" href="#horario">Horario y ubicación</a></li>
+            <li><a class="nav-link" href="#reservar">Reservar</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="contenido" tabindex="-1">
+      <!-- La portada (h1, eslogan y botón) la monta src/sections/hero.ts con los datos de business.ts (D-04). -->
+      <section id="inicio" class="section hero" aria-labelledby="inicio-titulo"></section>
+      <section id="menu" class="section" aria-labelledby="menu-titulo">
+        <div class="container">
+          <h2 id="menu-titulo">Menú</h2>
+        </div>
+      </section>
+      <section id="horario" class="section" aria-labelledby="horario-titulo">
+        <div class="container">
+          <h2 id="horario-titulo">Horario y ubicación</h2>
+        </div>
+      </section>
+      <section id="reservar" class="section" aria-labelledby="reservar-titulo">
+        <div class="container">
+          <h2 id="reservar-titulo">Reservar</h2>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p class="site-footer__name">Cafetería Luna</p>
+        <p class="site-footer__notice">Página de demostración: el eslogan, el menú, los precios, el horario, la dirección y el número de WhatsApp son datos de ejemplo.</p>
+      </div>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+import "./styles/tokens.css";
+import "./styles/main.css";
+import "./styles/header.css";
+import "./styles/buttons.css";
+import "./styles/hero.css";
+import "./styles/reserve.css";
+import "./styles/footer.css";
+import "./styles/menu.css";
+import "./styles/location.css";
+import { business } from "./data/business";
+import { buildWhatsAppUrl } from "./lib/whatsapp";
+import { renderHero } from "./sections/hero";
+import { renderLocation } from "./sections/location";
+import { renderMenu } from "./sections/menu";
+import { renderReserve } from "./sections/reserve";
+
+function requireElement(doc: Document, selector: string): Element {
+  const element = doc.querySelector(selector);
+  if (!element) {
+    throw new Error(`Mount container not found in index.html: ${selector}`);
+  }
+  return element;
+}
+
+/** Paints the business data into the static skeleton of index.html (D-04). */
+export function mount(doc: Document): void {
+  // Look up every container first so a missing one fails before the page is half painted.
+  const hero = requireElement(doc, "#inicio");
+  const menuHeading = requireElement(doc, "#menu h2");
+  const locationHeading = requireElement(doc, "#horario h2");
+  const reserveHeading = requireElement(doc, "#reservar h2");
+
+  // Built once so both reserve buttons point to exactly the same URL.
+  const reserveUrl = buildWhatsAppUrl(business.whatsapp.number, business.whatsapp.message);
+  // Built before painting: an invalid price or coordinate throws here, leaving the page untouched.
+  const menu = renderMenu(business.menu, { locale: business.locale, currency: business.currency });
+  const location = renderLocation({
+    hours: business.hours,
+    address: business.address,
+    coordinates: business.coordinates,
+  });
+
+  hero.append(renderHero({ name: business.name, slogan: business.slogan }, reserveUrl));
+  menuHeading.after(menu);
+  locationHeading.after(location);
+  reserveHeading.after(renderReserve(reserveUrl));
+}
+
+mount(document);
+/**
+ * Builds the WhatsApp "click to chat" link (D-05): https://wa.me/<digits>?text=<message>.
+ * Works for the mobile app and for WhatsApp Web on desktop.
+ * Pure function: the number and message come from src/data/business.ts, never from here.
+ */
+export function buildWhatsAppUrl(number: string, message: string): string {
+  // wa.me only accepts digits: drop "+", spaces, dashes, parentheses and anything else.
+  const digits = number.replace(/\D/g, "");
+  if (digits === "") {
+    throw new Error("WhatsApp number must contain at least one digit");
+  }
+  // encodeURIComponent (not URLSearchParams) so spaces become %20 instead of "+".
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+}
+/**
+ * Map URLs for the "Horario y ubicación" section (D-05). Pure functions: the coordinates come from
+ * src/data/business.ts through the caller, never from here (D-00).
+ */
+
+const OSM_EMBED_URL = "https://www.openstreetmap.org/export/embed.html";
+const DIRECTIONS_URL = "https://www.google.com/maps/search/";
+
+/** Half side of the embedded map's bbox, in degrees (~1 km across: street level). */
+const BBOX_HALF_SIDE = 0.005;
+
+// Fail loudly instead of placing the marker somewhere wrong or building a broken URL.
+function assertCoordinates(lat: number, lng: number): void {
+  if (!Number.isFinite(lat) || lat < -90 || lat > 90) {
+    throw new Error(`Invalid latitude: ${String(lat)}`);
+  }
+  if (!Number.isFinite(lng) || lng < -180 || lng > 180) {
+    throw new Error(`Invalid longitude: ${String(lng)}`);
+  }
+}
+
+// Six decimals (~0.1 m): no exponent notation and no floating-point noise.
+const serialize = (value: number): string => value.toFixed(6);
+
+/** OpenStreetMap embed URL with a marker at (lat, lng); bbox order is west,south,east,north. */
+export function buildMapEmbedUrl(lat: number, lng: number): string {
+  assertCoordinates(lat, lng);
+  const bbox = [lng - BBOX_HALF_SIDE, lat - BBOX_HALF_SIDE, lng + BBOX_HALF_SIDE, lat + BBOX_HALF_SIDE]
+    .map(serialize)
+    .join(",");
+  const params = new URLSearchParams({
+    bbox,
+    layer: "mapnik",
+    marker: `${serialize(lat)},${serialize(lng)}`,
+  });
+  return `${OSM_EMBED_URL}?${params.toString()}`;
+}
+
+/** Google Maps URL that opens the maps app (mobile) or the web (desktop) at (lat, lng). */
+export function buildDirectionsUrl(lat: number, lng: number): string {
+  assertCoordinates(lat, lng);
+  const params = new URLSearchParams({ api: "1", query: `${serialize(lat)},${serialize(lng)}` });
+  return `${DIRECTIONS_URL}?${params.toString()}`;
+}
+import { createReserveButton } from "./reserve";
+
+/** Hero data; it comes from src/data/business.ts through main.ts, never imported here (D-00). */
+export interface HeroContent {
+  name: string;
+  slogan: string;
+}
+
+// Must match aria-labelledby of section#inicio in index.html.
+export const HERO_TITLE_ID = "inicio-titulo";
+
+export function renderHero({ name, slogan }: HeroContent, reserveUrl: string): HTMLElement {
+  const content = document.createElement("div");
+  content.className = "hero__content container";
+
+  const title = document.createElement("h1");
+  title.id = HERO_TITLE_ID;
+  title.className = "hero__title";
+  title.textContent = name;
+
+  const tagline = document.createElement("p");
+  tagline.className = "hero__slogan";
+  tagline.textContent = slogan;
+
+  content.append(title, tagline, createReserveButton(reserveUrl));
+  return content;
+}
+/**
+ * "Reservar" section and the WhatsApp reserve button shared with the hero (single place that builds it).
+ * The URL arrives as a parameter, already built by buildWhatsAppUrl (D-00, D-05): never rebuilt here.
+ */
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+const WHATSAPP_URL_PREFIX = "https://wa.me/";
+
+const BUTTON_TEXT = "Reservar mesa por WhatsApp";
+// The accessible name starts with the visible text (WCAG 2.5.3): change both together.
+const BUTTON_LABEL = `${BUTTON_TEXT} (se abre en una pestaña nueva)`;
+const RESERVE_TEXT =
+  "¿Quieres asegurar tu mesa? Escríbenos por WhatsApp con la fecha, la hora y cuántas personas vienen. Te respondemos para confirmarla.";
+
+// Speech bubble outline, drawn with the DOM API (no HTML strings).
+const CHAT_ICON_PATH =
+  "M4 3h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z";
+
+function createChatIcon(): SVGSVGElement {
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("class", "btn__icon");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("focusable", "false");
+  const path = document.createElementNS(SVG_NS, "path");
+  path.setAttribute("d", CHAT_ICON_PATH);
+  path.setAttribute("fill", "currentColor");
+  svg.append(path);
+  return svg;
+}
+
+export function createReserveButton(url: string): HTMLAnchorElement {
+  // Guard: only a wa.me link may reach the href (blocks javascript: and other schemes).
+  if (!url.startsWith(WHATSAPP_URL_PREFIX)) {
+    throw new Error(`Reserve URL must start with ${WHATSAPP_URL_PREFIX}`);
+  }
+  const link = document.createElement("a");
+  link.className = "btn btn--whatsapp";
+  link.setAttribute("href", url);
+  link.setAttribute("target", "_blank");
+  link.setAttribute("rel", "noopener noreferrer");
+  link.setAttribute("aria-label", BUTTON_LABEL);
+  const label = document.createElement("span");
+  label.textContent = BUTTON_TEXT;
+  link.append(createChatIcon(), label);
+  return link;
+}
+
+export function renderReserve(reserveUrl: string): HTMLElement {
+  const body = document.createElement("div");
+  body.className = "reserve";
+  const text = document.createElement("p");
+  text.className = "reserve__text";
+  text.textContent = RESERVE_TEXT;
+  body.append(text, createReserveButton(reserveUrl));
+  return body;
+}
+import type { Business, DayHours } from "../data/business";
+import { buildDirectionsUrl, buildMapEmbedUrl } from "../lib/maps";
+
+/**
+ * "Horario y ubicación" section: an hours card (table) and the place block (address, OpenStreetMap
+ * iframe and "Cómo llegar" link). Hours, address and coordinates arrive as parameters from
+ * src/data/business.ts via main.ts (D-00); URLs are built only by src/lib/maps.ts (D-05).
+ * Text goes in with textContent and attributes with setAttribute only.
+ */
+
+export type Location = Pick<Business, "hours" | "address" | "coordinates">;
+
+const MAP_URL_PREFIX = "https://www.openstreetmap.org/export/embed.html?";
+const DIRECTIONS_URL_PREFIX = "https://www.google.com/maps/search/?";
+
+const HOURS_TITLE = "Horario";
+const HOURS_TITLE_ID = "horario-semana-titulo";
+const PLACE_TITLE = "Dirección";
+const CLOSED_TEXT = "Cerrado";
+const MAP_TITLE = "Mapa con la ubicación de la cafetería";
+const LINK_TEXT = "Cómo llegar";
+// The accessible name starts with the visible text (WCAG 2.5.3): change both together.
+const LINK_LABEL = `${LINK_TEXT} (se abre en una pestaña nueva)`;
+// OSM's embed runs MapLibre GL (WebGL + blob: worker) and needs scripts; the iframe is cross-origin,
+// so allow-same-origin cannot reach this page.
+// Never add allow-top-navigation*, allow-forms, allow-modals, allow-downloads or allow-pointer-lock.
+const MAP_SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";
+
+function createTitle(text: string): HTMLHeadingElement {
+  const heading = document.createElement("h3");
+  heading.className = "location__title";
+  heading.textContent = text;
+  return heading;
+}
+
+function renderHoursRow(entry: DayHours): HTMLTableRowElement {
+  const row = document.createElement("tr");
+  const day = document.createElement("th");
+  day.setAttribute("scope", "row");
+  day.textContent = entry.day;
+  const time = document.createElement("td");
+  if (entry.closed) {
+    const closed = document.createElement("span");
+    closed.className = "hours__closed";
+    closed.textContent = CLOSED_TEXT;
+    time.append(closed);
+  } else {
+    time.textContent = `${entry.open} a ${entry.close}`;
+  }
+  row.append(day, time);
+  return row;
+}
+
+function renderHours(hours: DayHours[]): HTMLElement {
+  const card = document.createElement("div");
+  card.className = "location__hours";
+  const heading = createTitle(HOURS_TITLE);
+  heading.id = HOURS_TITLE_ID;
+
+  const table = document.createElement("table");
+  table.className = "hours";
+  table.setAttribute("aria-labelledby", HOURS_TITLE_ID);
+  const body = document.createElement("tbody");
+  body.append(...hours.map(renderHoursRow));
+  table.append(body);
+
+  card.append(heading, table);
+  return card;
+}
+
+function createMap(src: string): HTMLIFrameElement {
+  // Guard: only an OpenStreetMap embed may reach the src (blocks javascript: and other schemes).
+  if (!src.startsWith(MAP_URL_PREFIX)) {
+    throw new Error(`Map URL must start with ${MAP_URL_PREFIX}`);
+  }
+  const iframe = document.createElement("iframe");
+  iframe.setAttribute("src", src);
+  iframe.setAttribute("title", MAP_TITLE);
+  iframe.setAttribute("loading", "lazy");
+  iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+  iframe.setAttribute("sandbox", MAP_SANDBOX);
+  return iframe;
+}
+
+function createDirectionsLink(href: string): HTMLAnchorElement {
+  // Guard: only a Google Maps search may reach the href.
+  if (!href.startsWith(DIRECTIONS_URL_PREFIX)) {
+    throw new Error(`Directions URL must start with ${DIRECTIONS_URL_PREFIX}`);
+  }
+  const link = document.createElement("a");
+  link.className = "btn btn--secondary";
+  link.setAttribute("href", href);
+  link.setAttribute("target", "_blank");
+  link.setAttribute("rel", "noopener noreferrer");
+  link.setAttribute("aria-label", LINK_LABEL);
+  link.textContent = LINK_TEXT;
+  return link;
+}
+
+function renderPlace(address: string, coordinates: Location["coordinates"]): HTMLElement {
+  // Both URLs are built first: invalid coordinates throw before any element exists.
+  const mapUrl = buildMapEmbedUrl(coordinates.lat, coordinates.lng);
+  const directionsUrl = buildDirectionsUrl(coordinates.lat, coordinates.lng);
+
+  const place = document.createElement("div");
+  place.className = "location__place";
+
+  const addressElement = document.createElement("address");
+  addressElement.className = "location__address";
+  addressElement.textContent = address;
+
+  const map = document.createElement("div");
+  map.className = "location__map";
+  map.append(createMap(mapUrl));
+
+  place.append(createTitle(PLACE_TITLE), addressElement, map, createDirectionsLink(directionsUrl));
+  return place;
+}
+
+export function renderLocation(location: Location): HTMLElement {
+  const container = document.createElement("div");
+  container.className = "location";
+  container.append(renderHours(location.hours), renderPlace(location.address, location.coordinates));
+  return container;
+}
+import type { Business, MenuItem } from "../data/business";
+import { formatPrice } from "../lib/formatPrice";
+
+/**
+ * "Menú" section: one card per group (Bebidas, Postres), each a <dl> of name + price rows.
+ * Products, locale and currency arrive as parameters from src/data/business.ts via main.ts (D-00);
+ * prices are formatted only by formatPrice (D-06). Text goes in with textContent only.
+ */
+
+export interface Money {
+  locale: string;
+  currency: string;
+}
+
+function renderGroup(title: string, items: MenuItem[], money: Money): HTMLElement {
+  const group = document.createElement("div");
+  group.className = "menu__group";
+
+  const heading = document.createElement("h3");
+  heading.className = "menu__title";
+  heading.textContent = title;
+
+  const list = document.createElement("dl");
+  list.className = "menu__list";
+  for (const item of items) {
+    const row = document.createElement("div");
+    row.className = "menu__item";
+    const name = document.createElement("dt");
+    name.className = "menu__name";
+    name.textContent = item.name;
+    const price = document.createElement("dd");
+    price.className = "menu__price";
+    price.textContent = formatPrice(item.price, money.locale, money.currency);
+    row.append(name, price);
+    list.append(row);
+  }
+
+  group.append(heading, list);
+  return group;
+}
+
+export function renderMenu(menu: Business["menu"], money: Money): HTMLElement {
+  const container = document.createElement("div");
+  container.className = "menu";
+  container.append(renderGroup("Bebidas", menu.drinks, money), renderGroup("Postres", menu.desserts, money));
+  return container;
+}
+
+codex
+REVISOR: seguridad
+VEREDICTO: OK
+No verificado por mí: cabeceras HTTP y CORS en producción; se necesita una URL desplegada.
+Hallazgos (de más a menos grave):
+Sin hallazgos. El diff solo modifica CSS y pruebas; no añade dependencias ni vías de entrada de datos. `npm audit --omit=dev`: 0 vulnerabilidades.
+tokens used
+37.690
+REVISOR: seguridad
+VEREDICTO: OK
+No verificado por mí: cabeceras HTTP y CORS en producción; se necesita una URL desplegada.
+Hallazgos (de más a menos grave):
+Sin hallazgos. El diff solo modifica CSS y pruebas; no añade dependencias ni vías de entrada de datos. `npm audit --omit=dev`: 0 vulnerabilidades.

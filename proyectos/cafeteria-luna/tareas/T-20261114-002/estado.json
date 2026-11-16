@@ -1,0 +1,13 @@
+{
+  "id": "T-20261114-002",
+  "proyecto": "cafeteria-luna",
+  "tipo": "tarea",
+  "origen": "bandeja/002-datos-negocio-y-enlace-whatsapp.md",
+  "creada": "2026-11-14T16:46:27.153Z",
+  "rama": "fabrica/T-20261114-002",
+  "base": "main",
+  "trabajo": "proyectos\\cafeteria-luna\\.worktrees\\T-20261114-002",
+  "estacion": "cierre",
+  "resultado": "INTEGRADA",
+  "actualizada": "2026-11-14T18:10:51.021Z"
+}
