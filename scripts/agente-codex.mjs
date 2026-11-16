@@ -12,7 +12,7 @@
 import { spawn, spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync, createWriteStream } from 'node:fs';
 import { join } from 'node:path';
-import { RAIZ, escribirJSON, fallar, git, leerJSON, registrar, rutasTarea } from './lib.mjs';
+import { RAIZ, escribirJSON, fallar, git, leerJSON, registrar, rutasTarea, encontrarCodex as encontrarCodexLib } from './lib.mjs';
 
 const CONFIG = leerJSON(join(RAIZ, 'fabrica.config.json'), {});
 const REVISORES = ['revisor-seguridad', 'revisor-ux', 'revisor-ui', 'revisor-codigo'];
@@ -31,25 +31,7 @@ const PERFILES = {
 
 // ---------- localizar Codex ----------
 function encontrarCodex() {
-  if (process.env.CODEX_BIN && existsSync(process.env.CODEX_BIN)) return process.env.CODEX_BIN;
-  const cfg = CONFIG.codex?.ejecutable;
-  if (cfg && cfg !== 'auto') return existsSync(cfg) ? cfg : null;
-  const w = spawnSync(process.platform === 'win32' ? 'where' : 'which', ['codex'], { encoding: 'utf8' });
-  if (w.status === 0) {
-    const rutas = w.stdout.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
-    const exe = rutas.find((r) => /\.exe$/i.test(r)) ?? rutas.find((r) => !/\.(cmd|ps1)$/i.test(r));
-    if (exe) return exe;
-  }
-  // App de escritorio de Codex en Windows: %LOCALAPPDATA%\OpenAI\Codex\bin\<hash>\codex.exe
-  const base = join(process.env.LOCALAPPDATA ?? '', 'OpenAI', 'Codex', 'bin');
-  if (existsSync(base)) {
-    const candidatos = readdirSync(base)
-      .map((d) => join(base, d, 'codex.exe'))
-      .filter((f) => existsSync(f))
-      .sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs);
-    if (candidatos[0]) return candidatos[0];
-  }
-  return null;
+  return encontrarCodexLib(CONFIG.codex);
 }
 
 function comprobar() {
@@ -142,7 +124,15 @@ function ejecutar(rol, proyecto, id, ronda, extra) {
   mkdirSync(dirLogs, { recursive: true });
   mkdirSync(join(r.tarea, 'revisiones'), { recursive: true });
 
-  const args = ['exec', '--color', 'never', '-o', salida];
+  // El revisor de UI recibe adjunto el boceto aprobado (de la tarea o, si no hay, del proyecto) para comparar.
+  const bocetos = [];
+  if (rol === 'revisor-ui') {
+    for (const carpeta of [join(r.tarea, 'boceto'), join(r.brain, 'boceto')]) {
+      const encontrados = ['movil', 'escritorio'].map((f) => join(carpeta, `aprobado-${f}.png`)).filter((f) => existsSync(f));
+      if (encontrados.length) { bocetos.push(...encontrados); break; }
+    }
+  }
+  const args = ['exec', ...bocetos.map((b) => `--image=${b}`), '--color', 'never', '-o', salida];
   if (modelo) args.push('-m', modelo);
   if (estacion.esfuerzo) args.push('-c', `model_reasoning_effort="${estacion.esfuerzo}"`);
   if (perfil.escribe === 'worktree') {
@@ -157,7 +147,8 @@ function ejecutar(rol, proyecto, id, ronda, extra) {
   args.push('-'); // el prompt va por stdin
 
   const rutaDiff = perfil.escribe === 'worktree' ? null : prepararDiff(r, estado, trabajo, ronda);
-  const prompt = construirPrompt(rol, perfil, r, estado, trabajo, ronda, extra, rutaDiff);
+  const extraBoceto = bocetos.length ? `El boceto aprobado (objetivo visual) va adjunto como imagen: ${bocetos.join(', ')}` : null;
+  const prompt = construirPrompt(rol, perfil, r, estado, trabajo, ronda, [extra, extraBoceto].filter(Boolean).join(' · ') || undefined, rutaDiff);
   const antes = perfil.escribe === 'worktree' ? null : huella(trabajo);
   const log = createWriteStream(join(dirLogs, `${rol}-ronda${ronda}.log`));
   log.write(`$ ${exe} ${args.join(' ')}\n\n===== PROMPT =====\n${prompt}\n\n===== SALIDA =====\n`);

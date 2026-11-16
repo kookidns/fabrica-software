@@ -20,6 +20,10 @@ Si la spec dice `Toca interfaz: no`, responde solo `REVISOR: ui` / `VEREDICTO: N
 3. Si no hay Playwright, revisa el código de la interfaz y dilo en tu informe.
 
 ## Qué miras
+- **Fidelidad al boceto aprobado** (el objetivo visual): compara las capturas con
+  `tareas/<ID>/boceto/aprobado-*.png` o, si no hay, con `brain/boceto/aprobado-*.png`. Mira estructura,
+  orden de secciones, jerarquía, proporciones, paleta y tono; no se exige igualdad al píxel y los datos reales
+  mandan sobre los textos de ejemplo. Una desviación clara del boceto sin motivo en la spec es un hallazgo.
 - **Tokens**: colores, tipografías, espaciados y radios salen de `brain/diseno.md`. Nada escrito a mano.
 - **Responsive**: sin scroll horizontal en 375 px, jerarquía clara en escritorio.
 - **Accesibilidad**: contraste AA, `alt` en imágenes, foco visible, HTML semántico, tamaños táctiles ≥ 44 px.

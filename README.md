@@ -9,9 +9,18 @@ Basada en el flujo del video «Programar con agentes ya no basta: monta tu Softw
 ## La línea
 
 ```
+ idea del proyecto
+      │
+ [A] analista ........... agente   brain: visión, spec y huecos
+ [B] boceto visual ...... agente   ChatGPT (imágenes de Codex) dibuja el resultado → brain/boceto/vN-*.png
+ [C] revisas el boceto .. humano   pides cambios (/boceto <p> <cambios>) o lo apruebas TÚ:
+                                   node scripts/boceto.mjs aprobar <p>  → brain/boceto/aprobado-*.png
+ [D] planificar ......... agentes  arquitecto + diseñador, a partir del boceto aprobado → bandeja/
+      │
  bandeja/ o texto
       │
- [0] entrada ............ código   scripts/nueva-tarea.mjs  → ID + rama + worktree aislado
+ [0] entrada ............ código   scripts/nueva-tarea.mjs  → ID + rama + worktree (exige boceto aprobado)
+ [0b] boceto de tarea ... agente   solo si la tarea es una pantalla nueva; también lo apruebas tú
  [1] spec-writer ........ agente   consulta el brain → tareas/<ID>/spec.md
  [2] constructor ........ agente   TDD en su worktree → commit, puertas verdes
  [2b] evidencia ......... código   scripts/evidencia.mjs (si toca interfaz): capturas, medidas,
@@ -39,16 +48,22 @@ aprobación, riesgo y `traza.jsonl` (quién, cuándo, qué resultado).
 | **Brain** | `proyectos/<p>/brain/` | Memoria persistente: visión, spec, arquitectura, diseño, decisiones, huecos, log |
 | Bandeja | `proyectos/<p>/bandeja/` | Entradas pendientes, un `.md` por tarea |
 | Agentes | `.claude/agents/` | analista, arquitecto, disenador, spec-writer, constructor, 4 revisores, aprobador, clasificador-riesgo |
-| Comandos | `.claude/commands/` | `/nuevo-proyecto`, `/planificar`, `/fabrica`, `/estado` |
+| Comandos | `.claude/commands/` | `/nuevo-proyecto`, `/boceto`, `/planificar`, `/fabrica`, `/estado` |
+| **Boceto visual** | `scripts/boceto.mjs` + rol `generador-boceto` | ChatGPT dibuja el objetivo; el humano lo aprueba; vive en `brain/boceto/` |
 | Estaciones de código | `scripts/` | Lo determinista: crear tarea, puertas, riesgo, cierre, traza |
 | Guardián | `.claude/hooks/guardian.mjs` | Bloquea a los agentes: push, merge, `--aprobar`, `reset --hard`, editar `app/` o la traza |
 
 ## Uso — abre Claude Code en esta carpeta
 
+> **Guía completa** (instalación, varios chats, varios proyectos, cómo se arma el brain): [GUIA.md](GUIA.md)
+
 **Proyecto nuevo (una vez):**
 1. `/nuevo-proyecto cafeteria-luna Landing para una cafetería con menú, ubicación y reservas por WhatsApp`
-2. Lee `proyectos/cafeteria-luna/brain/spec.md`, resuelve `brain/huecos.md` y aprueba.
-3. `/planificar cafeteria-luna` → arquitectura, diseño y bandeja llena de tareas.
+   → el analista crea el brain y ChatGPT dibuja el boceto.
+2. Revisa el boceto: `/boceto cafeteria-luna <qué cambiar>` hasta que te guste, y apruébalo **tú**:
+   `node scripts/boceto.mjs aprobar cafeteria-luna`.
+3. Lee `proyectos/cafeteria-luna/brain/spec.md`, resuelve `brain/huecos.md` y aprueba.
+4. `/planificar cafeteria-luna` → arquitectura, diseño (tokens sacados del boceto) y bandeja llena de tareas.
 
 **Día a día:**
 - `/fabrica cafeteria-luna` → procesa la siguiente entrada de la bandeja de principio a fin.

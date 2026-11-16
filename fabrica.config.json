@@ -5,6 +5,13 @@
     "modelo_por_defecto": "gpt-6.1-sol",
     "timeout_minutos": 25
   },
+  "boceto": {
+    "_ayuda": "Boceto visual con ChatGPT (herramienta de imágenes de Codex, con tu sesión de ChatGPT). obligatorio: true = no se crean tareas hasta que apruebes el boceto del proyecto. formatos: movil | escritorio | ambos. modelo: null = el de tu config de Codex.",
+    "obligatorio": true,
+    "formatos": "ambos",
+    "modelo": null,
+    "timeout_minutos": 15
+  },
   "estaciones": {
     "spec-writer":         { "motor": "claude" },
     "constructor":         { "motor": "claude" },

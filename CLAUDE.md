@@ -13,7 +13,7 @@ Una factory solo funciona si cumple dos condiciones:
 |---|---|---|
 | **Código** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
 | **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
-| **Humano** | Lo crítico | aprobar la spec de un proyecto nuevo, aprobar cambios de riesgo alto |
+| **Humano** | Lo crítico | aprobar la spec y el **boceto visual** de un proyecto nuevo, aprobar cambios de riesgo alto |
 
 ## Estructura
 | Ruta | Qué es |
@@ -33,9 +33,16 @@ que ya estaban decididas (otra base de datos, otro estilo, código duplicado).
 - **Toda decisión nueva** se registra en `brain/decisiones.md`. Lo que no está en el brain no existe.
 - Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisión humana.
 
+## Antes de construir: el boceto visual (`/nuevo-proyecto` y `/boceto`)
+ChatGPT (la herramienta de imágenes de Codex) dibuja cómo debe verse el resultado a partir del brain
+(`scripts/boceto.mjs`). El humano pide cambios o lo aprueba; **solo el humano** ejecuta
+`node scripts/boceto.mjs aprobar <p>`. El boceto aprobado vive en `brain/boceto/` y es el objetivo visual:
+el arquitecto, el diseñador, el spec-writer, el constructor y el revisor de UI se miden contra él. Sin él,
+`nueva-tarea.mjs` no deja empezar (`fabrica.config.json > boceto.obligatorio`).
+
 ## La línea de producción (`/fabrica <p>`)
 ```
-entrada ─► [spec-writer] ─► [constructor: TDD en su worktree] ─► puertas
+boceto aprobado ─► entrada ─► [boceto de la tarea, solo si es una pantalla nueva] ─► [spec-writer] ─► [constructor: TDD en su worktree] ─► puertas
         ─► 4 revisores en paralelo, contexto limpio: seguridad · UX · UI · código
         ─► [aprobador] ─ rechazado ─► vuelve al constructor (máx. 3 rondas)
         ─► riesgo: script + [clasificador-riesgo] ─► BAJO: se integra solo en main

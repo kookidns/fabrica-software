@@ -5,7 +5,9 @@ argument-hint: <proyecto> [error|issue|tarea] [texto de la entrada; vacío = sig
 
 Argumentos: $ARGUMENTS
 (Primera palabra: proyecto. Si la segunda es `error`, `issue` o `tarea`, es el tipo. El resto, si lo
-hay, es el texto de la entrada. Sin texto se toma la siguiente entrada de `bandeja/`.)
+hay, es el texto de la entrada. Sin texto se toma la siguiente entrada de `bandeja/`. Si la segunda es
+`continuar` seguida de un ID, retoma esa tarea ya creada: no ejecutes el paso 0, lee su `estado.json`
+para obtener la carpeta de trabajo y sigue desde la primera estación que no tenga resultado en su `traza.jsonl`.)
 
 Eres el **orquestador**. No escribes código ni juzgas calidad: mueves la pieza entre estaciones y
 dejas rastro. A los agentes pásales solo rutas y datos (proyecto, ID, carpeta de trabajo, ronda),
@@ -22,6 +24,15 @@ Lee `fabrica.config.json > estaciones`. Cada estación tiene `motor`:
 ## 0 · Entrada (código)
 `node scripts/nueva-tarea.mjs <p> [--tipo <tipo>] [--texto "<texto>"]`
 Devuelve JSON con `id` y `trabajo` (carpeta del worktree). Si dice que la bandeja está vacía, termina.
+Si falla porque el proyecto no tiene boceto aprobado, dime que use `/boceto <p>` y detente.
+
+## 0b · Boceto de la tarea (solo si la entrada pide una pantalla o sección NUEVA)
+El boceto del proyecto (`brain/boceto/aprobado-*.png`) ya fija el objetivo visual. Si la entrada pide
+algo que se ve y que NO aparece en ese boceto (una página, una pantalla o una sección nueva), genera el de la tarea:
+`node scripts/boceto.mjs generar <p> --tarea <ID>`. Enséñame las imágenes y **detente** hasta que lo
+apruebe yo (`node scripts/boceto.mjs aprobar <p> --tarea <ID>`) o pida cambios (`/boceto <p> <ID> <cambios>`).
+Cuando lo apruebe, retoma desde el paso 1 con `/fabrica <p> continuar <ID>`. Para errores, cambios
+de texto y tareas sin interfaz nueva, salta este paso.
 
 ## 1 · Spec — estación `spec-writer`
 Entrega: `tareas/<ID>/spec.md`. Si empieza por `NECESITA_HUMANO`, traza `spec-writer NECESITA_HUMANO`,

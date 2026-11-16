@@ -1,5 +1,5 @@
 // Utilidades compartidas por las estaciones de código de la fábrica.
-import { existsSync, readFileSync, writeFileSync, appendFileSync, mkdirSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, appendFileSync, mkdirSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -77,6 +77,29 @@ export function registrar(rutas, estacion, resultado, nota = '') {
   if (estacion === 'aprobador' && resultado === 'RECHAZADO') estado.rondas_rechazadas = (estado.rondas_rechazadas ?? 0) + 1;
   escribirJSON(rutas.estado, estado);
   return linea;
+}
+
+// Localiza el ejecutable de Codex (OpenAI): CODEX_BIN, fabrica.config.json > codex.ejecutable, PATH o la app de escritorio.
+export function encontrarCodex(cfgCodex = {}) {
+  if (process.env.CODEX_BIN && existsSync(process.env.CODEX_BIN)) return process.env.CODEX_BIN;
+  const cfg = cfgCodex?.ejecutable;
+  if (cfg && cfg !== 'auto') return existsSync(cfg) ? cfg : null;
+  const w = spawnSync(process.platform === 'win32' ? 'where' : 'which', ['codex'], { encoding: 'utf8' });
+  if (w.status === 0) {
+    const rutas = w.stdout.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
+    const exe = rutas.find((r) => /\.exe$/i.test(r)) ?? rutas.find((r) => !/\.(cmd|ps1)$/i.test(r));
+    if (exe) return exe;
+  }
+  // App de escritorio de Codex en Windows: %LOCALAPPDATA%\OpenAI\Codex\bin\<hash>\codex.exe
+  const base = join(process.env.LOCALAPPDATA ?? '', 'OpenAI', 'Codex', 'bin');
+  if (existsSync(base)) {
+    const candidatos = readdirSync(base)
+      .map((d) => join(base, d, 'codex.exe'))
+      .filter((f) => existsSync(f))
+      .sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs);
+    if (candidatos[0]) return candidatos[0];
+  }
+  return null;
 }
 
 export function ultimaTraza(rutas, estacion) {

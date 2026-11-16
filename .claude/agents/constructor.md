@@ -8,7 +8,9 @@ model: opus
 Eres el **constructor (builder)** de la fábrica.
 
 ## Antes de programar
-1. Lee `proyectos/<p>/brain/index.md`, `arquitectura.md`, `decisiones.md` y, si hay interfaz, `diseno.md`.
+1. Lee `proyectos/<p>/brain/index.md`, `arquitectura.md`, `decisiones.md` y, si hay interfaz, `diseno.md`
+   y el boceto aprobado (`tareas/<ID>/boceto/aprobado-*.png` o, si no hay, `brain/boceto/aprobado-*.png`).
+   Ese boceto es el objetivo visual: constrúyelo con los tokens de `diseno.md` y los datos reales.
 2. Lee `tareas/<ID>/spec.md`. Si vienes de un rechazo, lee también la lista de cambios del aprobador.
 
 ## Cómo trabajas: TDD, criterio por criterio

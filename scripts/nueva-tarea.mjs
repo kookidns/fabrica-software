@@ -4,7 +4,7 @@
 // Sin --texto ni --archivo toma la entrada más antigua de bandeja/ (orden alfabético).
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { basename, join, relative } from 'node:path';
-import { RAIZ, ahora, esRepoConCommits, escribirJSON, fallar, git, ramaBase, registrar, rutasProyecto } from './lib.mjs';
+import { RAIZ, ahora, esRepoConCommits, escribirJSON, fallar, git, leerJSON, ramaBase, registrar, rutasProyecto } from './lib.mjs';
 
 const [proyecto, ...resto] = process.argv.slice(2);
 const opts = {};
@@ -12,6 +12,12 @@ for (let i = 0; i < resto.length; i += 2) opts[resto[i].replace(/^--/, '')] = re
 
 const p = rutasProyecto(proyecto);
 if (!existsSync(p.dir)) fallar(`No existe el proyecto ${proyecto}`);
+
+// 0. Compuerta del boceto: sin objetivo visual aprobado por el humano no se empieza a construir.
+const cfgBoceto = leerJSON(join(RAIZ, 'fabrica.config.json'), {}).boceto ?? {};
+if (cfgBoceto.obligatorio !== false && !existsSync(join(p.brain, 'boceto', 'aprobado.md'))) {
+  fallar(`El proyecto ${proyecto} no tiene boceto aprobado. Genéralo con /boceto ${proyecto} (o node scripts/boceto.mjs generar ${proyecto}) y apruébalo tú con: node scripts/boceto.mjs aprobar ${proyecto}`);
+}
 
 // 1. Obtener el texto de la entrada
 let texto = opts.texto;
