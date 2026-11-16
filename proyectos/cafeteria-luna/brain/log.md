@@ -2,6 +2,10 @@
 
 Entradas nuevas arriba.
 
+## 2026-11-16 · Boceto del proyecto v1 aprobado
+- Archivos: brain/boceto/aprobado-*.png y aprobado.md
+- Es el objetivo visual: spec, diseño, construcción y revisión de UI se miden contra él
+
 ## 2026-11-15 · T-20261115-005 · Anillo de foco de la marca sin recortar (bandeja 007)
 - Resultado: aprobada por el aprobador en ronda 1 e integrada en main tras aprobación humana (merge 8c85c1a)
 - Cierra el pendiente MEDIO de T-20261115-004 (el recorte también ocurría a 1024 px)
