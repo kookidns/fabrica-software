@@ -1,0 +1,31 @@
+{
+  "nivel": "ALTO",
+  "motivos": [
+    "zona sensible del proyecto (src/sections/hero.ts): src/sections/hero.ts",
+    "zona sensible del proyecto (src/sections/reserve.ts): src/sections/reserve.ts",
+    "zona sensible del proyecto (index.html): index.html",
+    "zona sensible del proyecto (src/sections/location.ts): src/sections/location.ts",
+    "cambio grande: 1021 líneas (> 300)"
+  ],
+  "archivos": [
+    "index.html",
+    "src/decor.test.ts",
+    "src/sections/decor.test.ts",
+    "src/sections/hero.test.ts",
+    "src/sections/hero.ts",
+    "src/sections/icons.test.ts",
+    "src/sections/icons.ts",
+    "src/sections/location.ts",
+    "src/sections/menu.ts",
+    "src/sections/reserve.ts",
+    "src/styles/decor.test.ts",
+    "src/styles/footer.css",
+    "src/styles/header.css",
+    "src/styles/hero.css",
+    "src/styles/location.css",
+    "src/styles/main.css",
+    "src/styles/menu.css",
+    "src/styles/split.test.ts"
+  ],
+  "lineas": 1021
+}

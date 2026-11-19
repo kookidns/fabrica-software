@@ -1,0 +1,343 @@
+{
+  "chrome": "Chrome/157.0.8103.80",
+  "vistas": {
+    "375": {
+      "W": 375,
+      "H": 812,
+      "scrollWidth": 375,
+      "desbordaHorizontal": false,
+      "fuera": [],
+      "cortado": [],
+      "menor44": [],
+      "svgs": 10,
+      "hero": {
+        "moon": {
+          "x": 16,
+          "y": 341,
+          "w": 48,
+          "h": 48,
+          "right": 64,
+          "bottom": 389,
+          "display": "block"
+        },
+        "h1": {
+          "x": 16,
+          "y": 405,
+          "w": 305,
+          "h": 48,
+          "right": 321,
+          "bottom": 453,
+          "display": "block"
+        },
+        "slogan": {
+          "x": 16,
+          "y": 469,
+          "w": 299,
+          "h": 29,
+          "right": 315,
+          "bottom": 497,
+          "display": "block"
+        },
+        "boton": {
+          "x": 16,
+          "y": 525,
+          "w": 343,
+          "h": 48,
+          "right": 359,
+          "bottom": 573,
+          "display": "flex"
+        },
+        "art": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "right": 0,
+          "bottom": 0,
+          "display": "none"
+        }
+      },
+      "brandIcon": {
+        "x": 16,
+        "y": 17,
+        "w": 23,
+        "h": 23,
+        "right": 39,
+        "bottom": 39,
+        "display": "block"
+      },
+      "footerMoon": {
+        "x": 16,
+        "y": 2950,
+        "w": 23,
+        "h": 23,
+        "right": 39,
+        "bottom": 2972,
+        "display": "inline"
+      },
+      "h2": [
+        {
+          "id": "menu-titulo",
+          "h": 36,
+          "antes": "72px",
+          "despues": "72px"
+        },
+        {
+          "id": "horario-titulo",
+          "h": 36,
+          "antes": "5.64062px",
+          "despues": "5.64062px"
+        },
+        {
+          "id": "reservar-titulo",
+          "h": 36,
+          "antes": "72px",
+          "despues": "72px"
+        }
+      ]
+    },
+    "768": {
+      "W": 768,
+      "H": 1024,
+      "scrollWidth": 768,
+      "desbordaHorizontal": false,
+      "fuera": [],
+      "cortado": [],
+      "menor44": [],
+      "svgs": 10,
+      "hero": {
+        "moon": {
+          "x": 24,
+          "y": 415,
+          "w": 48,
+          "h": 48,
+          "right": 72,
+          "bottom": 463,
+          "display": "block"
+        },
+        "h1": {
+          "x": 24,
+          "y": 479,
+          "w": 457,
+          "h": 72,
+          "right": 481,
+          "bottom": 551,
+          "display": "block"
+        },
+        "slogan": {
+          "x": 24,
+          "y": 567,
+          "w": 332,
+          "h": 32,
+          "right": 356,
+          "bottom": 599,
+          "display": "block"
+        },
+        "boton": {
+          "x": 24,
+          "y": 627,
+          "w": 320,
+          "h": 48,
+          "right": 344,
+          "bottom": 675,
+          "display": "flex"
+        },
+        "art": {
+          "x": 514,
+          "y": 463,
+          "w": 230,
+          "h": 165,
+          "right": 744,
+          "bottom": 627,
+          "display": "block"
+        }
+      },
+      "brandIcon": {
+        "x": 24,
+        "y": 20,
+        "w": 25,
+        "h": 25,
+        "right": 49,
+        "bottom": 45,
+        "display": "block"
+      },
+      "footerMoon": {
+        "x": 24,
+        "y": 2589,
+        "w": 25,
+        "h": 25,
+        "right": 49,
+        "bottom": 2614,
+        "display": "inline"
+      },
+      "h2": [
+        {
+          "id": "menu-titulo",
+          "h": 48,
+          "antes": "72px",
+          "despues": "72px"
+        },
+        {
+          "id": "horario-titulo",
+          "h": 48,
+          "antes": "72px",
+          "despues": "72px"
+        },
+        {
+          "id": "reservar-titulo",
+          "h": 48,
+          "antes": "72px",
+          "despues": "72px"
+        }
+      ]
+    },
+    "1024": {
+      "W": 1024,
+      "H": 768,
+      "scrollWidth": 1024,
+      "desbordaHorizontal": false,
+      "fuera": [],
+      "cortado": [],
+      "menor44": [],
+      "svgs": 10,
+      "hero": {
+        "moon": {
+          "x": 24,
+          "y": 287,
+          "w": 48,
+          "h": 48,
+          "right": 72,
+          "bottom": 335,
+          "display": "block"
+        },
+        "h1": {
+          "x": 24,
+          "y": 351,
+          "w": 457,
+          "h": 72,
+          "right": 481,
+          "bottom": 423,
+          "display": "block"
+        },
+        "slogan": {
+          "x": 24,
+          "y": 439,
+          "w": 332,
+          "h": 32,
+          "right": 356,
+          "bottom": 471,
+          "display": "block"
+        },
+        "boton": {
+          "x": 24,
+          "y": 499,
+          "w": 320,
+          "h": 48,
+          "right": 344,
+          "bottom": 547,
+          "display": "flex"
+        },
+        "art": {
+          "x": 693,
+          "y": 307,
+          "w": 307,
+          "h": 219,
+          "right": 1000,
+          "bottom": 527,
+          "display": "block"
+        }
+      },
+      "brandIcon": {
+        "x": 24,
+        "y": 20,
+        "w": 25,
+        "h": 25,
+        "right": 49,
+        "bottom": 45,
+        "display": "block"
+      },
+      "footerMoon": {
+        "x": 24,
+        "y": 2342,
+        "w": 25,
+        "h": 25,
+        "right": 49,
+        "bottom": 2367,
+        "display": "inline"
+      },
+      "h2": [
+        {
+          "id": "menu-titulo",
+          "h": 48,
+          "antes": "72px",
+          "despues": "72px"
+        },
+        {
+          "id": "horario-titulo",
+          "h": 48,
+          "antes": "72px",
+          "despues": "72px"
+        },
+        {
+          "id": "reservar-titulo",
+          "h": 48,
+          "antes": "72px",
+          "despues": "72px"
+        }
+      ]
+    }
+  },
+  "consola": [
+    "375: error Failed to load resource: the server responded with a status of 404 (Not Found) http://127.0.0.1:53842/favicon.ico"
+  ],
+  "tab375": [
+    {
+      "el": "a.skip-link",
+      "nombre": "Saltar al contenido",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true
+    },
+    {
+      "el": "a.brand",
+      "nombre": "Cafetería Luna",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true
+    },
+    {
+      "el": "a.nav-link",
+      "nombre": "Menú",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true
+    },
+    {
+      "el": "a.nav-link",
+      "nombre": "Horario y ubicación",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true
+    },
+    {
+      "el": "a.nav-link",
+      "nombre": "Reservar",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true
+    },
+    {
+      "el": "a.btn.btn--whatsapp",
+      "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true
+    },
+    {
+      "el": "a.btn.btn--secondary",
+      "nombre": "Cómo llegar (se abre en una pestaña nueva)",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true
+    },
+    {
+      "el": "a.btn.btn--whatsapp",
+      "nombre": "Reservar mesa por WhatsApp (se abre en una pestaña nueva)",
+      "contorno": "3px solid rgb(31, 78, 140)",
+      "visible": true
+    }
+  ]
+}

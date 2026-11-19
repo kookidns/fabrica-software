@@ -1,0 +1,2095 @@
+$ C:\Users\FRANC\AppData\Local\OpenAI\Codex\bin\0ab0e7a8f3779036\codex.exe exec --color never -o C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001\riesgo-agente.json -m gpt-6.1-sol -c model_reasoning_effort="high" -s read-only -C C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001 --skip-git-repo-check -
+
+===== PROMPT =====
+Eres el **clasificador de riesgo**. Equivocarte hacia abajo puede tumbar el sistema; hacia arriba
+solo cuesta un minuto del humano. Ante la duda: ALTO.
+
+## Entradas
+- `tareas/<ID>/riesgo-codigo.json` (cálculo determinista de `scripts/riesgo.mjs`).
+- `tareas/<ID>/spec.md` y `brain/arquitectura.md` (sección "Zonas sensibles").
+- El cambio: `git -C <carpeta de trabajo> diff main...HEAD`.
+
+## Criterio
+- **BAJO**: cambios cosméticos o de contenido (textos, colores, estilos, una sección estática nueva,
+  documentación) que no tocan datos, auth, backend, dependencias ni configuración.
+- **ALTO**: base de datos o migraciones, autenticación/permisos, pagos, backend o lógica de negocio
+  core, dependencias o build, configuración, borrado de datos, o cualquier cosa que pueda tumbar la app.
+
+Si `riesgo-codigo.json` ya dice ALTO, tu respuesta es ALTO (puedes añadir motivos).
+
+## Formato de respuesta (obligatorio, JSON válido y nada más)
+```json
+{"nivel": "BAJO", "motivo": "una frase"}
+```
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261117-001 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261117-001): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261117-001
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+- Diff completo de la tarea (lo genera la fábrica, main...HEAD, con commits y resumen): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001\diff-ronda1.patch
+  Donde las instrucciones digan `git diff main...HEAD`, lee este archivo: equivale exactamente y no necesita git (en tu sandbox git puede fallar).
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- No escribas archivos. Tu entrega es tu último mensaje.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+
+===== SALIDA =====
+OpenAI Codex v0.165.0-alpha.1.2
+--------
+workdir: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: none
+session id: 01a1ebfb-c48a-75a2-8ef6-274511a422c3
+--------
+user
+Eres el **clasificador de riesgo**. Equivocarte hacia abajo puede tumbar el sistema; hacia arriba
+solo cuesta un minuto del humano. Ante la duda: ALTO.
+
+## Entradas
+- `tareas/<ID>/riesgo-codigo.json` (cálculo determinista de `scripts/riesgo.mjs`).
+- `tareas/<ID>/spec.md` y `brain/arquitectura.md` (sección "Zonas sensibles").
+- El cambio: `git -C <carpeta de trabajo> diff main...HEAD`.
+
+## Criterio
+- **BAJO**: cambios cosméticos o de contenido (textos, colores, estilos, una sección estática nueva,
+  documentación) que no tocan datos, auth, backend, dependencias ni configuración.
+- **ALTO**: base de datos o migraciones, autenticación/permisos, pagos, backend o lógica de negocio
+  core, dependencias o build, configuración, borrado de datos, o cualquier cosa que pueda tumbar la app.
+
+Si `riesgo-codigo.json` ya dice ALTO, tu respuesta es ALTO (puedes añadir motivos).
+
+## Formato de respuesta (obligatorio, JSON válido y nada más)
+```json
+{"nivel": "BAJO", "motivo": "una frase"}
+```
+
+---
+## Datos de esta ejecución (te los pasa la fábrica)
+- Raíz de la fábrica: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa
+- Proyecto: cafeteria-luna → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna
+- Brain: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\brain (empieza por index.md)
+- Tarea: T-20261117-001 → C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001
+- Spec de la tarea: C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001\spec.md
+- Carpeta de trabajo (worktree, rama fabrica/T-20261117-001): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\.worktrees\T-20261117-001
+- Rama base: main (donde las instrucciones dicen "main", usa esta)
+- Ronda: 1
+- Diff completo de la tarea (lo genera la fábrica, main...HEAD, con commits y resumen): C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001\diff-ronda1.patch
+  Donde las instrucciones digan `git diff main...HEAD`, lee este archivo: equivale exactamente y no necesita git (en tu sandbox git puede fallar).
+
+## Notas para Codex
+- Las rutas relativas de las instrucciones (brain/…, tareas/<ID>/…, scripts/…, estandares/…) se resuelven con las rutas absolutas de arriba.
+- Donde las instrucciones mencionan Read, Grep o Glob, usa los comandos de shell equivalentes.
+- No escribas archivos. Tu entrega es tu último mensaje.
+- Tu ÚLTIMO mensaje es tu entrega y se guarda tal cual: respeta el formato obligatorio del rol.
+codex
+Revisaré las instrucciones, el cálculo de riesgo y el diff de la tarea para clasificar el cambio.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\CLAUDE.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001
+ succeeded in 440ms:
+# AI Factory â€” ConstituciÃ³n
+
+Esta carpeta es una **fÃ¡brica de software con agentes**: entra trabajo por un lado (una tarea, un
+error de producciÃ³n, una issue) y sale cÃ³digo integrado por el otro. En medio hay estaciones que
+no necesitan al humano, pero el humano diseÃ±Ã³ el sistema y decide en los puntos crÃ­ticos.
+
+Una factory solo funciona si cumple dos condiciones:
+1. **Repetible**: la misma clase de tarea sigue siempre el mismo camino.
+2. **Auditable**: cada estaciÃ³n deja rastro (`tareas/<ID>/`), asÃ­ se ve dÃ³nde fallÃ³ algo.
+
+## Tres tipos de estaciÃ³n
+| Tipo | CuÃ¡ndo | Ejemplos aquÃ­ |
+|---|---|---|
+| **CÃ³digo** (determinista) | Lo que siempre se hace igual | `scripts/*.mjs`: crear tarea, puertas, riesgo, cierre |
+| **Agente** (razona) | Depende de la entrada | spec-writer, constructor, revisores, aprobador |
+| **Humano** | Lo crÃ­tico | aprobar la spec y el **boceto visual** de un proyecto nuevo, aprobar cambios de riesgo alto |
+
+## Estructura
+| Ruta | QuÃ© es |
+|---|---|
+| `estandares/` | Reglas comunes a TODOS los proyectos. |
+| `plantillas/proyecto/` | Esqueleto de un proyecto nuevo. |
+| `proyectos/<p>/brain/` | **El brain**: memoria persistente del proyecto. Fuente de verdad. |
+| `proyectos/<p>/bandeja/` | Entradas pendientes (un `.md` por tarea/error/issue). |
+| `proyectos/<p>/tareas/<ID>/` | Rastro de auditorÃ­a de cada tarea: entrada, spec, revisiones, aprobaciÃ³n, riesgo, traza. |
+| `proyectos/<p>/app/` | El cÃ³digo (repositorio git propio, rama `main`). |
+| `proyectos/<p>/.worktrees/<ID>/` | Copia de trabajo aislada de cada tarea (rama `fabrica/<ID>`). Permite tareas en paralelo. |
+
+## El brain: la regla de oro
+Si la fÃ¡brica olvida el contexto, cada tarea empieza de cero y el agente acaba decidiendo cosas
+que ya estaban decididas (otra base de datos, otro estilo, cÃ³digo duplicado).
+- **Antes de especificar o programar**, lee `brain/index.md` y lo que indique.
+- **Toda decisiÃ³n nueva** se registra en `brain/decisiones.md`. Lo que no estÃ¡ en el brain no existe.
+- Nunca contradigas el brain en silencio. Si una tarea lo exige, dilo y pide decisiÃ³n humana.
+
+## Antes de construir: el boceto visual (`/nuevo-proyecto` y `/boceto`)
+ChatGPT (la herramienta de imÃ¡genes de Codex) dibuja cÃ³mo debe verse el resultado a partir del brain
+(`scripts/boceto.mjs`). El humano pide cambios o lo aprueba; **solo el humano** ejecuta
+`node scripts/boceto.mjs aprobar <p>`. El boceto aprobado vive en `brain/boceto/` y es el objetivo visual:
+el arquitecto, el diseÃ±ador, el spec-writer, el constructor y el revisor de UI se miden contra Ã©l. Sin Ã©l,
+`nueva-tarea.mjs` no deja empezar (`fabrica.config.json > boceto.obligatorio`).
+
+## La lÃ­nea de producciÃ³n (`/fabrica <p>`)
+```
+boceto aprobado â”€â–º entrada â”€â–º [boceto de la tarea, solo si es una pantalla nueva] â”€â–º [spec-writer] â”€â–º [constructor: TDD en su worktree] â”€â–º puertas
+        â”€â–º 4 revisores en paralelo, contexto limpio: seguridad Â· UX Â· UI Â· cÃ³digo
+        â”€â–º [aprobador] â”€ rechazado â”€â–º vuelve al constructor (mÃ¡x. 3 rondas)
+        â”€â–º riesgo: script + [clasificador-riesgo] â”€â–º BAJO: se integra solo en main
+                                                  â””â–º ALTO: espera aprobaciÃ³n humana
+```
+
+## Dos motores
+Cada estaciÃ³n corre en **Claude** (subagente) o en **Codex** (OpenAI, vÃ­a `scripts/agente-codex.mjs`)
+segÃºn `fabrica.config.json`. Los dos usan las mismas definiciones de rol (`.claude/agents/`), el mismo
+brain y las mismas reglas (`AGENTS.md` apunta a este archivo).
+
+## Reglas para todos los agentes
+- Trabaja solo en el proyecto indicado; el cÃ³digo, solo en su worktree.
+- Quien valida no es quien generÃ³: los revisores y el aprobador nunca editan cÃ³digo.
+- Nadie se salta las puertas (`node scripts/verificar.mjs <carpeta>`) ni desactiva tests o reglas para pasarlas.
+- Los agentes **no** integran en `main` ni hacen push: eso lo hace `scripts/cerrar-tarea.mjs`, y
+  solo el humano puede ejecutar `--aprobar`. Un hook (`.claude/hooks/guardian.mjs`) lo impone.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-ChildItem -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\.claude\\agents' -Name; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\index.md'; Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261117-001\\riesgo-codigo.json'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001
+ succeeded in 429ms:
+analista.md
+aprobador.md
+arquitecto.md
+clasificador-riesgo.md
+constructor.md
+disenador.md
+generador-boceto.md
+revisor-codigo.md
+revisor-seguridad.md
+revisor-ui.md
+revisor-ux.md
+spec-writer.md
+# Brain — índice
+
+Memoria persistente del proyecto. Cualquier agente lee este archivo antes de actuar.
+
+| Archivo | Contiene | Léelo cuando… |
+|---|---|---|
+| `vision.md` | Problema, público, objetivo, marca y tono | siempre que haya texto o UX de por medio |
+| `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
+| `boceto/aprobado-*.png` + `aprobado.md` | **El objetivo visual** aprobado por el humano (ChatGPT lo dibuja, el humano lo aprueba) | toques interfaz, diseñes o escribas una spec |
+| `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar código |
+| `diseno.md` | Tokens visuales y componentes base | toques interfaz |
+| `decisiones.md` | Decisiones tomadas y por qué (no se rediscuten) | siempre |
+| `huecos.md` | Lo que el brain todavía NO sabe | te falte información |
+| `log.md` | Historial de tareas cerradas | quieras saber qué se hizo |
+
+## Cómo se mantiene
+- Decisión nueva → entrada en `decisiones.md` (con fecha y tarea que la originó).
+- Duda que nadie resolvió → `huecos.md`. No inventes la respuesta.
+- Tarea cerrada → entrada en `log.md`.
+{
+  "nivel": "ALTO",
+  "motivos": [
+    "zona sensible del proyecto (src/sections/hero.ts): src/sections/hero.ts",
+    "zona sensible del proyecto (src/sections/reserve.ts): src/sections/reserve.ts",
+    "zona sensible del proyecto (index.html): index.html",
+    "zona sensible del proyecto (src/sections/location.ts): src/sections/location.ts",
+    "cambio grande: 1021 líneas (> 300)"
+  ],
+  "archivos": [
+    "index.html",
+    "src/decor.test.ts",
+    "src/sections/decor.test.ts",
+    "src/sections/hero.test.ts",
+    "src/sections/hero.ts",
+    "src/sections/icons.test.ts",
+    "src/sections/icons.ts",
+    "src/sections/location.ts",
+    "src/sections/menu.ts",
+    "src/sections/reserve.ts",
+    "src/styles/decor.test.ts",
+    "src/styles/footer.css",
+    "src/styles/header.css",
+    "src/styles/hero.css",
+    "src/styles/location.css",
+    "src/styles/main.css",
+    "src/styles/menu.css",
+    "src/styles/split.test.ts"
+  ],
+  "lineas": 1021
+}
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\arquitectura.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\brain\\decisiones.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\.claude\\agents\\clasificador-riesgo.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261117-001\\spec.md'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001
+ succeeded in 0ms:
+# Arquitectura
+
+Landing de una sola página, estática, sin backend. Ver decisiones D-01 a D-06.
+
+## Stack
+- **Vite** (servidor de desarrollo + build estático a `dist/`) con **TypeScript** "vanilla": sin
+  framework de UI (D-01).
+- **CSS plano** con custom properties (tokens de `diseno.md`); sin Tailwind (D-02).
+- **Calidad** (D-03): ESLint 9 (flat config) + typescript-eslint · `tsc --noEmit` · Vitest + jsdom.
+- Sin dependencias de producción: todo lo instalado es `devDependencies`.
+- Node LTS actual; versiones fijadas en `package-lock.json`.
+
+## Estructura de `app/`
+```
+app/
+├── index.html              # Esqueleto semántico estático (lang="es"): header+nav, <main> con las
+│                           # secciones (id + <h2>), contenedores vacíos para los datos, footer.
+├── package.json            # scripts: dev, lint, typecheck, test, build, preview
+├── package-lock.json
+├── tsconfig.json
+├── vite.config.ts          # build + bloque `test` de Vitest (environment: jsdom)
+├── eslint.config.js
+├── public/                 # favicon e imágenes estáticas (si las hay)
+└── src/
+    ├── main.ts             # Punto de entrada: importa estilos y monta cada sección en su contenedor
+    ├── data/
+    │   └── business.ts     # ÚNICO archivo de datos del negocio (D-00), tipado y marcado como ficticio
+    ├── lib/                # Funciones puras, sin DOM
+    │   ├── formatPrice.ts  # número → texto con moneda (Intl.NumberFormat)
+    │   ├── whatsapp.ts     # número + mensaje → URL wa.me
+    │   └── maps.ts         # coordenadas → URL de "Cómo llegar" y URL del mapa embebido
+    ├── sections/           # Una función por sección: datos → HTMLElement (DOM API)
+    │   ├── hero.ts         # Portada: nombre, eslogan, botón WhatsApp
+    │   ├── menu.ts         # Menú: Bebidas y Postres
+    │   ├── location.ts     # Horario y ubicación: tabla de horario, dirección, mapa, "Cómo llegar"
+    │   └── reserve.ts      # Reservar: texto + botón WhatsApp
+    └── styles/
+        ├── tokens.css      # Tokens de diseno.md como custom properties en :root
+        └── main.css        # Estilos base, layout mobile-first, componentes
+```
+- Pruebas **junto al código**: `src/**/<modulo>.test.ts`. Las pruebas de estructura de la página
+  leen `index.html` y lo cargan en jsdom.
+- Nombres de código en inglés; textos visibles en español (estándar de estilo).
+- Archivos de más de ~200 líneas se dividen.
+
+## Rutas / páginas
+Una sola ruta: `/` (`index.html`). Navegación interna por anclas, en este orden:
+
+| Ancla | Sección | Contenido |
+|---|---|---|
+| `#inicio` | Portada | Nombre "Cafetería Luna", eslogan, botón "Reservar mesa por WhatsApp" |
+| `#menu` | Menú | Grupos "Bebidas" y "Postres"; producto = nombre + precio |
+| `#horario` | Horario y ubicación | Horario lunes→domingo (incl. cierres), dirección, mapa, "Cómo llegar" |
+| `#reservar` | Reservar | Texto breve + botón "Reservar mesa por WhatsApp" |
+| — | Pie | Nombre, dirección corta, aviso de datos de ejemplo mientras rija D-00 |
+
+La cabecera con la navegación (Menú · Horario y ubicación · Reservar) es **fija/sticky**, de modo
+que es accesible desde cualquier punto de la página (CA-01.3).
+
+## Datos e integraciones
+### Datos (`src/data/business.ts`)
+Constante tipada `business` con: `name`, `slogan`, `locale` (`es-MX`), `currency` (`MXN`),
+`menu` (`drinks[]`, `desserts[]` de `{ name, price }`), `hours` (7 entradas lunes→domingo,
+`{ day, open, close } | { day, closed: true }`), `address` (texto completo), `coordinates`
+(`{ lat, lng }`), `whatsapp` (`{ number: "520000000000", message }`).
+- Mientras rija D-00 los valores son **ficticios** y el archivo lo dice en un comentario de cabecera.
+- Sustituir los datos reales = editar solo este archivo. Ningún otro módulo contiene datos del negocio.
+
+### Integraciones (todas sin claves ni `.env`)
+| Integración | Cómo | CA |
+|---|---|---|
+| WhatsApp | Enlace `https://wa.me/<número solo dígitos>?text=<mensaje con encodeURIComponent>`. Abre la app en móvil y WhatsApp Web/página de WhatsApp en escritorio. | CA-04.2–04.4 |
+| Mapa | `<iframe>` de OpenStreetMap (`export/embed.html` con `bbox` y `marker`), `loading="lazy"`, con `title` accesible. | CA-03.3 |
+| Cómo llegar | Enlace `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`: abre la app de mapas en móvil o la web en escritorio. | CA-03.4 |
+
+### Reglas de implementación
+- Los datos se insertan en el DOM **solo** con `textContent` / `setAttribute`; prohibido `innerHTML`
+  con datos.
+- Enlaces externos: `target="_blank"` + `rel="noopener noreferrer"` y un nombre accesible que indique
+  el propósito (p. ej., `aria-label` del botón de WhatsApp).
+- No se recogen datos personales; sin formularios, cookies propias ni analítica (hueco abierto).
+- Rendimiento (Lighthouse móvil ≥ 90): sin librerías de UI, mapa diferido (`loading="lazy"`), imágenes
+  con `width`/`height` y formatos modernos, fuentes con `font-display: swap` y como mucho 2 familias.
+
+## Zonas sensibles (riesgo ALTO: requieren aprobación humana)
+Además de lo que ya detecta `scripts/riesgo.mjs` (dependencias, configuración de build):
+- `src/data/business.ts` — un número o un mensaje de WhatsApp erróneo rompe el objetivo principal de
+  negocio (reservas) sin que falle ninguna prueba; un precio, horario o dirección erróneos engañan al
+  cliente. Cualquier cambio exige revisión humana.
+- `src/lib/whatsapp.ts` y los botones de reserva (`src/sections/hero.ts`, `src/sections/reserve.ts`) —
+  es el embudo de conversión: si la URL se construye mal, no entra ninguna reserva.
+- `index.html` y `src/main.ts` — si el esqueleto o el montaje fallan, la página queda en blanco.
+- `package.json`, `package-lock.json`, `vite.config.ts`, `tsconfig.json`, `eslint.config.js` —
+  dependencias y build (ya cubiertos por el script).
+- Cualquier recurso de terceros nuevo (iframes, scripts, fuentes externas) — afecta a privacidad y
+  rendimiento.
+
+## Cómo ejecutar
+- Instalar: `npm install` (dentro de `app/` o del worktree)
+- Desarrollo: `npm run dev`
+- Previsualizar el build: `npm run build && npm run preview`
+- Puertas: `node scripts/verificar.mjs <carpeta>` (desde la raíz de la fábrica) → `lint`, `typecheck`,
+  `test`, `build`
+- Lighthouse (CA-05.3, manual): auditoría móvil sobre `npm run preview`.
+
+## Hosting
+Estático (`dist/`) en Vercel o Netlify, **solo cuando el humano lo pida** y con los huecos de
+contenido resueltos (D-00). Dominio: pendiente (`huecos.md`).
+
+ succeeded in 0ms:
+# Decisiones
+
+Lo que está aquí ya se decidió. No se rediscute sin una decisión humana nueva.
+
+<!--
+## D-01 · <título> (AAAA-MM-DD · origen: T-xxxx)
+- Contexto:
+- Decisión:
+- Alternativas descartadas:
+- Consecuencias:
+-->
+
+## D-00 · Datos de negocio de ejemplo para la demo (2026-11-14 · origen: humano)
+- Contexto: los datos reales del negocio están en huecos.md y aún no se conocen.
+- Decisión: mientras tanto se usan datos ficticios claramente marcados (precios en MXN, horario y dirección de ejemplo, WhatsApp +52 000 000 0000). Se guardan en un único archivo de datos para sustituirlos fácilmente.
+- Consecuencias: el sitio no se publica hasta resolver los huecos que bloquean la publicación.
+
+## D-01 · Stack: Vite + TypeScript sin framework (2026-11-14 · origen: arquitecto)
+- Contexto: landing de una sola página, sin backend ni estado. `estandares/stack.md` indica para
+  sitios de una página "HTML + CSS + JS sin framework", y a la vez exige las puertas `lint`,
+  `typecheck`, `test` y `build` vía `npm run` en todo proyecto con `package.json`.
+- Decisión: **Vite** como servidor de desarrollo y build estático, con **TypeScript vanilla** (sin
+  framework de UI). Es lo mínimo que mantiene la regla "sin framework" y da las cuatro puertas.
+  TypeScript tipa el archivo de datos (D-00): al sustituir los datos ficticios por los reales, un
+  campo mal escrito falla en `typecheck` en vez de en producción.
+- Alternativas descartadas: HTML/CSS/JS sin `package.json` (`verificar.mjs` no ejecutaría ninguna
+  puerta y no habría TDD); Astro + Tailwind (más configuración y conceptos para una sola página);
+  Vite + React (framework innecesario: no hay interactividad); JS sin TypeScript (se perdería la
+  puerta `typecheck` y la validación del archivo de datos).
+- Consecuencias: el estándar de estilo "un componente por archivo en `PascalCase.tsx`" no aplica;
+  cada sección es un módulo `camelCase.ts` en `src/sections/` que devuelve un `HTMLElement`.
+
+## D-02 · Estilos con CSS plano y custom properties, sin Tailwind (2026-11-14 · origen: arquitecto)
+- Contexto: pocos estilos, una sola página y el objetivo de Lighthouse ≥ 90.
+- Decisión: CSS plano, mobile-first. Los tokens de `diseno.md` se declaran como custom properties en
+  `src/styles/tokens.css` y el resto de CSS solo usa `var(--…)`.
+- Alternativas descartadas: Tailwind CSS (dependencia y configuración extra para muy poco CSS).
+- Consecuencias: el **diseñador** entrega los tokens como bloque `:root { --… }` listo para copiar en
+  lugar del bloque `theme.extend` de Tailwind.
+
+## D-03 · Puertas de calidad (2026-11-14 · origen: arquitecto)
+- Decisión: `lint` = ESLint 9 (flat config) + typescript-eslint; `typecheck` = `tsc --noEmit`;
+  `test` = `vitest run` con entorno **jsdom**; `build` = `vite build`. Pruebas junto al código
+  (`*.test.ts`).
+- Alternativas descartadas: happy-dom (menos fiel para pruebas de accesibilidad); Playwright en las
+  puertas (pesado para esta fase; Lighthouse y el ancho de 375 px se verifican en la tarea 006).
+- Consecuencias: CA-05.3 (Lighthouse) no es automatizable en `npm run` y se verifica manualmente
+  sobre `npm run preview`, dejando el informe en el rastro de la tarea.
+
+## D-04 · Renderizado: esqueleto estático + datos pintados en cliente (2026-11-14 · origen: arquitecto)
+- Contexto: D-00 exige que todos los datos del negocio vivan en un único archivo.
+- Decisión: `index.html` contiene la estructura estática (landmarks, navegación, encabezados de
+  sección, textos fijos). `src/main.ts` lee `src/data/business.ts` y monta el contenido de cada
+  sección con funciones `datos → HTMLElement` que usan `textContent`/`setAttribute` (nunca
+  `innerHTML` con datos).
+- Alternativas descartadas: datos copiados en el HTML (rompe D-00); prerender en build con un plugin
+  de Vite (más complejo; queda como plan B si Lighthouse móvil baja de 90).
+- Consecuencias: sin JavaScript la página muestra la estructura pero no los datos; aceptable para el
+  público objetivo (móvil moderno).
+
+## D-05 · Integraciones sin claves: WhatsApp, OpenStreetMap y Google Maps URLs (2026-11-14 · origen: arquitecto)
+- Decisión: reserva con enlace `https://wa.me/<dígitos>?text=<mensaje codificado>`; mapa con iframe
+  de OpenStreetMap con marcador y `loading="lazy"`; "Cómo llegar" con
+  `https://www.google.com/maps/search/?api=1&query=<lat>,<lng>`.
+- Alternativas descartadas: iframe de Google Maps (más pesado y con cookies de terceros); API de
+  WhatsApp Business (innecesaria: no hay reservas propias, ver spec "No entra"); URI `geo:` (no
+  funciona en iOS ni escritorio).
+- Consecuencias: no hay secretos ni `.env`. Las coordenadas también son datos del negocio y van en
+  `business.ts` (hueco añadido en `huecos.md`).
+
+## D-06 · Formato de precio (2026-11-14 · origen: arquitecto, deriva de D-00)
+- Decisión: los precios se guardan como número y se formatean en un único sitio
+  (`src/lib/formatPrice.ts`) con `Intl.NumberFormat(business.locale, { style: "currency",
+  currency: business.currency })`; hoy `es-MX` / `MXN`.
+- Consecuencias: si el hueco de moneda se resuelve con otra moneda, solo cambian `locale` y
+  `currency` en `business.ts`.
+
+## D-07 · Versiones y TypeScript estricto (2026-11-14 · origen: T-20261114-001)
+- Decisión: vite 7 + vitest 3 + typescript 5 + eslint 9 (por compatibilidad con typescript-eslint 8), versiones fijadas en package-lock.json; instalar con `npm ci`. tsconfig añade noUnusedLocals, noUnusedParameters, noFallthroughCasesInSwitch, verbatimModuleSyntax e isolatedModules sobre `strict`.
+- Pendiente de decisión humana: pasar a ESLint 10 (npm avisa que la 9 ya no tiene soporte).
+
+## D-08 · Cabecera, foco y botón de WhatsApp (2026-11-15 · origen: T-20261115-001)
+- Decisión: por debajo de 768 px la cabecera sticky ocupa dos filas (marca a `--header-height`,
+  navegación a `--tap-min`); `scroll-margin-top` y la altura de la portada restan
+  `header-height + tap-min` en móvil y solo `header-height` desde 768 px.
+- El hover del botón de WhatsApp lo oscurece ~10 % con
+  `color-mix(in srgb, var(--color-whatsapp) 90%, var(--color-text))`; su altura mínima es `var(--space-7)` (48 px).
+- `main#contenido` lleva `tabindex="-1"` sin contorno de foco, para que "Saltar al contenido" mueva
+  el foco sin dibujar un anillo alrededor de toda la página.
+- Pendiente: `main.css` mide 317 líneas (guía ~200); dividirlo en la tarea 006.
+
+## D-09 · Sección Menú y orden de montaje (2026-11-15 · origen: T-20261115-002)
+- Marcado: cada grupo es un `<div>` con `<h3>` y `<dl>`; cada producto, un `<div>` con `<dt>` (nombre)
+  y `<dd>` (precio). Grupos en `<div>`, no `<section>`, para no añadir landmarks.
+- `formatPrice(price, locale, currency)` es pura (implementa D-06) y lanza Error si el precio no es
+  finito o es negativo, en vez de pintar `$NaN`. `renderMenu` la importa; `main.ts` le pasa
+  `business.menu`, `business.locale` y `business.currency`.
+- Los estilos de cada sección nueva van en su propio archivo (`src/styles/menu.css`), importado en
+  `main.ts` después de `main.css`; rejilla de 2 columnas desde 768 px con
+  `repeat(2, minmax(0, 1fr))` y `align-items: start`.
+- `mount()` construye todo lo que puede fallar (URL de reserva, menú, futuras secciones) antes de
+  pintar nada: o se pinta la página entera o no se pinta nada.
+
+## D-10 · Mapa y "Cómo llegar" (2026-11-15 · origen: T-20261115-003, concreta D-05)
+- Las URLs se construyen solo en `src/lib/maps.ts` con `toFixed(6)`; bbox de OSM oeste,sur,este,norte
+  con d = 0.005°; una coordenada inválida lanza Error. Se comprueba el prefijo antes de usar cada URL.
+- iframe: `loading="lazy"`, `referrerpolicy="strict-origin-when-cross-origin"` (OSM pide Referer),
+  `sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`; sin `allow`,
+  `allowfullscreen` ni navegación del documento superior. El embed de OSM hoy usa MapLibre GL
+  (WebGL + worker `blob:`), que necesita `allow-same-origin` (seguro: el iframe es de otro origen).
+  Ampliar permisos requiere decisión humana.
+- Limitación conocida: `loading="lazy"` no garantiza que no se contacte a OSM sin hacer scroll
+  (Chrome precarga a ~1300 px); las teselas sí esperan al scroll.
+- Horario en `<table>` con `th scope="row"`, horas en 24 h ("08:00 a 20:00"), cerrado = "Cerrado".
+- `.btn--secondary` vive en `location.css` hasta que la tarea 006 divida `main.css`.
+
+## D-11 · Estilos divididos, zonas táctiles y Lighthouse (2026-11-15 · origen: T-20261115-004, cierra pendientes de D-08 y D-10)
+- `main.css` se divide en `main.css` (base), `header.css`, `buttons.css` (incluye `.btn--secondary`),
+  `hero.css`, `reserve.css` y `footer.css`; `main.ts` los importa en ese orden, antes de `menu.css` y
+  `location.css`. Ningún archivo de estilo pasa de ~200 líneas.
+- `.nav-link` y `.btn` llevan `min-width: var(--tap-min)` además de la altura mínima. Todo elemento
+  enfocable nuevo debe usar una de las clases que vigila `src/a11y.test.ts` (CA-5).
+- Lighthouse móvil: 3 ejecuciones sobre el build y se toma la mediana; umbral ≥ 90 en rendimiento y
+  accesibilidad. Línea base: 100/100 (Lighthouse 12.8.2, Chrome 157, fuentes del sistema). Repetir si
+  se cargan fuentes externas y antes de publicar.
+- Excepción pendiente de decisión humana (huecos.md): los controles internos del mapa de OSM
+  (+/− 29×29 px, atribución 14 px de alto) no llegan a 44 px y no se pueden estilar.
+
+## D-12 · Excepción de foco en la marca (2026-11-15 · origen: T-20261115-005)
+- `.brand:focus-visible` usa `outline-offset: -3px` porque su caja empieza en el borde superior de la
+  ventana (cabecera sticky) y el anillo exterior quedaba recortado. Grosor, estilo y color siguen
+  siendo los globales; el anillo cae sobre `--color-surface` (6.97:1). Si la marca recibe algún día
+  un fondo `primary`, revisar esta excepción.
+- `.brand` lleva `padding-inline: var(--space-2)` compensado con `margin-inline: calc(-1 * var(--space-2))`:
+  el texto no se mueve en reposo, queda holgura entre anillo y texto y la zona clicable crece 8 px por lado.
+- Solo existen tres reglas `:focus-visible`: la global, la del pie y la de `.brand` (lo vigila `split.test.ts`, CA-4d).
+
+ succeeded in 0ms:
+---
+name: clasificador-riesgo
+description: Decide si una tarea aprobada es lo bastante sensible como para exigir revisión humana antes de integrarse en main. Solo puede subir el riesgo calculado por el script, nunca bajarlo.
+tools: Read, Glob, Grep, Bash, PowerShell
+model: opus
+---
+
+Eres el **clasificador de riesgo**. Equivocarte hacia abajo puede tumbar el sistema; hacia arriba
+solo cuesta un minuto del humano. Ante la duda: ALTO.
+
+## Entradas
+- `tareas/<ID>/riesgo-codigo.json` (cálculo determinista de `scripts/riesgo.mjs`).
+- `tareas/<ID>/spec.md` y `brain/arquitectura.md` (sección "Zonas sensibles").
+- El cambio: `git -C <carpeta de trabajo> diff main...HEAD`.
+
+## Criterio
+- **BAJO**: cambios cosméticos o de contenido (textos, colores, estilos, una sección estática nueva,
+  documentación) que no tocan datos, auth, backend, dependencias ni configuración.
+- **ALTO**: base de datos o migraciones, autenticación/permisos, pagos, backend o lógica de negocio
+  core, dependencias o build, configuración, borrado de datos, o cualquier cosa que pueda tumbar la app.
+
+Si `riesgo-codigo.json` ya dice ALTO, tu respuesta es ALTO (puedes añadir motivos).
+
+## Formato de respuesta (obligatorio, JSON válido y nada más)
+```json
+{"nivel": "BAJO", "motivo": "una frase"}
+```
+
+ succeeded in 0ms:
+# T-20261117-001 · Ajustar la página al boceto aprobado (decoración SVG)
+Tipo: tarea      Toca interfaz: sí      Texto visible para el usuario: no
+
+Ronda: 1 · Entrada: `bandeja/008-ajustar-al-boceto-aprobado.md` (cubre CA-05.1, CA-05.4) · Rama: `fabrica/T-20261117-001` (base `main`)
+
+## Contexto (qué dice el brain que importa aquí)
+- **Objetivo visual:** `brain/boceto/aprobado-movil.png`, `aprobado-escritorio.png` y `aprobado.md` (v1, aprobado por el humano
+  el 2026-11-16). Se mide estructura, orden, jerarquía, paleta y tono; no hay que igualar el píxel, y **los datos y textos del brain
+  mandan sobre los del boceto** (precios "MXN 45 (ejemplo)", horarios "08:00 – 20:00 (ejemplo)", "Datos de ejemplo para la demo",
+  "Aparta tu mesa…" y el eslogan del boceto son textos de ejemplo y **no entran**).
+- **D-04:** los datos entran solo con `textContent`/`setAttribute`; nunca `innerHTML`. Los SVG se crean con `createElementNS`
+  (patrón que ya usa `createChatIcon` en `reserve.ts`) o van estáticos en `index.html`.
+- **D-02 / D-09 / D-11:** CSS plano, solo `var(--…)`, cada sección con su archivo de estilos, ningún archivo pasa de ~200 líneas,
+  `main.ts` importa los estilos en un orden fijo (lo vigila `split.test.ts`, CA-11). `split.test.ts` (CA-9) fija qué selectores
+  viven en `main.css`, `header.css`, `buttons.css`, `hero.css`, `reserve.css` y `footer.css`.
+- **D-08 / D-11 / D-12:** zonas táctiles de 44 px (`--tap-min`), anillo de foco global, y solo tres reglas `:focus-visible`
+  (global, pie y `.brand`, que usa `outline-offset: -3px`). Todo enfocable usa `skip-link`, `brand`, `nav-link` o `btn`.
+- **D-10:** el mapa (iframe, `sandbox`, `referrerpolicy`, prefijos de URL, `src/lib/maps.ts`) **no se toca**.
+- **D-03:** puertas `lint`, `typecheck`, `test`, `build`. D-11: Lighthouse móvil, mediana de 3 ejecuciones, ≥ 90 en rendimiento y
+  accesibilidad (línea base 100/100 con fuentes del sistema).
+- **diseno.md:** `secondary` (#E9C46A) es el "dorado luna" para la luna decorativa; no se usa como texto ni como borde informativo
+  sobre fondos claros. Como relleno de un gráfico decorativo `aria-hidden` está permitido (WCAG 1.4.11 no aplica a lo decorativo).
+  Sobre `footer-bg` tiene 9.75:1. `on-whatsapp` sobre `whatsapp` tiene 6.47:1. Pie: `footer-text` sobre `footer-bg` 13.66:1.
+- **Hueco abierto (no bloquea):** fuentes Fraunces y DM Sans desde Google Fonts (`huecos.md`, 2026-11-15). El boceto dibuja títulos
+  con una serif tipo Fraunces, pero **esta tarea no carga fuentes externas**: siguen los fallbacks del sistema de `tokens.css`.
+
+### Diferencias boceto ↔ código actual que pide la entrada
+| # | Boceto | Código actual (`main`) |
+|---|---|---|
+| 1 | Luna dorada junto al nombre en la cabecera | `.brand` solo con texto |
+| 2 | Luna decorativa en la portada | Portada solo con h1, eslogan y botón |
+| 3 | Escritorio: ilustración de taza junto al título | No existe |
+| 4 | Icono de taza (Bebidas) y de pastel (Postres) en las tarjetas | h3 solo con texto |
+| 5 | Línea de puntos entre producto y precio | Rejilla nombre/precio con separador sólido entre filas |
+| 6 | Títulos de sección centrados con una línea a cada lado | h2 alineados a la izquierda, sin líneas |
+| 7 | Icono de calendario (horario) y de ubicación (dirección) | h3 "Horario" y "Dirección" solo con texto |
+| 8 | Logo de WhatsApp en los botones de reserva | Bocadillo genérico (`CHAT_ICON_PATH`) |
+| 9 | Pie oscuro con la luna | Pie oscuro ya existe (`footer-bg`), sin luna |
+
+## Objetivo
+Acercar la página al boceto aprobado añadiendo **solo decoración**: los nueve gráficos/estilos de la tabla, como SVG ligeros y
+decorativos hechos en el código (o pseudo-elementos CSS), con colores de los tokens. No cambia ningún texto, dato, enlace, nombre
+accesible, orden de foco ni estructura de encabezados, y se mantienen AA, foco visible, 44 px y Lighthouse móvil ≥ 90.
+
+## Criterios de aceptación
+
+### Gráficos SVG (reglas comunes)
+- **CA-1 — Módulo único de iconos.** Dado el nuevo `src/sections/icons.ts`, cuando se llama a su función pública con cada nombre
+  `moon`, `cup`, `cake`, `calendar`, `pin`, `whatsapp` y `cup-art` (ilustración de escritorio), entonces devuelve un `SVGSVGElement`
+  creado con `createElementNS("http://www.w3.org/2000/svg", …)` que:
+  (a) tiene `aria-hidden="true"`, `focusable="false"` y `viewBox`;
+  (b) no contiene `<title>`, `<desc>`, `<text>`, `<image>`, `<use>`, `<foreignObject>` ni `<script>`, ni atributos `href`,
+  `xlink:href`, `style` u `on*`;
+  (c) en todo su árbol, los atributos `fill` y `stroke` valen solo `currentColor` o `none` (cualquier otro color se pone desde CSS
+  con `var(--…)`);
+  (d) su `textContent` es la cadena vacía.
+  Además, el código fuente de `icons.ts` no contiene literales de color (`#rgb`, `#rrggbb`, `rgb(`, `hsl(`), ni `innerHTML`,
+  `outerHTML`, `insertAdjacentHTML` o `DOMParser`, y mide ≤ 200 líneas. Comprobable con `src/sections/icons.test.ts`.
+- **CA-2 — Inventario en la página montada.** Dada la página montada como en `a11y.test.ts`, cuando se cuentan los `<svg>`,
+  entonces hay **exactamente 10**: 1 en `.brand`, 2 en `#inicio` fuera del botón (luna y taza de escritorio), 2 en `#menu` (uno en
+  cada h3), 2 en `#horario` (uno en cada h3), 1 en cada botón de WhatsApp y 1 en el `<footer>`; los 10 cumplen CA-1 (a)–(d). No hay
+  ningún `<img>`, `<picture>` ni `<object>` nuevo, y ni `index.html` ni `src/**` (salvo tests) contienen `data:image`, `.png`,
+  `.jpg`, `.webp`, `url(` en CSS ni la palabra `boceto`. `public/` no gana archivos. (Gráficos hechos en el código, nunca copiados
+  del boceto.)
+
+### Cabecera y portada
+- **CA-3 — Luna en la cabecera.** Dado `index.html`, cuando se lee `header .brand`, entonces su primer hijo es un `<svg
+  class="brand__icon">` estático (luna creciente) seguido del texto; `text(.brand)` sigue siendo exactamente "Cafetería Luna" y su
+  `href` `#inicio` (page.test CA-3 pasa sin cambios). `header.css` gana solo la regla `.brand__icon` (tamaño en `em` o tokens,
+  `flex: none`, `color: var(--color-secondary)`); las reglas `.brand`, `.brand:focus-visible` y el bloque `@media (min-width: 768px)`
+  quedan idénticas (split.test CA-4 y CA-6 pasan sin cambios; D-12).
+- **CA-4 — Luna en la portada.** Dado `renderHero(content, url)`, cuando se inspeccionan sus hijos, entonces hay un `<svg
+  class="hero__moon">` antes del `<h1>`, y los hijos **que no son SVG** son exactamente `H1, P, A` en ese orden, con el mismo
+  texto, `id="inicio-titulo"`, `href` y clase `btn--whatsapp` que hoy. `hero.test.ts` CA-7 se actualiza solo para ignorar los
+  `svg[aria-hidden="true"]` al comprobar el orden; CA-8 (texto literal, sin `<img>`) pasa sin cambios. La luna se pinta con
+  `var(--color-secondary)` desde `hero.css`.
+- **CA-5 — Taza de escritorio.** Dado `renderHero`, cuando se monta, entonces incluye un `<svg class="hero__art">` (taza con
+  platillo y vapor, y opcionalmente una luna u hojas) con colores solo de tokens (`--color-primary`, `--color-secondary`,
+  `--color-surface`, `--color-border`, `--color-text-muted`) aplicados por clases desde `hero.css`. En `hero.css`, `.hero__art` tiene
+  `display: none` a nivel base y se muestra en `@media (min-width: 768px)`, donde la portada pasa a dos columnas: texto (luna, h1,
+  eslogan, botón) a la izquierda y la taza a la derecha. Con la evidencia (CA-16): a 375×812 la taza no se ve y el botón de WhatsApp
+  queda entero dentro de la primera pantalla (CA-01.1/01.2); a 768 y 1024 px la taza se ve a la derecha del título y h1, eslogan y
+  botón siguen en la primera pantalla.
+
+### Menú
+- **CA-6 — Iconos de taza y pastel.** Dado `renderMenu`, cuando se leen los grupos, entonces el `<h3>` de Bebidas empieza con el
+  icono `cup` y el de Postres con `cake` (`class="menu__icon"`), y `h3.textContent` sigue siendo exactamente "Bebidas" y "Postres"
+  (menu.test CA-5 y main.test pasan sin cambios). En `menu.css`, `.menu__title` alinea icono y texto en fila (`gap` con token) y
+  `.menu__icon` usa `color: var(--color-primary)`.
+- **CA-7 — Líneas de puntos entre producto y precio.** Dada una fila del menú, cuando se ve a 375, 768 y 1024 px, entonces entre el
+  nombre y el precio hay una línea de puntos decorativa que rellena el hueco, hecha **solo con CSS** en `menu.css` (estilo `dotted`
+  y color `var(--…)`; p. ej. un `::after` flexible del `dt`). El DOM no cambia: cada fila sigue siendo `div.menu__item > dt + dd`,
+  sin elementos ni caracteres nuevos (`dt`/`dd` conservan su `textContent`). Se quita el separador sólido entre filas
+  (`.menu__item + .menu__item { border-top }`), como en el boceto móvil. Con un nombre largo (CA-02.3) el nombre se parte en varias
+  líneas, el precio sigue en una línea y dentro de la tarjeta; la línea de puntos puede acortarse o desaparecer. styles.test
+  T-20261115-002 CA-13 pasa sin cambios.
+
+### Títulos de sección
+- **CA-8 — Líneas decorativas a los lados de los h2.** Dados los `h2` de `#menu`, `#horario` y `#reservar`, cuando se ven, entonces
+  el texto está centrado y tiene una línea horizontal decorativa a cada lado, hecha con `main > section h2::before` y `::after`
+  (`content: ""`, borde o fondo con `var(--color-primary)`) en `main.css`. Las líneas pueden encogerse hasta desaparecer
+  (`min-width: 0`) y nunca provocan scroll horizontal; a 375 px "Horario y ubicación" cabe o se parte en dos líneas sin
+  desbordar. El `textContent` de los h2 y sus `id`/`aria-labelledby` no cambian (page.test CA-2 pasa sin cambios). El `h1` de la
+  portada no lleva líneas.
+
+### Horario y ubicación
+- **CA-9 — Iconos de calendario y ubicación.** Dado `renderLocation`, cuando se leen los `<h3>`, entonces "Horario" empieza con el
+  icono `calendar` y "Dirección" con `pin` (`class="location__icon"`, `color: var(--color-primary)` desde `location.css`), y
+  `h3.textContent` sigue siendo exactamente "Horario" y "Dirección". En `location.ts` solo cambian `createTitle` y sus dos llamadas;
+  `MAP_URL_PREFIX`, `DIRECTIONS_URL_PREFIX`, `MAP_SANDBOX`, `MAP_TITLE`, los atributos del iframe, los guardas y el enlace "Cómo
+  llegar" quedan idénticos, y `src/lib/maps.ts` no aparece en el diff (D-10). `location.test.ts` y `location.guards.test.ts` pasan
+  sin cambios.
+
+### Botones de reserva
+- **CA-10 — Logo de WhatsApp.** Dado `createReserveButton(url)`, cuando se crea, entonces su primer hijo es el icono `whatsapp` de
+  `icons.ts` (glifo reconocible de WhatsApp: bocadillo redondo con auricular, monocromo, dibujado en el código) con clase
+  `btn__icon`, en `currentColor` (`on-whatsapp` sobre `whatsapp`, 6.47:1). `href`, guarda `https://wa.me/`, `target`, `rel`,
+  `aria-label`, texto visible y la clase `btn btn--whatsapp` no cambian; `CHAT_ICON_PATH` y `createChatIcon` desaparecen de
+  `reserve.ts`. `reserve.test.ts` y a11y CA-4 pasan sin cambios; `src/lib/whatsapp.ts` no aparece en el diff; los dos botones
+  siguen apuntando a la misma URL (main.test).
+
+### Pie
+- **CA-11 — Pie oscuro con la luna.** Dado `index.html`, cuando se lee el `<footer>`, entonces contiene un `<svg
+  class="site-footer__moon">` estático (luna creciente) en `var(--color-secondary)` (9.75:1 sobre `footer-bg`), junto al nombre;
+  el pie conserva `background: var(--color-footer-bg)` y `color: var(--color-footer-text)`, y el aviso de D-00 es exactamente el
+  de hoy (page.test CA-5 pasa sin cambios). Las nuevas reglas viven en `footer.css`.
+
+### Accesibilidad, estilos y decisiones (no regresión)
+- **CA-12 — Foco y zonas táctiles sin cambios.** Dada la página montada, cuando se listan los enfocables (sin el iframe), entonces
+  son **exactamente 8**, en este orden y con estos nombres: "Saltar al contenido", "Cafetería Luna", "Menú", "Horario y
+  ubicación", "Reservar", "Reservar mesa por WhatsApp (se abre…)" de `#inicio`, "Cómo llegar (se abre…)" y "Reservar mesa por
+  WhatsApp (se abre…)" de `#reservar`. Ningún SVG ni pseudo-elemento es enfocable; no se añade `tabindex`. `a11y.test.ts` pasa sin
+  cambios; las únicas reglas `:focus-visible` siguen siendo las tres de D-12 y la única que quita el contorno es `main:focus`.
+- **CA-13 — Estilos por archivo y puertas de estilo.** Dados `src/styles/*.css`, entonces: (a) no se crea ningún archivo CSS nuevo y
+  `src/main.ts` no cambia (CA-11 de split.test pasa); (b) cada regla nueva vive en el archivo de su sección (`main.css`,
+  `header.css`, `hero.css`, `footer.css`, `menu.css`, `location.css`); `buttons.css`, `reserve.css` y `tokens.css` no cambian;
+  (c) la tabla `SPLIT` de `split.test.ts` solo **gana** los selectores nuevos (p. ej. `main > section h2::before`,
+  `main > section h2::after`, `.brand__icon`, `.hero__moon`, `.hero__art` y sus partes, la regla de dos columnas de `.hero__content`
+  a 768 px, `.site-footer__moon`); ningún selector existente se borra, se mueve de archivo ni cambia de contexto; (d) cada archivo
+  ≤ 200 líneas y sin literales de color (split CA-8); (e) ningún `.ts` de `src/` que no sea test contiene `innerHTML`, `outerHTML`,
+  `insertAdjacentHTML` ni `DOMParser` (D-04).
+- **CA-14 — Sin recursos de terceros nuevos.** Dado el diff de la rama, entonces `index.html` no gana `<link>` ni `<script>`
+  externos, ningún archivo contiene `fonts.googleapis.com` ni `fonts.gstatic.com`, y `package.json`, `package-lock.json`,
+  `vite.config.ts`, `tsconfig.json`, `eslint.config.js`, `src/data/business.ts`, `src/lib/whatsapp.ts`, `src/lib/maps.ts` y
+  `src/main.ts` no aparecen en el diff.
+- **CA-15 — Puertas.** Dado el worktree, cuando se ejecuta `node scripts/verificar.mjs proyectos/cafeteria-luna/.worktrees/T-20261117-001`
+  desde la raíz de la fábrica, entonces `lint`, `typecheck`, `test` y `build` pasan.
+
+### Comprobación visual (estación de evidencia)
+- **CA-16 — Evidencia y Lighthouse.** Dada la rama construida, cuando se ejecuta desde la raíz de la fábrica
+  `node scripts/evidencia.mjs cafeteria-luna T-20261117-001 --ronda 1 --lighthouse`, entonces en
+  `tareas/T-20261117-001/evidencia-ronda1/evidencia.json`:
+  (a) a 375, 768 y 1024 px `desbordaHorizontal` es `false` y las listas `fuera` y `cortado` están vacías;
+  (b) ningún enfocable tiene `menor44: true`;
+  (c) el recorrido con Tab a 375 px tiene los 8 elementos de CA-12, cada uno con contorno de foco visible;
+  (d) no hay errores de consola;
+  (e) la mediana de Lighthouse móvil es ≥ 90 en rendimiento y ≥ 90 en accesibilidad.
+- **CA-17 — Parecido con el boceto.** Dadas las capturas `pagina-375.png` y `pagina-1024.png` de la evidencia, cuando el revisor de
+  UI las compara con `aprobado-movil.png` y `aprobado-escritorio.png`, entonces se ven, en este orden: cabecera con luna dorada +
+  "Cafetería Luna"; portada con luna dorada y, en 1024, la taza a la derecha del título; Menú con título centrado entre dos líneas y
+  tarjetas Bebidas (taza) y Postres (pastel) con puntos entre producto y precio; Horario y ubicación con título entre líneas e iconos
+  de calendario y ubicación; Reservar con título entre líneas y botón verde con el logo de WhatsApp; pie oscuro con luna dorada. La
+  paleta es la de los tokens (crema, marrón, dorado, verde WhatsApp). No se exige igualdad al píxel y los textos son los del brain.
+
+## Plan
+1. `src/sections/icons.ts` + `icons.test.ts` (CA-1): una función `createIcon(name, className?)` con los trazados como constantes y
+   `createElementNS`; `cup-art` puede tener partes con clase para colorearlas desde CSS. Primero el test (TDD).
+2. Tests de las secciones en rojo: `hero.test.ts` (CA-4/5, ajuste del orden ignorando SVG decorativos), `menu.test.ts` (CA-6/7),
+   `location.test.ts` (CA-9), test de inventario y enfocables en `a11y.test.ts` o un `decor.test.ts` nuevo (CA-2, CA-12),
+   `page.test.ts` (CA-3, CA-11).
+3. `src/sections/menu.ts` (iconos en h3) y `src/styles/menu.css` (icono, puntos guía, quitar separador).
+4. `src/sections/location.ts` (solo `createTitle`) y `src/styles/location.css` (`.location__icon`, título en fila).
+5. `src/sections/reserve.ts` (sustituir el bocadillo por `createIcon("whatsapp", "btn__icon")`).
+6. `src/sections/hero.ts` (luna + `cup-art`) y `src/styles/hero.css` (colores, ocultar taza en móvil, dos columnas desde 768 px).
+7. `index.html` (SVG estático de la luna en `.brand` y en el pie; mismos atributos de CA-1) + `header.css` y `footer.css`.
+8. `src/styles/main.css` (h2 centrados con `::before`/`::after`) y ampliar `SPLIT` en `src/styles/split.test.ts` (CA-13 c).
+9. `verificar.mjs` (CA-15) y `evidencia.mjs … --ronda 1 --lighthouse` (CA-16); dejar el resumen en el rastro para el revisor (CA-17).
+
+## Fuera de alcance
+Diferencias del boceto que **no** pide la entrada (la entrada lista seis cambios y dice "sin cambiar contenido ni datos"); quedan
+como propuestas para otra tarea:
+- **Portada centrada en móvil** (el boceto móvil centra luna, título, eslogan y botón) y **eslogan en cursiva y color primario**:
+  cambian la composición y el tono del texto, no solo decoran; tocar CA-01 merece su propia tarea y evidencia.
+- **Taza pequeña con líneas bajo el eslogan (móvil)** y **fondo ondulado** de la portada de escritorio: no están en la entrada y
+  añaden altura en móvil, con riesgo para CA-01.2 (botón sin hacer scroll).
+- **"Reservar" de escritorio en una fila** (título | separador vertical | texto | botón a la derecha): es un cambio de maquetación
+  de la sección, no decoración.
+- **Insignias "Ejemplo" en las tarjetas del menú**, sufijos "(ejemplo)" en precios y horarios, y los textos del boceto ("Aparta tu
+  mesa…", "Datos de ejemplo para la demo", "Dirección de ejemplo · colonia por confirmar"): son contenido; mandan los textos del
+  brain y el aviso de D-00 del pie.
+- **Filas alternas (cebra) del horario** y **tarjeta que envuelve dirección + mapa + "Cómo llegar"** con el mapa como tarjeta:
+  cambios de estilo de `location` que no pide la entrada; el mapa no se toca (D-10).
+- **Nav corta "Horario" en móvil y nav con puntos separadores en una sola fila**: cambia un texto visible (page.test CA-3) y la
+  cabecera de dos filas de D-08.
+- **Tipografía Fraunces/DM Sans desde Google Fonts**: hueco abierto (recurso de terceros, privacidad y Lighthouse); se mantienen los
+  fallbacks del sistema. No bloquea esta tarea.
+
+## Riesgos / zonas sensibles que toca
+- **Zonas sensibles tocadas (requieren aprobación humana):** `index.html` (SVG estáticos de cabecera y pie), `src/sections/hero.ts`
+  (decoración de la portada; el botón se sigue creando con `createReserveButton`), `src/sections/reserve.ts` (solo el icono del
+  botón), `src/sections/location.ts` (solo los títulos; D-10 intacto).
+- **No se tocan:** `src/data/business.ts`, `src/lib/whatsapp.ts`, `src/lib/maps.ts`, `src/main.ts`, `tokens.css`, `buttons.css`,
+  `reserve.css`, dependencias ni configuración (CA-14).
+- **Embudo de reservas:** cambiar el icono en `reserve.ts` no debe alterar URL, guarda ni nombre accesible (CA-10); los tests
+  existentes de `reserve`, `whatsapp` y `main` deben pasar sin editarlos.
+- **Portada en móvil:** la luna añade altura; la taza va oculta por debajo de 768 px. Si a 375×812 el botón sale de la primera
+  pantalla, reducir la luna antes que tocar los tokens (CA-5, CA-16).
+- **Tests que se editan a propósito:** `hero.test.ts` CA-7 (ignorar SVG decorativos al comprobar el orden) y `split.test.ts` (solo
+  añadir selectores a `SPLIT`). Cualquier otro test existente que haya que cambiar es señal de regresión.
+- **Conflicto menor diseño ↔ boceto:** `diseno.md` (patrón Sección) pide una luna junto al h2; el boceto aprobado y la entrada piden
+  líneas a los lados. Manda el boceto; al cerrar, el diseñador debería actualizar ese párrafo de `diseno.md`.
+- **D-12:** la luna dentro de `.brand` no cambia su padding, margen, altura ni la regla de foco; el anillo hacia dentro cae sobre
+  el padding de 8 px, no sobre el icono.
+- **Marca de WhatsApp:** el glifo es un dibujo propio, monocromo y simplificado, usado solo para señalar el enlace a WhatsApp; no se
+  descarga ni se copia ningún archivo de logotipo.
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding UTF8 -LiteralPath 'C:\\Users\\FRANC\\AppData\\Local\\Temp\\claude\\41063b14ed460bed\\c1964097-0211-4b43-884b-4cfaddf58d66\\scratchpad\\demo-completa\\proyectos\\cafeteria-luna\\tareas\\T-20261117-001\\diff-ronda1.patch'" in C:\Users\FRANC\AppData\Local\Temp\claude\41063b14ed460bed\c1964097-0211-4b43-884b-4cfaddf58d66\scratchpad\demo-completa\proyectos\cafeteria-luna\tareas\T-20261117-001
+ succeeded in 589ms:
+# Diff de T-20261117-001 · ronda 1 · main...HEAD (140269a) · generado por la fábrica
+# Commits:
+#   140269a T-20261117-001: puntos guia del menu en text-muted (mas visibles, como en el boceto)
+#   756a4cd T-20261117-001: decoracion SVG y estilos del boceto (luna, taza, iconos, puntos guia, lineas de h2, logo de WhatsApp)
+#   071fa45 T-20261117-001: modulo icons.ts con los SVG decorativos (CA-1)
+# Resumen:
+#  index.html                 |   5 +-
+#   src/decor.test.ts          | 175 ++++++++++++++++++++++++++++++++++++++++
+#   src/sections/decor.test.ts | 127 +++++++++++++++++++++++++++++
+#   src/sections/hero.test.ts  |  52 +++++++++++-
+#   src/sections/hero.ts       |  12 ++-
+#   src/sections/icons.test.ts | 104 ++++++++++++++++++++++++
+#   src/sections/icons.ts      | 137 +++++++++++++++++++++++++++++++
+#   src/sections/location.ts   |  10 ++-
+#   src/sections/menu.ts       |  11 ++-
+#   src/sections/reserve.ts    |  23 +-----
+#   src/styles/decor.test.ts   | 195 +++++++++++++++++++++++++++++++++++++++++++++
+#   src/styles/footer.css      |   9 +++
+#   src/styles/header.css      |  10 +++
+#   src/styles/hero.css        |  52 ++++++++++++
+#   src/styles/location.css    |  11 +++
+#   src/styles/main.css        |  24 ++++++
+#   src/styles/menu.css        |  33 ++++++--
+#   src/styles/split.test.ts   |  31 ++++++-
+#   18 files changed, 979 insertions(+), 42 deletions(-)
+
+diff --git a/index.html b/index.html
+index eb545b0..b3e0d6b 100644
+--- a/index.html
++++ b/index.html
+@@ -9,7 +9,8 @@
+     <header class="site-header">
+       <a class="skip-link" href="#contenido">Saltar al contenido</a>
+       <div class="site-header__inner container">
+-        <a class="brand" href="#inicio">Cafetería Luna</a>
++        <!-- Luna decorativa: mismo trazado que MOON_PATH de src/sections/icons.ts. -->
++        <a class="brand" href="#inicio"><svg class="brand__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg>Cafetería Luna</a>
+         <nav class="site-nav" aria-label="Principal">
+           <ul class="site-nav__list">
+             <li><a class="nav-link" href="#menu">Menú</a></li>
+@@ -40,7 +41,7 @@
+     </main>
+     <footer class="site-footer">
+       <div class="container">
+-        <p class="site-footer__name">Cafetería Luna</p>
++        <p class="site-footer__name"><svg class="site-footer__moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg>Cafetería Luna</p>
+         <p class="site-footer__notice">Página de demostración: el eslogan, el menú, los precios, el horario, la dirección y el número de WhatsApp son datos de ejemplo.</p>
+       </div>
+     </footer>
+diff --git a/src/decor.test.ts b/src/decor.test.ts
+new file mode 100644
+index 0000000..3ea3be7
+--- /dev/null
++++ b/src/decor.test.ts
+@@ -0,0 +1,175 @@
++import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
++import { dirname, join, relative, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { beforeEach, describe, expect, it, vi } from "vitest";
++import { MOON_PATH } from "./sections/icons";
++
++// T-20261117-001: decorative SVGs on the mounted page (CA-2, CA-3, CA-11), focus order unchanged
++// (CA-12) and no new resources (CA-2, CA-13 e, CA-14). Mounted as in a11y.test.ts.
++
++const srcDir = dirname(fileURLToPath(import.meta.url));
++const projectRoot = resolve(srcDir, "..");
++const indexHtml = (): string => readFileSync(resolve(projectRoot, "index.html"), "utf8");
++const indexDoc = (): Document => new DOMParser().parseFromString(indexHtml(), "text/html");
++const squash = (value: string | null | undefined): string => (value ?? "").replace(/\s+/g, " ").trim();
++
++const mountPage = async (): Promise<void> => {
++  document.body.replaceWith(document.importNode(indexDoc().body, true));
++  await import("./main");
++};
++
++const FORBIDDEN_TAGS = ["title", "desc", "text", "image", "use", "foreignobject", "script"];
++
++// CA-1 (a)–(d) for any <svg> of the page.
++const expectDecorative = (svg: Element): void => {
++  const label = svg.getAttribute("class") ?? svg.outerHTML;
++  expect(svg.getAttribute("aria-hidden"), label).toBe("true");
++  expect(svg.getAttribute("focusable"), label).toBe("false");
++  expect(svg.getAttribute("viewBox"), label).toMatch(/^\d+ \d+ \d+ \d+$/);
++  expect(svg.textContent, label).toBe("");
++  for (const node of [svg, ...Array.from(svg.querySelectorAll("*"))]) {
++    expect(FORBIDDEN_TAGS, `${label} ${node.tagName}`).not.toContain(node.tagName.toLowerCase());
++    for (const attr of Array.from(node.attributes)) {
++      const name = attr.name.toLowerCase();
++      expect(["href", "xlink:href", "style", "tabindex"], `${label} ${name}`).not.toContain(name);
++      expect(name.startsWith("on"), `${label} ${name}`).toBe(false);
++      if (name === "fill" || name === "stroke") expect(["currentColor", "none"], `${label} ${name}`).toContain(attr.value);
++    }
++  }
++};
++
++describe("T-20261117-001 CA-2: inventory of SVGs on the mounted page", () => {
++  beforeEach(async () => {
++    vi.resetModules();
++    await mountPage();
++  });
++
++  it("has exactly 10 <svg>, in the agreed places", () => {
++    const count = (selector: string): number => document.querySelectorAll(selector).length;
++    expect(count("svg")).toBe(10);
++    expect(count("header .brand > svg")).toBe(1);
++    expect(Array.from(document.querySelectorAll("#inicio svg")).filter((svg) => !svg.closest("a"))).toHaveLength(2);
++    expect(count("#menu h3 > svg")).toBe(2);
++    expect(count("#menu svg")).toBe(2);
++    expect(count("#horario h3 > svg")).toBe(2);
++    expect(count("#horario svg")).toBe(2);
++    for (const link of document.querySelectorAll('a[href^="https://wa.me/"]')) {
++      expect(link.querySelectorAll("svg")).toHaveLength(1);
++    }
++    expect(count("footer svg")).toBe(1);
++  });
++
++  it("makes all 10 decorative (CA-1 a–d)", () => {
++    for (const svg of document.querySelectorAll("svg")) expectDecorative(svg);
++  });
++
++  it("has no <img>, <picture> or <object>", () => {
++    expect(document.querySelectorAll("img, picture, object")).toHaveLength(0);
++  });
++});
++
++describe("T-20261117-001 CA-3: static moon in the header brand", () => {
++  const brand = (): Element | null => indexDoc().querySelector("header .brand");
++
++  it("starts .brand with <svg class=brand__icon> (crescent) followed by the text", () => {
++    const first = brand()?.firstChild as Element | null;
++    expect(first?.nodeName.toLowerCase()).toBe("svg");
++    expect(first?.getAttribute("class")).toBe("brand__icon");
++    expect(first?.querySelector("path")?.getAttribute("d")).toBe(MOON_PATH);
++    expect(brand()?.lastChild?.nodeType).toBe(Node.TEXT_NODE);
++    expectDecorative(first as Element);
++  });
++
++  it("keeps the brand text and href", () => {
++    expect(brand()?.textContent).toBe("Cafetería Luna");
++    expect(brand()?.getAttribute("href")).toBe("#inicio");
++  });
++});
++
++describe("T-20261117-001 CA-11: static moon in the footer", () => {
++  it("has one <svg class=site-footer__moon> (crescent) next to the name", () => {
++    const footer = indexDoc().querySelector("footer");
++    const moons = footer?.querySelectorAll("svg") ?? [];
++    expect(moons).toHaveLength(1);
++    const moon = moons[0] as Element;
++    expect(moon.getAttribute("class")).toBe("site-footer__moon");
++    expect(moon.querySelector("path")?.getAttribute("d")).toBe(MOON_PATH);
++    expect(moon.closest(".site-footer__name")).not.toBeNull();
++    expect(squash(footer?.querySelector(".site-footer__name")?.textContent)).toBe("Cafetería Luna");
++    expectDecorative(moon);
++  });
++});
++
++describe("T-20261117-001 CA-12: focus order and names unchanged", () => {
++  beforeEach(async () => {
++    vi.resetModules();
++    await mountPage();
++  });
++
++  it("lists exactly the 8 focusable elements (iframe aside), in order", () => {
++    const NEW_TAB = " (se abre en una pestaña nueva)";
++    const focusables = Array.from(
++      document.querySelectorAll<HTMLElement>('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'),
++    ).filter((element) => element.tagName !== "IFRAME");
++    const names = focusables.map((element) => squash(element.getAttribute("aria-label")) || squash(element.textContent));
++    expect(names).toEqual([
++      "Saltar al contenido",
++      "Cafetería Luna",
++      "Menú",
++      "Horario y ubicación",
++      "Reservar",
++      `Reservar mesa por WhatsApp${NEW_TAB}`,
++      `Cómo llegar${NEW_TAB}`,
++      `Reservar mesa por WhatsApp${NEW_TAB}`,
++    ]);
++    expect(focusables[5]?.closest("section")?.id).toBe("inicio");
++    expect(focusables[7]?.closest("section")?.id).toBe("reservar");
++  });
++
++  it("adds no tabindex: only main#contenido has one", () => {
++    expect(Array.from(document.querySelectorAll("[tabindex]"), (element) => element.id)).toEqual(["contenido"]);
++  });
++});
++
++// Every non-test file under src/, recursively.
++const sourceFiles = (dir: string): string[] =>
++  readdirSync(dir).flatMap((entry) => {
++    const path = join(dir, entry);
++    if (statSync(path).isDirectory()) return sourceFiles(path);
++    return entry.endsWith(".test.ts") ? [] : [path];
++  });
++
++describe("T-20261117-001 CA-2, CA-13 (e), CA-14: graphics drawn in code, no new resources", () => {
++  const files = [resolve(projectRoot, "index.html"), ...sourceFiles(srcDir)];
++  const read = (file: string): string => readFileSync(file, "utf8");
++
++  it.each(files.map((file) => relative(projectRoot, file)))("%s has no image references nor sketch files", (file) => {
++    const text = read(resolve(projectRoot, file));
++    for (const fragment of ["data:image", ".png", ".jpg", ".webp", "boceto"]) {
++      expect(text.toLowerCase(), fragment).not.toContain(fragment);
++    }
++    if (file.endsWith(".css")) expect(text).not.toMatch(/url\(/i);
++    for (const host of ["fonts.googleapis", "fonts.gstatic"]) {
++      expect(text, host).not.toContain(`${host}.com`);
++    }
++  });
++
++  it("keeps public/ without files", () => {
++    const publicDir = resolve(projectRoot, "public");
++    expect(existsSync(publicDir) ? readdirSync(publicDir) : []).toEqual([]);
++  });
++
++  it("uses no HTML-string DOM API in any non-test .ts of src/ (D-04)", () => {
++    for (const file of files.filter((path) => path.endsWith(".ts"))) {
++      for (const api of ["innerHTML", "outerHTML", "insertAdjacentHTML", "DOMParser"]) {
++        expect(read(file), `${relative(projectRoot, file)} contains ${api}`).not.toContain(api);
++      }
++    }
++  });
++
++  it("adds no <link> and no external <script> to index.html", () => {
++    const doc = indexDoc();
++    expect(doc.querySelectorAll("link")).toHaveLength(0);
++    expect(Array.from(doc.querySelectorAll("script"), (script) => script.getAttribute("src"))).toEqual(["/src/main.ts"]);
++  });
++});
+diff --git a/src/sections/decor.test.ts b/src/sections/decor.test.ts
+new file mode 100644
+index 0000000..fc90669
+--- /dev/null
++++ b/src/sections/decor.test.ts
+@@ -0,0 +1,127 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++import type { Business } from "../data/business";
++import { createIcon } from "./icons";
++import { renderLocation } from "./location";
++import { renderMenu } from "./menu";
++import { createReserveButton } from "./reserve";
++
++// T-20261117-001: decorative icons in the Menú, Horario y ubicación and reserve button (CA-6, CA-7, CA-9, CA-10).
++// Separate file so menu.test.ts, location.test.ts and reserve.test.ts stay unchanged.
++
++const sectionsDir = dirname(fileURLToPath(import.meta.url));
++const readSource = (file: string): string => readFileSync(resolve(sectionsDir, file), "utf8");
++const SVG_NS = "http://www.w3.org/2000/svg";
++
++// Same shapes as the icon of icons.ts: compares tag names and attributes of the whole tree.
++const signature = (svg: Element): string[] =>
++  [svg, ...Array.from(svg.querySelectorAll("*"))].map(
++    (node) =>
++      `${node.tagName}|${Array.from(node.attributes)
++        .filter((attr) => attr.name !== "class" || node !== svg)
++        .map((attr) => `${attr.name}=${attr.value}`)
++        .sort()
++        .join(";")}`,
++  );
++
++const MENU: Business["menu"] = {
++  drinks: [{ name: "Té verde", price: 30 }],
++  desserts: [{ name: "Flan napolitano con un nombre muy largo para partirse", price: 52 }],
++};
++const MONEY = { locale: "es-MX", currency: "MXN" };
++
++const LOCATION: Pick<Business, "hours" | "address" | "coordinates"> = {
++  hours: [
++    { day: "Lunes", closed: true },
++    { day: "Martes", open: "07:30", close: "19:00" },
++  ],
++  address: "Avenida de Prueba 456, Col. Pruebas",
++  coordinates: { lat: 20.6597, lng: -103.3496 },
++};
++
++const URL_OK = "https://wa.me/521234567890?text=Hola%20prueba";
++
++describe("T-20261117-001 CA-6: cup and cake icons in the menu headings", () => {
++  const headings = Array.from(renderMenu(MENU, MONEY).querySelectorAll("h3"));
++
++  it.each([
++    [0, "Bebidas", "cup"],
++    [1, "Postres", "cake"],
++  ] as const)("h3 #%i (%s) starts with the %s icon, class menu__icon, and keeps its exact text", (index, text, icon) => {
++    const heading = headings[index];
++    const svg = heading?.firstChild;
++    expect(svg).toBeInstanceOf(SVGSVGElement);
++    expect((svg as Element).getAttribute("class")).toBe("menu__icon");
++    expect(signature(svg as Element)).toEqual(signature(createIcon(icon)));
++    expect(heading?.textContent).toBe(text);
++    expect(heading?.querySelectorAll("svg")).toHaveLength(1);
++  });
++});
++
++describe("T-20261117-001 CA-7: the menu rows keep their DOM (dots are CSS only)", () => {
++  it("keeps every row as div.menu__item > dt + dd with the same text and no extra nodes", () => {
++    const element = renderMenu(MENU, MONEY);
++    for (const row of element.querySelectorAll(".menu__item")) {
++      expect(row.tagName).toBe("DIV");
++      expect(Array.from(row.childNodes).map((node) => node.nodeName)).toEqual(["DT", "DD"]);
++      for (const cell of row.children) {
++        expect(Array.from(cell.childNodes).map((node) => node.nodeType)).toEqual([Node.TEXT_NODE]);
++      }
++    }
++    expect(element.querySelector("dt")?.textContent).toBe("Té verde");
++  });
++});
++
++describe("T-20261117-001 CA-9: calendar and pin icons in the location headings", () => {
++  const headings = Array.from(renderLocation(LOCATION).querySelectorAll("h3"));
++
++  it.each([
++    [0, "Horario", "calendar"],
++    [1, "Dirección", "pin"],
++  ] as const)("h3 #%i (%s) starts with the %s icon, class location__icon, and keeps its exact text", (index, text, icon) => {
++    const heading = headings[index];
++    const svg = heading?.firstChild;
++    expect(svg).toBeInstanceOf(SVGSVGElement);
++    expect((svg as Element).getAttribute("class")).toBe("location__icon");
++    expect(signature(svg as Element)).toEqual(signature(createIcon(icon)));
++    expect(heading?.textContent).toBe(text);
++    expect(heading?.querySelectorAll("svg")).toHaveLength(1);
++  });
++
++  it("keeps the id of the Horario heading that names the table", () => {
++    expect(headings[0]?.id).toBe("horario-semana-titulo");
++  });
++
++  it("imports createIcon from ./icons and leaves the map constants as they were", () => {
++    const source = readSource("location.ts");
++    expect(source).toMatch(/import\s*\{[^}]*\bcreateIcon\b[^}]*\}\s*from\s*["']\.\/icons["']/);
++    expect(source).toContain('const MAP_URL_PREFIX = "https://www.openstreetmap.org/export/embed.html?";');
++    expect(source).toContain('const DIRECTIONS_URL_PREFIX = "https://www.google.com/maps/search/?";');
++    expect(source).toContain(
++      'const MAP_SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";',
++    );
++  });
++});
++
++describe("T-20261117-001 CA-10: WhatsApp glyph in the reserve button", () => {
++  it("starts with the whatsapp icon of icons.ts, class btn__icon, in currentColor", () => {
++    const button = createReserveButton(URL_OK);
++    const svg = button.firstChild as Element;
++    expect(svg.namespaceURI).toBe(SVG_NS);
++    expect(svg.getAttribute("class")).toBe("btn__icon");
++    expect(signature(svg)).toEqual(signature(createIcon("whatsapp")));
++    expect(button.querySelectorAll("svg")).toHaveLength(1);
++    expect(button.className).toBe("btn btn--whatsapp");
++  });
++
++  it("removes CHAT_ICON_PATH and createChatIcon from reserve.ts and uses createIcon", () => {
++    const source = readSource("reserve.ts");
++    expect(source).not.toContain("CHAT_ICON_PATH");
++    expect(source).not.toContain("createChatIcon");
++    expect(source).not.toContain("createElementNS");
++    expect(source).toMatch(/import\s*\{\s*createIcon\s*\}\s*from\s*["']\.\/icons["']/);
++    expect(source).toContain('createIcon("whatsapp", "btn__icon")');
++  });
++});
+diff --git a/src/sections/hero.test.ts b/src/sections/hero.test.ts
+index 9028b4a..0afe70d 100644
+--- a/src/sections/hero.test.ts
++++ b/src/sections/hero.test.ts
+@@ -4,12 +4,16 @@ import { renderHero } from "./hero";
+ const URL_OK = "https://wa.me/521234567890?text=Hola%20prueba";
+ const content = { name: "Café de Prueba", slogan: "Un eslogan de prueba" };
+ 
++// T-20261117-001 CA-4: decorative svg[aria-hidden="true"] children are ignored when checking the order.
++const isDecorativeSvg = (node: Node): boolean =>
++  node instanceof SVGSVGElement && node.getAttribute("aria-hidden") === "true";
++
+ describe("CA-7: renderHero({ name, slogan }, reserveUrl)", () => {
+   it("renders <h1> name, then <p> slogan, then the reserve button, and nothing else before it", () => {
+     const hero = renderHero(content, URL_OK);
+-    const children = Array.from(hero.children);
++    const children = Array.from(hero.children).filter((child) => !isDecorativeSvg(child));
+     expect(children.map((child) => child.tagName)).toEqual(["H1", "P", "A"]);
+-    expect(hero.firstChild).toBe(children[0]);
++    expect(Array.from(hero.childNodes).find((node) => !isDecorativeSvg(node))).toBe(children[0]);
+     expect(children[0]?.textContent).toBe(content.name);
+     expect(children[1]?.textContent).toBe(content.slogan);
+     expect(children[2]?.getAttribute("href")).toBe(URL_OK);
+@@ -32,3 +36,47 @@ describe("CA-8: data is rendered as text, never as HTML", () => {
+     expect(hero.querySelector("p")?.textContent).toBe(payload);
+   });
+ });
++
++describe("T-20261117-001 CA-4: moon in the hero", () => {
++  it("has a decorative <svg class=hero__moon> before the <h1>", () => {
++    const hero = renderHero(content, URL_OK);
++    const moon = hero.querySelector(":scope > svg.hero__moon");
++    const title = hero.querySelector(":scope > h1");
++    expect(moon).not.toBeNull();
++    expect(moon?.getAttribute("aria-hidden")).toBe("true");
++    expect(title).not.toBeNull();
++    expect(moon?.compareDocumentPosition(title as Node)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
++    expect(hero.firstElementChild).toBe(moon);
++  });
++
++  it("keeps the non-SVG children as H1, P, A with the same text, id, href and class", () => {
++    const hero = renderHero(content, URL_OK);
++    const others = Array.from(hero.children).filter((child) => child.namespaceURI !== "http://www.w3.org/2000/svg");
++    expect(others.map((child) => child.tagName)).toEqual(["H1", "P", "A"]);
++    expect(others[0]?.id).toBe("inicio-titulo");
++    expect(others[0]?.textContent).toBe(content.name);
++    expect(others[1]?.textContent).toBe(content.slogan);
++    expect(others[2]?.getAttribute("href")).toBe(URL_OK);
++    expect(others[2]?.classList.contains("btn--whatsapp")).toBe(true);
++  });
++});
++
++describe("T-20261117-001 CA-5: cup illustration for wide screens", () => {
++  it("includes one decorative <svg class=hero__art>, a direct child after the button", () => {
++    const hero = renderHero(content, URL_OK);
++    const art = hero.querySelectorAll(":scope > svg.hero__art");
++    expect(art).toHaveLength(1);
++    expect(art[0]?.getAttribute("aria-hidden")).toBe("true");
++    expect(hero.lastElementChild).toBe(art[0]);
++    expect(art[0]?.querySelector(".hero__art-cup")).not.toBeNull();
++    expect(art[0]?.querySelector(".hero__art-saucer")).not.toBeNull();
++    expect(art[0]?.querySelectorAll(".hero__art-steam").length).toBeGreaterThan(0);
++  });
++
++  it("has exactly two SVGs outside the button: the moon and the cup", () => {
++    const hero = renderHero(content, URL_OK);
++    const outside = Array.from(hero.querySelectorAll("svg")).filter((svg) => !svg.closest("a"));
++    expect(outside.map((svg) => svg.getAttribute("class"))).toEqual(["hero__moon", "hero__art"]);
++    expect(hero.textContent).toBe(`${content.name}${content.slogan}Reservar mesa por WhatsApp`);
++  });
++});
+diff --git a/src/sections/hero.ts b/src/sections/hero.ts
+index 4a2e389..16db557 100644
+--- a/src/sections/hero.ts
++++ b/src/sections/hero.ts
+@@ -1,4 +1,5 @@
+-﻿import { createReserveButton } from "./reserve";
++﻿import { createIcon } from "./icons";
++import { createReserveButton } from "./reserve";
+ 
+ /** Hero data; it comes from src/data/business.ts through main.ts, never imported here (D-00). */
+ export interface HeroContent {
+@@ -22,6 +23,13 @@ export function renderHero({ name, slogan }: HeroContent, reserveUrl: string): H
+   tagline.className = "hero__slogan";
+   tagline.textContent = slogan;
+ 
+-  content.append(title, tagline, createReserveButton(reserveUrl));
++  // Decorative, aria-hidden: the moon above the title and the cup illustration (hidden below 768 px by hero.css).
++  content.append(
++    createIcon("moon", "hero__moon"),
++    title,
++    tagline,
++    createReserveButton(reserveUrl),
++    createIcon("cup-art", "hero__art"),
++  );
+   return content;
+ }
+diff --git a/src/sections/icons.test.ts b/src/sections/icons.test.ts
+new file mode 100644
+index 0000000..b2c1235
+--- /dev/null
++++ b/src/sections/icons.test.ts
+@@ -0,0 +1,104 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++import { ICON_NAMES, createIcon, type IconName } from "./icons";
++
++// T-20261117-001 CA-1: a single module draws every decorative SVG with the DOM API.
++
++const sectionsDir = dirname(fileURLToPath(import.meta.url));
++const SVG_NS = "http://www.w3.org/2000/svg";
++const NAMES: IconName[] = ["moon", "cup", "cake", "calendar", "pin", "whatsapp", "cup-art"];
++const FORBIDDEN_TAGS = ["title", "desc", "text", "image", "use", "foreignobject", "script"];
++
++const allNodes = (svg: SVGSVGElement): Element[] => [svg, ...Array.from(svg.querySelectorAll("*"))];
++
++describe("T-20261117-001 CA-1: createIcon(name) returns a decorative SVGSVGElement", () => {
++  it("exports exactly the seven icon names", () => {
++    expect([...ICON_NAMES].sort()).toEqual([...NAMES].sort());
++  });
++
++  it.each(NAMES)("%s is an <svg> in the SVG namespace with at least one shape", (name) => {
++    const svg = createIcon(name);
++    expect(svg).toBeInstanceOf(SVGSVGElement);
++    expect(svg.namespaceURI).toBe(SVG_NS);
++    expect(svg.tagName).toBe("svg");
++    expect(svg.querySelectorAll("path, circle, ellipse, rect, line").length).toBeGreaterThan(0);
++    for (const node of allNodes(svg)) {
++      expect(node.namespaceURI, node.tagName).toBe(SVG_NS);
++    }
++  });
++
++  it.each(NAMES)("(a) %s has aria-hidden, focusable=false and a viewBox", (name) => {
++    const svg = createIcon(name);
++    expect(svg.getAttribute("aria-hidden")).toBe("true");
++    expect(svg.getAttribute("focusable")).toBe("false");
++    expect(svg.getAttribute("viewBox")).toMatch(/^\d+ \d+ \d+ \d+$/);
++    expect(svg.hasAttribute("tabindex")).toBe(false);
++  });
++
++  it.each(NAMES)("(b) %s has no forbidden element or attribute", (name) => {
++    for (const node of allNodes(createIcon(name))) {
++      expect(FORBIDDEN_TAGS, node.tagName).not.toContain(node.tagName.toLowerCase());
++      for (const attr of Array.from(node.attributes)) {
++        expect(["href", "xlink:href", "style"], `${node.tagName} ${attr.name}`).not.toContain(attr.name.toLowerCase());
++        expect(attr.name.toLowerCase().startsWith("on"), `${node.tagName} ${attr.name}`).toBe(false);
++      }
++    }
++  });
++
++  it.each(NAMES)("(c) %s only uses currentColor or none in fill and stroke", (name) => {
++    for (const node of allNodes(createIcon(name))) {
++      for (const attr of ["fill", "stroke"]) {
++        if (node.hasAttribute(attr)) {
++          expect(["currentColor", "none"], `${node.tagName} ${attr}`).toContain(node.getAttribute(attr));
++        }
++      }
++    }
++  });
++
++  it.each(NAMES)("(d) %s has an empty textContent", (name) => {
++    expect(createIcon(name).textContent).toBe("");
++  });
++
++  it("puts the optional class name on the <svg>", () => {
++    expect(createIcon("moon", "hero__moon").getAttribute("class")).toBe("hero__moon");
++    expect(createIcon("cup").hasAttribute("class")).toBe(false);
++  });
++
++  it("returns a new element on every call", () => {
++    expect(createIcon("pin")).not.toBe(createIcon("pin"));
++  });
++
++  it("gives the cup-art parts their own classes so hero.css can color them with tokens", () => {
++    const art = createIcon("cup-art", "hero__art");
++    const classes = new Set(Array.from(art.querySelectorAll("[class]"), (node) => node.getAttribute("class")));
++    for (const part of ["hero__art-saucer", "hero__art-cup", "hero__art-coffee", "hero__art-steam", "hero__art-moon"]) {
++      expect(classes, part).toContain(part);
++    }
++  });
++});
++
++describe("T-20261117-001 CA-1: icons.ts source", () => {
++  const source = readFileSync(resolve(sectionsDir, "icons.ts"), "utf8");
++
++  it("creates the elements with createElementNS and the SVG namespace", () => {
++    expect(source).toContain("createElementNS");
++    expect(source).toContain(SVG_NS);
++  });
++
++  it("has no color literals", () => {
++    expect(source).not.toMatch(/#[0-9a-f]{3}(?:[0-9a-f]{3})?(?![\w-])/i);
++    expect(source).not.toMatch(/\b(rgba?|hsla?)\(/i);
++  });
++
++  it("uses no HTML-string DOM API", () => {
++    for (const api of ["innerHTML", "outerHTML", "insertAdjacentHTML", "DOMParser"]) {
++      expect(source, `icons.ts contains ${api}`).not.toContain(api);
++    }
++  });
++
++  it("has at most 200 lines", () => {
++    expect(source.replace(/\r?\n$/, "").split(/\r?\n/).length).toBeLessThanOrEqual(200);
++  });
++});
+diff --git a/src/sections/icons.ts b/src/sections/icons.ts
+new file mode 100644
+index 0000000..31187a1
+--- /dev/null
++++ b/src/sections/icons.ts
+@@ -0,0 +1,137 @@
++/**
++ * Decorative SVG icons, drawn with the DOM API (createElementNS, never HTML strings: D-04).
++ * Every icon is aria-hidden and not focusable, has no text, and paints only with currentColor or
++ * none: the real colors come from the section stylesheets through var(--…) tokens (D-02).
++ * The moon of the header and the footer is static in index.html and reuses MOON_PATH.
++ */
++
++const SVG_NS = "http://www.w3.org/2000/svg";
++
++export const ICON_NAMES = ["moon", "cup", "cake", "calendar", "pin", "whatsapp", "cup-art"] as const;
++export type IconName = (typeof ICON_NAMES)[number];
++
++type Attributes = Readonly<Record<string, string>>;
++type Shape = readonly ["path" | "circle" | "ellipse" | "rect", Attributes];
++
++interface IconDefinition {
++  viewBox: string;
++  /** Presentation attributes of the <svg>, inherited by its shapes. */
++  base: Attributes;
++  shapes: readonly Shape[];
++}
++
++const FILLED: Attributes = { fill: "currentColor" };
++const OUTLINE: Attributes = {
++  fill: "none",
++  stroke: "currentColor",
++  "stroke-width": "2",
++  "stroke-linecap": "round",
++  "stroke-linejoin": "round",
++};
++
++const path = (d: string, extra: Attributes = {}): Shape => ["path", { d, ...extra }];
++
++// Crescent moon opening to the upper right (24 × 24).
++export const MOON_PATH = "M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z";
++
++// Simplified, monochrome WhatsApp glyph: round speech bubble with a tail and a handset inside.
++const WHATSAPP_BUBBLE = "M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z";
++const WHATSAPP_HANDSET =
++  "M8.6 7.4C9 7.2 9.4 7.3 9.6 7.7l1 1.8c.1.3 0 .6-.2.8l-.5.5c.7 1.3 2 2.6 3.3 3.3l.5-.5c.2-.2.5-.3.8-.2" +
++  "l1.8 1c.4.2.5.6.3 1-.5 1-1.6 1.5-2.7 1.2-2.8-.8-5.7-3.7-6.5-6.5-.3-1.1.2-2.2 1.2-2.7z";
++
++// Desktop illustration (280 × 200): cup with saucer, steam, a moon on the cup, sparks and a sprig.
++// Each part has a class so hero.css can give it a token color (fill/stroke from CSS).
++const ART_LINE: Attributes = { fill: "none", stroke: "currentColor", "stroke-linecap": "round" };
++const ART_SHAPE: Attributes = { fill: "currentColor", stroke: "currentColor", "stroke-width": "5" };
++const CUP_ART: readonly Shape[] = [
++  ["ellipse", { class: "hero__art-shadow", cx: "115", cy: "184", rx: "100", ry: "9", fill: "currentColor" }],
++  ["ellipse", { class: "hero__art-saucer", cx: "115", cy: "168", rx: "82", ry: "16", ...ART_SHAPE }],
++  path("M180 100c26-6 40 10 32 28c-6 13-22 18-38 20", { class: "hero__art-handle", ...ART_LINE, "stroke-width": "8" }),
++  path("M47 88H183C183 136 157 164 115 164C73 164 47 136 47 88Z", { class: "hero__art-cup", ...ART_SHAPE }),
++  ["ellipse", { class: "hero__art-cup", cx: "115", cy: "88", rx: "68", ry: "12", ...ART_SHAPE }],
++  ["ellipse", { class: "hero__art-coffee", cx: "115", cy: "89", rx: "56", ry: "7", fill: "currentColor" }],
++  path("M129 134a18 18 0 0 1-23.5-23.5a18 18 0 1 0 23.5 23.5z", { class: "hero__art-moon", fill: "currentColor" }),
++  path("M93 66c-10-12 10-20 0-34", { class: "hero__art-steam", ...ART_LINE, "stroke-width": "5" }),
++  path("M115 62c-10-12 10-20 0-34", { class: "hero__art-steam", ...ART_LINE, "stroke-width": "5" }),
++  path("M137 66c-10-12 10-20 0-34", { class: "hero__art-steam", ...ART_LINE, "stroke-width": "5" }),
++  path("M34 70l-14-8M30 92H14M44 52l-8-13", { class: "hero__art-spark", ...ART_LINE, "stroke-width": "5" }),
++  path("M236 176c4-34 12-60 30-84", { class: "hero__art-leaf", ...ART_LINE, "stroke-width": "4" }),
++  path(
++    "M240 146c-14-4-20-16-17-28c13 4 19 16 17 28zM250 116c-12-6-16-18-11-29c11 6 15 18 11 29z" +
++      "M244 160c6-13 18-18 28-13c-5 12-17 17-28 13z",
++    { class: "hero__art-leaf", fill: "currentColor" },
++  ),
++];
++
++const ICONS: Record<IconName, IconDefinition> = {
++  moon: { viewBox: "0 0 24 24", base: FILLED, shapes: [path(MOON_PATH)] },
++  cup: {
++    viewBox: "0 0 24 24",
++    base: OUTLINE,
++    shapes: [
++      path("M5 10h11v3.5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"),
++      path("M16 11h1a3 3 0 0 1 0 6h-1.6"),
++      path("M3.5 21h15"),
++      path("M9 7.5c-1.2-1.3 1.2-2.2 0-4.5M13 7.5c-1.2-1.3 1.2-2.2 0-4.5"),
++    ],
++  },
++  cake: {
++    viewBox: "0 0 24 24",
++    base: OUTLINE,
++    shapes: [
++      path("M3 12 19.2 5.6a1.5 1.5 0 0 1 1.8 1.4V12"),
++      ["rect", { x: "3", y: "12", width: "18", height: "8", rx: "1" }],
++      path("M3 16h18"),
++      ["circle", { cx: "17", cy: "3.2", r: "1.2" }],
++    ],
++  },
++  calendar: {
++    viewBox: "0 0 24 24",
++    base: OUTLINE,
++    shapes: [
++      ["rect", { x: "3", y: "5", width: "18", height: "16", rx: "2" }],
++      path("M3 10h18M8 3v4M16 3v4"),
++    ],
++  },
++  pin: {
++    viewBox: "0 0 24 24",
++    base: OUTLINE,
++    shapes: [
++      path("M12 21.5s-7-6.1-7-11.5a7 7 0 0 1 14 0c0 5.4-7 11.5-7 11.5z"),
++      ["circle", { cx: "12", cy: "10", r: "2.5" }],
++    ],
++  },
++  whatsapp: {
++    viewBox: "0 0 24 24",
++    base: {},
++    shapes: [
++      path(WHATSAPP_BUBBLE, { fill: "none", stroke: "currentColor", "stroke-width": "1.8", "stroke-linejoin": "round" }),
++      path(WHATSAPP_HANDSET, { fill: "currentColor" }),
++    ],
++  },
++  "cup-art": { viewBox: "0 0 280 200", base: {}, shapes: CUP_ART },
++};
++
++function setAttributes(element: Element, attributes: Attributes): void {
++  for (const [name, value] of Object.entries(attributes)) {
++    element.setAttribute(name, value);
++  }
++}
++
++/** Returns a new decorative <svg> for `name`, with `className` on the root when given. */
++export function createIcon(name: IconName, className?: string): SVGSVGElement {
++  const { viewBox, base, shapes } = ICONS[name];
++  const svg = document.createElementNS(SVG_NS, "svg");
++  if (className) svg.setAttribute("class", className);
++  svg.setAttribute("viewBox", viewBox);
++  svg.setAttribute("aria-hidden", "true");
++  svg.setAttribute("focusable", "false");
++  setAttributes(svg, base);
++  for (const [tag, attributes] of shapes) {
++    const shape = document.createElementNS(SVG_NS, tag);
++    setAttributes(shape, attributes);
++    svg.append(shape);
++  }
++  return svg;
++}
+diff --git a/src/sections/location.ts b/src/sections/location.ts
+index e86f018..73f516c 100644
+--- a/src/sections/location.ts
++++ b/src/sections/location.ts
+@@ -1,5 +1,6 @@
+ import type { Business, DayHours } from "../data/business";
+ import { buildDirectionsUrl, buildMapEmbedUrl } from "../lib/maps";
++import { createIcon, type IconName } from "./icons";
+ 
+ /**
+  * "Horario y ubicación" section: an hours card (table) and the place block (address, OpenStreetMap
+@@ -26,10 +27,11 @@ const LINK_LABEL = `${LINK_TEXT} (se abre en una pestaña nueva)`;
+ // Never add allow-top-navigation*, allow-forms, allow-modals, allow-downloads or allow-pointer-lock.
+ const MAP_SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";
+ 
+-function createTitle(text: string): HTMLHeadingElement {
++// Decorative icon first; the heading's text stays exactly `text`.
++function createTitle(text: string, icon: IconName): HTMLHeadingElement {
+   const heading = document.createElement("h3");
+   heading.className = "location__title";
+-  heading.textContent = text;
++  heading.append(createIcon(icon, "location__icon"), text);
+   return heading;
+ }
+ 
+@@ -54,7 +56,7 @@ function renderHoursRow(entry: DayHours): HTMLTableRowElement {
+ function renderHours(hours: DayHours[]): HTMLElement {
+   const card = document.createElement("div");
+   card.className = "location__hours";
+-  const heading = createTitle(HOURS_TITLE);
++  const heading = createTitle(HOURS_TITLE, "calendar");
+   heading.id = HOURS_TITLE_ID;
+ 
+   const table = document.createElement("table");
+@@ -113,7 +115,7 @@ function renderPlace(address: string, coordinates: Location["coordinates"]): HTM
+   map.className = "location__map";
+   map.append(createMap(mapUrl));
+ 
+-  place.append(createTitle(PLACE_TITLE), addressElement, map, createDirectionsLink(directionsUrl));
++  place.append(createTitle(PLACE_TITLE, "pin"), addressElement, map, createDirectionsLink(directionsUrl));
+   return place;
+ }
+ 
+diff --git a/src/sections/menu.ts b/src/sections/menu.ts
+index d8b2289..edaeee8 100644
+--- a/src/sections/menu.ts
++++ b/src/sections/menu.ts
+@@ -1,5 +1,6 @@
+ import type { Business, MenuItem } from "../data/business";
+ import { formatPrice } from "../lib/formatPrice";
++import { createIcon, type IconName } from "./icons";
+ 
+ /**
+  * "Menú" section: one card per group (Bebidas, Postres), each a <dl> of name + price rows.
+@@ -12,13 +13,14 @@ export interface Money {
+   currency: string;
+ }
+ 
+-function renderGroup(title: string, items: MenuItem[], money: Money): HTMLElement {
++function renderGroup(title: string, icon: IconName, items: MenuItem[], money: Money): HTMLElement {
+   const group = document.createElement("div");
+   group.className = "menu__group";
+ 
++  // Decorative icon first; the heading's text stays exactly `title`.
+   const heading = document.createElement("h3");
+   heading.className = "menu__title";
+-  heading.textContent = title;
++  heading.append(createIcon(icon, "menu__icon"), title);
+ 
+   const list = document.createElement("dl");
+   list.className = "menu__list";
+@@ -42,6 +44,9 @@ function renderGroup(title: string, items: MenuItem[], money: Money): HTMLElemen
+ export function renderMenu(menu: Business["menu"], money: Money): HTMLElement {
+   const container = document.createElement("div");
+   container.className = "menu";
+-  container.append(renderGroup("Bebidas", menu.drinks, money), renderGroup("Postres", menu.desserts, money));
++  container.append(
++    renderGroup("Bebidas", "cup", menu.drinks, money),
++    renderGroup("Postres", "cake", menu.desserts, money),
++  );
+   return container;
+ }
+diff --git a/src/sections/reserve.ts b/src/sections/reserve.ts
+index bca141c..4729e78 100644
+--- a/src/sections/reserve.ts
++++ b/src/sections/reserve.ts
+@@ -3,7 +3,8 @@
+  * The URL arrives as a parameter, already built by buildWhatsAppUrl (D-00, D-05): never rebuilt here.
+  */
+ 
+-const SVG_NS = "http://www.w3.org/2000/svg";
++import { createIcon } from "./icons";
++
+ const WHATSAPP_URL_PREFIX = "https://wa.me/";
+ 
+ const BUTTON_TEXT = "Reservar mesa por WhatsApp";
+@@ -12,23 +13,6 @@ const BUTTON_LABEL = `${BUTTON_TEXT} (se abre en una pestaña nueva)`;
+ const RESERVE_TEXT =
+   "¿Quieres asegurar tu mesa? Escríbenos por WhatsApp con la fecha, la hora y cuántas personas vienen. Te respondemos para confirmarla.";
+ 
+-// Speech bubble outline, drawn with the DOM API (no HTML strings).
+-const CHAT_ICON_PATH =
+-  "M4 3h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z";
+-
+-function createChatIcon(): SVGSVGElement {
+-  const svg = document.createElementNS(SVG_NS, "svg");
+-  svg.setAttribute("class", "btn__icon");
+-  svg.setAttribute("viewBox", "0 0 24 24");
+-  svg.setAttribute("aria-hidden", "true");
+-  svg.setAttribute("focusable", "false");
+-  const path = document.createElementNS(SVG_NS, "path");
+-  path.setAttribute("d", CHAT_ICON_PATH);
+-  path.setAttribute("fill", "currentColor");
+-  svg.append(path);
+-  return svg;
+-}
+-
+ export function createReserveButton(url: string): HTMLAnchorElement {
+   // Guard: only a wa.me link may reach the href (blocks javascript: and other schemes).
+   if (!url.startsWith(WHATSAPP_URL_PREFIX)) {
+@@ -42,7 +26,8 @@ export function createReserveButton(url: string): HTMLAnchorElement {
+   link.setAttribute("aria-label", BUTTON_LABEL);
+   const label = document.createElement("span");
+   label.textContent = BUTTON_TEXT;
+-  link.append(createChatIcon(), label);
++  // Decorative WhatsApp glyph (aria-hidden, currentColor = on-whatsapp) before the visible text.
++  link.append(createIcon("whatsapp", "btn__icon"), label);
+   return link;
+ }
+ 
+diff --git a/src/styles/decor.test.ts b/src/styles/decor.test.ts
+new file mode 100644
+index 0000000..b659eee
+--- /dev/null
++++ b/src/styles/decor.test.ts
+@@ -0,0 +1,195 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++
++// T-20261117-001: decorative styles of each section, read from its own stylesheet (CA-3 to CA-11).
++
++const stylesDir = dirname(fileURLToPath(import.meta.url));
++const stripComments = (css: string): string => css.replace(/\/\*[\s\S]*?\*\//g, "");
++const normalize = (value: string): string => value.replace(/\s+/g, " ").trim();
++const MD = "@media (min-width: 768px)";
++
++interface CssRule {
++  context: string;
++  selectors: string[];
++  body: string;
++}
++
++// Top-level rules and rules one level inside an @-block (same approach as split.test.ts).
++const parseCss = (file: string): CssRule[] => {
++  const css = stripComments(readFileSync(resolve(stylesDir, file), "utf8"));
++  const rules: CssRule[] = [];
++  const toRule = (context: string, prelude: string, body: string): CssRule => ({
++    context,
++    selectors: prelude.split(",").map(normalize).filter(Boolean),
++    body: normalize(body),
++  });
++  let index = 0;
++  while (index < css.length) {
++    const open = css.indexOf("{", index);
++    if (open < 0) break;
++    const prelude = css.slice(index, open);
++    if (prelude.trim().startsWith("@")) {
++      let depth = 0;
++      let end = open;
++      for (; end < css.length; end += 1) {
++        if (css[end] === "{") depth += 1;
++        if (css[end] === "}") depth -= 1;
++        if (depth === 0) break;
++      }
++      const context = normalize(prelude).replace(/\(\s*/g, "(").replace(/\s*\)/g, ")").replace(/\s*:\s*/g, ": ");
++      for (const match of css.slice(open + 1, end).matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
++        rules.push(toRule(context, match[1] ?? "", match[2] ?? ""));
++      }
++      index = end + 1;
++    } else {
++      const close = css.indexOf("}", open);
++      rules.push(toRule("", prelude, css.slice(open + 1, close)));
++      index = close + 1;
++    }
++  }
++  return rules;
++};
++
++const declarations = (body: string): Map<string, string> => {
++  const map = new Map<string, string>();
++  for (const part of body.split(";")) {
++    const colon = part.indexOf(":");
++    if (colon >= 0) map.set(part.slice(0, colon).trim(), part.slice(colon + 1).trim());
++  }
++  return map;
++};
++
++// Merged declarations of every rule of `file` whose selector list contains `selector`, in `context`.
++const decl = (file: string, selector: string, context = ""): Map<string, string> =>
++  new Map(
++    parseCss(file)
++      .filter((rule) => rule.context === context && rule.selectors.includes(selector))
++      .flatMap((rule) => [...declarations(rule.body)]),
++  );
++
++const SIZE = /^(\d*\.?\d+em|var\(--[\w-]+\))$/;
++
++describe("T-20261117-001 CA-3: header.css only gains .brand__icon", () => {
++  it(".brand__icon is sized in em or tokens, does not shrink and is painted in secondary", () => {
++    const icon = decl("header.css", ".brand__icon");
++    expect(icon.get("flex")).toBe("none");
++    expect(icon.get("width")).toMatch(SIZE);
++    expect(icon.get("height")).toMatch(SIZE);
++    expect(icon.get("color")).toBe("var(--color-secondary)");
++  });
++
++  it("keeps .brand and .brand:focus-visible exactly as before", () => {
++    expect(Object.fromEntries(decl("header.css", ".brand"))).toEqual({
++      display: "inline-flex",
++      "align-items": "center",
++      "min-height": "var(--header-height)",
++      "padding-inline": "var(--space-2)",
++      "margin-inline": "calc(-1 * var(--space-2))",
++      "font-family": "var(--font-heading)",
++      "font-weight": "700",
++      "font-size": "var(--text-lg)",
++      "line-height": "var(--leading-heading)",
++      color: "var(--color-text)",
++      "text-decoration": "none",
++    });
++    expect(Object.fromEntries(decl("header.css", ".brand:focus-visible"))).toEqual({ "outline-offset": "-3px" });
++  });
++});
++
++describe("T-20261117-001 CA-4 and CA-5: hero.css paints the moon and shows the cup from 768 px", () => {
++  it(".hero__moon is painted in secondary and does not shrink", () => {
++    expect(decl("hero.css", ".hero__moon").get("color")).toBe("var(--color-secondary)");
++    expect(decl("hero.css", ".hero__moon").get("flex")).toBe("none");
++  });
++
++  it(".hero__art is hidden at the base and shown from 768 px in the second column", () => {
++    expect(decl("hero.css", ".hero__art").get("display")).toBe("none");
++    const md = decl("hero.css", ".hero__art", MD);
++    expect(md.get("display")).toBe("block");
++    expect(md.get("grid-column")).toBe("2");
++  });
++
++  it("turns .hero__content into two columns from 768 px", () => {
++    const md = decl("hero.css", ".hero__content", MD);
++    expect(md.get("display")).toBe("grid");
++    expect(md.get("grid-template-columns")).toBe("minmax(0, 1fr) auto");
++  });
++
++  it("colors the cup parts only with the allowed tokens", () => {
++    const ALLOWED = ["primary", "secondary", "surface", "border", "text-muted"].map((t) => `var(--color-${t})`);
++    const parts = parseCss("hero.css").filter((rule) => rule.selectors.some((s) => s.startsWith(".hero__art")));
++    expect(parts.length).toBeGreaterThan(0);
++    for (const rule of parts) {
++      for (const [property, value] of declarations(rule.body)) {
++        if (["color", "fill", "stroke"].includes(property)) expect(ALLOWED, `${rule.selectors} ${property}`).toContain(value);
++      }
++    }
++  });
++});
++
++describe("T-20261117-001 CA-6 and CA-7: menu.css icons and dotted leaders", () => {
++  it(".menu__title lines up icon and text with a token gap; .menu__icon is primary", () => {
++    const title = decl("menu.css", ".menu__title");
++    expect(title.get("display")).toBe("flex");
++    expect(title.get("align-items")).toBe("center");
++    expect(title.get("gap")).toMatch(/^var\(--space-\d\)$/);
++    expect(decl("menu.css", ".menu__icon").get("color")).toBe("var(--color-primary)");
++    expect(decl("menu.css", ".menu__icon").get("flex")).toBe("none");
++  });
++
++  it("draws a flexible dotted ::after on the name, colored with a token", () => {
++    const name = decl("menu.css", ".menu__name");
++    expect(name.get("display")).toBe("flex");
++    const dots = decl("menu.css", ".menu__name::after");
++    expect(dots.get("content")).toBe('""');
++    expect(dots.get("flex")).toMatch(/^1 1 /);
++    expect(dots.get("min-width")).toBe("0");
++    expect(dots.get("border-bottom")).toMatch(/^\S+ dotted var\(--color-[\w-]+\)$/);
++  });
++
++  it("removes the solid separator between rows", () => {
++    expect(parseCss("menu.css").some((rule) => rule.selectors.includes(".menu__item + .menu__item"))).toBe(false);
++  });
++});
++
++describe("T-20261117-001 CA-8: main.css draws a line on each side of the section h2", () => {
++  it("centers the h2 text in a three-column grid whose side columns can shrink to 0", () => {
++    const h2 = decl("main.css", "main > section h2");
++    expect(h2.get("text-align")).toBe("center");
++    expect(h2.get("display")).toBe("grid");
++    expect(h2.get("grid-template-columns")).toBe("minmax(0, 1fr) auto minmax(0, 1fr)");
++  });
++
++  it.each(["main > section h2::before", "main > section h2::after"])("%s is an empty primary line", (selector) => {
++    const line = decl("main.css", selector);
++    expect(line.get("content")).toBe('""');
++    expect(line.get("min-width")).toBe("0");
++    expect(line.get("border-top")).toMatch(/^\S+ solid var\(--color-primary\)$/);
++  });
++
++  it("gives no line to the hero h1", () => {
++    const selectors = ["main.css", "hero.css"].flatMap((file) => parseCss(file).flatMap((rule) => rule.selectors));
++    expect(selectors.filter((s) => /h1|hero__title/.test(s) && /::?(before|after)/.test(s))).toEqual([]);
++  });
++});
++
++describe("T-20261117-001 CA-9: location.css icons", () => {
++  it(".location__title lines up icon and text; .location__icon is primary", () => {
++    const title = decl("location.css", ".location__title");
++    expect(title.get("display")).toBe("flex");
++    expect(title.get("align-items")).toBe("center");
++    expect(title.get("gap")).toMatch(/^var\(--space-\d\)$/);
++    expect(decl("location.css", ".location__icon").get("color")).toBe("var(--color-primary)");
++  });
++});
++
++describe("T-20261117-001 CA-11: footer.css moon", () => {
++  it(".site-footer__moon is secondary and the footer keeps its dark colors", () => {
++    expect(decl("footer.css", ".site-footer__moon").get("color")).toBe("var(--color-secondary)");
++    const footer = decl("footer.css", ".site-footer");
++    expect(footer.get("background")).toBe("var(--color-footer-bg)");
++    expect(footer.get("color")).toBe("var(--color-footer-text)");
++  });
++});
+diff --git a/src/styles/footer.css b/src/styles/footer.css
+index daa0402..0b9d0dd 100644
+--- a/src/styles/footer.css
++++ b/src/styles/footer.css
+@@ -25,6 +25,15 @@
+   font-size: var(--text-lg);
+ }
+ 
++/* Luna decorativa junto al nombre, en dorado (9.75:1 sobre footer-bg). */
++.site-footer__moon {
++  width: 1.25em;
++  height: 1.25em;
++  margin-inline-end: var(--space-2);
++  vertical-align: -0.2em;
++  color: var(--color-secondary);
++}
++
+ .site-footer__notice {
+   max-width: 65ch;
+ }
+diff --git a/src/styles/header.css b/src/styles/header.css
+index 8852c51..8c07be3 100644
+--- a/src/styles/header.css
++++ b/src/styles/header.css
+@@ -70,6 +70,16 @@
+   outline-offset: -3px;
+ }
+ 
++/* Luna decorativa en dorado (relleno de un gráfico aria-hidden). Va dentro del contenido de
++   .brand: el anillo hacia dentro cae sobre el padding de 8 px, no sobre el icono (D-12). */
++.brand__icon {
++  flex: none;
++  width: 1.25em;
++  height: 1.25em;
++  margin-inline-end: var(--space-2);
++  color: var(--color-secondary);
++}
++
+ .site-nav {
+   flex-basis: 100%;
+   min-width: 0;
+diff --git a/src/styles/hero.css b/src/styles/hero.css
+index fbd19a7..06e49c4 100644
+--- a/src/styles/hero.css
++++ b/src/styles/hero.css
+@@ -28,10 +28,62 @@
+   color: var(--color-text-muted);
+ }
+ 
++/* ── Decoración (SVG aria-hidden de src/sections/icons.ts) ── */
++/* Luna dorada sobre el título: relleno de un gráfico decorativo, no texto (diseno.md). */
++.hero__moon {
++  flex: none;
++  width: var(--space-7);
++  height: var(--space-7);
++  color: var(--color-secondary);
++}
++
++/* Taza de escritorio: oculta en móvil para no restar altura a la primera pantalla.
++   Cada parte toma su color de un token; el contorno usa el color heredado (primary). */
++.hero__art {
++  display: none;
++  width: clamp(14rem, 30vw, 20rem);
++  height: auto;
++  color: var(--color-primary);
++}
++
++.hero__art-shadow {
++  color: var(--color-border);
++}
++
++.hero__art-saucer,
++.hero__art-cup {
++  fill: var(--color-surface);
++}
++
++.hero__art-moon,
++.hero__art-spark {
++  color: var(--color-secondary);
++}
++
++.hero__art-steam,
++.hero__art-leaf {
++  color: var(--color-text-muted);
++}
++
+ /* ── Desde 768 px ─────────────────────────────────────── */
++/* Dos columnas: luna, título, eslogan y botón a la izquierda; la taza a la derecha. */
+ @media (min-width: 768px) {
+   .hero {
+     min-height: calc(100vh - var(--header-height));
+     min-height: calc(100svh - var(--header-height));
+   }
++
++  .hero__content {
++    display: grid;
++    grid-template-columns: minmax(0, 1fr) auto;
++    justify-items: start;
++    align-items: center;
++    column-gap: var(--space-6);
++  }
++
++  .hero__art {
++    display: block;
++    grid-column: 2;
++    grid-row: 1 / span 4;
++  }
+ }
+diff --git a/src/styles/location.css b/src/styles/location.css
+index b29dc51..c631699 100644
+--- a/src/styles/location.css
++++ b/src/styles/location.css
+@@ -21,12 +21,23 @@
+   box-shadow: var(--shadow-sm);
+ }
+ 
++/* Icono decorativo (calendario / ubicación) y texto en fila. */
+ .location__title {
++  display: flex;
++  align-items: center;
++  gap: var(--space-3);
+   margin-bottom: var(--space-4);
+   font-size: var(--text-xl);
+   font-weight: 600;
+ }
+ 
++.location__icon {
++  flex: none;
++  width: 1.1em;
++  height: 1.1em;
++  color: var(--color-primary);
++}
++
+ /* ── Horario ── */
+ .hours {
+   width: 100%;
+diff --git a/src/styles/main.css b/src/styles/main.css
+index 1477f09..e87d2b4 100644
+--- a/src/styles/main.css
++++ b/src/styles/main.css
+@@ -66,10 +66,34 @@ main > section:nth-of-type(even) {
+   background: var(--color-surface);
+ }
+ 
++/* Título centrado entre dos líneas decorativas. Las columnas laterales pueden quedarse en 0:
++   un título largo se parte en dos líneas y nunca desborda. El h1 de la portada no lleva líneas. */
+ main > section h2 {
++  display: grid;
++  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
++  align-items: center;
++  column-gap: var(--space-3);
+   margin-bottom: var(--space-5);
+   font-size: var(--text-2xl);
+   font-weight: 600;
++  text-align: center;
++}
++
++main > section h2::before,
++main > section h2::after {
++  content: "";
++  width: 100%;
++  max-width: var(--space-8);
++  min-width: 0;
++  border-top: 2px solid var(--color-primary);
++}
++
++main > section h2::before {
++  justify-self: end;
++}
++
++main > section h2::after {
++  justify-self: start;
+ }
+ 
+ /* ── Desde 768 px ─────────────────────────────────────── */
+diff --git a/src/styles/menu.css b/src/styles/menu.css
+index 2251b15..f919d3b 100644
+--- a/src/styles/menu.css
++++ b/src/styles/menu.css
+@@ -16,12 +16,23 @@
+   box-shadow: var(--shadow-sm);
+ }
+ 
++/* Icono decorativo (taza / pastel) y texto en fila. */
+ .menu__title {
++  display: flex;
++  align-items: center;
++  gap: var(--space-3);
+   margin-bottom: var(--space-4);
+   font-size: var(--text-xl);
+   font-weight: 600;
+ }
+ 
++.menu__icon {
++  flex: none;
++  width: 1.1em;
++  height: 1.1em;
++  color: var(--color-primary);
++}
++
+ .menu__list {
+   margin: 0;
+ }
+@@ -31,15 +42,10 @@
+   display: grid;
+   grid-template-columns: 1fr auto;
+   align-items: baseline;
+-  column-gap: var(--space-4);
++  column-gap: var(--space-2);
+   padding-block: var(--space-3);
+ }
+ 
+-/* Separador solo decorativo entre productos. */
+-.menu__item + .menu__item {
+-  border-top: 1px solid var(--color-border);
+-}
+-
+ .menu__item:first-child {
+   padding-top: 0;
+ }
+@@ -48,14 +54,27 @@
+   padding-bottom: 0;
+ }
+ 
+-/* Un nombre largo pasa a varias líneas sin empujar el precio fuera (CA-02.3). */
++/* Un nombre largo pasa a varias líneas sin empujar el precio fuera (CA-02.3).
++   En flex, para que la línea de puntos ocupe el hueco hasta el precio. */
+ .menu__name {
++  display: flex;
++  align-items: baseline;
+   min-width: 0;
+   font-size: var(--text-lg);
+   color: var(--color-text);
+   overflow-wrap: anywhere;
+ }
+ 
++/* Línea de puntos guía, solo decorativa: se estira hasta el precio y puede encogerse hasta
++   desaparecer con un nombre largo. Su borde inferior cae en la línea base del texto. */
++.menu__name::after {
++  content: "";
++  flex: 1 1 var(--space-4);
++  min-width: 0;
++  margin-inline-start: var(--space-2);
++  border-bottom: 2px dotted var(--color-text-muted);
++}
++
+ /* El precio nunca se parte. */
+ .menu__price {
+   margin: 0;
+diff --git a/src/styles/split.test.ts b/src/styles/split.test.ts
+index 9126839..60e2d42 100644
+--- a/src/styles/split.test.ts
++++ b/src/styles/split.test.ts
+@@ -112,6 +112,8 @@ const SPLIT: Record<string, Record<string, string[]>> = {
+       "main > section",
+       "main > section:nth-of-type(even)",
+       "main > section h2",
++      "main > section h2::before", // T-20261117-001 CA-8
++      "main > section h2::after", // T-20261117-001 CA-8
+     ],
+     [MD]: ["main > section"],
+     [NO_PREFERENCE]: ["html"],
+@@ -125,6 +127,7 @@ const SPLIT: Record<string, Record<string, string[]>> = {
+       ".site-header__inner",
+       ".brand",
+       ".brand:focus-visible", // T-20261115-005 CA-4 (a)
++      ".brand__icon", // T-20261117-001 CA-3
+       ".site-nav",
+       ".site-nav__list",
+       ".nav-link",
+@@ -138,14 +141,36 @@ const SPLIT: Record<string, Record<string, string[]>> = {
+     [REDUCE]: [".btn:active"],
+   },
+   "hero.css": {
+-    "": [".hero", ".hero__content", ".hero__title", ".hero__slogan"],
+-    [MD]: [".hero"],
++    "": [
++      ".hero",
++      ".hero__content",
++      ".hero__title",
++      ".hero__slogan",
++      // T-20261117-001 CA-4 and CA-5: moon and cup illustration with its parts.
++      ".hero__moon",
++      ".hero__art",
++      ".hero__art-shadow",
++      ".hero__art-saucer",
++      ".hero__art-cup",
++      ".hero__art-moon",
++      ".hero__art-spark",
++      ".hero__art-steam",
++      ".hero__art-leaf",
++    ],
++    [MD]: [".hero", ".hero__content", ".hero__art"], // T-20261117-001 CA-5: two columns from 768 px
+   },
+   "reserve.css": {
+     "": [".reserve__text"],
+   },
+   "footer.css": {
+-    "": [".site-footer", ".site-footer a", ".site-footer :focus-visible", ".site-footer__name", ".site-footer__notice"],
++    "": [
++      ".site-footer",
++      ".site-footer a",
++      ".site-footer :focus-visible",
++      ".site-footer__name",
++      ".site-footer__notice",
++      ".site-footer__moon", // T-20261117-001 CA-11
++    ],
+   },
+ };
+ 
+
+codex
+{"nivel":"ALTO","motivo":"El cálculo determinista ya indica ALTO y el cambio afecta zonas sensibles: index.html y los módulos de portada y reservas."}
+tokens used
+20.757
+{"nivel":"ALTO","motivo":"El cálculo determinista ya indica ALTO y el cambio afecta zonas sensibles: index.html y los módulos de portada y reservas."}

@@ -2,6 +2,18 @@
 
 Entradas nuevas arriba.
 
+## 2026-11-17 · T-20261117-001 · Ajustar la página al boceto aprobado (bandeja 008)
+- Resultado: aprobada por el aprobador en ronda 1 e integrada en main tras aprobación humana (merge c9d19b2)
+- Primera tarea medida contra el boceto: el spec-writer, el constructor y el aprobador lo abrieron, y el
+  revisor de UI (Codex) lo recibió adjunto; los 4 revisores OK
+- Evidencia: sin desbordamiento a 375/768/1024 px, nada < 44 px, foco visible, Lighthouse 100/100 (mediana de 3)
+- Riesgo: ALTO (zonas sensibles index.html, hero.ts, reserve.ts, location.ts; 1021 líneas con pruebas)
+- Pruebas: 397 (117 nuevas). Decisiones nuevas: D-13, D-14
+- Pendientes: actualizar el patrón Sección de diseno.md; diferencias del boceto fuera de alcance (portada
+  centrada en móvil, eslogan en cursiva, fondo ondulado, Reservar en una fila); favicon (404); test que
+  compare MOON_PATH con index.html; renombrar los tres decor.test.ts; evidencia.mjs debe esperar al mapa
+  diferido antes de la captura completa
+
 ## 2026-11-16 · Boceto del proyecto v1 aprobado
 - Archivos: brain/boceto/aprobado-*.png y aprobado.md
 - Es el objetivo visual: spec, diseño, construcción y revisión de UI se miden contra él

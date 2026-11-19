@@ -134,3 +134,17 @@ Lo que está aquí ya se decidió. No se rediscute sin una decisión humana nuev
 - `.brand` lleva `padding-inline: var(--space-2)` compensado con `margin-inline: calc(-1 * var(--space-2))`:
   el texto no se mueve en reposo, queda holgura entre anillo y texto y la zona clicable crece 8 px por lado.
 - Solo existen tres reglas `:focus-visible`: la global, la del pie y la de `.brand` (lo vigila `split.test.ts`, CA-4d).
+
+## D-13 · Gráficos decorativos en SVG propio (2026-11-17 · origen: T-20261117-001, boceto v1)
+- `src/sections/icons.ts` es el único sitio de los SVG decorativos: `createIcon(name, className?)` con
+  `createElementNS`, `aria-hidden="true"`, `focusable="false"` y solo `currentColor`/`none` (el color
+  sale del CSS con tokens). Las lunas estáticas de `index.html` repiten `MOON_PATH`.
+- Sin imágenes: la página tiene 10 SVG y 0 `<img>`. Nunca se copian ni recortan las imágenes del boceto.
+
+## D-14 · Patrones visuales del boceto (2026-11-17 · origen: T-20261117-001)
+- El h2 de sección va centrado entre dos líneas (`::before`/`::after`, `2px solid var(--color-primary)`,
+  `max-width: var(--space-8)`, `min-width: 0`). Sustituye a la "luna junto al h2" del patrón Sección de
+  `diseno.md` (pendiente de actualizar ese párrafo).
+- Puntos guía del menú `2px dotted var(--color-text-muted)` entre producto y precio, sin separador sólido.
+- Luna en cabecera, portada y pie; taza ilustrada junto al título solo desde 768 px (en móvil, oculta
+  para que el botón de reserva se vea sin hacer scroll); logo de WhatsApp dibujado en el código.

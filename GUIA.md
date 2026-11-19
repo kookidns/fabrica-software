@@ -18,10 +18,40 @@ brain (con el boceto como objetivo), cómo trabajar en varios chats a la vez y q
    ```
    Debe decir `Logged in using ChatGPT`. Con esa sesión, Codex hace las revisiones y **genera los
    bocetos**, sin claves de API.
-3. (Opcional) Para seguir con la demo, clona también la app de ejemplo:
+3. **Instala la skill `/fabrica`** (una vez por computadora, desde la carpeta de la fábrica):
+   ```bash
+   node scripts/instalar-skill.mjs
+   ```
+   Crea `~/.claude/skills/fabrica/SKILL.md` apuntando a esta carpeta. Repítelo si mueves la fábrica.
+4. (Opcional) Para seguir con la demo, clona también la app de ejemplo:
    ```bash
    git clone https://github.com/kookidns/cafeteria-luna proyectos/cafeteria-luna/app
    ```
+
+---
+
+## 1b. La skill `/fabrica`: úsala desde cualquier chat nuevo
+
+Con la skill instalada, **abre un chat nuevo de Claude Code donde quieras y escribe `/fabrica`**.
+- Si el chat no está en la carpeta de la fábrica, la skill lo mueve allí (en la app de escritorio) y te
+  pide que vuelvas a enviar el comando. En la terminal te dice que abras `claude` dentro de la fábrica.
+- Ya dentro, te enseña tus proyectos y los comandos, o ejecuta directamente lo que pidas:
+
+| Quieres… | Escribe |
+|---|---|
+| Ver tus proyectos y qué sigue | `/fabrica` o `/fabrica estado` |
+| Empezar una página o app nueva | `/fabrica nuevo tienda-tenis Tienda online de tenis para corredores…` |
+| Cambiar el boceto | `/fabrica boceto tienda-tenis el botón de comprar más grande` |
+| Aprobar el boceto (lo haces tú) | `node scripts/boceto.mjs aprobar tienda-tenis` |
+| Arquitectura, diseño y tareas | `/fabrica planificar tienda-tenis` |
+| Construir la siguiente tarea | `/fabrica tienda-tenis` |
+| Una tarea o un error suelto | `/fabrica tienda-tenis tarea Añadir preguntas frecuentes` · `/fabrica tienda-tenis error El pago falla en iPhone` |
+| Retomar una tarea que esperaba tu boceto | `/fabrica tienda-tenis continuar T-20261120-001` |
+| Traer la última versión de la fábrica | `/fabrica actualizar` |
+
+Si al crear un proyecto tu idea es corta, la skill te hace primero unas pocas preguntas (público,
+páginas, marca, referencias…) para que el brain salga completo. Si prefieres no contestar, el analista
+deja lo que falte en `brain/huecos.md`.
 
 ---
 

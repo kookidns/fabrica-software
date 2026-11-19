@@ -1,0 +1,18 @@
+{"ts":"2026-11-17T20:02:51.341Z","estacion":"entrada","resultado":"CREADA","nota":"bandeja/008-ajustar-al-boceto-aprobado.md"}
+{"ts":"2026-11-17T20:03:09.750Z","estacion":"boceto","resultado":"OMITIDO","nota":"sin pantalla nueva: el objetivo es el boceto del proyecto v1 aprobado"}
+{"ts":"2026-11-17T20:03:09.915Z","estacion":"spec-writer","resultado":"EN_CURSO","nota":"Claude opus (subagente)"}
+{"ts":"2026-11-17T23:41:03.094Z","estacion":"spec-writer","resultado":"OK","nota":"17 CA; 9 diferencias del boceto; zonas: index.html, hero.ts, reserve.ts, location.ts"}
+{"ts":"2026-11-17T23:41:03.232Z","estacion":"constructor","resultado":"EN_CURSO","nota":"Claude opus (subagente), ronda 1"}
+{"ts":"2026-11-18T00:01:11.752Z","estacion":"constructor","resultado":"OK","nota":"140269a; 397 pruebas; puertas ok"}
+{"ts":"2026-11-18T00:02:36.188Z","estacion":"evidencia","resultado":"OK","nota":"evidencia-ronda1/ (3 vistas, 16 pasos de Tab, Lighthouse)"}
+{"ts":"2026-11-18T00:04:06.475Z","estacion":"revisor-ui","resultado":"OK","nota":"codex gpt-6-astra · 62s"}
+{"ts":"2026-11-18T00:04:50.794Z","estacion":"revisor-ux","resultado":"OK","nota":"codex gpt-6.1-sol · 108s"}
+{"ts":"2026-11-18T00:05:08.483Z","estacion":"revisor-codigo","resultado":"OK","nota":"Claude sonnet; 3 BAJO"}
+{"ts":"2026-11-18T00:05:08.614Z","estacion":"revisor-seguridad","resultado":"OK","nota":"codex gpt-6.1-sol · 126s"}
+{"ts":"2026-11-18T00:05:43.191Z","estacion":"revisores-codex","resultado":"OK","nota":"seguridad, UX y UI OK; UI comparo con el boceto aprobado adjunto"}
+{"ts":"2026-11-18T00:05:43.294Z","estacion":"aprobador","resultado":"EN_CURSO","nota":"Claude opus (subagente)"}
+{"ts":"2026-11-18T00:08:25.612Z","estacion":"aprobador","resultado":"APROBADO","nota":"ronda 1; 4 mejoras sugeridas"}
+{"ts":"2026-11-18T00:08:26.364Z","estacion":"riesgo-codigo","resultado":"ALTO","nota":"zona sensible del proyecto (src/sections/hero.ts): src/sections/hero.ts | zona sensible del proyecto (src/sections/reserve.ts): src/sections/reserve.ts | zona sensible del proyecto (index.html): index.html | zona sensible del proyecto (src/sections/location.ts): src/sections/location.ts | cambio grande: 1021 líneas (> 300)"}
+{"ts":"2026-11-18T00:09:04.211Z","estacion":"clasificador-riesgo","resultado":"ALTO","nota":"codex gpt-6.1-sol · 36s"}
+{"ts":"2026-11-18T00:09:04.321Z","estacion":"cierre","resultado":"ESPERANDO_HUMANO","nota":"zona sensible del proyecto (src/sections/hero.ts): src/sections/hero.ts | zona sensible del proyecto (src/sections/reserve.ts): src/sections/reserve.ts | zona sensible del proyecto (index.html): index.html | zona sensible del proyecto (src/sections/location.ts): src/sections/location.ts | cambio grande: 1021 líneas (> 300) | El cálculo determinista ya indica ALTO y el cambio afecta zonas sensibles: index.html y los módulos de portada y reservas."}
+{"ts":"2026-11-18T21:40:25.600Z","estacion":"cierre","resultado":"INTEGRADA","nota":"aprobada por humano"}

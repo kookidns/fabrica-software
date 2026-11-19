@@ -1,0 +1,13 @@
+{
+  "id": "T-20261117-001",
+  "proyecto": "cafeteria-luna",
+  "tipo": "tarea",
+  "origen": "bandeja/008-ajustar-al-boceto-aprobado.md",
+  "creada": "2026-11-17T20:02:51.340Z",
+  "rama": "fabrica/T-20261117-001",
+  "base": "main",
+  "trabajo": "proyectos\\cafeteria-luna\\.worktrees\\T-20261117-001",
+  "estacion": "cierre",
+  "resultado": "INTEGRADA",
+  "actualizada": "2026-11-18T21:40:25.600Z"
+}

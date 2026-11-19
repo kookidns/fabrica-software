@@ -1,0 +1,1354 @@
+# Diff de T-20261117-001 · ronda 1 · main...HEAD (140269a) · generado por la fábrica
+# Commits:
+#   140269a T-20261117-001: puntos guia del menu en text-muted (mas visibles, como en el boceto)
+#   756a4cd T-20261117-001: decoracion SVG y estilos del boceto (luna, taza, iconos, puntos guia, lineas de h2, logo de WhatsApp)
+#   071fa45 T-20261117-001: modulo icons.ts con los SVG decorativos (CA-1)
+# Resumen:
+#  index.html                 |   5 +-
+#   src/decor.test.ts          | 175 ++++++++++++++++++++++++++++++++++++++++
+#   src/sections/decor.test.ts | 127 +++++++++++++++++++++++++++++
+#   src/sections/hero.test.ts  |  52 +++++++++++-
+#   src/sections/hero.ts       |  12 ++-
+#   src/sections/icons.test.ts | 104 ++++++++++++++++++++++++
+#   src/sections/icons.ts      | 137 +++++++++++++++++++++++++++++++
+#   src/sections/location.ts   |  10 ++-
+#   src/sections/menu.ts       |  11 ++-
+#   src/sections/reserve.ts    |  23 +-----
+#   src/styles/decor.test.ts   | 195 +++++++++++++++++++++++++++++++++++++++++++++
+#   src/styles/footer.css      |   9 +++
+#   src/styles/header.css      |  10 +++
+#   src/styles/hero.css        |  52 ++++++++++++
+#   src/styles/location.css    |  11 +++
+#   src/styles/main.css        |  24 ++++++
+#   src/styles/menu.css        |  33 ++++++--
+#   src/styles/split.test.ts   |  31 ++++++-
+#   18 files changed, 979 insertions(+), 42 deletions(-)
+
+diff --git a/index.html b/index.html
+index eb545b0..b3e0d6b 100644
+--- a/index.html
++++ b/index.html
+@@ -9,7 +9,8 @@
+     <header class="site-header">
+       <a class="skip-link" href="#contenido">Saltar al contenido</a>
+       <div class="site-header__inner container">
+-        <a class="brand" href="#inicio">Cafetería Luna</a>
++        <!-- Luna decorativa: mismo trazado que MOON_PATH de src/sections/icons.ts. -->
++        <a class="brand" href="#inicio"><svg class="brand__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg>Cafetería Luna</a>
+         <nav class="site-nav" aria-label="Principal">
+           <ul class="site-nav__list">
+             <li><a class="nav-link" href="#menu">Menú</a></li>
+@@ -40,7 +41,7 @@
+     </main>
+     <footer class="site-footer">
+       <div class="container">
+-        <p class="site-footer__name">Cafetería Luna</p>
++        <p class="site-footer__name"><svg class="site-footer__moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg>Cafetería Luna</p>
+         <p class="site-footer__notice">Página de demostración: el eslogan, el menú, los precios, el horario, la dirección y el número de WhatsApp son datos de ejemplo.</p>
+       </div>
+     </footer>
+diff --git a/src/decor.test.ts b/src/decor.test.ts
+new file mode 100644
+index 0000000..3ea3be7
+--- /dev/null
++++ b/src/decor.test.ts
+@@ -0,0 +1,175 @@
++import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
++import { dirname, join, relative, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { beforeEach, describe, expect, it, vi } from "vitest";
++import { MOON_PATH } from "./sections/icons";
++
++// T-20261117-001: decorative SVGs on the mounted page (CA-2, CA-3, CA-11), focus order unchanged
++// (CA-12) and no new resources (CA-2, CA-13 e, CA-14). Mounted as in a11y.test.ts.
++
++const srcDir = dirname(fileURLToPath(import.meta.url));
++const projectRoot = resolve(srcDir, "..");
++const indexHtml = (): string => readFileSync(resolve(projectRoot, "index.html"), "utf8");
++const indexDoc = (): Document => new DOMParser().parseFromString(indexHtml(), "text/html");
++const squash = (value: string | null | undefined): string => (value ?? "").replace(/\s+/g, " ").trim();
++
++const mountPage = async (): Promise<void> => {
++  document.body.replaceWith(document.importNode(indexDoc().body, true));
++  await import("./main");
++};
++
++const FORBIDDEN_TAGS = ["title", "desc", "text", "image", "use", "foreignobject", "script"];
++
++// CA-1 (a)–(d) for any <svg> of the page.
++const expectDecorative = (svg: Element): void => {
++  const label = svg.getAttribute("class") ?? svg.outerHTML;
++  expect(svg.getAttribute("aria-hidden"), label).toBe("true");
++  expect(svg.getAttribute("focusable"), label).toBe("false");
++  expect(svg.getAttribute("viewBox"), label).toMatch(/^\d+ \d+ \d+ \d+$/);
++  expect(svg.textContent, label).toBe("");
++  for (const node of [svg, ...Array.from(svg.querySelectorAll("*"))]) {
++    expect(FORBIDDEN_TAGS, `${label} ${node.tagName}`).not.toContain(node.tagName.toLowerCase());
++    for (const attr of Array.from(node.attributes)) {
++      const name = attr.name.toLowerCase();
++      expect(["href", "xlink:href", "style", "tabindex"], `${label} ${name}`).not.toContain(name);
++      expect(name.startsWith("on"), `${label} ${name}`).toBe(false);
++      if (name === "fill" || name === "stroke") expect(["currentColor", "none"], `${label} ${name}`).toContain(attr.value);
++    }
++  }
++};
++
++describe("T-20261117-001 CA-2: inventory of SVGs on the mounted page", () => {
++  beforeEach(async () => {
++    vi.resetModules();
++    await mountPage();
++  });
++
++  it("has exactly 10 <svg>, in the agreed places", () => {
++    const count = (selector: string): number => document.querySelectorAll(selector).length;
++    expect(count("svg")).toBe(10);
++    expect(count("header .brand > svg")).toBe(1);
++    expect(Array.from(document.querySelectorAll("#inicio svg")).filter((svg) => !svg.closest("a"))).toHaveLength(2);
++    expect(count("#menu h3 > svg")).toBe(2);
++    expect(count("#menu svg")).toBe(2);
++    expect(count("#horario h3 > svg")).toBe(2);
++    expect(count("#horario svg")).toBe(2);
++    for (const link of document.querySelectorAll('a[href^="https://wa.me/"]')) {
++      expect(link.querySelectorAll("svg")).toHaveLength(1);
++    }
++    expect(count("footer svg")).toBe(1);
++  });
++
++  it("makes all 10 decorative (CA-1 a–d)", () => {
++    for (const svg of document.querySelectorAll("svg")) expectDecorative(svg);
++  });
++
++  it("has no <img>, <picture> or <object>", () => {
++    expect(document.querySelectorAll("img, picture, object")).toHaveLength(0);
++  });
++});
++
++describe("T-20261117-001 CA-3: static moon in the header brand", () => {
++  const brand = (): Element | null => indexDoc().querySelector("header .brand");
++
++  it("starts .brand with <svg class=brand__icon> (crescent) followed by the text", () => {
++    const first = brand()?.firstChild as Element | null;
++    expect(first?.nodeName.toLowerCase()).toBe("svg");
++    expect(first?.getAttribute("class")).toBe("brand__icon");
++    expect(first?.querySelector("path")?.getAttribute("d")).toBe(MOON_PATH);
++    expect(brand()?.lastChild?.nodeType).toBe(Node.TEXT_NODE);
++    expectDecorative(first as Element);
++  });
++
++  it("keeps the brand text and href", () => {
++    expect(brand()?.textContent).toBe("Cafetería Luna");
++    expect(brand()?.getAttribute("href")).toBe("#inicio");
++  });
++});
++
++describe("T-20261117-001 CA-11: static moon in the footer", () => {
++  it("has one <svg class=site-footer__moon> (crescent) next to the name", () => {
++    const footer = indexDoc().querySelector("footer");
++    const moons = footer?.querySelectorAll("svg") ?? [];
++    expect(moons).toHaveLength(1);
++    const moon = moons[0] as Element;
++    expect(moon.getAttribute("class")).toBe("site-footer__moon");
++    expect(moon.querySelector("path")?.getAttribute("d")).toBe(MOON_PATH);
++    expect(moon.closest(".site-footer__name")).not.toBeNull();
++    expect(squash(footer?.querySelector(".site-footer__name")?.textContent)).toBe("Cafetería Luna");
++    expectDecorative(moon);
++  });
++});
++
++describe("T-20261117-001 CA-12: focus order and names unchanged", () => {
++  beforeEach(async () => {
++    vi.resetModules();
++    await mountPage();
++  });
++
++  it("lists exactly the 8 focusable elements (iframe aside), in order", () => {
++    const NEW_TAB = " (se abre en una pestaña nueva)";
++    const focusables = Array.from(
++      document.querySelectorAll<HTMLElement>('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'),
++    ).filter((element) => element.tagName !== "IFRAME");
++    const names = focusables.map((element) => squash(element.getAttribute("aria-label")) || squash(element.textContent));
++    expect(names).toEqual([
++      "Saltar al contenido",
++      "Cafetería Luna",
++      "Menú",
++      "Horario y ubicación",
++      "Reservar",
++      `Reservar mesa por WhatsApp${NEW_TAB}`,
++      `Cómo llegar${NEW_TAB}`,
++      `Reservar mesa por WhatsApp${NEW_TAB}`,
++    ]);
++    expect(focusables[5]?.closest("section")?.id).toBe("inicio");
++    expect(focusables[7]?.closest("section")?.id).toBe("reservar");
++  });
++
++  it("adds no tabindex: only main#contenido has one", () => {
++    expect(Array.from(document.querySelectorAll("[tabindex]"), (element) => element.id)).toEqual(["contenido"]);
++  });
++});
++
++// Every non-test file under src/, recursively.
++const sourceFiles = (dir: string): string[] =>
++  readdirSync(dir).flatMap((entry) => {
++    const path = join(dir, entry);
++    if (statSync(path).isDirectory()) return sourceFiles(path);
++    return entry.endsWith(".test.ts") ? [] : [path];
++  });
++
++describe("T-20261117-001 CA-2, CA-13 (e), CA-14: graphics drawn in code, no new resources", () => {
++  const files = [resolve(projectRoot, "index.html"), ...sourceFiles(srcDir)];
++  const read = (file: string): string => readFileSync(file, "utf8");
++
++  it.each(files.map((file) => relative(projectRoot, file)))("%s has no image references nor sketch files", (file) => {
++    const text = read(resolve(projectRoot, file));
++    for (const fragment of ["data:image", ".png", ".jpg", ".webp", "boceto"]) {
++      expect(text.toLowerCase(), fragment).not.toContain(fragment);
++    }
++    if (file.endsWith(".css")) expect(text).not.toMatch(/url\(/i);
++    for (const host of ["fonts.googleapis", "fonts.gstatic"]) {
++      expect(text, host).not.toContain(`${host}.com`);
++    }
++  });
++
++  it("keeps public/ without files", () => {
++    const publicDir = resolve(projectRoot, "public");
++    expect(existsSync(publicDir) ? readdirSync(publicDir) : []).toEqual([]);
++  });
++
++  it("uses no HTML-string DOM API in any non-test .ts of src/ (D-04)", () => {
++    for (const file of files.filter((path) => path.endsWith(".ts"))) {
++      for (const api of ["innerHTML", "outerHTML", "insertAdjacentHTML", "DOMParser"]) {
++        expect(read(file), `${relative(projectRoot, file)} contains ${api}`).not.toContain(api);
++      }
++    }
++  });
++
++  it("adds no <link> and no external <script> to index.html", () => {
++    const doc = indexDoc();
++    expect(doc.querySelectorAll("link")).toHaveLength(0);
++    expect(Array.from(doc.querySelectorAll("script"), (script) => script.getAttribute("src"))).toEqual(["/src/main.ts"]);
++  });
++});
+diff --git a/src/sections/decor.test.ts b/src/sections/decor.test.ts
+new file mode 100644
+index 0000000..fc90669
+--- /dev/null
++++ b/src/sections/decor.test.ts
+@@ -0,0 +1,127 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++import type { Business } from "../data/business";
++import { createIcon } from "./icons";
++import { renderLocation } from "./location";
++import { renderMenu } from "./menu";
++import { createReserveButton } from "./reserve";
++
++// T-20261117-001: decorative icons in the Menú, Horario y ubicación and reserve button (CA-6, CA-7, CA-9, CA-10).
++// Separate file so menu.test.ts, location.test.ts and reserve.test.ts stay unchanged.
++
++const sectionsDir = dirname(fileURLToPath(import.meta.url));
++const readSource = (file: string): string => readFileSync(resolve(sectionsDir, file), "utf8");
++const SVG_NS = "http://www.w3.org/2000/svg";
++
++// Same shapes as the icon of icons.ts: compares tag names and attributes of the whole tree.
++const signature = (svg: Element): string[] =>
++  [svg, ...Array.from(svg.querySelectorAll("*"))].map(
++    (node) =>
++      `${node.tagName}|${Array.from(node.attributes)
++        .filter((attr) => attr.name !== "class" || node !== svg)
++        .map((attr) => `${attr.name}=${attr.value}`)
++        .sort()
++        .join(";")}`,
++  );
++
++const MENU: Business["menu"] = {
++  drinks: [{ name: "Té verde", price: 30 }],
++  desserts: [{ name: "Flan napolitano con un nombre muy largo para partirse", price: 52 }],
++};
++const MONEY = { locale: "es-MX", currency: "MXN" };
++
++const LOCATION: Pick<Business, "hours" | "address" | "coordinates"> = {
++  hours: [
++    { day: "Lunes", closed: true },
++    { day: "Martes", open: "07:30", close: "19:00" },
++  ],
++  address: "Avenida de Prueba 456, Col. Pruebas",
++  coordinates: { lat: 20.6597, lng: -103.3496 },
++};
++
++const URL_OK = "https://wa.me/521234567890?text=Hola%20prueba";
++
++describe("T-20261117-001 CA-6: cup and cake icons in the menu headings", () => {
++  const headings = Array.from(renderMenu(MENU, MONEY).querySelectorAll("h3"));
++
++  it.each([
++    [0, "Bebidas", "cup"],
++    [1, "Postres", "cake"],
++  ] as const)("h3 #%i (%s) starts with the %s icon, class menu__icon, and keeps its exact text", (index, text, icon) => {
++    const heading = headings[index];
++    const svg = heading?.firstChild;
++    expect(svg).toBeInstanceOf(SVGSVGElement);
++    expect((svg as Element).getAttribute("class")).toBe("menu__icon");
++    expect(signature(svg as Element)).toEqual(signature(createIcon(icon)));
++    expect(heading?.textContent).toBe(text);
++    expect(heading?.querySelectorAll("svg")).toHaveLength(1);
++  });
++});
++
++describe("T-20261117-001 CA-7: the menu rows keep their DOM (dots are CSS only)", () => {
++  it("keeps every row as div.menu__item > dt + dd with the same text and no extra nodes", () => {
++    const element = renderMenu(MENU, MONEY);
++    for (const row of element.querySelectorAll(".menu__item")) {
++      expect(row.tagName).toBe("DIV");
++      expect(Array.from(row.childNodes).map((node) => node.nodeName)).toEqual(["DT", "DD"]);
++      for (const cell of row.children) {
++        expect(Array.from(cell.childNodes).map((node) => node.nodeType)).toEqual([Node.TEXT_NODE]);
++      }
++    }
++    expect(element.querySelector("dt")?.textContent).toBe("Té verde");
++  });
++});
++
++describe("T-20261117-001 CA-9: calendar and pin icons in the location headings", () => {
++  const headings = Array.from(renderLocation(LOCATION).querySelectorAll("h3"));
++
++  it.each([
++    [0, "Horario", "calendar"],
++    [1, "Dirección", "pin"],
++  ] as const)("h3 #%i (%s) starts with the %s icon, class location__icon, and keeps its exact text", (index, text, icon) => {
++    const heading = headings[index];
++    const svg = heading?.firstChild;
++    expect(svg).toBeInstanceOf(SVGSVGElement);
++    expect((svg as Element).getAttribute("class")).toBe("location__icon");
++    expect(signature(svg as Element)).toEqual(signature(createIcon(icon)));
++    expect(heading?.textContent).toBe(text);
++    expect(heading?.querySelectorAll("svg")).toHaveLength(1);
++  });
++
++  it("keeps the id of the Horario heading that names the table", () => {
++    expect(headings[0]?.id).toBe("horario-semana-titulo");
++  });
++
++  it("imports createIcon from ./icons and leaves the map constants as they were", () => {
++    const source = readSource("location.ts");
++    expect(source).toMatch(/import\s*\{[^}]*\bcreateIcon\b[^}]*\}\s*from\s*["']\.\/icons["']/);
++    expect(source).toContain('const MAP_URL_PREFIX = "https://www.openstreetmap.org/export/embed.html?";');
++    expect(source).toContain('const DIRECTIONS_URL_PREFIX = "https://www.google.com/maps/search/?";');
++    expect(source).toContain(
++      'const MAP_SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";',
++    );
++  });
++});
++
++describe("T-20261117-001 CA-10: WhatsApp glyph in the reserve button", () => {
++  it("starts with the whatsapp icon of icons.ts, class btn__icon, in currentColor", () => {
++    const button = createReserveButton(URL_OK);
++    const svg = button.firstChild as Element;
++    expect(svg.namespaceURI).toBe(SVG_NS);
++    expect(svg.getAttribute("class")).toBe("btn__icon");
++    expect(signature(svg)).toEqual(signature(createIcon("whatsapp")));
++    expect(button.querySelectorAll("svg")).toHaveLength(1);
++    expect(button.className).toBe("btn btn--whatsapp");
++  });
++
++  it("removes CHAT_ICON_PATH and createChatIcon from reserve.ts and uses createIcon", () => {
++    const source = readSource("reserve.ts");
++    expect(source).not.toContain("CHAT_ICON_PATH");
++    expect(source).not.toContain("createChatIcon");
++    expect(source).not.toContain("createElementNS");
++    expect(source).toMatch(/import\s*\{\s*createIcon\s*\}\s*from\s*["']\.\/icons["']/);
++    expect(source).toContain('createIcon("whatsapp", "btn__icon")');
++  });
++});
+diff --git a/src/sections/hero.test.ts b/src/sections/hero.test.ts
+index 9028b4a..0afe70d 100644
+--- a/src/sections/hero.test.ts
++++ b/src/sections/hero.test.ts
+@@ -4,12 +4,16 @@ import { renderHero } from "./hero";
+ const URL_OK = "https://wa.me/521234567890?text=Hola%20prueba";
+ const content = { name: "Café de Prueba", slogan: "Un eslogan de prueba" };
+ 
++// T-20261117-001 CA-4: decorative svg[aria-hidden="true"] children are ignored when checking the order.
++const isDecorativeSvg = (node: Node): boolean =>
++  node instanceof SVGSVGElement && node.getAttribute("aria-hidden") === "true";
++
+ describe("CA-7: renderHero({ name, slogan }, reserveUrl)", () => {
+   it("renders <h1> name, then <p> slogan, then the reserve button, and nothing else before it", () => {
+     const hero = renderHero(content, URL_OK);
+-    const children = Array.from(hero.children);
++    const children = Array.from(hero.children).filter((child) => !isDecorativeSvg(child));
+     expect(children.map((child) => child.tagName)).toEqual(["H1", "P", "A"]);
+-    expect(hero.firstChild).toBe(children[0]);
++    expect(Array.from(hero.childNodes).find((node) => !isDecorativeSvg(node))).toBe(children[0]);
+     expect(children[0]?.textContent).toBe(content.name);
+     expect(children[1]?.textContent).toBe(content.slogan);
+     expect(children[2]?.getAttribute("href")).toBe(URL_OK);
+@@ -32,3 +36,47 @@ describe("CA-8: data is rendered as text, never as HTML", () => {
+     expect(hero.querySelector("p")?.textContent).toBe(payload);
+   });
+ });
++
++describe("T-20261117-001 CA-4: moon in the hero", () => {
++  it("has a decorative <svg class=hero__moon> before the <h1>", () => {
++    const hero = renderHero(content, URL_OK);
++    const moon = hero.querySelector(":scope > svg.hero__moon");
++    const title = hero.querySelector(":scope > h1");
++    expect(moon).not.toBeNull();
++    expect(moon?.getAttribute("aria-hidden")).toBe("true");
++    expect(title).not.toBeNull();
++    expect(moon?.compareDocumentPosition(title as Node)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
++    expect(hero.firstElementChild).toBe(moon);
++  });
++
++  it("keeps the non-SVG children as H1, P, A with the same text, id, href and class", () => {
++    const hero = renderHero(content, URL_OK);
++    const others = Array.from(hero.children).filter((child) => child.namespaceURI !== "http://www.w3.org/2000/svg");
++    expect(others.map((child) => child.tagName)).toEqual(["H1", "P", "A"]);
++    expect(others[0]?.id).toBe("inicio-titulo");
++    expect(others[0]?.textContent).toBe(content.name);
++    expect(others[1]?.textContent).toBe(content.slogan);
++    expect(others[2]?.getAttribute("href")).toBe(URL_OK);
++    expect(others[2]?.classList.contains("btn--whatsapp")).toBe(true);
++  });
++});
++
++describe("T-20261117-001 CA-5: cup illustration for wide screens", () => {
++  it("includes one decorative <svg class=hero__art>, a direct child after the button", () => {
++    const hero = renderHero(content, URL_OK);
++    const art = hero.querySelectorAll(":scope > svg.hero__art");
++    expect(art).toHaveLength(1);
++    expect(art[0]?.getAttribute("aria-hidden")).toBe("true");
++    expect(hero.lastElementChild).toBe(art[0]);
++    expect(art[0]?.querySelector(".hero__art-cup")).not.toBeNull();
++    expect(art[0]?.querySelector(".hero__art-saucer")).not.toBeNull();
++    expect(art[0]?.querySelectorAll(".hero__art-steam").length).toBeGreaterThan(0);
++  });
++
++  it("has exactly two SVGs outside the button: the moon and the cup", () => {
++    const hero = renderHero(content, URL_OK);
++    const outside = Array.from(hero.querySelectorAll("svg")).filter((svg) => !svg.closest("a"));
++    expect(outside.map((svg) => svg.getAttribute("class"))).toEqual(["hero__moon", "hero__art"]);
++    expect(hero.textContent).toBe(`${content.name}${content.slogan}Reservar mesa por WhatsApp`);
++  });
++});
+diff --git a/src/sections/hero.ts b/src/sections/hero.ts
+index 4a2e389..16db557 100644
+--- a/src/sections/hero.ts
++++ b/src/sections/hero.ts
+@@ -1,4 +1,5 @@
+-﻿import { createReserveButton } from "./reserve";
++﻿import { createIcon } from "./icons";
++import { createReserveButton } from "./reserve";
+ 
+ /** Hero data; it comes from src/data/business.ts through main.ts, never imported here (D-00). */
+ export interface HeroContent {
+@@ -22,6 +23,13 @@ export function renderHero({ name, slogan }: HeroContent, reserveUrl: string): H
+   tagline.className = "hero__slogan";
+   tagline.textContent = slogan;
+ 
+-  content.append(title, tagline, createReserveButton(reserveUrl));
++  // Decorative, aria-hidden: the moon above the title and the cup illustration (hidden below 768 px by hero.css).
++  content.append(
++    createIcon("moon", "hero__moon"),
++    title,
++    tagline,
++    createReserveButton(reserveUrl),
++    createIcon("cup-art", "hero__art"),
++  );
+   return content;
+ }
+diff --git a/src/sections/icons.test.ts b/src/sections/icons.test.ts
+new file mode 100644
+index 0000000..b2c1235
+--- /dev/null
++++ b/src/sections/icons.test.ts
+@@ -0,0 +1,104 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++import { ICON_NAMES, createIcon, type IconName } from "./icons";
++
++// T-20261117-001 CA-1: a single module draws every decorative SVG with the DOM API.
++
++const sectionsDir = dirname(fileURLToPath(import.meta.url));
++const SVG_NS = "http://www.w3.org/2000/svg";
++const NAMES: IconName[] = ["moon", "cup", "cake", "calendar", "pin", "whatsapp", "cup-art"];
++const FORBIDDEN_TAGS = ["title", "desc", "text", "image", "use", "foreignobject", "script"];
++
++const allNodes = (svg: SVGSVGElement): Element[] => [svg, ...Array.from(svg.querySelectorAll("*"))];
++
++describe("T-20261117-001 CA-1: createIcon(name) returns a decorative SVGSVGElement", () => {
++  it("exports exactly the seven icon names", () => {
++    expect([...ICON_NAMES].sort()).toEqual([...NAMES].sort());
++  });
++
++  it.each(NAMES)("%s is an <svg> in the SVG namespace with at least one shape", (name) => {
++    const svg = createIcon(name);
++    expect(svg).toBeInstanceOf(SVGSVGElement);
++    expect(svg.namespaceURI).toBe(SVG_NS);
++    expect(svg.tagName).toBe("svg");
++    expect(svg.querySelectorAll("path, circle, ellipse, rect, line").length).toBeGreaterThan(0);
++    for (const node of allNodes(svg)) {
++      expect(node.namespaceURI, node.tagName).toBe(SVG_NS);
++    }
++  });
++
++  it.each(NAMES)("(a) %s has aria-hidden, focusable=false and a viewBox", (name) => {
++    const svg = createIcon(name);
++    expect(svg.getAttribute("aria-hidden")).toBe("true");
++    expect(svg.getAttribute("focusable")).toBe("false");
++    expect(svg.getAttribute("viewBox")).toMatch(/^\d+ \d+ \d+ \d+$/);
++    expect(svg.hasAttribute("tabindex")).toBe(false);
++  });
++
++  it.each(NAMES)("(b) %s has no forbidden element or attribute", (name) => {
++    for (const node of allNodes(createIcon(name))) {
++      expect(FORBIDDEN_TAGS, node.tagName).not.toContain(node.tagName.toLowerCase());
++      for (const attr of Array.from(node.attributes)) {
++        expect(["href", "xlink:href", "style"], `${node.tagName} ${attr.name}`).not.toContain(attr.name.toLowerCase());
++        expect(attr.name.toLowerCase().startsWith("on"), `${node.tagName} ${attr.name}`).toBe(false);
++      }
++    }
++  });
++
++  it.each(NAMES)("(c) %s only uses currentColor or none in fill and stroke", (name) => {
++    for (const node of allNodes(createIcon(name))) {
++      for (const attr of ["fill", "stroke"]) {
++        if (node.hasAttribute(attr)) {
++          expect(["currentColor", "none"], `${node.tagName} ${attr}`).toContain(node.getAttribute(attr));
++        }
++      }
++    }
++  });
++
++  it.each(NAMES)("(d) %s has an empty textContent", (name) => {
++    expect(createIcon(name).textContent).toBe("");
++  });
++
++  it("puts the optional class name on the <svg>", () => {
++    expect(createIcon("moon", "hero__moon").getAttribute("class")).toBe("hero__moon");
++    expect(createIcon("cup").hasAttribute("class")).toBe(false);
++  });
++
++  it("returns a new element on every call", () => {
++    expect(createIcon("pin")).not.toBe(createIcon("pin"));
++  });
++
++  it("gives the cup-art parts their own classes so hero.css can color them with tokens", () => {
++    const art = createIcon("cup-art", "hero__art");
++    const classes = new Set(Array.from(art.querySelectorAll("[class]"), (node) => node.getAttribute("class")));
++    for (const part of ["hero__art-saucer", "hero__art-cup", "hero__art-coffee", "hero__art-steam", "hero__art-moon"]) {
++      expect(classes, part).toContain(part);
++    }
++  });
++});
++
++describe("T-20261117-001 CA-1: icons.ts source", () => {
++  const source = readFileSync(resolve(sectionsDir, "icons.ts"), "utf8");
++
++  it("creates the elements with createElementNS and the SVG namespace", () => {
++    expect(source).toContain("createElementNS");
++    expect(source).toContain(SVG_NS);
++  });
++
++  it("has no color literals", () => {
++    expect(source).not.toMatch(/#[0-9a-f]{3}(?:[0-9a-f]{3})?(?![\w-])/i);
++    expect(source).not.toMatch(/\b(rgba?|hsla?)\(/i);
++  });
++
++  it("uses no HTML-string DOM API", () => {
++    for (const api of ["innerHTML", "outerHTML", "insertAdjacentHTML", "DOMParser"]) {
++      expect(source, `icons.ts contains ${api}`).not.toContain(api);
++    }
++  });
++
++  it("has at most 200 lines", () => {
++    expect(source.replace(/\r?\n$/, "").split(/\r?\n/).length).toBeLessThanOrEqual(200);
++  });
++});
+diff --git a/src/sections/icons.ts b/src/sections/icons.ts
+new file mode 100644
+index 0000000..31187a1
+--- /dev/null
++++ b/src/sections/icons.ts
+@@ -0,0 +1,137 @@
++/**
++ * Decorative SVG icons, drawn with the DOM API (createElementNS, never HTML strings: D-04).
++ * Every icon is aria-hidden and not focusable, has no text, and paints only with currentColor or
++ * none: the real colors come from the section stylesheets through var(--…) tokens (D-02).
++ * The moon of the header and the footer is static in index.html and reuses MOON_PATH.
++ */
++
++const SVG_NS = "http://www.w3.org/2000/svg";
++
++export const ICON_NAMES = ["moon", "cup", "cake", "calendar", "pin", "whatsapp", "cup-art"] as const;
++export type IconName = (typeof ICON_NAMES)[number];
++
++type Attributes = Readonly<Record<string, string>>;
++type Shape = readonly ["path" | "circle" | "ellipse" | "rect", Attributes];
++
++interface IconDefinition {
++  viewBox: string;
++  /** Presentation attributes of the <svg>, inherited by its shapes. */
++  base: Attributes;
++  shapes: readonly Shape[];
++}
++
++const FILLED: Attributes = { fill: "currentColor" };
++const OUTLINE: Attributes = {
++  fill: "none",
++  stroke: "currentColor",
++  "stroke-width": "2",
++  "stroke-linecap": "round",
++  "stroke-linejoin": "round",
++};
++
++const path = (d: string, extra: Attributes = {}): Shape => ["path", { d, ...extra }];
++
++// Crescent moon opening to the upper right (24 × 24).
++export const MOON_PATH = "M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z";
++
++// Simplified, monochrome WhatsApp glyph: round speech bubble with a tail and a handset inside.
++const WHATSAPP_BUBBLE = "M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z";
++const WHATSAPP_HANDSET =
++  "M8.6 7.4C9 7.2 9.4 7.3 9.6 7.7l1 1.8c.1.3 0 .6-.2.8l-.5.5c.7 1.3 2 2.6 3.3 3.3l.5-.5c.2-.2.5-.3.8-.2" +
++  "l1.8 1c.4.2.5.6.3 1-.5 1-1.6 1.5-2.7 1.2-2.8-.8-5.7-3.7-6.5-6.5-.3-1.1.2-2.2 1.2-2.7z";
++
++// Desktop illustration (280 × 200): cup with saucer, steam, a moon on the cup, sparks and a sprig.
++// Each part has a class so hero.css can give it a token color (fill/stroke from CSS).
++const ART_LINE: Attributes = { fill: "none", stroke: "currentColor", "stroke-linecap": "round" };
++const ART_SHAPE: Attributes = { fill: "currentColor", stroke: "currentColor", "stroke-width": "5" };
++const CUP_ART: readonly Shape[] = [
++  ["ellipse", { class: "hero__art-shadow", cx: "115", cy: "184", rx: "100", ry: "9", fill: "currentColor" }],
++  ["ellipse", { class: "hero__art-saucer", cx: "115", cy: "168", rx: "82", ry: "16", ...ART_SHAPE }],
++  path("M180 100c26-6 40 10 32 28c-6 13-22 18-38 20", { class: "hero__art-handle", ...ART_LINE, "stroke-width": "8" }),
++  path("M47 88H183C183 136 157 164 115 164C73 164 47 136 47 88Z", { class: "hero__art-cup", ...ART_SHAPE }),
++  ["ellipse", { class: "hero__art-cup", cx: "115", cy: "88", rx: "68", ry: "12", ...ART_SHAPE }],
++  ["ellipse", { class: "hero__art-coffee", cx: "115", cy: "89", rx: "56", ry: "7", fill: "currentColor" }],
++  path("M129 134a18 18 0 0 1-23.5-23.5a18 18 0 1 0 23.5 23.5z", { class: "hero__art-moon", fill: "currentColor" }),
++  path("M93 66c-10-12 10-20 0-34", { class: "hero__art-steam", ...ART_LINE, "stroke-width": "5" }),
++  path("M115 62c-10-12 10-20 0-34", { class: "hero__art-steam", ...ART_LINE, "stroke-width": "5" }),
++  path("M137 66c-10-12 10-20 0-34", { class: "hero__art-steam", ...ART_LINE, "stroke-width": "5" }),
++  path("M34 70l-14-8M30 92H14M44 52l-8-13", { class: "hero__art-spark", ...ART_LINE, "stroke-width": "5" }),
++  path("M236 176c4-34 12-60 30-84", { class: "hero__art-leaf", ...ART_LINE, "stroke-width": "4" }),
++  path(
++    "M240 146c-14-4-20-16-17-28c13 4 19 16 17 28zM250 116c-12-6-16-18-11-29c11 6 15 18 11 29z" +
++      "M244 160c6-13 18-18 28-13c-5 12-17 17-28 13z",
++    { class: "hero__art-leaf", fill: "currentColor" },
++  ),
++];
++
++const ICONS: Record<IconName, IconDefinition> = {
++  moon: { viewBox: "0 0 24 24", base: FILLED, shapes: [path(MOON_PATH)] },
++  cup: {
++    viewBox: "0 0 24 24",
++    base: OUTLINE,
++    shapes: [
++      path("M5 10h11v3.5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"),
++      path("M16 11h1a3 3 0 0 1 0 6h-1.6"),
++      path("M3.5 21h15"),
++      path("M9 7.5c-1.2-1.3 1.2-2.2 0-4.5M13 7.5c-1.2-1.3 1.2-2.2 0-4.5"),
++    ],
++  },
++  cake: {
++    viewBox: "0 0 24 24",
++    base: OUTLINE,
++    shapes: [
++      path("M3 12 19.2 5.6a1.5 1.5 0 0 1 1.8 1.4V12"),
++      ["rect", { x: "3", y: "12", width: "18", height: "8", rx: "1" }],
++      path("M3 16h18"),
++      ["circle", { cx: "17", cy: "3.2", r: "1.2" }],
++    ],
++  },
++  calendar: {
++    viewBox: "0 0 24 24",
++    base: OUTLINE,
++    shapes: [
++      ["rect", { x: "3", y: "5", width: "18", height: "16", rx: "2" }],
++      path("M3 10h18M8 3v4M16 3v4"),
++    ],
++  },
++  pin: {
++    viewBox: "0 0 24 24",
++    base: OUTLINE,
++    shapes: [
++      path("M12 21.5s-7-6.1-7-11.5a7 7 0 0 1 14 0c0 5.4-7 11.5-7 11.5z"),
++      ["circle", { cx: "12", cy: "10", r: "2.5" }],
++    ],
++  },
++  whatsapp: {
++    viewBox: "0 0 24 24",
++    base: {},
++    shapes: [
++      path(WHATSAPP_BUBBLE, { fill: "none", stroke: "currentColor", "stroke-width": "1.8", "stroke-linejoin": "round" }),
++      path(WHATSAPP_HANDSET, { fill: "currentColor" }),
++    ],
++  },
++  "cup-art": { viewBox: "0 0 280 200", base: {}, shapes: CUP_ART },
++};
++
++function setAttributes(element: Element, attributes: Attributes): void {
++  for (const [name, value] of Object.entries(attributes)) {
++    element.setAttribute(name, value);
++  }
++}
++
++/** Returns a new decorative <svg> for `name`, with `className` on the root when given. */
++export function createIcon(name: IconName, className?: string): SVGSVGElement {
++  const { viewBox, base, shapes } = ICONS[name];
++  const svg = document.createElementNS(SVG_NS, "svg");
++  if (className) svg.setAttribute("class", className);
++  svg.setAttribute("viewBox", viewBox);
++  svg.setAttribute("aria-hidden", "true");
++  svg.setAttribute("focusable", "false");
++  setAttributes(svg, base);
++  for (const [tag, attributes] of shapes) {
++    const shape = document.createElementNS(SVG_NS, tag);
++    setAttributes(shape, attributes);
++    svg.append(shape);
++  }
++  return svg;
++}
+diff --git a/src/sections/location.ts b/src/sections/location.ts
+index e86f018..73f516c 100644
+--- a/src/sections/location.ts
++++ b/src/sections/location.ts
+@@ -1,5 +1,6 @@
+ import type { Business, DayHours } from "../data/business";
+ import { buildDirectionsUrl, buildMapEmbedUrl } from "../lib/maps";
++import { createIcon, type IconName } from "./icons";
+ 
+ /**
+  * "Horario y ubicación" section: an hours card (table) and the place block (address, OpenStreetMap
+@@ -26,10 +27,11 @@ const LINK_LABEL = `${LINK_TEXT} (se abre en una pestaña nueva)`;
+ // Never add allow-top-navigation*, allow-forms, allow-modals, allow-downloads or allow-pointer-lock.
+ const MAP_SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";
+ 
+-function createTitle(text: string): HTMLHeadingElement {
++// Decorative icon first; the heading's text stays exactly `text`.
++function createTitle(text: string, icon: IconName): HTMLHeadingElement {
+   const heading = document.createElement("h3");
+   heading.className = "location__title";
+-  heading.textContent = text;
++  heading.append(createIcon(icon, "location__icon"), text);
+   return heading;
+ }
+ 
+@@ -54,7 +56,7 @@ function renderHoursRow(entry: DayHours): HTMLTableRowElement {
+ function renderHours(hours: DayHours[]): HTMLElement {
+   const card = document.createElement("div");
+   card.className = "location__hours";
+-  const heading = createTitle(HOURS_TITLE);
++  const heading = createTitle(HOURS_TITLE, "calendar");
+   heading.id = HOURS_TITLE_ID;
+ 
+   const table = document.createElement("table");
+@@ -113,7 +115,7 @@ function renderPlace(address: string, coordinates: Location["coordinates"]): HTM
+   map.className = "location__map";
+   map.append(createMap(mapUrl));
+ 
+-  place.append(createTitle(PLACE_TITLE), addressElement, map, createDirectionsLink(directionsUrl));
++  place.append(createTitle(PLACE_TITLE, "pin"), addressElement, map, createDirectionsLink(directionsUrl));
+   return place;
+ }
+ 
+diff --git a/src/sections/menu.ts b/src/sections/menu.ts
+index d8b2289..edaeee8 100644
+--- a/src/sections/menu.ts
++++ b/src/sections/menu.ts
+@@ -1,5 +1,6 @@
+ import type { Business, MenuItem } from "../data/business";
+ import { formatPrice } from "../lib/formatPrice";
++import { createIcon, type IconName } from "./icons";
+ 
+ /**
+  * "Menú" section: one card per group (Bebidas, Postres), each a <dl> of name + price rows.
+@@ -12,13 +13,14 @@ export interface Money {
+   currency: string;
+ }
+ 
+-function renderGroup(title: string, items: MenuItem[], money: Money): HTMLElement {
++function renderGroup(title: string, icon: IconName, items: MenuItem[], money: Money): HTMLElement {
+   const group = document.createElement("div");
+   group.className = "menu__group";
+ 
++  // Decorative icon first; the heading's text stays exactly `title`.
+   const heading = document.createElement("h3");
+   heading.className = "menu__title";
+-  heading.textContent = title;
++  heading.append(createIcon(icon, "menu__icon"), title);
+ 
+   const list = document.createElement("dl");
+   list.className = "menu__list";
+@@ -42,6 +44,9 @@ function renderGroup(title: string, items: MenuItem[], money: Money): HTMLElemen
+ export function renderMenu(menu: Business["menu"], money: Money): HTMLElement {
+   const container = document.createElement("div");
+   container.className = "menu";
+-  container.append(renderGroup("Bebidas", menu.drinks, money), renderGroup("Postres", menu.desserts, money));
++  container.append(
++    renderGroup("Bebidas", "cup", menu.drinks, money),
++    renderGroup("Postres", "cake", menu.desserts, money),
++  );
+   return container;
+ }
+diff --git a/src/sections/reserve.ts b/src/sections/reserve.ts
+index bca141c..4729e78 100644
+--- a/src/sections/reserve.ts
++++ b/src/sections/reserve.ts
+@@ -3,7 +3,8 @@
+  * The URL arrives as a parameter, already built by buildWhatsAppUrl (D-00, D-05): never rebuilt here.
+  */
+ 
+-const SVG_NS = "http://www.w3.org/2000/svg";
++import { createIcon } from "./icons";
++
+ const WHATSAPP_URL_PREFIX = "https://wa.me/";
+ 
+ const BUTTON_TEXT = "Reservar mesa por WhatsApp";
+@@ -12,23 +13,6 @@ const BUTTON_LABEL = `${BUTTON_TEXT} (se abre en una pestaña nueva)`;
+ const RESERVE_TEXT =
+   "¿Quieres asegurar tu mesa? Escríbenos por WhatsApp con la fecha, la hora y cuántas personas vienen. Te respondemos para confirmarla.";
+ 
+-// Speech bubble outline, drawn with the DOM API (no HTML strings).
+-const CHAT_ICON_PATH =
+-  "M4 3h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z";
+-
+-function createChatIcon(): SVGSVGElement {
+-  const svg = document.createElementNS(SVG_NS, "svg");
+-  svg.setAttribute("class", "btn__icon");
+-  svg.setAttribute("viewBox", "0 0 24 24");
+-  svg.setAttribute("aria-hidden", "true");
+-  svg.setAttribute("focusable", "false");
+-  const path = document.createElementNS(SVG_NS, "path");
+-  path.setAttribute("d", CHAT_ICON_PATH);
+-  path.setAttribute("fill", "currentColor");
+-  svg.append(path);
+-  return svg;
+-}
+-
+ export function createReserveButton(url: string): HTMLAnchorElement {
+   // Guard: only a wa.me link may reach the href (blocks javascript: and other schemes).
+   if (!url.startsWith(WHATSAPP_URL_PREFIX)) {
+@@ -42,7 +26,8 @@ export function createReserveButton(url: string): HTMLAnchorElement {
+   link.setAttribute("aria-label", BUTTON_LABEL);
+   const label = document.createElement("span");
+   label.textContent = BUTTON_TEXT;
+-  link.append(createChatIcon(), label);
++  // Decorative WhatsApp glyph (aria-hidden, currentColor = on-whatsapp) before the visible text.
++  link.append(createIcon("whatsapp", "btn__icon"), label);
+   return link;
+ }
+ 
+diff --git a/src/styles/decor.test.ts b/src/styles/decor.test.ts
+new file mode 100644
+index 0000000..b659eee
+--- /dev/null
++++ b/src/styles/decor.test.ts
+@@ -0,0 +1,195 @@
++import { readFileSync } from "node:fs";
++import { dirname, resolve } from "node:path";
++import { fileURLToPath } from "node:url";
++import { describe, expect, it } from "vitest";
++
++// T-20261117-001: decorative styles of each section, read from its own stylesheet (CA-3 to CA-11).
++
++const stylesDir = dirname(fileURLToPath(import.meta.url));
++const stripComments = (css: string): string => css.replace(/\/\*[\s\S]*?\*\//g, "");
++const normalize = (value: string): string => value.replace(/\s+/g, " ").trim();
++const MD = "@media (min-width: 768px)";
++
++interface CssRule {
++  context: string;
++  selectors: string[];
++  body: string;
++}
++
++// Top-level rules and rules one level inside an @-block (same approach as split.test.ts).
++const parseCss = (file: string): CssRule[] => {
++  const css = stripComments(readFileSync(resolve(stylesDir, file), "utf8"));
++  const rules: CssRule[] = [];
++  const toRule = (context: string, prelude: string, body: string): CssRule => ({
++    context,
++    selectors: prelude.split(",").map(normalize).filter(Boolean),
++    body: normalize(body),
++  });
++  let index = 0;
++  while (index < css.length) {
++    const open = css.indexOf("{", index);
++    if (open < 0) break;
++    const prelude = css.slice(index, open);
++    if (prelude.trim().startsWith("@")) {
++      let depth = 0;
++      let end = open;
++      for (; end < css.length; end += 1) {
++        if (css[end] === "{") depth += 1;
++        if (css[end] === "}") depth -= 1;
++        if (depth === 0) break;
++      }
++      const context = normalize(prelude).replace(/\(\s*/g, "(").replace(/\s*\)/g, ")").replace(/\s*:\s*/g, ": ");
++      for (const match of css.slice(open + 1, end).matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
++        rules.push(toRule(context, match[1] ?? "", match[2] ?? ""));
++      }
++      index = end + 1;
++    } else {
++      const close = css.indexOf("}", open);
++      rules.push(toRule("", prelude, css.slice(open + 1, close)));
++      index = close + 1;
++    }
++  }
++  return rules;
++};
++
++const declarations = (body: string): Map<string, string> => {
++  const map = new Map<string, string>();
++  for (const part of body.split(";")) {
++    const colon = part.indexOf(":");
++    if (colon >= 0) map.set(part.slice(0, colon).trim(), part.slice(colon + 1).trim());
++  }
++  return map;
++};
++
++// Merged declarations of every rule of `file` whose selector list contains `selector`, in `context`.
++const decl = (file: string, selector: string, context = ""): Map<string, string> =>
++  new Map(
++    parseCss(file)
++      .filter((rule) => rule.context === context && rule.selectors.includes(selector))
++      .flatMap((rule) => [...declarations(rule.body)]),
++  );
++
++const SIZE = /^(\d*\.?\d+em|var\(--[\w-]+\))$/;
++
++describe("T-20261117-001 CA-3: header.css only gains .brand__icon", () => {
++  it(".brand__icon is sized in em or tokens, does not shrink and is painted in secondary", () => {
++    const icon = decl("header.css", ".brand__icon");
++    expect(icon.get("flex")).toBe("none");
++    expect(icon.get("width")).toMatch(SIZE);
++    expect(icon.get("height")).toMatch(SIZE);
++    expect(icon.get("color")).toBe("var(--color-secondary)");
++  });
++
++  it("keeps .brand and .brand:focus-visible exactly as before", () => {
++    expect(Object.fromEntries(decl("header.css", ".brand"))).toEqual({
++      display: "inline-flex",
++      "align-items": "center",
++      "min-height": "var(--header-height)",
++      "padding-inline": "var(--space-2)",
++      "margin-inline": "calc(-1 * var(--space-2))",
++      "font-family": "var(--font-heading)",
++      "font-weight": "700",
++      "font-size": "var(--text-lg)",
++      "line-height": "var(--leading-heading)",
++      color: "var(--color-text)",
++      "text-decoration": "none",
++    });
++    expect(Object.fromEntries(decl("header.css", ".brand:focus-visible"))).toEqual({ "outline-offset": "-3px" });
++  });
++});
++
++describe("T-20261117-001 CA-4 and CA-5: hero.css paints the moon and shows the cup from 768 px", () => {
++  it(".hero__moon is painted in secondary and does not shrink", () => {
++    expect(decl("hero.css", ".hero__moon").get("color")).toBe("var(--color-secondary)");
++    expect(decl("hero.css", ".hero__moon").get("flex")).toBe("none");
++  });
++
++  it(".hero__art is hidden at the base and shown from 768 px in the second column", () => {
++    expect(decl("hero.css", ".hero__art").get("display")).toBe("none");
++    const md = decl("hero.css", ".hero__art", MD);
++    expect(md.get("display")).toBe("block");
++    expect(md.get("grid-column")).toBe("2");
++  });
++
++  it("turns .hero__content into two columns from 768 px", () => {
++    const md = decl("hero.css", ".hero__content", MD);
++    expect(md.get("display")).toBe("grid");
++    expect(md.get("grid-template-columns")).toBe("minmax(0, 1fr) auto");
++  });
++
++  it("colors the cup parts only with the allowed tokens", () => {
++    const ALLOWED = ["primary", "secondary", "surface", "border", "text-muted"].map((t) => `var(--color-${t})`);
++    const parts = parseCss("hero.css").filter((rule) => rule.selectors.some((s) => s.startsWith(".hero__art")));
++    expect(parts.length).toBeGreaterThan(0);
++    for (const rule of parts) {
++      for (const [property, value] of declarations(rule.body)) {
++        if (["color", "fill", "stroke"].includes(property)) expect(ALLOWED, `${rule.selectors} ${property}`).toContain(value);
++      }
++    }
++  });
++});
++
++describe("T-20261117-001 CA-6 and CA-7: menu.css icons and dotted leaders", () => {
++  it(".menu__title lines up icon and text with a token gap; .menu__icon is primary", () => {
++    const title = decl("menu.css", ".menu__title");
++    expect(title.get("display")).toBe("flex");
++    expect(title.get("align-items")).toBe("center");
++    expect(title.get("gap")).toMatch(/^var\(--space-\d\)$/);
++    expect(decl("menu.css", ".menu__icon").get("color")).toBe("var(--color-primary)");
++    expect(decl("menu.css", ".menu__icon").get("flex")).toBe("none");
++  });
++
++  it("draws a flexible dotted ::after on the name, colored with a token", () => {
++    const name = decl("menu.css", ".menu__name");
++    expect(name.get("display")).toBe("flex");
++    const dots = decl("menu.css", ".menu__name::after");
++    expect(dots.get("content")).toBe('""');
++    expect(dots.get("flex")).toMatch(/^1 1 /);
++    expect(dots.get("min-width")).toBe("0");
++    expect(dots.get("border-bottom")).toMatch(/^\S+ dotted var\(--color-[\w-]+\)$/);
++  });
++
++  it("removes the solid separator between rows", () => {
++    expect(parseCss("menu.css").some((rule) => rule.selectors.includes(".menu__item + .menu__item"))).toBe(false);
++  });
++});
++
++describe("T-20261117-001 CA-8: main.css draws a line on each side of the section h2", () => {
++  it("centers the h2 text in a three-column grid whose side columns can shrink to 0", () => {
++    const h2 = decl("main.css", "main > section h2");
++    expect(h2.get("text-align")).toBe("center");
++    expect(h2.get("display")).toBe("grid");
++    expect(h2.get("grid-template-columns")).toBe("minmax(0, 1fr) auto minmax(0, 1fr)");
++  });
++
++  it.each(["main > section h2::before", "main > section h2::after"])("%s is an empty primary line", (selector) => {
++    const line = decl("main.css", selector);
++    expect(line.get("content")).toBe('""');
++    expect(line.get("min-width")).toBe("0");
++    expect(line.get("border-top")).toMatch(/^\S+ solid var\(--color-primary\)$/);
++  });
++
++  it("gives no line to the hero h1", () => {
++    const selectors = ["main.css", "hero.css"].flatMap((file) => parseCss(file).flatMap((rule) => rule.selectors));
++    expect(selectors.filter((s) => /h1|hero__title/.test(s) && /::?(before|after)/.test(s))).toEqual([]);
++  });
++});
++
++describe("T-20261117-001 CA-9: location.css icons", () => {
++  it(".location__title lines up icon and text; .location__icon is primary", () => {
++    const title = decl("location.css", ".location__title");
++    expect(title.get("display")).toBe("flex");
++    expect(title.get("align-items")).toBe("center");
++    expect(title.get("gap")).toMatch(/^var\(--space-\d\)$/);
++    expect(decl("location.css", ".location__icon").get("color")).toBe("var(--color-primary)");
++  });
++});
++
++describe("T-20261117-001 CA-11: footer.css moon", () => {
++  it(".site-footer__moon is secondary and the footer keeps its dark colors", () => {
++    expect(decl("footer.css", ".site-footer__moon").get("color")).toBe("var(--color-secondary)");
++    const footer = decl("footer.css", ".site-footer");
++    expect(footer.get("background")).toBe("var(--color-footer-bg)");
++    expect(footer.get("color")).toBe("var(--color-footer-text)");
++  });
++});
+diff --git a/src/styles/footer.css b/src/styles/footer.css
+index daa0402..0b9d0dd 100644
+--- a/src/styles/footer.css
++++ b/src/styles/footer.css
+@@ -25,6 +25,15 @@
+   font-size: var(--text-lg);
+ }
+ 
++/* Luna decorativa junto al nombre, en dorado (9.75:1 sobre footer-bg). */
++.site-footer__moon {
++  width: 1.25em;
++  height: 1.25em;
++  margin-inline-end: var(--space-2);
++  vertical-align: -0.2em;
++  color: var(--color-secondary);
++}
++
+ .site-footer__notice {
+   max-width: 65ch;
+ }
+diff --git a/src/styles/header.css b/src/styles/header.css
+index 8852c51..8c07be3 100644
+--- a/src/styles/header.css
++++ b/src/styles/header.css
+@@ -70,6 +70,16 @@
+   outline-offset: -3px;
+ }
+ 
++/* Luna decorativa en dorado (relleno de un gráfico aria-hidden). Va dentro del contenido de
++   .brand: el anillo hacia dentro cae sobre el padding de 8 px, no sobre el icono (D-12). */
++.brand__icon {
++  flex: none;
++  width: 1.25em;
++  height: 1.25em;
++  margin-inline-end: var(--space-2);
++  color: var(--color-secondary);
++}
++
+ .site-nav {
+   flex-basis: 100%;
+   min-width: 0;
+diff --git a/src/styles/hero.css b/src/styles/hero.css
+index fbd19a7..06e49c4 100644
+--- a/src/styles/hero.css
++++ b/src/styles/hero.css
+@@ -28,10 +28,62 @@
+   color: var(--color-text-muted);
+ }
+ 
++/* ── Decoración (SVG aria-hidden de src/sections/icons.ts) ── */
++/* Luna dorada sobre el título: relleno de un gráfico decorativo, no texto (diseno.md). */
++.hero__moon {
++  flex: none;
++  width: var(--space-7);
++  height: var(--space-7);
++  color: var(--color-secondary);
++}
++
++/* Taza de escritorio: oculta en móvil para no restar altura a la primera pantalla.
++   Cada parte toma su color de un token; el contorno usa el color heredado (primary). */
++.hero__art {
++  display: none;
++  width: clamp(14rem, 30vw, 20rem);
++  height: auto;
++  color: var(--color-primary);
++}
++
++.hero__art-shadow {
++  color: var(--color-border);
++}
++
++.hero__art-saucer,
++.hero__art-cup {
++  fill: var(--color-surface);
++}
++
++.hero__art-moon,
++.hero__art-spark {
++  color: var(--color-secondary);
++}
++
++.hero__art-steam,
++.hero__art-leaf {
++  color: var(--color-text-muted);
++}
++
+ /* ── Desde 768 px ─────────────────────────────────────── */
++/* Dos columnas: luna, título, eslogan y botón a la izquierda; la taza a la derecha. */
+ @media (min-width: 768px) {
+   .hero {
+     min-height: calc(100vh - var(--header-height));
+     min-height: calc(100svh - var(--header-height));
+   }
++
++  .hero__content {
++    display: grid;
++    grid-template-columns: minmax(0, 1fr) auto;
++    justify-items: start;
++    align-items: center;
++    column-gap: var(--space-6);
++  }
++
++  .hero__art {
++    display: block;
++    grid-column: 2;
++    grid-row: 1 / span 4;
++  }
+ }
+diff --git a/src/styles/location.css b/src/styles/location.css
+index b29dc51..c631699 100644
+--- a/src/styles/location.css
++++ b/src/styles/location.css
+@@ -21,12 +21,23 @@
+   box-shadow: var(--shadow-sm);
+ }
+ 
++/* Icono decorativo (calendario / ubicación) y texto en fila. */
+ .location__title {
++  display: flex;
++  align-items: center;
++  gap: var(--space-3);
+   margin-bottom: var(--space-4);
+   font-size: var(--text-xl);
+   font-weight: 600;
+ }
+ 
++.location__icon {
++  flex: none;
++  width: 1.1em;
++  height: 1.1em;
++  color: var(--color-primary);
++}
++
+ /* ── Horario ── */
+ .hours {
+   width: 100%;
+diff --git a/src/styles/main.css b/src/styles/main.css
+index 1477f09..e87d2b4 100644
+--- a/src/styles/main.css
++++ b/src/styles/main.css
+@@ -66,10 +66,34 @@ main > section:nth-of-type(even) {
+   background: var(--color-surface);
+ }
+ 
++/* Título centrado entre dos líneas decorativas. Las columnas laterales pueden quedarse en 0:
++   un título largo se parte en dos líneas y nunca desborda. El h1 de la portada no lleva líneas. */
+ main > section h2 {
++  display: grid;
++  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
++  align-items: center;
++  column-gap: var(--space-3);
+   margin-bottom: var(--space-5);
+   font-size: var(--text-2xl);
+   font-weight: 600;
++  text-align: center;
++}
++
++main > section h2::before,
++main > section h2::after {
++  content: "";
++  width: 100%;
++  max-width: var(--space-8);
++  min-width: 0;
++  border-top: 2px solid var(--color-primary);
++}
++
++main > section h2::before {
++  justify-self: end;
++}
++
++main > section h2::after {
++  justify-self: start;
+ }
+ 
+ /* ── Desde 768 px ─────────────────────────────────────── */
+diff --git a/src/styles/menu.css b/src/styles/menu.css
+index 2251b15..f919d3b 100644
+--- a/src/styles/menu.css
++++ b/src/styles/menu.css
+@@ -16,12 +16,23 @@
+   box-shadow: var(--shadow-sm);
+ }
+ 
++/* Icono decorativo (taza / pastel) y texto en fila. */
+ .menu__title {
++  display: flex;
++  align-items: center;
++  gap: var(--space-3);
+   margin-bottom: var(--space-4);
+   font-size: var(--text-xl);
+   font-weight: 600;
+ }
+ 
++.menu__icon {
++  flex: none;
++  width: 1.1em;
++  height: 1.1em;
++  color: var(--color-primary);
++}
++
+ .menu__list {
+   margin: 0;
+ }
+@@ -31,15 +42,10 @@
+   display: grid;
+   grid-template-columns: 1fr auto;
+   align-items: baseline;
+-  column-gap: var(--space-4);
++  column-gap: var(--space-2);
+   padding-block: var(--space-3);
+ }
+ 
+-/* Separador solo decorativo entre productos. */
+-.menu__item + .menu__item {
+-  border-top: 1px solid var(--color-border);
+-}
+-
+ .menu__item:first-child {
+   padding-top: 0;
+ }
+@@ -48,14 +54,27 @@
+   padding-bottom: 0;
+ }
+ 
+-/* Un nombre largo pasa a varias líneas sin empujar el precio fuera (CA-02.3). */
++/* Un nombre largo pasa a varias líneas sin empujar el precio fuera (CA-02.3).
++   En flex, para que la línea de puntos ocupe el hueco hasta el precio. */
+ .menu__name {
++  display: flex;
++  align-items: baseline;
+   min-width: 0;
+   font-size: var(--text-lg);
+   color: var(--color-text);
+   overflow-wrap: anywhere;
+ }
+ 
++/* Línea de puntos guía, solo decorativa: se estira hasta el precio y puede encogerse hasta
++   desaparecer con un nombre largo. Su borde inferior cae en la línea base del texto. */
++.menu__name::after {
++  content: "";
++  flex: 1 1 var(--space-4);
++  min-width: 0;
++  margin-inline-start: var(--space-2);
++  border-bottom: 2px dotted var(--color-text-muted);
++}
++
+ /* El precio nunca se parte. */
+ .menu__price {
+   margin: 0;
+diff --git a/src/styles/split.test.ts b/src/styles/split.test.ts
+index 9126839..60e2d42 100644
+--- a/src/styles/split.test.ts
++++ b/src/styles/split.test.ts
+@@ -112,6 +112,8 @@ const SPLIT: Record<string, Record<string, string[]>> = {
+       "main > section",
+       "main > section:nth-of-type(even)",
+       "main > section h2",
++      "main > section h2::before", // T-20261117-001 CA-8
++      "main > section h2::after", // T-20261117-001 CA-8
+     ],
+     [MD]: ["main > section"],
+     [NO_PREFERENCE]: ["html"],
+@@ -125,6 +127,7 @@ const SPLIT: Record<string, Record<string, string[]>> = {
+       ".site-header__inner",
+       ".brand",
+       ".brand:focus-visible", // T-20261115-005 CA-4 (a)
++      ".brand__icon", // T-20261117-001 CA-3
+       ".site-nav",
+       ".site-nav__list",
+       ".nav-link",
+@@ -138,14 +141,36 @@ const SPLIT: Record<string, Record<string, string[]>> = {
+     [REDUCE]: [".btn:active"],
+   },
+   "hero.css": {
+-    "": [".hero", ".hero__content", ".hero__title", ".hero__slogan"],
+-    [MD]: [".hero"],
++    "": [
++      ".hero",
++      ".hero__content",
++      ".hero__title",
++      ".hero__slogan",
++      // T-20261117-001 CA-4 and CA-5: moon and cup illustration with its parts.
++      ".hero__moon",
++      ".hero__art",
++      ".hero__art-shadow",
++      ".hero__art-saucer",
++      ".hero__art-cup",
++      ".hero__art-moon",
++      ".hero__art-spark",
++      ".hero__art-steam",
++      ".hero__art-leaf",
++    ],
++    [MD]: [".hero", ".hero__content", ".hero__art"], // T-20261117-001 CA-5: two columns from 768 px
+   },
+   "reserve.css": {
+     "": [".reserve__text"],
+   },
+   "footer.css": {
+-    "": [".site-footer", ".site-footer a", ".site-footer :focus-visible", ".site-footer__name", ".site-footer__notice"],
++    "": [
++      ".site-footer",
++      ".site-footer a",
++      ".site-footer :focus-visible",
++      ".site-footer__name",
++      ".site-footer__notice",
++      ".site-footer__moon", // T-20261117-001 CA-11
++    ],
+   },
+ };
+ 
