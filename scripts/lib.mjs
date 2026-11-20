@@ -79,27 +79,44 @@ export function registrar(rutas, estacion, resultado, nota = '') {
   return linea;
 }
 
-// Localiza el ejecutable de Codex (OpenAI): CODEX_BIN, fabrica.config.json > codex.ejecutable, PATH o la app de escritorio.
+// Localiza el ejecutable de Codex (OpenAI): CODEX_BIN o fabrica.config.json > codex.ejecutable si se fijan; si no
+// ("auto"), reúne todos los instalados (PATH, la app de Microsoft Store y %LOCALAPPDATA%\OpenAI\Codex\bin) y elige
+// el de versión más alta: los modelos nuevos (p. ej. gpt-6.2-astra) solo funcionan con un Codex reciente.
+let codexEnCache;
 export function encontrarCodex(cfgCodex = {}) {
   if (process.env.CODEX_BIN && existsSync(process.env.CODEX_BIN)) return process.env.CODEX_BIN;
   const cfg = cfgCodex?.ejecutable;
   if (cfg && cfg !== 'auto') return existsSync(cfg) ? cfg : null;
+  if (codexEnCache !== undefined) return codexEnCache;
+
+  const candidatos = new Set();
   const w = spawnSync(process.platform === 'win32' ? 'where' : 'which', ['codex'], { encoding: 'utf8' });
   if (w.status === 0) {
     const rutas = w.stdout.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
     const exe = rutas.find((r) => /\.exe$/i.test(r)) ?? rutas.find((r) => !/\.(cmd|ps1)$/i.test(r));
-    if (exe) return exe;
+    if (exe) candidatos.add(exe);
   }
-  // App de escritorio de Codex en Windows: %LOCALAPPDATA%\OpenAI\Codex\bin\<hash>\codex.exe
-  const base = join(process.env.LOCALAPPDATA ?? '', 'OpenAI', 'Codex', 'bin');
-  if (existsSync(base)) {
-    const candidatos = readdirSync(base)
-      .map((d) => join(base, d, 'codex.exe'))
-      .filter((f) => existsSync(f))
-      .sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs);
-    if (candidatos[0]) return candidatos[0];
+  if (process.platform === 'win32') {
+    // App de escritorio de Codex (Microsoft Store): <InstallLocation>\app\resources\codex.exe
+    const appx = spawnSync('powershell', ['-NoProfile', '-Command', '(Get-AppxPackage -Name OpenAI.Codex).InstallLocation'], { encoding: 'utf8' });
+    for (const loc of (appx.stdout ?? '').split(/\r?\n/).map((s) => s.trim()).filter(Boolean)) {
+      const f = join(loc, 'app', 'resources', 'codex.exe');
+      if (existsSync(f)) candidatos.add(f);
+    }
+    // Binarios que la app descarga: %LOCALAPPDATA%\OpenAI\Codex\bin\<hash>\codex.exe
+    const base = join(process.env.LOCALAPPDATA ?? '', 'OpenAI', 'Codex', 'bin');
+    if (existsSync(base)) {
+      for (const d of readdirSync(base)) { const f = join(base, d, 'codex.exe'); if (existsSync(f)) candidatos.add(f); }
+    }
   }
-  return null;
+  const version = (exe) => {
+    const m = (spawnSync(exe, ['--version'], { encoding: 'utf8' }).stdout ?? '').match(/(\d+)\.(\d+)\.(\d+)/);
+    return m ? m.slice(1).map(Number) : [0, 0, 0];
+  };
+  const comparar = (a, b) => b.v[0] - a.v[0] || b.v[1] - a.v[1] || b.v[2] - a.v[2] || statSync(b.exe).mtimeMs - statSync(a.exe).mtimeMs;
+  const ordenados = [...candidatos].map((exe) => ({ exe, v: version(exe) })).sort(comparar);
+  codexEnCache = ordenados[0]?.exe ?? null;
+  return codexEnCache;
 }
 
 // Objetivo visual aprobado de una tarea: la estructura de la tarea, o la del proyecto, o (proyectos antiguos)

@@ -103,7 +103,7 @@ Reparto por defecto (el del video):
 |---|---|---|
 | spec-writer, constructor, aprobador | Claude (Opus) | Planificar y programar |
 | revisor-seguridad, revisor-ux | Codex · GPT-6.1-Sol | Otra familia de modelos revisa sin el sesgo de quien programó |
-| revisor-ui | Codex · GPT-6-Astra | Especializado en interfaces |
+| revisor-ui | Codex · GPT-6.2-Astra | Especializado en interfaces |
 | revisor-codigo | Claude (Sonnet) | Tarea acotada, modelo más ligero |
 | clasificador-riesgo | Codex · GPT-6.1-Sol | Decisión crítica tomada por otra familia |
 
