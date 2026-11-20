@@ -20,7 +20,7 @@ process.stdin.on('end', () => {
     const cmd = String(input.command ?? '').replace(/"[^"]*"|'[^']*'/g, '""');
     const reglas = [
       [/--aprobar\b/, 'Solo el humano puede aprobar tareas de riesgo ALTO (cerrar-tarea.mjs --aprobar).'],
-      [/boceto\.mjs\S*\s+aprobar\b/, 'Solo el humano aprueba el boceto visual (node scripts/boceto.mjs aprobar ...).'],
+      [/(boceto|estructura)\.mjs\S*\s+aprobar\b/, 'Solo el humano aprueba la estructura y los recursos visuales (node scripts/estructura.mjs aprobar ...).'],
       [/\bgit\b[^\n;|&]*\bpush\b/, 'Los agentes no hacen push. Lo decide el humano.'],
       [/\bgh\s+pr\s+merge\b/, 'Los agentes no fusionan PRs.'],
       [/\bgit\b[^\n;|&]*\bmerge\b(?!\s+(--abort|main\b|master\b))/, 'Integrar ramas es trabajo de scripts/cerrar-tarea.mjs, no de un agente.'],
@@ -42,7 +42,8 @@ process.stdin.on('end', () => {
     const protegidos = [
       [/\/tareas\/[^/]+\/(traza\.jsonl|riesgo-codigo\.json)$/, 'La traza y el riesgo calculado por código no se editan a mano.'],
       [/\/proyectos\/[^/]+\/app\//,'No se edita app/ directamente: se trabaja en el worktree de la tarea (.worktrees/<ID>/).'],
-      [/\/boceto\/(aprobado[^/]*|estado\.json)$/, 'El boceto aprobado solo lo fija el humano con scripts/boceto.mjs aprobar.'],
+      [/\/boceto\/(aprobado[^/]*|estado\.json)$/, 'El boceto aprobado de un proyecto antiguo no se edita a mano.'],
+      [/\/estructura\/(aprobado\/|estado\.json$)/, 'La estructura aprobada solo la fija el humano con scripts/estructura.mjs aprobar.'],
     ];
     for (const [patron, motivo] of protegidos) {
       if (patron.test(ruta)) {

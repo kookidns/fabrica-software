@@ -13,10 +13,12 @@ for (let i = 0; i < resto.length; i += 2) opts[resto[i].replace(/^--/, '')] = re
 const p = rutasProyecto(proyecto);
 if (!existsSync(p.dir)) fallar(`No existe el proyecto ${proyecto}`);
 
-// 0. Compuerta del boceto: sin objetivo visual aprobado por el humano no se empieza a construir.
-const cfgBoceto = leerJSON(join(RAIZ, 'fabrica.config.json'), {}).boceto ?? {};
-if (cfgBoceto.obligatorio !== false && !existsSync(join(p.brain, 'boceto', 'aprobado.md'))) {
-  fallar(`El proyecto ${proyecto} no tiene boceto aprobado. Genéralo con /boceto ${proyecto} (o node scripts/boceto.mjs generar ${proyecto}) y apruébalo tú con: node scripts/boceto.mjs aprobar ${proyecto}`);
+// 0. Compuerta de la estructura: sin estructura aprobada por el humano no se empieza a construir.
+//    (Los proyectos antiguos con un boceto aprobado en brain/boceto/ también pasan.)
+const cfgEstructura = leerJSON(join(RAIZ, 'fabrica.config.json'), {}).estructura ?? {};
+const tieneObjetivo = existsSync(join(p.brain, 'estructura', 'aprobado', 'diagrama.md')) || existsSync(join(p.brain, 'boceto', 'aprobado.md'));
+if (cfgEstructura.obligatorio !== false && !tieneObjetivo) {
+  fallar(`El proyecto ${proyecto} no tiene estructura aprobada. Genérala con /fabrica estructura ${proyecto} (o node scripts/estructura.mjs generar ${proyecto}) y apruébala tú con: node scripts/estructura.mjs aprobar ${proyecto}`);
 }
 
 // 1. Obtener el texto de la entrada

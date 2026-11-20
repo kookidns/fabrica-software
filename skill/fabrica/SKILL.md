@@ -1,7 +1,7 @@
 ---
 name: fabrica
-description: Fábrica de software con agentes Claude + Codex para crear páginas web y apps. Crea proyectos nuevos con su brain y un boceto visual dibujado por ChatGPT, y los construye tarea por tarea con revisores y aprobación humana. Úsala cuando el usuario escriba /fabrica o pida crear una página o app nueva "con la fábrica", generar o rehacer un boceto, planificar un proyecto, procesar tareas, corregir un error o ver el estado de un proyecto de la fábrica.
-argument-hint: "[nuevo <nombre> <idea> | boceto <p> [ID] [cambios] | planificar <p> | <p> [tarea|error|issue <texto>] | <p> continuar <ID> | estado [p] | actualizar]"
+description: Fábrica de software con agentes Claude + Codex para crear páginas web y apps. Crea proyectos nuevos con su brain, la estructura en diagrama y las imágenes de la página generadas por ChatGPT, y los construye tarea por tarea con revisores y aprobación humana. Úsala cuando el usuario escriba /fabrica o pida crear una página o app nueva "con la fábrica", generar o cambiar la estructura o las imágenes, planificar un proyecto, procesar tareas, corregir un error o ver el estado de un proyecto de la fábrica.
+argument-hint: "[nuevo <nombre> <idea> | estructura <p> [ID] [--recurso <id>] [cambios] | planificar <p> | <p> [tarea|error|issue <texto>] | <p> continuar <ID> | estado [p] | actualizar]"
 ---
 
 # /fabrica: la fábrica de software, desde cualquier chat
@@ -40,7 +40,7 @@ Lee el archivo indicado y **síguelo al pie de la letra**, pasándole como `$ARG
 |---|---|---|
 | *(vacío)* o `ayuda` | ninguno: muestra el menú (abajo) | `/fabrica` |
 | `nuevo` | `.claude/commands/nuevo-proyecto.md` | `/fabrica nuevo tienda-tenis Tienda online de tenis…` |
-| `boceto` | `.claude/commands/boceto.md` | `/fabrica boceto tienda-tenis botón de comprar más grande` |
+| `estructura` (o `boceto`, nombre antiguo) | `.claude/commands/estructura.md` | `/fabrica estructura tienda-tenis añade una sección de opiniones` · `/fabrica estructura tienda-tenis --recurso hero-tenis más luminosa` |
 | `planificar` | `.claude/commands/planificar.md` | `/fabrica planificar tienda-tenis` |
 | `estado` | `.claude/commands/estado.md` | `/fabrica estado` · `/fabrica estado tienda-tenis` |
 | `actualizar` | ejecuta `git -C "{{FABRICA}}" pull` y luego `node scripts/instalar-skill.mjs` | `/fabrica actualizar` |
@@ -56,17 +56,18 @@ tenga. Si el usuario prefiere no contestar, sigue: el analista deja lo desconoci
 Si adjunta imágenes de referencia, pásalas al analista.
 
 ## Menú (cuando no hay argumentos)
-Muestra la lista de proyectos de `proyectos/`, con su estado en una línea (`node scripts/boceto.mjs estado <p>`
+Muestra la lista de proyectos de `proyectos/`, con su estado en una línea (`node scripts/estructura.mjs estado <p>`
 y si tiene la bandeja vacía), y estos comandos:
-- `/fabrica nuevo <nombre> <idea>`: crea el proyecto y su brain, y ChatGPT dibuja el boceto.
-- `/fabrica boceto <p> <cambios>`: rehace el boceto con tus cambios.
-- `/fabrica planificar <p>`: con el boceto y la spec aprobados, arquitectura, diseño y tareas.
+- `/fabrica nuevo <nombre> <idea>`: crea el proyecto y su brain; ChatGPT define la estructura (diagrama) y
+  genera las imágenes que irán en la página.
+- `/fabrica estructura <p> <cambios>`: rehace la estructura con tus cambios (`--recurso <id>` para una sola imagen).
+- `/fabrica planificar <p>`: con la estructura y la spec aprobadas, arquitectura, diseño y tareas.
 - `/fabrica <p>`: construye la siguiente tarea de la bandeja.
 - `/fabrica <p> tarea|error <texto>`: una tarea o un error suelto.
 - `/fabrica estado [p]`: en qué punto está todo y qué sigue.
 
 ## Lo que SOLO hace el humano (nunca tú)
-- Aprobar el boceto: `node scripts/boceto.mjs aprobar <p> [--tarea <ID>]`.
+- Aprobar la estructura y los recursos: `node scripts/estructura.mjs aprobar <p> [--tarea <ID>]`.
 - Integrar una tarea de riesgo ALTO: `node scripts/cerrar-tarea.mjs <p> <ID> --aprobar`.
 - Hacer push o publicar.
 

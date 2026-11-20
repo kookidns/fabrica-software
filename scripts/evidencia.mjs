@@ -19,7 +19,7 @@ import { createServer } from 'node:http';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync, statSync } from 'node:fs';
 import { extname, join, normalize, sep } from 'node:path';
 import { tmpdir } from 'node:os';
-import { RAIZ, fallar, rutasTarea, leerJSON, escribirJSON, registrar, ahora } from './lib.mjs';
+import { RAIZ, fallar, rutasTarea, leerJSON, escribirJSON, registrar, ahora, objetivoVisual } from './lib.mjs';
 
 const [proyecto, id, ...resto] = process.argv.slice(2);
 const opcion = (n) => resto.includes(n);
@@ -238,10 +238,10 @@ L.push('## Recorrido con Tab (375 px) · `tab-NN.png`', '| # | elemento | nombre
 for (const p of ev.tab.pasos) L.push(p.aviso ? `| ${p.paso} | **${p.aviso}** | | | | |` : `| ${p.paso} | ${p.el} | ${p.nombre ?? ''} | ${p.tam ?? ''} | ${p.contorno ?? ''} | ${p.visible ?? ''} |`);
 L.push('', `- Primer enfocable: ${ev.tab.primerEnfocable.el}; tras Enter el foco está en: ${ev.tab.trasEnterEnElPrimero.el}; Mayús+Tab después: ${ev.tab.mayusTabDespues.el}`,
   '- Nota: cuando el foco está DENTRO de un iframe de otro origen, aquí se ve como el propio iframe y su contorno no se puede medir desde fuera: mira las capturas `tab-NN.png` de esos pasos.', '');
-const refBoceto = [join(r.tarea, 'boceto'), join(r.brain, 'boceto')]
-  .map((c) => ['movil', 'escritorio'].map((f) => join(c, `aprobado-${f}.png`)).filter((f) => existsSync(f)))
-  .find((l) => l.length) ?? [];
-L.push('## Boceto aprobado (objetivo visual para comparar)', refBoceto.length ? refBoceto.map((f) => `- ${f}`).join('\n') : '- no hay boceto aprobado', '');
+const objetivo = objetivoVisual(r.tarea, r.brain);
+L.push('## Objetivo aprobado (para comparar)',
+  objetivo.tipo === 'estructura' ? `- Estructura: ${objetivo.diagrama}` : objetivo.tipo === 'boceto' ? '- Boceto (proyecto antiguo):' : '- no hay estructura aprobada',
+  ...objetivo.imagenes.map((f) => `- ${f}`), '');
 L.push('## Consola', ev.consola.length ? ev.consola.map((x) => `- ${x}`).join('\n') : '- sin errores ni avisos', '');
 if (ev.comparacion) { L.push('## Comparación con main (`main-*.png` / `rama-*.png`)', `- ${ev.comparacion.nota}`); ev.comparacion.filas.forEach((f) => L.push(`- ${f.vista} px: ${f.identicas ? 'idénticas' : '**distintas**'}`)); L.push(''); }
 if (ev.lighthouse) L.push('## Lighthouse móvil', ev.lighthouse.error ? `- ${ev.lighthouse.error}` : `- Ejecuciones: ${ev.lighthouse.ejecuciones.map((x) => `${x.rendimiento}/${x.accesibilidad}`).join(', ')} · mediana rendimiento ${ev.lighthouse.mediana.rendimiento}, accesibilidad ${ev.lighthouse.mediana.accesibilidad}`, '');
