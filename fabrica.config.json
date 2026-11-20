@@ -19,7 +19,7 @@
     "constructor":         { "motor": "claude" },
     "revisor-seguridad":   { "motor": "codex", "modelo": "gpt-6.1-sol", "esfuerzo": "high" },
     "revisor-ux":          { "motor": "codex", "modelo": "gpt-6.1-sol" },
-    "revisor-ui":          { "motor": "codex", "modelo": "gpt-6-astra" },
+    "revisor-ui":          { "motor": "codex", "modelo": "gpt-6.2-astra" },
     "revisor-codigo":      { "motor": "claude" },
     "aprobador":           { "motor": "claude" },
     "clasificador-riesgo": { "motor": "codex", "modelo": "gpt-6.1-sol", "esfuerzo": "high" }
