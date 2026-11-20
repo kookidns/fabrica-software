@@ -12,7 +12,7 @@
 import { spawn, spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync, createWriteStream } from 'node:fs';
 import { join } from 'node:path';
-import { RAIZ, escribirJSON, fallar, git, leerJSON, registrar, rutasTarea, encontrarCodex as encontrarCodexLib } from './lib.mjs';
+import { RAIZ, escribirJSON, fallar, git, leerJSON, objetivoVisual, registrar, rutasTarea, encontrarCodex as encontrarCodexLib } from './lib.mjs';
 
 const CONFIG = leerJSON(join(RAIZ, 'fabrica.config.json'), {});
 const REVISORES = ['revisor-seguridad', 'revisor-ux', 'revisor-ui', 'revisor-codigo'];
@@ -124,15 +124,10 @@ function ejecutar(rol, proyecto, id, ronda, extra) {
   mkdirSync(dirLogs, { recursive: true });
   mkdirSync(join(r.tarea, 'revisiones'), { recursive: true });
 
-  // El revisor de UI recibe adjunto el boceto aprobado (de la tarea o, si no hay, del proyecto) para comparar.
-  const bocetos = [];
-  if (rol === 'revisor-ui') {
-    for (const carpeta of [join(r.tarea, 'boceto'), join(r.brain, 'boceto')]) {
-      const encontrados = ['movil', 'escritorio'].map((f) => join(carpeta, `aprobado-${f}.png`)).filter((f) => existsSync(f));
-      if (encontrados.length) { bocetos.push(...encontrados); break; }
-    }
-  }
-  const args = ['exec', ...bocetos.map((b) => `--image=${b}`), '--color', 'never', '-o', salida];
+  // El revisor de UI recibe adjuntos los recursos aprobados (o el boceto, en proyectos antiguos) para comparar.
+  const objetivo = rol === 'revisor-ui' ? objetivoVisual(r.tarea, r.brain) : { tipo: null, imagenes: [] };
+  const adjuntos = objetivo.imagenes.slice(0, 8);
+  const args = ['exec', ...adjuntos.map((b) => `--image=${b}`), '--color', 'never', '-o', salida];
   if (modelo) args.push('-m', modelo);
   if (estacion.esfuerzo) args.push('-c', `model_reasoning_effort="${estacion.esfuerzo}"`);
   if (perfil.escribe === 'worktree') {
@@ -147,8 +142,10 @@ function ejecutar(rol, proyecto, id, ronda, extra) {
   args.push('-'); // el prompt va por stdin
 
   const rutaDiff = perfil.escribe === 'worktree' ? null : prepararDiff(r, estado, trabajo, ronda);
-  const extraBoceto = bocetos.length ? `El boceto aprobado (objetivo visual) va adjunto como imagen: ${bocetos.join(', ')}` : null;
-  const prompt = construirPrompt(rol, perfil, r, estado, trabajo, ronda, [extra, extraBoceto].filter(Boolean).join(' · ') || undefined, rutaDiff);
+  const extraObjetivo = objetivo.tipo === 'estructura'
+    ? `Estructura aprobada: ${objetivo.diagrama} (y recursos.json en la misma carpeta). Los recursos aprobados van adjuntos como imagen: ${adjuntos.join(', ')}`
+    : objetivo.tipo === 'boceto' ? `El boceto aprobado (objetivo visual) va adjunto como imagen: ${adjuntos.join(', ')}` : null;
+  const prompt = construirPrompt(rol, perfil, r, estado, trabajo, ronda, [extra, extraObjetivo].filter(Boolean).join(' · ') || undefined, rutaDiff);
   const antes = perfil.escribe === 'worktree' ? null : huella(trabajo);
   const log = createWriteStream(join(dirLogs, `${rol}-ronda${ronda}.log`));
   log.write(`$ ${exe} ${args.join(' ')}\n\n===== PROMPT =====\n${prompt}\n\n===== SALIDA =====\n`);

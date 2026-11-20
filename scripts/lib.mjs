@@ -102,6 +102,24 @@ export function encontrarCodex(cfgCodex = {}) {
   return null;
 }
 
+// Objetivo visual aprobado de una tarea: la estructura de la tarea, o la del proyecto, o (proyectos antiguos)
+// el boceto. Devuelve { tipo: 'estructura'|'boceto'|null, carpeta, diagrama, imagenes[] }.
+export function objetivoVisual(dirTarea, dirBrain) {
+  for (const carpeta of [join(dirTarea, 'estructura', 'aprobado'), join(dirBrain, 'estructura', 'aprobado')]) {
+    const diagrama = join(carpeta, 'diagrama.md');
+    if (!existsSync(diagrama)) continue;
+    const recursos = leerJSON(join(carpeta, 'recursos.json'), []);
+    const imagenes = (Array.isArray(recursos) ? recursos : [])
+      .filter((r) => r.generar).map((r) => join(carpeta, 'img', `${r.id}.webp`)).filter((f) => existsSync(f));
+    return { tipo: 'estructura', carpeta, diagrama, imagenes };
+  }
+  for (const carpeta of [join(dirTarea, 'boceto'), join(dirBrain, 'boceto')]) {
+    const imagenes = ['movil', 'escritorio'].map((f) => join(carpeta, `aprobado-${f}.png`)).filter((f) => existsSync(f));
+    if (imagenes.length) return { tipo: 'boceto', carpeta, diagrama: null, imagenes };
+  }
+  return { tipo: null, carpeta: null, diagrama: null, imagenes: [] };
+}
+
 export function ultimaTraza(rutas, estacion) {
   if (!existsSync(rutas.traza)) return null;
   const lineas = readFileSync(rutas.traza, 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));

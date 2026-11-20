@@ -5,12 +5,14 @@
     "modelo_por_defecto": "gpt-6.1-sol",
     "timeout_minutos": 25
   },
-  "boceto": {
-    "_ayuda": "Boceto visual con ChatGPT (herramienta de imágenes de Codex, con tu sesión de ChatGPT). obligatorio: true = no se crean tareas hasta que apruebes el boceto del proyecto. formatos: movil | escritorio | ambos. modelo: null = el de tu config de Codex.",
+  "estructura": {
+    "_ayuda": "Estructura (diagrama Mermaid) y recursos visuales generados por ChatGPT vía Codex, con tu sesión de ChatGPT. obligatorio: true = no se crean tareas hasta que apruebes la estructura del proyecto. max_imagenes: tope de imágenes por versión. ancho_max y calidad_webp: optimización de las imágenes para la web. modelo: null = el de tu config de Codex.",
     "obligatorio": true,
-    "formatos": "ambos",
+    "max_imagenes": 6,
+    "ancho_max": 1600,
+    "calidad_webp": 0.82,
     "modelo": null,
-    "timeout_minutos": 15
+    "timeout_minutos": 25
   },
   "estaciones": {
     "spec-writer":         { "motor": "claude" },

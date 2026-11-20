@@ -1,5 +1,5 @@
 ---
-description: Crea un proyecto nuevo, siembra su brain con visión y especificación y genera el boceto visual con ChatGPT
+description: Crea un proyecto nuevo, siembra su brain con visión y especificación, y genera con ChatGPT la estructura (diagrama) y los recursos visuales
 argument-hint: <nombre-en-kebab-case> <descripción de la idea, tan detallada como quieras>
 ---
 
@@ -10,13 +10,16 @@ referencia o enlaces, pásaselos también al analista.)
 1. Estación de código: `node scripts/nuevo-proyecto.mjs <nombre>`. Copia la plantilla e inicializa
    `app/` como repositorio git con rama `main`. Si falla (p. ej. ya existe), detente y dime el error.
 2. Lanza el agente **analista** con el nombre y la idea → `brain/vision.md`, `brain/spec.md`, `brain/huecos.md`.
-3. Estación del boceto: `node scripts/boceto.mjs generar <nombre>`. ChatGPT dibuja la página o la app a
-   partir del brain recién creado. Abre con Read las imágenes y el `v1.md`.
+3. Estación de estructura y recursos: `node scripts/estructura.mjs generar <nombre>`. ChatGPT define la
+   estructura como diagrama y genera solo las imágenes que irán dentro de la página. Lee `v1/diagrama.md`,
+   `v1/recursos.md` y `v1/version.md`, y abre con Read las imágenes `v1/img/*.webp`.
 4. Muéstrame:
    - un resumen de la visión y la spec, con los huecos que tengo que resolver;
-   - el boceto (enséñame las imágenes y descríbelas en pocas líneas).
+   - el diagrama de la estructura: dibújalo si tienes una herramienta para mostrar diagramas; si no, como texto;
+   - los recursos visuales: cada imagen con su id, dónde va y su texto alternativo.
 
-**Detente aquí.** Son estaciones humanas: reviso la spec y el boceto.
-- Si quiero cambios en el boceto: `/boceto <nombre> <qué cambiar>`.
-- Cuando me guste, lo apruebo yo en mi terminal: `node scripts/boceto.mjs aprobar <nombre>`.
-- Con la spec y el boceto aprobados, sigo con `/planificar <nombre>`.
+**Detente aquí.** Son estaciones humanas: reviso la spec, la estructura y los recursos.
+- Para cambiar la estructura o varias cosas: `/fabrica estructura <nombre> <qué cambiar>`.
+- Para rehacer una sola imagen: `/fabrica estructura <nombre> --recurso <id> <qué cambiar>`.
+- Cuando me guste, la apruebo yo en mi terminal: `node scripts/estructura.mjs aprobar <nombre>`.
+- Con la spec y la estructura aprobadas, sigo con `/fabrica planificar <nombre>`.

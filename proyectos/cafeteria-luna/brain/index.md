@@ -6,7 +6,8 @@ Memoria persistente del proyecto. Cualquier agente lee este archivo antes de act
 |---|---|---|
 | `vision.md` | Problema, público, objetivo, marca y tono | siempre que haya texto o UX de por medio |
 | `spec.md` | Alcance global y criterios del producto | escribas una spec de tarea |
-| `boceto/aprobado-*.png` + `aprobado.md` | **El objetivo visual** aprobado por el humano (ChatGPT lo dibuja, el humano lo aprueba) | toques interfaz, diseñes o escribas una spec |
+| `estructura/aprobado/` | **El objetivo** aprobado por el humano: `diagrama.md` (estructura) y `recursos.json` + `img/*.webp` (imágenes de la página) | toques interfaz, diseñes, planifiques o escribas una spec |
+| `boceto/aprobado-*.png` | Boceto de página completa (sistema anterior, histórico; manda la estructura si existe) | quieras ver el origen de D-13/D-14 |
 | `arquitectura.md` | Stack, estructura, datos, integraciones | vayas a tocar código |
 | `diseno.md` | Tokens visuales y componentes base | toques interfaz |
 | `decisiones.md` | Decisiones tomadas y por qué (no se rediscuten) | siempre |

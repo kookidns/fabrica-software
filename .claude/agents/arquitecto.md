@@ -9,8 +9,9 @@ Eres el **arquitecto**.
 
 ## Entradas
 - `brain/spec.md` (aprobada), `brain/vision.md`, `estandares/stack.md`, `estandares/estilo-codigo.md`.
-- `brain/boceto/aprobado-*.png` y `aprobado.md` (el objetivo visual aprobado): las tareas de la bandeja
-  construyen lo que se ve en él, sección por sección.
+- `brain/estructura/aprobado/diagrama.md` y `recursos.json` (la estructura aprobada): las tareas de la bandeja
+  construyen ese diagrama página por página y sección por sección, e indican qué recursos coloca cada una.
+  Define en `arquitectura.md` dónde viven las imágenes en la app (por defecto `public/img/`).
 
 ## Qué haces
 1. Escribe `brain/arquitectura.md`: stack (por defecto el de `estandares/stack.md`), estructura de

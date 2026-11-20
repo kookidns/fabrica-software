@@ -24,15 +24,15 @@ Lee `fabrica.config.json > estaciones`. Cada estación tiene `motor`:
 ## 0 · Entrada (código)
 `node scripts/nueva-tarea.mjs <p> [--tipo <tipo>] [--texto "<texto>"]`
 Devuelve JSON con `id` y `trabajo` (carpeta del worktree). Si dice que la bandeja está vacía, termina.
-Si falla porque el proyecto no tiene boceto aprobado, dime que use `/boceto <p>` y detente.
+Si falla porque el proyecto no tiene estructura aprobada, dime que use `/fabrica estructura <p>` y detente.
 
-## 0b · Boceto de la tarea (solo si la entrada pide una pantalla o sección NUEVA)
-El boceto del proyecto (`brain/boceto/aprobado-*.png`) ya fija el objetivo visual. Si la entrada pide
-algo que se ve y que NO aparece en ese boceto (una página, una pantalla o una sección nueva), genera el de la tarea:
-`node scripts/boceto.mjs generar <p> --tarea <ID>`. Enséñame las imágenes y **detente** hasta que lo
-apruebe yo (`node scripts/boceto.mjs aprobar <p> --tarea <ID>`) o pida cambios (`/boceto <p> <ID> <cambios>`).
-Cuando lo apruebe, retoma desde el paso 1 con `/fabrica <p> continuar <ID>`. Para errores, cambios
-de texto y tareas sin interfaz nueva, salta este paso.
+## 0b · Estructura de la tarea (solo si la entrada pide una pantalla o sección NUEVA)
+La estructura del proyecto (`brain/estructura/aprobado/diagrama.md` y sus recursos) ya fija el objetivo.
+Si la entrada pide algo que NO aparece en ese diagrama (una página, una pantalla o una sección nueva), genera
+el de la tarea: `node scripts/estructura.mjs generar <p> --tarea <ID>`. Enséñame el diagrama y las imágenes y
+**detente** hasta que lo apruebe yo (`node scripts/estructura.mjs aprobar <p> --tarea <ID>`) o pida cambios
+(`/fabrica estructura <p> <ID> <cambios>`). Cuando lo apruebe, retoma desde el paso 1 con
+`/fabrica <p> continuar <ID>`. Para errores, cambios de texto y tareas sin pantallas nuevas, salta este paso.
 
 ## 1 · Spec — estación `spec-writer`
 Entrega: `tareas/<ID>/spec.md`. Si empieza por `NECESITA_HUMANO`, traza `spec-writer NECESITA_HUMANO`,

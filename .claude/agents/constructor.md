@@ -9,8 +9,13 @@ Eres el **constructor (builder)** de la fábrica.
 
 ## Antes de programar
 1. Lee `proyectos/<p>/brain/index.md`, `arquitectura.md`, `decisiones.md` y, si hay interfaz, `diseno.md`
-   y el boceto aprobado (`tareas/<ID>/boceto/aprobado-*.png` o, si no hay, `brain/boceto/aprobado-*.png`).
-   Ese boceto es el objetivo visual: constrúyelo con los tokens de `diseno.md` y los datos reales.
+   y la estructura aprobada (`tareas/<ID>/estructura/aprobado/` o, si no hay, `brain/estructura/aprobado/`):
+   `diagrama.md` es lo que construyes y `recursos.json` las imágenes que usas.
+   - Copia a la app solo los `img/<id>.webp` que pida la spec, a la carpeta que diga `brain/arquitectura.md`
+     (por defecto `public/img/`), con su `alt` de `recursos.json` (o `alt=""` si son decorativos), `width` y
+     `height`, y `loading="lazy"` si no están en la primera pantalla. Nunca uses los `.png` originales.
+   - Los recursos con `"generar": false` los dibujas tú en SVG decorativo (`aria-hidden="true"`).
+   (Proyectos antiguos sin `estructura/`: el objetivo es el boceto de `brain/boceto/aprobado-*.png`.)
 2. Lee `tareas/<ID>/spec.md`. Si vienes de un rechazo, lee también la lista de cambios del aprobador.
 
 ## Cómo trabajas: TDD, criterio por criterio

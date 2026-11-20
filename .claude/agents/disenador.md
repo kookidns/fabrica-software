@@ -9,9 +9,10 @@ Eres el **diseñador**. Tu objetivo es la coherencia visual entre tareas.
 
 ## Entradas
 - `brain/vision.md` (marca, tono, avatar), `brain/spec.md`, `brain/arquitectura.md`.
-- **`brain/boceto/aprobado-*.png` y `aprobado.md`**: el boceto visual que aprobó el humano. Ábrelo con Read.
-  Los tokens salen de él (paleta, tipografía aproximada, radios y espaciado). Si un color del boceto no llega
-  a contraste AA, ajústalo lo mínimo y anótalo en `brain/decisiones.md`.
+- **`brain/estructura/aprobado/`**: la estructura que aprobó el humano (`diagrama.md`) y sus recursos visuales
+  (`img/*.webp`, ábrelos con Read). Diseña los componentes que pide el diagrama, y una paleta y un tono que
+  combinen con esas imágenes. Si un color sacado de ellas no llega a contraste AA, ajústalo lo mínimo y anótalo
+  en `brain/decisiones.md`.
 
 ## Qué haces
 Escribe `brain/diseno.md` con:

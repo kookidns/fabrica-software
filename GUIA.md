@@ -1,7 +1,7 @@
 # Guía de uso: la fábrica en varios chats y varios proyectos
 
 Esta guía explica cómo usar la fábrica día a día desde Claude Code: cómo crear proyectos, cómo se arma el
-brain (con el boceto como objetivo), cómo trabajar en varios chats a la vez y qué te toca hacer a ti.
+brain (con la estructura y las imágenes como objetivo), cómo trabajar en varios chats a la vez y qué te toca hacer a ti.
 
 ---
 
@@ -16,8 +16,8 @@ brain (con el boceto como objetivo), cómo trabajar en varios chats a la vez y q
    ```bash
    node scripts/agente-codex.mjs --comprobar
    ```
-   Debe decir `Logged in using ChatGPT`. Con esa sesión, Codex hace las revisiones y **genera los
-   bocetos**, sin claves de API.
+   Debe decir `Logged in using ChatGPT`. Con esa sesión, Codex hace las revisiones, **crea la estructura
+   y genera las imágenes** de cada página, sin claves de API.
 3. **Instala la skill `/fabrica`** (una vez por computadora, desde la carpeta de la fábrica):
    ```bash
    node scripts/instalar-skill.mjs
@@ -41,12 +41,13 @@ Con la skill instalada, **abre un chat nuevo de Claude Code donde quieras y escr
 |---|---|
 | Ver tus proyectos y qué sigue | `/fabrica` o `/fabrica estado` |
 | Empezar una página o app nueva | `/fabrica nuevo tienda-tenis Tienda online de tenis para corredores…` |
-| Cambiar el boceto | `/fabrica boceto tienda-tenis el botón de comprar más grande` |
-| Aprobar el boceto (lo haces tú) | `node scripts/boceto.mjs aprobar tienda-tenis` |
+| Cambiar la estructura | `/fabrica estructura tienda-tenis añade una sección de opiniones` |
+| Rehacer una sola imagen | `/fabrica estructura tienda-tenis --recurso hero-tenis más luminosa` |
+| Aprobar estructura e imágenes (lo haces tú) | `node scripts/estructura.mjs aprobar tienda-tenis` |
 | Arquitectura, diseño y tareas | `/fabrica planificar tienda-tenis` |
 | Construir la siguiente tarea | `/fabrica tienda-tenis` |
 | Una tarea o un error suelto | `/fabrica tienda-tenis tarea Añadir preguntas frecuentes` · `/fabrica tienda-tenis error El pago falla en iPhone` |
-| Retomar una tarea que esperaba tu boceto | `/fabrica tienda-tenis continuar T-20261120-001` |
+| Retomar una tarea que esperaba tu aprobación de estructura | `/fabrica tienda-tenis continuar T-20261120-001` |
 | Traer la última versión de la fábrica | `/fabrica actualizar` |
 
 Si al crear un proyecto tu idea es corta, la skill te hace primero unas pocas preguntas (público,
@@ -59,7 +60,7 @@ deja lo que falte en `brain/huecos.md`.
 
 La fábrica funciona porque Claude Code lee al abrir la sesión, en esa carpeta:
 - `CLAUDE.md`: las reglas y el proceso;
-- `.claude/commands/`: los comandos `/nuevo-proyecto`, `/boceto`, `/planificar`, `/fabrica` y `/estado`;
+- `.claude/commands/`: los comandos `/nuevo-proyecto`, `/estructura`, `/planificar`, `/fabrica` y `/estado`;
 - `.claude/agents/`: los roles;
 - `.claude/hooks/guardian.mjs`: el guardián, que impide a los agentes aprobar por ti, hacer push o editar `app/`.
 
@@ -78,7 +79,7 @@ proyecto. Puedes cerrar un chat y seguir mañana en otro: el estado está en el 
 ## 3. Crear un proyecto nuevo: tú describes, la fábrica arma el brain
 
 **Sí: la fábrica te crea siempre el brain.** Tú solo describes lo que quieres; el agente **analista**
-escribe la visión, la spec y los huecos, y ChatGPT dibuja el boceto.
+escribe la visión, la spec y los huecos; ChatGPT crea la estructura en diagrama y las imágenes de la página.
 
 ### Paso 1 · Describe la idea (cuanto más detalle, mejor)
 ```
@@ -107,35 +108,45 @@ Lo que pasa:
 1. `nuevo-proyecto.mjs` crea `proyectos/tienda-tenis/` con su brain vacío y `app/` como repositorio git.
 2. El **analista** escribe `brain/vision.md`, `brain/spec.md` y `brain/huecos.md`. Lo que no sabe no lo
    inventa: lo deja como pregunta en `huecos.md`.
-3. **ChatGPT dibuja el boceto** (`scripts/boceto.mjs generar`): versión para móvil y para escritorio, en
-   `brain/boceto/v1-*.png`.
-4. Claude te enseña el resumen, los huecos y el boceto. **Se detiene.**
+3. **ChatGPT crea la estructura y los recursos** (`scripts/estructura.mjs generar`). No dibuja la página
+   terminada:
+   - `brain/estructura/v1/diagrama.md`: la estructura en diagrama (Mermaid): páginas, navegación, secciones
+     en orden, componentes y datos de cada una;
+   - `brain/estructura/v1/recursos.md` y `recursos.json`: qué imágenes lleva la página, dónde va cada una y
+     su texto alternativo;
+   - `brain/estructura/v1/img/<id>.png` y `.webp`: **solo las imágenes que irán dentro de la página**
+     (ilustraciones, fotos, fondos), ya optimizadas para la web. Los iconos simples no se generan: los
+     dibuja el constructor en SVG.
+4. Claude te enseña el resumen, los huecos, el diagrama y las imágenes. **Se detiene.**
 
-### Paso 2 · Revisa el boceto (estación humana)
-- **¿Quieres cambios?** Pídelos en lenguaje normal:
+### Paso 2 · Revisa la estructura y las imágenes (estación humana)
+- **¿Quieres cambios en la estructura?** Pídelos en lenguaje normal:
   ```
-  /boceto tienda-tenis el botón de comprar más grande, quita el banner de descuento y usa fondo blanco
+  /fabrica estructura tienda-tenis añade una sección de opiniones antes del pie y quita el blog
   ```
-  ChatGPT genera `v2` partiendo de `v1` y aplicando solo esos cambios. Repite las veces que haga falta.
-- **¿Te gusta?** Apruébalo **tú** desde tu terminal, en la carpeta de la fábrica:
+- **¿Solo una imagen?** Rehaz esa sin tocar lo demás:
+  ```
+  /fabrica estructura tienda-tenis --recurso hero-tenis más luminosa y con fondo blanco
+  ```
+  Cada cambio crea una versión nueva (`v2`, `v3`…) partiendo de la anterior.
+- **¿Te gusta?** Apruébala **tú** desde tu terminal, en la carpeta de la fábrica:
   ```bash
-  node scripts/boceto.mjs aprobar tienda-tenis
+  node scripts/estructura.mjs aprobar tienda-tenis
   ```
-  En el CLI de Claude Code también puedes escribir `! node scripts/boceto.mjs aprobar tienda-tenis`.
-  Claude no puede aprobarlo por ti: el guardián lo bloquea, igual que `--aprobar`.
+  En el CLI de Claude Code también puedes escribir `! node scripts/estructura.mjs aprobar tienda-tenis`.
+  Claude no puede aprobarla por ti: el guardián lo bloquea, igual que `--aprobar`.
 
-Al aprobar se crean `brain/boceto/aprobado-movil.png`, `aprobado-escritorio.png` y `aprobado.md`.
-**Ese boceto pasa a formar parte del brain: es el objetivo que hay que alcanzar.** Mientras no exista,
-la fábrica no deja crear tareas.
+Al aprobar, esa versión se copia a `brain/estructura/aprobado/`. **El diagrama y las imágenes pasan a
+formar parte del brain: son el objetivo que hay que alcanzar.** Mientras no exista, la fábrica no deja crear tareas.
 
 ### Paso 3 · Resuelve huecos y aprueba la spec
 Abre `brain/huecos.md` y responde lo que sepas, editando el archivo o contestando en el chat. Luego:
 ```
 /planificar tienda-tenis
 ```
-Te pregunta si apruebas la spec, comprueba que el boceto esté aprobado y lanza al **arquitecto** (stack,
-estructura, zonas sensibles y bandeja de tareas sacadas del boceto) y al **diseñador** (tokens de color,
-tipografía y espaciado sacados del boceto).
+Te pregunta si apruebas la spec, comprueba que la estructura esté aprobada y lanza al **arquitecto**
+(stack, zonas sensibles y una bandeja de tareas que construye el diagrama sección por sección y coloca las
+imágenes) y al **diseñador** (tokens de color, tipografía y espaciado coherentes con la marca y las imágenes).
 
 ### Paso 4 · Construir
 ```
@@ -155,7 +166,7 @@ siempre en qué punto estás y cuál es el siguiente comando.
 | **Varias tareas del mismo proyecto** | Abre 2 o 3 chats y lanza `/fabrica <p>` en cada uno. Cada tarea recibe su ID, su rama y su worktree, así que no se pisan. Conviene que no toquen los mismos archivos. |
 | **Retomar al día siguiente** | Chat nuevo → `/estado <p>`. Te dice qué espera tu aprobación y qué sigue. |
 | **Una tarea suelta o un error** | `/fabrica <p> tarea Cambia el color del pie a gris` o `/fabrica <p> error El botón de pagar no responde en iPhone`. |
-| **Una pantalla nueva que no estaba en el boceto** | `/fabrica <p> tarea Añadir página de preguntas frecuentes`. La fábrica genera el boceto de esa tarea y se detiene hasta que lo apruebes con `node scripts/boceto.mjs aprobar <p> --tarea <ID>`. Luego sigue con `/fabrica <p> continuar <ID>`. |
+| **Una pantalla nueva que no estaba en la estructura** | `/fabrica <p> tarea Añadir página de preguntas frecuentes`. La fábrica genera la estructura de esa pantalla (y sus imágenes, si lleva) y se detiene hasta que la apruebes con `node scripts/estructura.mjs aprobar <p> --tarea <ID>`. Luego sigue con `/fabrica <p> continuar <ID>`. |
 
 Los chats no se comunican entre sí y no lo necesitan: **el brain es la memoria compartida**. Lo que decide
 una tarea queda en `brain/decisiones.md`, y la siguiente lo lee.
@@ -166,8 +177,8 @@ una tarea queda en `brain/decisiones.md`, y la siguiente lo lee.
 
 | Momento | Qué haces | Comando |
 |---|---|---|
-| Boceto del proyecto | Pides cambios o lo apruebas | `/boceto <p> <cambios>` · `node scripts/boceto.mjs aprobar <p>` |
-| Boceto de una pantalla nueva | Igual, con la tarea | `node scripts/boceto.mjs aprobar <p> --tarea <ID>` |
+| Estructura e imágenes del proyecto | Pides cambios o la apruebas | `/fabrica estructura <p> <cambios>` · `node scripts/estructura.mjs aprobar <p>` |
+| Estructura de una pantalla nueva | Igual, con la tarea | `node scripts/estructura.mjs aprobar <p> --tarea <ID>` |
 | Spec del proyecto | La apruebas | `/planificar <p>` te lo pregunta |
 | Huecos | Respondes lo que sepas | editas `brain/huecos.md` |
 | Tarea de riesgo ALTO | Revisas la rama y la integras | `node scripts/cerrar-tarea.mjs <p> <ID> --aprobar` |
@@ -183,9 +194,9 @@ proyectos/<p>/
 │   ├── index.md           ← el mapa del brain
 │   ├── vision.md          ← para quién, para qué, marca y tono
 │   ├── spec.md            ← alcance y criterios del producto
-│   ├── boceto/            ← EL OBJETIVO VISUAL (vN-*.png, aprobado-*.png, aprobado.md)
-│   ├── arquitectura.md    ← stack y estructura
-│   ├── diseno.md          ← tokens visuales sacados del boceto
+│   ├── estructura/        ← EL OBJETIVO: vN/ (versiones) y aprobado/ (diagrama.md, recursos.json, img/*.webp)
+│   ├── arquitectura.md    ← stack y estructura del código
+│   ├── diseno.md          ← tokens visuales coherentes con la marca y las imágenes
 │   ├── decisiones.md      ← lo ya decidido (no se rediscute)
 │   ├── huecos.md          ← lo que falta saber
 │   ├── zonas-sensibles.txt
@@ -199,14 +210,16 @@ proyectos/<p>/
 
 ## 7. Ajustes útiles (`fabrica.config.json`)
 
-- `boceto.formatos`: `ambos` (por defecto), `movil` o `escritorio`. Si haces una app solo móvil, pon `movil`.
-- `boceto.obligatorio`: `true` (por defecto). Con `false` se puede construir sin boceto (no recomendado).
+- `estructura.max_imagenes`: cuántas imágenes puede generar ChatGPT por versión (6 por defecto).
+- `estructura.ancho_max` y `estructura.calidad_webp`: tamaño y calidad de las imágenes optimizadas (1600 px, 0.82).
+- `estructura.obligatorio`: `true` (por defecto). Con `false` se puede construir sin estructura (no recomendado).
 - `estaciones.<rol>.motor`: `claude` o `codex`, para repartir el trabajo entre tus dos suscripciones.
 
 ## 8. Problemas frecuentes
 
-- **"no tiene boceto aprobado"**: falta `node scripts/boceto.mjs aprobar <p>`; ese paso lo haces tú.
-- **El boceto no se genera**: ejecuta `node scripts/agente-codex.mjs --comprobar` y mira
-  `brain/boceto/logs/vN.log`. Normalmente es que Codex no tiene sesión iniciada.
+- **"no tiene estructura aprobada"**: falta `node scripts/estructura.mjs aprobar <p>`; ese paso lo haces tú.
+- **La estructura o las imágenes no se generan**: ejecuta `node scripts/agente-codex.mjs --comprobar` y mira
+  `brain/estructura/vN/logs/codex.log`. Normalmente es que Codex no tiene sesión iniciada.
+- **Faltan imágenes al aprobar**: rehazlas con `/fabrica estructura <p> --recurso <id>`.
 - **No aparecen los comandos `/fabrica`, etc.**: el chat no está abierto en la carpeta `fabrica-software`.
 - **"⛔ Guardián de la fábrica"**: un agente intentó algo que solo puedes hacer tú. Hazlo tú si estás de acuerdo.
